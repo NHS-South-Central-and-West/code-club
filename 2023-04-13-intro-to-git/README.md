@@ -39,7 +39,8 @@ Here are some of the tangible benefits that have led to Git's widespread adoptio
 
 ## How Does One... Git Gud?
 
-![A Knight saying "I Want You to Git Gud"](https://i.pinimg.com/564x/9f/72/8c/9f728cd259cff54742090dc9ab7363bb.jpg)
+![A Knight saying "I Want You to Git Gud"](git_gud_knight.jpg)
+
 
 By using all the great resources below to learn Git & GitHub and, most of all, just **git**ting on with it. As with all things code (and probably all things everywhere), the fastest way to learn is to do. Try Git out, join the SCW GitHub organisation, and start contributing!
 
