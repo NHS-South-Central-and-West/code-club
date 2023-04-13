@@ -94,4 +94,4 @@ Git & GitHub are different things, but GitHub **is** the most popular platform f
 
 Now go forth and...
 
-![A gif of Spongebob flexing his muscles to reveal the words "Git" and "Gud" in his biceps](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2E3YmNjNWY1OTI1MTYyZmMzNDZlYTIzODlkOTMxYmU1M2YzYjQ2YiZjdD1n/10CopumcRWLMYM/giphy.gif)
+![A gif of Spongebob flexing his muscles to reveal the words "Git" and "Gud" in his biceps](spongebob.gif)
