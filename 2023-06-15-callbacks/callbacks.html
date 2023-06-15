@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            html {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            body {
+                display: inherit;
+                flex-direction: column;
+                width: 60%;
+                align-items: center;
+            }
+
+            hr {
+                border: 0;
+                clear:both;
+                display:block;
+                width: 96%;               
+                background-color:darkgray;
+                height: 1px;
+                margin: 50px 0 50px 0;
+            }
+
+            h1 {font-size: 3.2em;}
+
+            h2 {font-size: 2em;}
+
+            .container {
+                display: inherit;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .result {
+                font-weight: bold;
+                color: red;
+            }
+            
+            .example-img {width: 50%;}
+
+            #resources{margin: 0 0 50px 0;}
+        </style>
+    </head>
+    <body>
+        <h1>Callbacks and why they are useful</h1>
+    
+        <div class="container band-1">
+            <h2>Parts of a function</h2>
+            <p>First off, a quick reminder of the component parts of a function. They are:</p>
+            <ul>
+                <li>A <b>declaration</b> using the function keyword.</li>
+                <li>The <b>name</b> (optional, functions can be anonymous).</li>
+                <li>Any <b>parameter(s)</b> the function requires to carry out its task.</li>
+                <li>The <b>statement</b> (or <b>body</b>), aka the code to execute.</li>
+                <li>Optionally, <b>return</b> to signal the end of the function and return a value.</li>
+            </ul>
+            <img class="example-img" src="https://www.tutorialstonight.com/assets/js/javascript-function.webp">
+        </div>
+
+        <hr>
+
+        <div class="container">
+            <div class="container band-2">
+                <h2>What is a Callback?</h2>
+                <p>
+                    Functions are executed logically and in sequence. That makes them predictable but also 
+                    presents challenges - the two major ones are 1) what if I have loads of functions that 
+                    need to work together to achieve my goals? and 2) what happens if there is code that 
+                    takes a long time to retrieve or execute? Well, in the first case your script will be 
+                    hard to work with and use more resources than it needs to, impacting its speed. In the 
+                    second, your script will hang around waiting and delaying whatever you were trying to 
+                    achieve - or worse, making your users watch the spinning wheel/eggtimer of doom.
+                </p>
+                <p>
+                    Luckily there is a way to get around these issues: 
+                    <a href="https://en.wikipedia.org/wiki/Callback_(computer_programming)">Callbacks</a>. 
+                    A callback conceptually is simple: It is when a code is passed as an argument to another 
+                    part of the code, with the expectation the code will be called when required. In practice, 
+                    this is most often useful with functions.
+                </p>
+                <p>And before we go any further, no parameter and argument are not the same thing when we are 
+                    talking about functions:</p>
+                <ul>
+                    <li><b>Argument:</b> passed when the function is called to create an output.</li>
+                    <li>
+                        <b>Parameter:</b> declared when the function is created. It represents the arguments 
+                        algebraically.
+                    </li>
+                </ul>
+                <p>  
+                    While callbacks can be executed in sequence and are very useful for making code more 
+                    efficient, the technique is very often associated with              
+                    <a href="https://www.bmc.com/blogs/asynchronous-programming/">Asynchronous Programming</a> 
+                    (see the <a href="#resources">resources</a> section for more specific detail in various 
+                    languages). This allows your script to continue to execute while something else is still 
+                    going on in the background.
+                </p>
+                <p>
+                    So callbacks are an easy way of implementing asynchronous programming, although 
+                    <b>callbacks are not asynchronous by default</b>. They can help make your code more 
+                    flexible but just like conditional statements, don't go crazy nesting them or you will 
+                    create something that is very difficult to debug.
+                </p>
+                
+            </div>
+
+            <hr>
+
+            <div class="container band-1">
+                <h3>Example 1 - the normal sequence</h3>
+                <pre>
+                    function showMeOne(thing) {
+                        document.getElementById("example-1").innerHTML = "Result: " + thing;
+                    }
+
+                    function myCalculatorOne(num1, num2) {
+                        let sum = num1 + num2;
+                        return sum;
+                    }
+
+                    let result = myCalculatorOne(15, 3);
+                    showMeOne(result);
+                </pre>
+                <p id="example-1" class="result"></p>
+                <p>In this first example, we have the way functions are generally used. We've created two 
+                    functions to carry tasks out, used a variable to capture the results of one of them and 
+                    displayed the results with the other.
+                </p>      
+                <p>
+                    So what is the problem here? Efficiency - we are having to call twice and store a variable. 
+                    This is fine for our simple example, but a more complicated script with potentially dozens 
+                    or hundreds of these could eat memory very quickly, not to mention becoming bloated and 
+                    difficult to traverse.
+                </p>
+            </div>
+            
+            <hr>
+
+            <div class="container band-2">
+                <h3>Example 2 - using a function's statement</h3>
+                <pre>
+                    function showMeTwo(thing) {
+                        document.getElementById("example-2").innerHTML = "Result: " + thing;
+                    }
+
+                    function myCalculatorTwo(num1, num2) {
+                        let sum = num1 + num2;
+                        showMeTwo(sum);
+                    }
+
+                    myCalculatorTwo(15, 3);
+                </pre>
+                <p id="example-2" class="result"></p>
+                <p>
+                    The most common way to reduce this is to include a call to one function in the statement 
+                    of another. This makes it slightly more efficient - the variable is inside a function 
+                    now so it no longer has global scope and there is only one direct function call. Plus 
+                    our code is neater!
+                </p>
+                <p>
+                    However, the execution of the function is now dedicated to producing a visible output. 
+                    That could be its only purpose, but functions often want to be doing more than one 
+                    thing - for example, you might want to calculate and use the sum elsewhere.
+                </p>
+            </div>
+                        
+            <hr>
+
+            <div class="container band-1">
+                <h3>Example 3 - the callback alternative</h3>
+                <pre>
+                    function showMeThree1(thing) {
+                        document.getElementById("example-3-1").innerHTML = "Result: " + thing;
+                    }
+        
+                    function myCalculator(num1, num2, myCallback) {
+                    let sum = num1 + num2;
+                    myCallback(sum);
+                    }
+        
+                    myCalculator(15, 3, showMeThree1);
+                </pre>
+                <p id="example-3-1" class="result"></p>
+                <p>
+                    This is an example of how a callback could handle the same situation. We're still 
+                    getting the efficiency of example 3, but now we are not tied to just being able to 
+                    display the results. In fact, consider the code below - it uses the same callback 
+                    syntax to do something different
+                </p>
+                <pre>
+                    function showMeThree2(thing) {
+                        document.getElementById("example-3-2").innerHTML = "Result: " + thing;
+                    }
+        
+                    function myMultiplication(number){
+                        return number * 2
+                    }
+        
+                    function myCalculatorNew(num1, num2, myCallback) {
+                    let sum = num1 + num2;
+                    showMeThree2(myCallback(sum));
+                    }
+        
+                    myCalculatorNew(15, 3, myMultiplication);
+                </pre>
+                <p id="example-3-2" class="result"></p>
+            </div>
+                        
+            <hr>
+
+            <div class="container band-2">
+                <h3>Example 4 - asynchronous code</h3>
+                <p>
+                    Now let's see some of that async in action. The code below creates a clock that 
+                    displays the actual realtime in hours, minutes and seconds. It does so by calling 
+                    the designated function every second using 
+                    <a href="https://www.w3schools.com/jsref/met_win_setinterval.asp">setInterval</a>. 
+                    This goes off like clockwork, regardless of whatever else the code around it may be 
+                    doing in sequence.
+                </p>
+                <pre>
+                    setInterval(myClock, 1000);
+
+                    function myClock() {
+                        let d = new Date();
+                        document.getElementById("example-4-1").innerHTML= "Output: " + 
+                        d.toLocaleTimeString();
+                    }
+                </pre>
+                <p id="example-4-1" class="result"></p>
+                <p>
+                    But what if you wanted to pass a function as an argument of your async callback? Well, 
+                    that is also possible - see the example below, created using 
+                    <a href="https://www.w3schools.com/jsref/met_win_settimeout.asp">setTimeout</a>. This 
+                    will only execute 5 seconds after the page loads, no matter what the rest of your code 
+                    is doing.
+                </p>
+                <pre>
+                    setTimeout(showMeFour2, 5000, mySum(15,3));
+
+                    function showMeFour2(thing) {
+                        document.getElementById("example-4-2").innerHTML = "Output: " + thing;
+                    }
+
+                    function mySum(num1, num2) {
+                        let sum = num1 + num2
+                        return sum;
+                    }
+                </pre>
+                <p id="example-4-2" class="result"></p>                
+            </div> 
+            
+            <hr>
+
+            <div id = "resources" class="container band-1">
+                <h2>Resources</h2>
+
+                <h3>Callbacks</h3>
+                <a href="https://pythonexamples.org/python-callback-function/">Python</a>
+                <a href="https://www.omegahat.net/Aspell/html/CallbackResult-class.html">R</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Glossary/Callback_function">JavaScript</a>
+
+                <h3>Asynchronous</h3>
+                <a href="https://realpython.com/python-async-features/">Python</a>
+                <a href="https://cran.r-project.org/web/packages/promises/vignettes/intro.html">R</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing">JavaScript</a>
+            </div>
+            
+        </div>       
+
+        <script>
+           
+            /***** Example 1 *****/
+            function showMeOne(thing) {
+                document.getElementById("example-1").innerHTML = "Output: " + thing;
+            }
+
+            function myCalculatorOne(num1, num2) {
+                let sum = num1 + num2;
+                return sum;
+            }
+
+            let result = myCalculatorOne(15, 3);
+            showMeOne(result);
+                
+            /***** Example 2 *****/
+            function showMeTwo(thing) {
+                document.getElementById("example-2").innerHTML = "Output: " + thing;
+            }
+
+            function myCalculatorTwo(num1, num2) {
+                let sum = num1 + num2;
+                showMeTwo(sum);
+            }
+
+            myCalculatorTwo(15, 3);
+
+            /***** Example 3.1 *****/
+            function showMeThree1(thing) {
+                document.getElementById("example-3-1").innerHTML = "Output: " + thing;
+            }
+
+            function myCalculator(num1, num2, myCallback) {
+            let sum = num1 + num2;
+            myCallback(sum);
+            }
+
+            myCalculator(15, 3, showMeThree1);
+
+            /***** Example 3.2 *****/
+            function showMeThree2(thing) {
+                document.getElementById("example-3-2").innerHTML = "Output: " + thing;
+            }
+
+            function myMultiplication(number){
+                return number * 2
+            }
+
+            function myCalculatorNew(num1, num2, myCallback) {
+            let sum = num1 + num2;
+            showMeThree2(myCallback(sum));
+            }
+
+            myCalculatorNew(15, 3, myMultiplication);
+
+            /***** Example 4.1 *****/
+            setInterval(myClock, 1000);
+
+            function myClock() {
+                let d = new Date();
+                document.getElementById("example-4-1").innerHTML= "Output: " + 
+                d.toLocaleTimeString();
+            }
+
+            /***** Example 4.2 *****/
+            setTimeout(showMeFour2, 5000, mySum(15,3));
+
+            function showMeFour2(thing) {
+                document.getElementById("example-4-2").innerHTML = "Output: " + thing;
+            }
+
+            function mySum(num1, num2) {
+                let sum = num1 + num2
+                return sum;
+            }
+
+        </script>
+    </body>
+</html>
