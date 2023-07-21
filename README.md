@@ -10,7 +10,9 @@ The resources for each talk are stored in their own subdirectory, with a `README
 
 ### 2023
 
-- 2023-03-09 - [Functions in Code and How to Make Them](https://github.com/NHS-South-Central-and-West/code-club/2023-03-09-intro-to-functions)
+- 2023-03-09 - [Functions in Code and How to Make Them](2023-03-09-intro-to-functions)
 - 2023-03-09 - Automating Powerpoint Reports with RMarkdown
-- 2023-04-13 - [Introduction to Git & GitHub](https://github.com/NHS-South-Central-and-West/code-club/2023-04-13-intro-to-git)
-- 2023-04-13 - [Introduction to Heuristic Evaluation](https://github.com/NHS-South-Central-and-West/code-club/2023-04-13-intro-to-heuristic-evaluation)
+- 2023-04-13 - [Introduction to Git & GitHub](2023-04-13-intro-to-git)
+- 2023-04-13 - [Introduction to Heuristic Evaluation](2023-04-13-intro-to-heuristic-evaluation)
+- 2023-06-15 - [Callbacks](2023-06-15-callbacks)
+- 2023-07-20 - [Recursive Programming](2023-07-20-recursive-programming)
