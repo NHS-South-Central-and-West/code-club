@@ -2,8 +2,8 @@
 
 ### Useful resources
 
-[Emojis list]('https://www.prosettings.com/emoji-list/')
+[Emojis list](https://www.prosettings.com/emoji-list/)
 
-[Great Tables]('https://posit-dev.github.io/great-tables/articles/intro.html')
+[Great Tables](https://posit-dev.github.io/great-tables/articles/intro.html)
 
-[Quarto]('https://quarto.org/')
+[Quarto](https://quarto.org/)
