@@ -1,0 +1,13 @@
+---
+title: "Welcome to Code Club!"
+---
+
+This will be the home page.
+
+# Mission statement
+- Code Club's remit and goals.
+
+# What to expect
+- Scheduled topic delivered by Code Club host(s).
+- Open troubleshooting discussion.
+- People will be able to request topics / be guest speakers.

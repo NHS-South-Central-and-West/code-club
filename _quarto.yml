@@ -1,0 +1,29 @@
+project:
+  type: website
+
+website:
+  title: "Code Club"
+
+  sidebar:
+    background: "#1C355E" # SCW Dark Blue
+    logo: "images/code_club_pink_white.png"
+    pinned: true
+    align: center
+    style: docked
+    search: true
+    contents:
+      - href: index.qmd
+        text: Welcome!
+      - href: schedule.qmd
+        text: Schedule
+      - href: resources.qmd
+        text: Resources
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

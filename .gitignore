@@ -1,0 +1,4 @@
+/.quarto/
+/.venv/
+/_site/
+.python-version
