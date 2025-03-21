@@ -1,0 +1,42 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Code Club!",
+    "section": "",
+    "text": "This will be the home page.\n\nMission statement\n\nCode Club’s remit and goals.\n\n\n\nWhat to expect\n\nScheduled topic delivered by Code Club host(s).\nOpen troubleshooting discussion.\nPeople will be able to request topics / be guest speakers.",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site",
+    "crumbs": [
+      "Mission Statement"
+    ]
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "This is the schedule for Code Club in FY25/26.\nMaterials, including presentations and coding notebooks, have been made available in the associated GitHub repository and recordings of the sessions will be accessible via the Recording Link.\nThe Demonstration, Presentation, and Notebook columns indicate the content to be expected for each session:\n\nDemonstration: A live show-and-tell relating to the discussion topic.\nPresentation: A slide deck covering the discussion topic.\nNotebook: A Jupyter Notebook containing code-along elements or examples for people to work through after the session.\n\nTutorials will be divided into Modules. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.\n\n\n\n\n\n\n\n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n\n\n\n\n\n  Session Number\n  Session Date\n  Module\n  Session Name\n  Description\n  Demonstration\n  Presentation\n  Notebook\n  GitHub Link\n  Recording Link\n\n\n\n  \n    1\n    22/04/2025\n    N/A\n    Nectar Re-Launch\n    Showcasing the re-launch of Code Club\n    🎬\n    💻\n    -\n    \n    \n  \n  \n    2\n    01/05/2025\n    Core\n     Python On-boarding\n    What to install, basic virtual environment management, introduction to VS Code\n    🎬\n    -\n    -\n    \n    \n  \n  \n    3\n    15/05/2025\n    Core\n    Jupyter Notebooks\n    Demonstration of Jupyter Notebooks\n    🎬\n    -\n    📖\n    \n    \n  \n  \n    4\n    29/05/2025\n    Core\n    EDA and Visualisations\n    Introduction to Exploratory Data Analysis and how to visualise it\n    🎬\n    -\n    📖\n    \n    \n  \n  \n    5\n    12/06/2025\n    Core\n    Visualisation with Seaborn\n    Aesthetically-pleasing visualisations\n    🎬\n    -\n    📖\n    Visualisation with Seaborn\n    \n  \n  \n    6\n    26/06/2025\n    Core\n    Data Types\n    Introduction to Data Types\n    -\n    💻\n    📖\n    Data Types\n    \n  \n  \n    7\n    10/07/2025\n    Core\n    Control Flow\n    Introduction to Control Flow\n    -\n    💻\n    📖\n    \n    \n  \n  \n    8\n    24/07/2025\n    Core\n    Functions & Functional Programming\n    Introduction to Functions and Functional Programming\n    -\n    💻\n    📖\n    \n    \n  \n  \n    9\n    07/08/2025\n    Core\n    Object-Oriented Programming\n    Introduction to Object-Oriented Programming\n    -\n    💻\n    📖\n    Object-Oriented Programming",
+    "crumbs": [
+      "Schedule"
+    ]
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Resources",
+    "section": "",
+    "text": "Either one long page of resources, or a front sheet for sub-pages about each resource.\ne.g. Quarto, Posit, Streamlit, GitHub, RAP principles, data science guides etc.",
+    "crumbs": [
+      "Resources"
+    ]
+  }
+]
