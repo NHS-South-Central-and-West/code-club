@@ -10,16 +10,6 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome to Code Club!",
-    "section": "",
-    "text": "This will be the home page.\n\nMission statement\n\nCode Club’s remit and goals.\n\n\n\nWhat to expect\n\nScheduled topic delivered by Code Club host(s).\nOpen troubleshooting discussion.\nPeople will be able to request topics / be guest speakers.",
-    "crumbs": [
-      "Welcome!"
-    ]
-  },
-  {
     "objectID": "resources.html",
     "href": "resources.html",
     "title": "Resources",
@@ -27,6 +17,16 @@
     "text": "Either one long page of resources, or a front sheet for sub-pages about each resource.\ne.g. Quarto, Posit, Streamlit, GitHub, RAP principles, data science guides etc.",
     "crumbs": [
       "Resources"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Code Club!",
+    "section": "",
+    "text": "This will be the home page.\n\nMission statement\n\nCode Club’s remit and goals.\n\n\n\nWhat to expect\n\nScheduled topic delivered by Code Club host(s).\nOpen troubleshooting discussion.\nPeople will be able to request topics / be guest speakers.",
+    "crumbs": [
+      "Welcome!"
     ]
   }
 ]
