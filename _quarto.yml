@@ -5,9 +5,14 @@ project:
     - index.qmd
     - resources.qmd
     - schedule.qmd
+    - 404.qmd
 
 website:
   title: "Code Club"
+  page-footer:
+    left: "Created and maintained by the [Specialist Analytics Team](scwcsu.analytics.specialist@nhs.net)"
+    right: "This page was built with [Quarto](https://quarto.org/)"
+
 
   sidebar:
     background: "#1C355E" # SCW Dark Blue
@@ -15,6 +20,10 @@ website:
     pinned: true
     align: center
     style: docked
+    tools:
+      - icon: github
+        href: https://github.com/NHS-South-Central-and-West
+        text: "SCW's GitHub"
     search: true
     contents:
       - href: index.qmd
@@ -29,6 +38,7 @@ format:
     theme: cosmo
     css: styles.css
     toc: true # table of contents
+    code-copy: true
 
 
 
