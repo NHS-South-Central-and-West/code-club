@@ -10,7 +10,7 @@ project:
 website:
   title: "Code Club"
   page-footer:
-    left: "Created and maintained by the [Specialist Analytics Team](scwcsu.analytics.specialist@nhs.net)"
+    left: "Created and maintained by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)"
     right: "This page was built with [Quarto](https://quarto.org/)"
 
 
