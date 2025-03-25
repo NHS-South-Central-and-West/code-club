@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
   render:
     - index.qmd
     - resources.qmd
@@ -27,7 +28,7 @@ format:
   html:
     theme: cosmo
     css: styles.css
-    toc: true
+    toc: true # table of contents
 
 
 
