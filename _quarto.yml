@@ -1,5 +1,9 @@
 project:
   type: website
+  render:
+    - index.qmd
+    - resources.qmd
+    - schedule.qmd
 
 website:
   title: "Code Club"
