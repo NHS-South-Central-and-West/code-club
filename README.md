@@ -12,13 +12,13 @@ below, but here is a brief summary of how these web pages have been constructed.
 - The text that you see on each page is produced using standard markdown. Certain elements, such as the
 table on the Schedule page have been created using Python code blocks.
 - Once you have finished editing any of the files and you want to publish the updates, you need to run
-`quarto render` in the project directory root, then add and commit any updated files in Git before pushing
+`quarto render` in the terminal from the project directory root, then add and commit any updated files in Git before pushing
 the updates to the GitHub repository.
 
 ### Updating the Schedule
 
 - The Schedule is based on data held in the `schedule.csv` file in the data folder.
-- The table that appears on the webpage has been created using the `great_tables` Python library,
+- The table that appears on the web page has been created using the `great_tables` Python library,
 which has been used to format a `polars` dataframe of the .csv data.
 - The `GitHub` column is to contain links to the relevant GitHub repository.
 - If a recording has been made of a session, the link goes in the `Recording` column.
@@ -38,4 +38,4 @@ These pages have been published using method 1, via the `docs` directory.
 
 [Great Tables](https://posit-dev.github.io/great-tables/articles/intro.html) For the Schedule.
 
-[Polars](https://docs.pola.rs/api/python/stable/reference/index.html)
+[Polars dataframes](https://docs.pola.rs/api/python/stable/reference/index.html) For the Schedule.
