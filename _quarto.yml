@@ -6,6 +6,7 @@ project:
     - resources.qmd
     - schedule.qmd
     - 404.qmd
+    - glossary.qmd
 
 website:
   title: "Code Club"
@@ -32,6 +33,8 @@ website:
         text: Schedule
       - href: resources.qmd
         text: Resources
+      - href: glossary.qmd
+        text: Glossary
 
 format:
   html:

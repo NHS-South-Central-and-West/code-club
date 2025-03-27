@@ -2,7 +2,9 @@
 title: "Welcome to Code Club!"
 ---
 
-This will be the home page.
+Brought to you by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)
+
+You can find our Teams channel [here](https://teams.microsoft.com/l/channel/19%3Ade1e6d9a00c94b7ea473b8ab34546c14%40thread.tacv2/General?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3)
 
 # Mission statement
 - Code Club's remit and goals.

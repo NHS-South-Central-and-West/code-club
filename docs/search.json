@@ -10,6 +10,16 @@
     ]
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Code Club!",
+    "section": "",
+    "text": "Brought to you by the Specialist Analytics Team\nYou can find our Teams channel here\n\nMission statement\n\nCode Club’s remit and goals.\n\n\n\nWhat to expect\n\nScheduled topic delivered by Code Club host(s).\nOpen troubleshooting discussion.\nPeople will be able to request topics / be guest speakers.",
+    "crumbs": [
+      "Welcome!"
+    ]
+  },
+  {
     "objectID": "resources.html",
     "href": "resources.html",
     "title": "Resources",
@@ -20,13 +30,13 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Welcome to Code Club!",
+    "objectID": "glossary.html",
+    "href": "glossary.html",
+    "title": "Glossary",
     "section": "",
-    "text": "This will be the home page.\n\nMission statement\n\nCode Club’s remit and goals.\n\n\n\nWhat to expect\n\nScheduled topic delivered by Code Club host(s).\nOpen troubleshooting discussion.\nPeople will be able to request topics / be guest speakers.",
+    "text": "Placeholder for the glossary.",
     "crumbs": [
-      "Welcome!"
+      "Glossary"
     ]
   }
 ]

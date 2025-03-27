@@ -1,0 +1,6 @@
+---
+title: "Glossary"
+format: html
+---
+
+Placeholder for the glossary.
