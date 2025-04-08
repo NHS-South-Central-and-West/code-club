@@ -2,5 +2,7 @@
 Python,A general-purpose programming language,[website](https://www.python.org/)
 pandas,A python data analysis and manipulation library for working with dataframes (tabular data),[website](https://pandas.pydata.org/)
 EDA,Exploratory Data Analysis,
-Object-oriented programming (OOP),,
-Functional programming,,
+Object-oriented programming (OOP),"A programming paradigm based on the concept of ""objects,"" which can contain data and code to manipulate that data.",
+Functional programming,A programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.,
+Reproducible Analytical Pipelines (RAP),A set of processes and tools designed to ensure that data analysis can be consistently repeated and verified by others.,
+uv,"A Python package manager, which can manage python projects (folders) and manage the installation and management of the python environment and libraries within that folder.",[website](https://github.com/astral-sh/uv)
