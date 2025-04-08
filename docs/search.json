@@ -24,8 +24,9 @@
     "href": "resources.html",
     "title": "Resources",
     "section": "",
-    "text": "Either one long page of resources, or a front sheet for sub-pages about each resource.\ne.g. Quarto, Posit, Streamlit, GitHub, RAP principles, data science guides etc.",
+    "text": "This area will contain links sub-pages with information on various resources.",
     "crumbs": [
+      "Resources",
       "Resources"
     ]
   },
