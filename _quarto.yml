@@ -22,7 +22,7 @@ website:
     align: center
     style: docked
     tools:
-      - icon: github
+      - icon: github # not sure how to invert the colour on dark background
         href: https://github.com/NHS-South-Central-and-West
         text: "SCW's GitHub"
     search: true
