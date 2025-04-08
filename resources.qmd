@@ -3,6 +3,4 @@ title: "Resources"
 format: html
 ---
 
-Either one long page of resources, or a front sheet for sub-pages about each resource.
-
-e.g. Quarto, Posit, Streamlit, GitHub, RAP principles, data science guides etc.
+This area will contain links sub-pages with information on various resources. 
