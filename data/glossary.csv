@@ -6,3 +6,5 @@ Object-oriented programming (OOP),"A programming paradigm based on the concept o
 Functional programming,A programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.,
 Reproducible Analytical Pipelines (RAP),A set of processes and tools designed to ensure that data analysis can be consistently repeated and verified by others.,
 uv,"A Python package manager, which can manage python projects (folders) and manage the installation and management of the python environment and libraries within that folder.",[website](https://github.com/astral-sh/uv)
+Git,A distributed version control system used to track changes in source code during software development.,
+Github,A cloud-based platform that provides hosting for repositories of files and folders (usually of software code) using git as its backend for version control.,
