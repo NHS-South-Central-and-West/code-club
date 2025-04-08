@@ -4,3 +4,11 @@ format: html
 ---
 
 This page will have a list of definitions for commonly used terminology and acronyms relating to python or data analysis and manipulation in general.
+
+::: column-screen-inset-right
+
+```
+# python code to go here
+```
+
+:::
