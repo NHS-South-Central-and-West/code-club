@@ -22,17 +22,20 @@ website:
     align: center
     style: docked
     tools:
-      - icon: github
+      - icon: github # not sure how to invert the colour on dark background
         href: https://github.com/NHS-South-Central-and-West
         text: "SCW's GitHub"
     search: true
+    collapse-level: 1
     contents:
       - href: index.qmd
         text: Welcome!
       - href: schedule.qmd
         text: Schedule
-      - href: resources.qmd
-        text: Resources
+      - section: "Resources"
+        contents:
+          - href: resources.qmd
+          - text: Resources
       - href: glossary.qmd
         text: Glossary
 
