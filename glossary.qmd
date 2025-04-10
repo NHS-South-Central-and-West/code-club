@@ -23,7 +23,7 @@ df = pl.read_csv('data/glossary.csv')
 
 COLUMN_WIDTHS = {
             "Term" : "100px",
-            "Definition" : "1000px",
+            "Definition" : "800px",
             "Notes and links" : "200px"
         }
 
@@ -31,18 +31,18 @@ COLUMN_WIDTHS = {
 #.select() allows column order to be specified
 (
     GT(
-        df_processed.select(
+        df.select(
             [
 				"Term",
 				"Definition",
 				"Notes and links"
             ]
             )
-            .fill_null('-') # so that the emoji columns don't return "None" when empty
     )
     
     .cols_width(COLUMN_WIDTHS)
     .tab_options(quarto_disable_processing=True) # needed to override Quarto's own table formatting
+	.fmt_markdown(columns=["Notes and links"])
     .cols_align(align="left")
     .opt_align_table_header(align="left")
     .tab_style(
