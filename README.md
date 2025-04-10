@@ -1,6 +1,6 @@
 # Maintenance of this website
 
-### General Notes
+## General Notes
 
 **It's worth familiarising yourself with Quarto and publishing web pages via the Quarto links
 below, but here is a brief summary of how these web pages have been constructed.**
@@ -15,7 +15,7 @@ table on the Schedule page have been created using Python code blocks.
 `quarto render` in the terminal from the project directory root, then add and commit any updated files in Git before pushing
 the updates to the GitHub repository.
 
-### Updating the Schedule
+## Updating the Schedule
 
 - The Schedule is based on data held in the `schedule.csv` file in the data folder.
 - The table that appears on the web page has been created using the `great_tables` Python library,
@@ -25,7 +25,14 @@ which has been used to format a `polars` dataframe of the .csv data.
 - Mark an "x" in the `Demonstration`, `Presentation` and `Notebook` columns depending on the content of the session.
 These get converted to the relevant emojis in the Python code.
 
-### Useful links
+## Updating the Glossary
+
+- Similarly to the schedule, the glossary is kept in `glossary.csv` in the data folder and renders via `great_tables`.
+- To add a glossary entry, simply create a new row with the term, definition, and any links or pointers to other resources.
+- Links are formatted in markdown as `\[link text\](link URL)`.
+- Then, follow the steps under General Notes (above) to have quarto re-render the site and push your changes.
+
+## Useful links
 
 [Quarto](https://quarto.org/)
 
