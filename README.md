@@ -29,7 +29,7 @@ These get converted to the relevant emojis in the Python code.
 
 - Similarly to the schedule, the glossary is kept in `glossary.csv` in the data folder and renders via `great_tables`.
 - To add a glossary entry, simply create a new row with the term, definition, and any links or pointers to other resources.
-- Links are formatted in markdown as `\[link text\](link URL)`.
+- Links are formatted in markdown as `[link text](link URL)`.
 - Then, follow the steps under General Notes (above) to have quarto re-render the site and push your changes.
 
 ## Useful links
