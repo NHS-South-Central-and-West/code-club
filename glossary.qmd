@@ -4,7 +4,7 @@ execute:
     echo: false
 ---
 
-This page will have a list of definitions for commonly used terminology and acronyms relating to python or data analysis and manipulation in general.
+This page will have a list of definitions for commonly used (and/or commonly misunderstood) terminology and acronyms relating to python or data analysis and manipulation in general.
 
 ::: column-screen-inset-right
 ```{python glossary_table}
