@@ -38,6 +38,7 @@ COLUMN_WIDTHS = {
 				"Notes and links"
             ]
             )
+		.fill_null(' ')
     )
     
     .cols_width(COLUMN_WIDTHS)
