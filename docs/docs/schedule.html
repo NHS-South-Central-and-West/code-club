@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Welcome to Code Club! – Code Club</title>
+<title>Schedule – Code Club</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="site_libs/quarto-search/fuse.min.js"></script>
@@ -66,6 +66,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
@@ -80,7 +83,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Welcome!</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./schedule.html">Schedule</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -110,13 +113,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./schedule.html" class="sidebar-item-text sidebar-link">
+  <a href="./schedule.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Schedule</span></a>
   </div>
 </li>
@@ -130,7 +133,13 @@ ul.task-list li input[type="checkbox"] {
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
- <span class="menu-text">National Competency Framework</span>
+  <div class="sidebar-item-container"> 
+  <a href="./resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">Resources</span>
   </li>
       </ul>
   </li>
@@ -145,22 +154,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#mission-statement" id="toc-mission-statement" class="nav-link active" data-scroll-target="#mission-statement">Mission statement</a></li>
-  <li><a href="#what-to-expect" id="toc-what-to-expect" class="nav-link" data-scroll-target="#what-to-expect">What to expect</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Welcome to Code Club!</h1>
+<h1 class="title">Schedule</h1>
 </div>
 
 
@@ -177,18 +179,215 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Brought to you by the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
-<p>You can find our Teams channel <a href="https://teams.microsoft.com/l/channel/19%3Ade1e6d9a00c94b7ea473b8ab34546c14%40thread.tacv2/General?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&amp;tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3">here</a></p>
-<section id="mission-statement" class="level1">
-<h1>Mission statement</h1>
-<p>Here at Code Club our main aim is to bring more advanced analytical skills to the organisation, and we believe that the best medium for this is <del>interpretive dance</del> coding. We want to foster a programming ecosystem at SCW so that we can all learn from each other and improve the way we do things together. The Code Club syllabus has been designed to support people with little-to-no coding experience with extending their analytical skills and driving efficiency through the automation of day-to-day tasks. We believe that these are indispensable skills in an ever-changing NHS landscape, where delivering high quality insights efficiently, economically and systematically is more essential than ever. This won’t merely be a series of lectures; it will be a place to spark ideas and nurture collaboration.</p>
-</section>
-<section id="what-to-expect" class="level1">
-<h1>What to expect</h1>
-<p>Sessions will be an hour long, held once per fortnight- 3:00 PM on a Thursday. Each hour will cover a topic from the syllabus, followed by a time for a Q &amp; A with your Code Club hosts, whether that’s on the theme of the day or troubleshooting any coding issues you have run into. Aside from that, Code Clubbers are welcome to submit requests to cover a topic of interest -or indeed be a guest speaker themselves! -and we will find the best week for it to fit in around the syllabus. Most of the syllabus will be delivered with Python as the main programming language, but that isn’t to say that other languages won’t feature and won’t be welcome. If you want to get an idea of what we will be covering and see if it is right for you, head to the <a href=".\docs/schedule.html">Schedule</a> page.</p>
+<p>This is the schedule for Code Club in FY25/26.</p>
+<p>Materials, including presentations and coding notebooks, have been made available in the associated <strong>GitHub</strong> repository and recordings of the sessions will be accessible via the <strong>Recording Link</strong>.</p>
+<p>The <strong>Demonstration</strong>, <strong>Presentation</strong>, and <strong>Notebook</strong> columns indicate the content to be expected for each session:</p>
+<ul>
+<li><strong>Demonstration:</strong> A live show-and-tell relating to the discussion topic.</li>
+<li><strong>Presentation:</strong> A slide deck covering the discussion topic.</li>
+<li><strong>Notebook:</strong> A Jupyter Notebook containing code-along elements or examples for people to work through after the session.</li>
+</ul>
+<p>Tutorials will be divided into <strong>Modules</strong>. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.</p>
+<div class="column-screen-inset-right">
+<div id="0c93f158" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div id="hfquitxycn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>
+#hfquitxycn table {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+#hfquitxycn thead, tbody, tfoot, tr, td, th { border-style: none; }
+ tr { background-color: transparent; }
+#hfquitxycn p { margin: 0; padding: 0; }
+ #hfquitxycn .gt_table { display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; }
+ #hfquitxycn .gt_caption { padding-top: 4px; padding-bottom: 4px; }
+ #hfquitxycn .gt_title { color: #333333; font-size: 125%; font-weight: initial; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; border-bottom-color: #FFFFFF; border-bottom-width: 0; }
+ #hfquitxycn .gt_subtitle { color: #333333; font-size: 85%; font-weight: initial; padding-top: 3px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; border-top-color: #FFFFFF; border-top-width: 0; }
+ #hfquitxycn .gt_heading { background-color: #FFFFFF; text-align: center; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #hfquitxycn .gt_bottom_border { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #hfquitxycn .gt_col_headings { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #hfquitxycn .gt_col_heading { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; }
+ #hfquitxycn .gt_column_spanner_outer { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px; }
+ #hfquitxycn .gt_column_spanner_outer:first-child { padding-left: 0; }
+ #hfquitxycn .gt_column_spanner_outer:last-child { padding-right: 0; }
+ #hfquitxycn .gt_column_spanner { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%; }
+ #hfquitxycn .gt_spanner_row { border-bottom-style: hidden; }
+ #hfquitxycn .gt_group_heading { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; text-align: left; }
+ #hfquitxycn .gt_empty_group_heading { padding: 0.5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: middle; }
+ #hfquitxycn .gt_from_md> :first-child { margin-top: 0; }
+ #hfquitxycn .gt_from_md> :last-child { margin-bottom: 0; }
+ #hfquitxycn .gt_row { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; }
+ #hfquitxycn .gt_stub { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; }
+ #hfquitxycn .gt_stub_row_group { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; vertical-align: top; }
+ #hfquitxycn .gt_row_group_first td { border-top-width: 2px; }
+ #hfquitxycn .gt_row_group_first th { border-top-width: 2px; }
+ #hfquitxycn .gt_striped { background-color: rgba(128,128,128,0.05); }
+ #hfquitxycn .gt_table_body { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #hfquitxycn .gt_sourcenotes { color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; }
+ #hfquitxycn .gt_sourcenote { font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; text-align: left; }
+ #hfquitxycn .gt_left { text-align: left; }
+ #hfquitxycn .gt_center { text-align: center; }
+ #hfquitxycn .gt_right { text-align: right; font-variant-numeric: tabular-nums; }
+ #hfquitxycn .gt_font_normal { font-weight: normal; }
+ #hfquitxycn .gt_font_bold { font-weight: bold; }
+ #hfquitxycn .gt_font_italic { font-style: italic; }
+ #hfquitxycn .gt_super { font-size: 65%; }
+ #hfquitxycn .gt_footnote_marks { font-size: 75%; vertical-align: 0.4em; position: initial; }
+ #hfquitxycn .gt_asterisk { font-size: 100%; vertical-align: 0; }
+ 
+</style>
+<table style="table-layout: fixed;; width: 0px" class="gt_table" data-quarto-disable-processing="true" data-quarto-bootstrap="false">
+<colgroup>
+  <col style="width:100px;">
+  <col style="width:100px;">
+  <col style="width:100px;">
+  <col style="width:200px;">
+  <col style="width:400px;">
+  <col style="width:120px;">
+  <col style="width:100px;">
+  <col style="width:100px;">
+  <col style="width:200px;">
+  <col style="width:200px;">
+</colgroup>
+
+<thead>
+
+<tr class="gt_col_headings">
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Session-Number">Session Number</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Session-Date">Session Date</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Module">Module</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Session-Name">Session Name</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Description">Description</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Demonstration">Demonstration</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Presentation">Presentation</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Notebook">Notebook</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="GitHub-Link">GitHub Link</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Recording-Link">Recording Link</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+  <tr>
+    <td class="gt_row gt_center">1</td>
+    <td class="gt_row gt_center">22/04/2025</td>
+    <td class="gt_row gt_center">N/A</td>
+    <td class="gt_row gt_center">Nectar Re-Launch</td>
+    <td class="gt_row gt_center">Showcasing the re-launch of Code Club</td>
+    <td class="gt_row gt_center">🎬</td>
+    <td class="gt_row gt_center">💻</td>
+    <td class="gt_row gt_center">-</td>
+    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center gt_striped">2</td>
+    <td class="gt_row gt_center gt_striped">01/05/2025</td>
+    <td class="gt_row gt_center gt_striped">Core</td>
+    <td class="gt_row gt_center gt_striped"> Python On-boarding</td>
+    <td class="gt_row gt_center gt_striped">What to install, basic virtual environment management, introduction to VS Code</td>
+    <td class="gt_row gt_center gt_striped">🎬</td>
+    <td class="gt_row gt_center gt_striped">-</td>
+    <td class="gt_row gt_center gt_striped">-</td>
+    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center">3</td>
+    <td class="gt_row gt_center">15/05/2025</td>
+    <td class="gt_row gt_center">Core</td>
+    <td class="gt_row gt_center">Jupyter Notebooks</td>
+    <td class="gt_row gt_center">Demonstration of Jupyter Notebooks</td>
+    <td class="gt_row gt_center">🎬</td>
+    <td class="gt_row gt_center">-</td>
+    <td class="gt_row gt_center">📖</td>
+    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center gt_striped">4</td>
+    <td class="gt_row gt_center gt_striped">29/05/2025</td>
+    <td class="gt_row gt_center gt_striped">Core</td>
+    <td class="gt_row gt_center gt_striped">EDA and Visualisations</td>
+    <td class="gt_row gt_center gt_striped">Introduction to Exploratory Data Analysis and how to visualise it</td>
+    <td class="gt_row gt_center gt_striped">🎬</td>
+    <td class="gt_row gt_center gt_striped">-</td>
+    <td class="gt_row gt_center gt_striped">📖</td>
+    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center">5</td>
+    <td class="gt_row gt_center">12/06/2025</td>
+    <td class="gt_row gt_center">Core</td>
+    <td class="gt_row gt_center">Visualisation with Seaborn</td>
+    <td class="gt_row gt_center">Aesthetically-pleasing visualisations</td>
+    <td class="gt_row gt_center">🎬</td>
+    <td class="gt_row gt_center">-</td>
+    <td class="gt_row gt_center">📖</td>
+    <td class="gt_row gt_center"><a href="https://github.com/NHS-South-Central-and-West/learning-python/tree/main/visualising-with-seaborn">Visualisation with Seaborn</a></td>
+    <td class="gt_row gt_center"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center gt_striped">6</td>
+    <td class="gt_row gt_center gt_striped">26/06/2025</td>
+    <td class="gt_row gt_center gt_striped">Core</td>
+    <td class="gt_row gt_center gt_striped">Data Types</td>
+    <td class="gt_row gt_center gt_striped">Introduction to Data Types</td>
+    <td class="gt_row gt_center gt_striped">-</td>
+    <td class="gt_row gt_center gt_striped">💻</td>
+    <td class="gt_row gt_center gt_striped">📖</td>
+    <td class="gt_row gt_center gt_striped"><a href="https://github.com/NHS-South-Central-and-West/learning-python/blob/main/programming-concepts/datatypes.pptx">Data Types</a></td>
+    <td class="gt_row gt_center gt_striped"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center">7</td>
+    <td class="gt_row gt_center">10/07/2025</td>
+    <td class="gt_row gt_center">Core</td>
+    <td class="gt_row gt_center">Control Flow</td>
+    <td class="gt_row gt_center">Introduction to Control Flow</td>
+    <td class="gt_row gt_center">-</td>
+    <td class="gt_row gt_center">💻</td>
+    <td class="gt_row gt_center">📖</td>
+    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center gt_striped">8</td>
+    <td class="gt_row gt_center gt_striped">24/07/2025</td>
+    <td class="gt_row gt_center gt_striped">Core</td>
+    <td class="gt_row gt_center gt_striped">Functions &amp; Functional Programming</td>
+    <td class="gt_row gt_center gt_striped">Introduction to Functions and Functional Programming</td>
+    <td class="gt_row gt_center gt_striped">-</td>
+    <td class="gt_row gt_center gt_striped">💻</td>
+    <td class="gt_row gt_center gt_striped">📖</td>
+    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped"></td>
+  </tr>
+  <tr>
+    <td class="gt_row gt_center">9</td>
+    <td class="gt_row gt_center">07/08/2025</td>
+    <td class="gt_row gt_center">Core</td>
+    <td class="gt_row gt_center">Object-Oriented Programming</td>
+    <td class="gt_row gt_center">Introduction to Object-Oriented Programming</td>
+    <td class="gt_row gt_center">-</td>
+    <td class="gt_row gt_center">💻</td>
+    <td class="gt_row gt_center">📖</td>
+    <td class="gt_row gt_center"><a href="https://github.com/NHS-South-Central-and-West/intro-to-object-oriented-programming">Object-Oriented Programming</a></td>
+    <td class="gt_row gt_center"></td>
+  </tr>
+</tbody>
 
 
-</section>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
