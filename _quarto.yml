@@ -7,12 +7,16 @@ project:
     - schedule.qmd
     - 404.qmd
     - glossary.qmd
-    - ncf.qmd
+    - resources/ncf.qmd
 
 website:
   title: "Code Club"
   page-footer:
     left: "Created and maintained by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)"
+    center:
+      - icon: github
+        href: https://github.com/NHS-South-Central-and-West
+        text: "SCW's GitHub Repository"
     right: "This page was built with [Quarto](https://quarto.org/)"
 
 
@@ -22,10 +26,6 @@ website:
     pinned: true
     align: center
     style: docked
-    tools:
-      - icon: github # not sure how to invert the colour on dark background
-        href: https://github.com/NHS-South-Central-and-West
-        text: "SCW's GitHub"
     search: true
     collapse-level: 1
     contents:

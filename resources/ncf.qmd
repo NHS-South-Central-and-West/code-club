@@ -9,7 +9,7 @@ We have mapped the contents of the syllabus to competencies in the National Comp
 
 For full details of the skills in the framework, the self-assessment tool can be found [on FutureNHS.](https://future.nhs.uk/DataAnalytics/view?objectID=163018181)
 
-**Please note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.** It should hopefully still give you a sense
+**Please note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.**
 
 ::: column-screen-inset-right
 ```{python schedule_table}
