@@ -13,10 +13,7 @@ website:
   title: "Code Club"
   page-footer:
     left: "Created and maintained by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)"
-    center:
-      - icon: github
-        href: https://github.com/NHS-South-Central-and-West
-        text: "SCW's GitHub Repository"
+    center: "[SCW's GitHub Repository](https://github.com/NHS-South-Central-and-West)"
     right: "This page was built with [Quarto](https://quarto.org/)"
 
 
