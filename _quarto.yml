@@ -35,7 +35,7 @@ website:
         text: Schedule
       - section: "Resources"
         contents:
-          - href: ncf.qmd
+          - href: resources/ncf.qmd
           - text: National Competency Framework
       - href: glossary.qmd
         text: Glossary
