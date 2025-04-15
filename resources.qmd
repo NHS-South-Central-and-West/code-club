@@ -1,6 +1,0 @@
----
-title: "Resources"
-format: html
----
-
-This area will contain links sub-pages with information on various resources. 

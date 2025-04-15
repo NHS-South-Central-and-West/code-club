@@ -1,10 +1,16 @@
-﻿Session Number,Session Date,Module,Session Name,Description,Recording,GitHub,Demonstration,Presentation,Notebook
-1,22/04/2025,N/A,Nectar Re-Launch,Showcasing the re-launch of Code Club,,,x,x,
-2,01/05/2025,Core, Python On-boarding,"What to install, basic virtual environment management, introduction to VS Code",,,x,,
-3,15/05/2025,Core,Jupyter Notebooks,Demonstration of Jupyter Notebooks,,,x,,x
-4,29/05/2025,Core,EDA and Visualisations,Introduction to Exploratory Data Analysis and how to visualise it,,,x,,x
-5,12/06/2025,Core,Visualisation with Seaborn,Aesthetically-pleasing visualisations,,https://github.com/NHS-South-Central-and-West/learning-python/tree/main/visualising-with-seaborn,x,,x
-6,26/06/2025,Core,Data Types,Introduction to Data Types,,https://github.com/NHS-South-Central-and-West/learning-python/blob/main/programming-concepts/datatypes.pptx,,x,x
-7,10/07/2025,Core,Control Flow,Introduction to Control Flow,,,,x,x
-8,24/07/2025,Core,Functions & Functional Programming,Introduction to Functions and Functional Programming,,,,x,x
-9,07/08/2025,Core,Object-Oriented Programming,Introduction to Object-Oriented Programming,,https://github.com/NHS-South-Central-and-West/intro-to-object-oriented-programming,,x,x
+﻿Session Number,Session Date,Module,Session Name,Description,NCF Competency,Recording,GitHub,Demonstration,Presentation,Notebook
+1,22/04/2025,N/A,Nectar Re-Launch,Showcasing the re-launch of Code Club,,,https://github.com/NHS-South-Central-and-West/nectar_presentation,x,x,
+2,01/05/2025,On-boarding, Python On-boarding,"What to install, basic virtual environment management, introduction to VS Code",SA21 : Python Proficiency,,,x,,
+3,15/05/2025,On-boarding,Jupyter Notebooks,Demonstration of Jupyter Notebooks,SA21 : Python Proficiency,,,x,,x
+4,29/05/2025,Visualisation,EDA and Visualisations,Introduction to Exploratory Data Analysis and how to visualise it,SA4 : Descriptive and Explicative Analytics,,,x,,x
+5,12/06/2025,Visualisation,Visualisation with Seaborn,Aesthetically-pleasing visualisations,SA1 : Data Visualisation,,,x,,x
+6,26/06/2025,Core concepts,Data Types,Introduction to Data Types,SA21 : Python Proficiency,,,,x,x
+7,10/07/2025,Core concepts,Control Flow,Introduction to Control Flow,SA21 : Python Proficiency,,,,x,x
+8,24/07/2025,Core concepts,Functions & Functional Programming,Introduction to Functions and Functional Programming,SA21 : Python Proficiency,,,,x,x
+9,07/08/2025,Core concepts,Object-Oriented Programming,Introduction to Object-Oriented Programming,SA21 : Python Proficiency,,,,x,x
+10,21/08/2025,Visualisation,Streamlit dashboards,How to present data (visualisations) in a Streamlit dashboard,SA1 : Data Visualisation,,,,,
+11,04/09/2025,Data Science,Comparing Samples,Understanding data distributions and comparisons between samples,SA4 : Descriptive and Explicative Analytics,,,,x,x
+12,18/09/2025,Data Science,Analysing Relationships,Quantifying relationships with hypothesis tests and statistical significance,SA15 : Hypothesis Testing,,,,x,x
+13,02/10/2025,Data Science,Introduction to Linear Regression,Introduction to regression concepts and the component parts of linear regression,SA7 : Advanced Statistics,,,,x,x
+14,16/10/2025,Data Science,Implementing Linear Regression,"Building linear models, assessing model fit, and interpreting coefficients",SA7 : Advanced Statistics,,,x,x,x
+15,30/10/2025,Data Science,Beyond Linearity,Introduction to generalised linear regression models,SA7 : Advanced Statistics,,,x,x,x

@@ -7,6 +7,7 @@ project:
     - schedule.qmd
     - 404.qmd
     - glossary.qmd
+    - ncf.qmd
 
 website:
   title: "Code Club"
@@ -34,8 +35,8 @@ website:
         text: Schedule
       - section: "Resources"
         contents:
-          - href: resources.qmd
-          - text: Resources
+          - href: ncf.qmd
+          - text: National Competency Framework
       - href: glossary.qmd
         text: Glossary
 

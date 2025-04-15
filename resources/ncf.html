@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Schedule – Code Club</title>
+<title>National Competency Framework</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,142 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="ncf_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ncf_files/libs/quarto-html/quarto.js"></script>
+<script src="ncf_files/libs/quarto-html/popper.min.js"></script>
+<script src="ncf_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ncf_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ncf_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ncf_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ncf_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ncf_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ncf_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-sidebar docked">
+<body class="fullcontent">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./schedule.html">Schedule</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-center sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/code_club_pink_white.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
-      <div class="sidebar-tools-main">
-    <a href="https://github.com/NHS-South-Central-and-West" title="SCW's GitHub" class="quarto-navigation-tool px-1" aria-label="SCW's GitHub"><i class="bi bi-github"></i></a>
-</div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Welcome!</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./schedule.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Schedule</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
- <span class="menu-text">Resources</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
-          <li class="sidebar-item">
- <span class="menu-text">National Competency Framework</span>
-  </li>
-      </ul>
-  </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./glossary.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Glossary</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
-<!-- main -->
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
 <main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Schedule</h1>
+<h1 class="title">National Competency Framework</h1>
 </div>
 
 
@@ -172,65 +99,107 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the schedule for Code Club in FY25/26.</p>
-<p>Materials, including presentations and coding notebooks, have been made available in the associated <strong>GitHub</strong> repository and recordings of the sessions will be accessible via the <strong>Recording Link</strong>.</p>
-<p>The <strong>Demonstration</strong>, <strong>Presentation</strong>, and <strong>Notebook</strong> columns indicate the content to be expected for each session:</p>
-<ul>
-<li><strong>Demonstration:</strong> A live show-and-tell relating to the discussion topic.</li>
-<li><strong>Presentation:</strong> A slide deck covering the discussion topic.</li>
-<li><strong>Notebook:</strong> A Jupyter Notebook containing code-along elements or examples for people to work through after the session.</li>
-</ul>
-<p>Tutorials will be divided into <strong>Modules</strong>. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.</p>
-<p>Sessions have been mapped to the National Competency Framework for Data Professionals in Health and Care, see more information <a href=".\docs/ncf.html">here</a></p>
+<p>We have mapped the contents of the syllabus to competencies in the National Competency Framework for Data Professionals in Health and Care so that you can see which sessions will help you on your way towards them.</p>
+<p>For full details of the skills in the framework, the self-assessment tool can be found <a href="https://future.nhs.uk/DataAnalytics/view?objectID=163018181">on FutureNHS.</a></p>
+<p><strong>Please note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.</strong> It should hopefully still give you a sense</p>
 <div class="column-screen-inset-right">
-<div id="8bb25ed0" class="cell" data-execution_count="1">
+<div id="a97ea4bc" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> great_tables <span class="im">import</span> GT, html, style, loc</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>warnings.simplefilter(action<span class="op">=</span><span class="st">'ignore'</span>, category<span class="op">=</span><span class="pp">FutureWarning</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># import .csv</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pl.read_csv(<span class="st">'../data/schedule.csv'</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df.drop([<span class="st">"GitHub"</span>,<span class="st">"Recording"</span>,<span class="st">"Demonstration"</span>,<span class="st">"Presentation"</span>,<span class="st">"Notebook"</span>])</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Column Widths for table.</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Matches the widths in the Schedule.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>COLUMN_WIDTHS <span class="op">=</span> {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Session Number"</span> : <span class="st">"100px"</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Session Date"</span> : <span class="st">"100px"</span>,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Module"</span> : <span class="st">"100px"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Session Name"</span> : <span class="st">"200px"</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Description"</span> : <span class="st">"400px"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"NCF Competency"</span> : <span class="st">"200px"</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Render the table as a great_table object</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="co">#.select() allows column order to be specified</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    GT(</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        df.select(</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Session Number"</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Session Date"</span>,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Module"</span>,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Session Name"</span>,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Description"</span>,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>                <span class="st">"NCF Competency"</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>            .fill_null(<span class="st">'-'</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    .cols_width(COLUMN_WIDTHS)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    .tab_options(quarto_disable_processing<span class="op">=</span><span class="va">True</span>) <span class="co"># needed to override Quarto's own table formatting</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    .cols_align(align<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    .opt_align_table_header(align<span class="op">=</span><span class="st">"center"</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    .tab_style(</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        style<span class="op">=</span>style.text(weight<span class="op">=</span><span class="st">"bold"</span>),</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>        locations<span class="op">=</span>loc.column_labels()</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>    .opt_row_striping()</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<div id="xqufasjnfs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="xjnhmkjkxu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>
-#xqufasjnfs table {
+#xjnhmkjkxu table {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
         }
 
-#xqufasjnfs thead, tbody, tfoot, tr, td, th { border-style: none; }
+#xjnhmkjkxu thead, tbody, tfoot, tr, td, th { border-style: none; }
  tr { background-color: transparent; }
-#xqufasjnfs p { margin: 0; padding: 0; }
- #xqufasjnfs .gt_table { display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; }
- #xqufasjnfs .gt_caption { padding-top: 4px; padding-bottom: 4px; }
- #xqufasjnfs .gt_title { color: #333333; font-size: 125%; font-weight: initial; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; border-bottom-color: #FFFFFF; border-bottom-width: 0; }
- #xqufasjnfs .gt_subtitle { color: #333333; font-size: 85%; font-weight: initial; padding-top: 3px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; border-top-color: #FFFFFF; border-top-width: 0; }
- #xqufasjnfs .gt_heading { background-color: #FFFFFF; text-align: center; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
- #xqufasjnfs .gt_bottom_border { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
- #xqufasjnfs .gt_col_headings { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
- #xqufasjnfs .gt_col_heading { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; }
- #xqufasjnfs .gt_column_spanner_outer { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px; }
- #xqufasjnfs .gt_column_spanner_outer:first-child { padding-left: 0; }
- #xqufasjnfs .gt_column_spanner_outer:last-child { padding-right: 0; }
- #xqufasjnfs .gt_column_spanner { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%; }
- #xqufasjnfs .gt_spanner_row { border-bottom-style: hidden; }
- #xqufasjnfs .gt_group_heading { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; text-align: left; }
- #xqufasjnfs .gt_empty_group_heading { padding: 0.5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: middle; }
- #xqufasjnfs .gt_from_md> :first-child { margin-top: 0; }
- #xqufasjnfs .gt_from_md> :last-child { margin-bottom: 0; }
- #xqufasjnfs .gt_row { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; }
- #xqufasjnfs .gt_stub { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; }
- #xqufasjnfs .gt_stub_row_group { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; vertical-align: top; }
- #xqufasjnfs .gt_row_group_first td { border-top-width: 2px; }
- #xqufasjnfs .gt_row_group_first th { border-top-width: 2px; }
- #xqufasjnfs .gt_striped { background-color: rgba(128,128,128,0.05); }
- #xqufasjnfs .gt_table_body { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
- #xqufasjnfs .gt_sourcenotes { color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; }
- #xqufasjnfs .gt_sourcenote { font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; text-align: left; }
- #xqufasjnfs .gt_left { text-align: left; }
- #xqufasjnfs .gt_center { text-align: center; }
- #xqufasjnfs .gt_right { text-align: right; font-variant-numeric: tabular-nums; }
- #xqufasjnfs .gt_font_normal { font-weight: normal; }
- #xqufasjnfs .gt_font_bold { font-weight: bold; }
- #xqufasjnfs .gt_font_italic { font-style: italic; }
- #xqufasjnfs .gt_super { font-size: 65%; }
- #xqufasjnfs .gt_footnote_marks { font-size: 75%; vertical-align: 0.4em; position: initial; }
- #xqufasjnfs .gt_asterisk { font-size: 100%; vertical-align: 0; }
+#xjnhmkjkxu p { margin: 0; padding: 0; }
+ #xjnhmkjkxu .gt_table { display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; }
+ #xjnhmkjkxu .gt_caption { padding-top: 4px; padding-bottom: 4px; }
+ #xjnhmkjkxu .gt_title { color: #333333; font-size: 125%; font-weight: initial; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; border-bottom-color: #FFFFFF; border-bottom-width: 0; }
+ #xjnhmkjkxu .gt_subtitle { color: #333333; font-size: 85%; font-weight: initial; padding-top: 3px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; border-top-color: #FFFFFF; border-top-width: 0; }
+ #xjnhmkjkxu .gt_heading { background-color: #FFFFFF; text-align: center; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #xjnhmkjkxu .gt_bottom_border { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #xjnhmkjkxu .gt_col_headings { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #xjnhmkjkxu .gt_col_heading { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; }
+ #xjnhmkjkxu .gt_column_spanner_outer { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px; }
+ #xjnhmkjkxu .gt_column_spanner_outer:first-child { padding-left: 0; }
+ #xjnhmkjkxu .gt_column_spanner_outer:last-child { padding-right: 0; }
+ #xjnhmkjkxu .gt_column_spanner { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%; }
+ #xjnhmkjkxu .gt_spanner_row { border-bottom-style: hidden; }
+ #xjnhmkjkxu .gt_group_heading { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; text-align: left; }
+ #xjnhmkjkxu .gt_empty_group_heading { padding: 0.5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: middle; }
+ #xjnhmkjkxu .gt_from_md> :first-child { margin-top: 0; }
+ #xjnhmkjkxu .gt_from_md> :last-child { margin-bottom: 0; }
+ #xjnhmkjkxu .gt_row { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; }
+ #xjnhmkjkxu .gt_stub { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; }
+ #xjnhmkjkxu .gt_stub_row_group { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; vertical-align: top; }
+ #xjnhmkjkxu .gt_row_group_first td { border-top-width: 2px; }
+ #xjnhmkjkxu .gt_row_group_first th { border-top-width: 2px; }
+ #xjnhmkjkxu .gt_striped { background-color: rgba(128,128,128,0.05); }
+ #xjnhmkjkxu .gt_table_body { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #xjnhmkjkxu .gt_sourcenotes { color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; }
+ #xjnhmkjkxu .gt_sourcenote { font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; text-align: left; }
+ #xjnhmkjkxu .gt_left { text-align: left; }
+ #xjnhmkjkxu .gt_center { text-align: center; }
+ #xjnhmkjkxu .gt_right { text-align: right; font-variant-numeric: tabular-nums; }
+ #xjnhmkjkxu .gt_font_normal { font-weight: normal; }
+ #xjnhmkjkxu .gt_font_bold { font-weight: bold; }
+ #xjnhmkjkxu .gt_font_italic { font-style: italic; }
+ #xjnhmkjkxu .gt_super { font-size: 65%; }
+ #xjnhmkjkxu .gt_footnote_marks { font-size: 75%; vertical-align: 0.4em; position: initial; }
+ #xjnhmkjkxu .gt_asterisk { font-size: 100%; vertical-align: 0; }
  
 </style>
 <table style="table-layout: fixed;; width: 0px" class="gt_table" data-quarto-disable-processing="true" data-quarto-bootstrap="false">
@@ -240,10 +209,6 @@ ul.task-list li input[type="checkbox"] {
   <col style="width:100px;">
   <col style="width:200px;">
   <col style="width:400px;">
-  <col style="width:120px;">
-  <col style="width:100px;">
-  <col style="width:100px;">
-  <col style="width:200px;">
   <col style="width:200px;">
 </colgroup>
 
@@ -255,11 +220,7 @@ ul.task-list li input[type="checkbox"] {
   <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Module">Module</th>
   <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Session-Name">Session Name</th>
   <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Description">Description</th>
-  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Demonstration">Demonstration</th>
-  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Presentation">Presentation</th>
-  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Notebook">Notebook</th>
-  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="GitHub-Link">GitHub Link</th>
-  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Recording-Link">Recording Link</th>
+  <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="NCF-Competency">NCF Competency</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
@@ -269,11 +230,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">N/A</td>
     <td class="gt_row gt_center">Nectar Re-Launch</td>
     <td class="gt_row gt_center">Showcasing the re-launch of Code Club</td>
-    <td class="gt_row gt_center">🎬</td>
-    <td class="gt_row gt_center">💻</td>
     <td class="gt_row gt_center">-</td>
-    <td class="gt_row gt_center"><a href="https://github.com/NHS-South-Central-and-West/nectar_presentation">Nectar Re-Launch</a></td>
-    <td class="gt_row gt_center"></td>
   </tr>
   <tr>
     <td class="gt_row gt_center gt_striped">2</td>
@@ -281,11 +238,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center gt_striped">On-boarding</td>
     <td class="gt_row gt_center gt_striped"> Python On-boarding</td>
     <td class="gt_row gt_center gt_striped">What to install, basic virtual environment management, introduction to VS Code</td>
-    <td class="gt_row gt_center gt_striped">🎬</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped"></td>
-    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped">SA21 : Python Proficiency</td>
   </tr>
   <tr>
     <td class="gt_row gt_center">3</td>
@@ -293,11 +246,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">On-boarding</td>
     <td class="gt_row gt_center">Jupyter Notebooks</td>
     <td class="gt_row gt_center">Demonstration of Jupyter Notebooks</td>
-    <td class="gt_row gt_center">🎬</td>
-    <td class="gt_row gt_center">-</td>
-    <td class="gt_row gt_center">📖</td>
-    <td class="gt_row gt_center"></td>
-    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center">SA21 : Python Proficiency</td>
   </tr>
   <tr>
     <td class="gt_row gt_center gt_striped">4</td>
@@ -305,11 +254,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center gt_striped">Visualisation</td>
     <td class="gt_row gt_center gt_striped">EDA and Visualisations</td>
     <td class="gt_row gt_center gt_striped">Introduction to Exploratory Data Analysis and how to visualise it</td>
-    <td class="gt_row gt_center gt_striped">🎬</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped">📖</td>
-    <td class="gt_row gt_center gt_striped"></td>
-    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped">SA4 : Descriptive and Explicative Analytics</td>
   </tr>
   <tr>
     <td class="gt_row gt_center">5</td>
@@ -317,11 +262,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">Visualisation</td>
     <td class="gt_row gt_center">Visualisation with Seaborn</td>
     <td class="gt_row gt_center">Aesthetically-pleasing visualisations</td>
-    <td class="gt_row gt_center">🎬</td>
-    <td class="gt_row gt_center">-</td>
-    <td class="gt_row gt_center">📖</td>
-    <td class="gt_row gt_center"></td>
-    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center">SA1 : Data Visualisation</td>
   </tr>
   <tr>
     <td class="gt_row gt_center gt_striped">6</td>
@@ -329,11 +270,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center gt_striped">Core concepts</td>
     <td class="gt_row gt_center gt_striped">Data Types</td>
     <td class="gt_row gt_center gt_striped">Introduction to Data Types</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped">💻</td>
-    <td class="gt_row gt_center gt_striped">📖</td>
-    <td class="gt_row gt_center gt_striped"></td>
-    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped">SA21 : Python Proficiency</td>
   </tr>
   <tr>
     <td class="gt_row gt_center">7</td>
@@ -341,11 +278,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">Core concepts</td>
     <td class="gt_row gt_center">Control Flow</td>
     <td class="gt_row gt_center">Introduction to Control Flow</td>
-    <td class="gt_row gt_center">-</td>
-    <td class="gt_row gt_center">💻</td>
-    <td class="gt_row gt_center">📖</td>
-    <td class="gt_row gt_center"></td>
-    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center">SA21 : Python Proficiency</td>
   </tr>
   <tr>
     <td class="gt_row gt_center gt_striped">8</td>
@@ -353,11 +286,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center gt_striped">Core concepts</td>
     <td class="gt_row gt_center gt_striped">Functions &amp; Functional Programming</td>
     <td class="gt_row gt_center gt_striped">Introduction to Functions and Functional Programming</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped">💻</td>
-    <td class="gt_row gt_center gt_striped">📖</td>
-    <td class="gt_row gt_center gt_striped"></td>
-    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped">SA21 : Python Proficiency</td>
   </tr>
   <tr>
     <td class="gt_row gt_center">9</td>
@@ -365,11 +294,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">Core concepts</td>
     <td class="gt_row gt_center">Object-Oriented Programming</td>
     <td class="gt_row gt_center">Introduction to Object-Oriented Programming</td>
-    <td class="gt_row gt_center">-</td>
-    <td class="gt_row gt_center">💻</td>
-    <td class="gt_row gt_center">📖</td>
-    <td class="gt_row gt_center"></td>
-    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center">SA21 : Python Proficiency</td>
   </tr>
   <tr>
     <td class="gt_row gt_center gt_striped">10</td>
@@ -377,11 +302,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center gt_striped">Visualisation</td>
     <td class="gt_row gt_center gt_striped">Streamlit dashboards</td>
     <td class="gt_row gt_center gt_striped">How to present data (visualisations) in a Streamlit dashboard</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped"></td>
-    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped">SA1 : Data Visualisation</td>
   </tr>
   <tr>
     <td class="gt_row gt_center">11</td>
@@ -389,11 +310,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">Data Science</td>
     <td class="gt_row gt_center">Comparing Samples</td>
     <td class="gt_row gt_center">Understanding data distributions and comparisons between samples</td>
-    <td class="gt_row gt_center">-</td>
-    <td class="gt_row gt_center">💻</td>
-    <td class="gt_row gt_center">📖</td>
-    <td class="gt_row gt_center"></td>
-    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center">SA4 : Descriptive and Explicative Analytics</td>
   </tr>
   <tr>
     <td class="gt_row gt_center gt_striped">12</td>
@@ -401,11 +318,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center gt_striped">Data Science</td>
     <td class="gt_row gt_center gt_striped">Analysing Relationships</td>
     <td class="gt_row gt_center gt_striped">Quantifying relationships with hypothesis tests and statistical significance</td>
-    <td class="gt_row gt_center gt_striped">-</td>
-    <td class="gt_row gt_center gt_striped">💻</td>
-    <td class="gt_row gt_center gt_striped">📖</td>
-    <td class="gt_row gt_center gt_striped"></td>
-    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped">SA15 : Hypothesis Testing</td>
   </tr>
   <tr>
     <td class="gt_row gt_center">13</td>
@@ -413,11 +326,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">Data Science</td>
     <td class="gt_row gt_center">Introduction to Linear Regression</td>
     <td class="gt_row gt_center">Introduction to regression concepts and the component parts of linear regression</td>
-    <td class="gt_row gt_center">-</td>
-    <td class="gt_row gt_center">💻</td>
-    <td class="gt_row gt_center">📖</td>
-    <td class="gt_row gt_center"></td>
-    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center">SA7 : Advanced Statistics</td>
   </tr>
   <tr>
     <td class="gt_row gt_center gt_striped">14</td>
@@ -425,11 +334,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center gt_striped">Data Science</td>
     <td class="gt_row gt_center gt_striped">Implementing Linear Regression</td>
     <td class="gt_row gt_center gt_striped">Building linear models, assessing model fit, and interpreting coefficients</td>
-    <td class="gt_row gt_center gt_striped">🎬</td>
-    <td class="gt_row gt_center gt_striped">💻</td>
-    <td class="gt_row gt_center gt_striped">📖</td>
-    <td class="gt_row gt_center gt_striped"></td>
-    <td class="gt_row gt_center gt_striped"></td>
+    <td class="gt_row gt_center gt_striped">SA7 : Advanced Statistics</td>
   </tr>
   <tr>
     <td class="gt_row gt_center">15</td>
@@ -437,11 +342,7 @@ ul.task-list li input[type="checkbox"] {
     <td class="gt_row gt_center">Data Science</td>
     <td class="gt_row gt_center">Beyond Linearity</td>
     <td class="gt_row gt_center">Introduction to generalised linear regression models</td>
-    <td class="gt_row gt_center">🎬</td>
-    <td class="gt_row gt_center">💻</td>
-    <td class="gt_row gt_center">📖</td>
-    <td class="gt_row gt_center"></td>
-    <td class="gt_row gt_center"></td>
+    <td class="gt_row gt_center">SA7 : Advanced Statistics</td>
   </tr>
 </tbody>
 
@@ -454,9 +355,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 
-
-
-</main> <!-- /main -->
+</main>
+<!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -878,19 +778,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<footer class="footer">
-  <div class="nav-footer">
-    <div class="nav-footer-left">
-<p>Created and maintained by the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
-</div>   
-    <div class="nav-footer-center">
-      &nbsp;
-    </div>
-    <div class="nav-footer-right">
-<p>This page was built with <a href="https://quarto.org/">Quarto</a></p>
-</div>
-  </div>
-</footer>
 
 
 
