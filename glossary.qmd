@@ -43,7 +43,7 @@ COLUMN_WIDTHS = {
     
     .cols_width(COLUMN_WIDTHS)
     .tab_options(quarto_disable_processing=True) # needed to override Quarto's own table formatting
-	.fmt_markdown(columns=["Notes and links"])
+	.fmt_markdown()
     .cols_align(align="left")
     .opt_align_table_header(align="left")
     .tab_style(
