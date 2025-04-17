@@ -33,7 +33,7 @@ website:
       - section: "Resources"
         contents:
           - href: resources/ncf.qmd
-          - text: National Competency Framework
+            text: National Competency Framework
       - href: glossary.qmd
         text: Glossary
 
