@@ -1,1 +1,0 @@
-Sitemap: https://NHS-South-Central-and-West.github.io/code-club/sitemap.xml
