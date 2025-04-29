@@ -1,13 +1,5 @@
 project:
   type: website
-  output-dir: docs
-  render:
-    - index.qmd
-    - resources.qmd
-    - schedule.qmd
-    - 404.qmd
-    - glossary.qmd
-    - resources/ncf.qmd
 
 website:
   title: "Code Club"
@@ -44,5 +36,6 @@ format:
     toc: true # table of contents
     code-copy: true
 
-
+execute:
+  freeze: auto
 
