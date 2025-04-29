@@ -51,7 +51,7 @@ format:
     background-transition: fade
     navigation-mode: linear
     email-obfuscation: javascript
-    theme: sessions/theme.scss
+    theme: slides-theme.scss
     progress: true
     multiplex: false
     scrollable: false
