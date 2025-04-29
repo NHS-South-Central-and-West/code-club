@@ -26,6 +26,10 @@ website:
         contents:
           - href: resources/ncf.qmd
             text: National Competency Framework
+      - section: "Intro to Python for Data Analysts"
+        contents:
+          - href: sessions/01-onboarding/index.qmd
+            text: Python Onboarding
       - href: glossary.qmd
         text: Glossary
 
@@ -35,7 +39,29 @@ format:
     css: styles.css
     toc: true # table of contents
     code-copy: true
+  revealjs:
+    author: Specialist Analytics Team
+    menu: false
+    controls: true
+    section-divs: true
+    preview-links: false
+    link-external-newwindow: true
+    embed-resources: true
+    transition: fade
+    background-transition: fade
+    navigation-mode: linear
+    email-obfuscation: javascript
+    theme: sessions/theme.scss
+    progress: true
+    multiplex: false
+    scrollable: false
+    hide-inactive-cursor: true
+    highlight-style: printing
+    pause: true
+    fig-width: 6
+    fig-height: 7
+    fig-align: center
+    output-location: column
 
 execute:
   freeze: auto
-
