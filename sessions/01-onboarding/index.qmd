@@ -1,0 +1,41 @@
+---
+title: "Python Onboarding"
+format: html
+---
+
+## Session Slides
+
+Use the left (<-) and right (->) arrow keys to navigate through slides.
+
+<iframe src="slides.html" style="border:1px;" height="500" width="100%"></iframe>
+
+
+## The Tools
+
+- The tools you'll need - Python, uv, IDE (jupyter notebooks or VS Code), GitHub Desktop?
+
+### Python
+
+- What is Python?
+
+### Dependency Management
+
+- Dependency management
+  - Why?
+  - The role virtual environments play
+  - Why we're recommending uv (including a mention of conda)
+
+#### Virtual Environments
+
+### Version Control
+
+- Version control (how to get these materials)
+
+## Project Setup
+
+- Walk through of how to set up a project
+  - Setup with uv (uv init, uv add, uv sync?)
+  - Create a notebook (see if I can get IT to fix so can use uv)
+  - Run some simple code as evidence of setup
+
+

@@ -1,0 +1,66 @@
+---
+title: "Python Onboarding"
+subtitle: "Getting Started with Python & Using the Right Tools"
+footer: '**Specialist Analytics Team //** Python Onboarding **//** May 01, 2025'
+format: revealjs
+---
+
+## Why Learn to Code? {.center}
+
+- Direction of travel for the NHS
+- Enables advanced methods and flexible, scalable solutions
+- Career development
+- It is fun!
+
+# Tools of the Trade {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+Everything you will need to get started
+
+## The Toolkit {.center}
+
+- Language: Python
+- Dependency management: uv
+- IDE: VS Code/Jupyter Notebooks (or your preferred IDE)
+- Version Control: Git, GitHub Desktop
+
+## Python {.center}
+
+- What is Python?
+
+## Dependency Management  {.center}
+
+- Dependency management
+  - Why?
+  - The role virtual environments play
+  - Why we're recommending uv (including a mention of conda)
+
+## IDE {.center}
+
+
+
+## Version Control  {.center}
+
+- Version control (how to get these materials)
+
+## Python Project Workflow {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+How to set up a Python project
+
+# Feedback {.center}
+
+# Thank You! {.center}
+
+Contact:
+<br>
+
+<ul >
+{{< fa solid envelope >}} [paul.johnson50@nhs.net](mailto: paul.johnson50@nhs.net)
+</ul>
+
+
+Code & Slides:
+<br>
+
+<ul >
+{{< fa brands github >}}[/NHS-South-Central-and-West/simulation-based-tests](https://github.com/nhs-south-central-and-west/simulation-based-tests)
+</ul>

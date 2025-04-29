@@ -26,7 +26,7 @@ website:
         contents:
           - href: resources/ncf.qmd
             text: National Competency Framework
-      - section: "Intro to Python for Data Analysts"
+      - section: "Sessions"
         contents:
           - href: sessions/01-onboarding/index.qmd
             text: Python Onboarding
