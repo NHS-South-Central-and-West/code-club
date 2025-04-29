@@ -14,9 +14,6 @@ on:
       permissions:
         contents: write
       pull-requests: write
-      defaults:
-      run:
-        working-directory: ./.github/workflows
       steps:
         - name: Checkout repository
           uses: actions/checkout@v4
@@ -24,7 +21,7 @@ on:
         - name: Set up Quarto
           uses: quarto-dev/quarto-actions/setup@v2
 
-        - name: Render
+        - name: Render Quarto
           uses: quarto-dev/quarto-actions/render@v2
 
         - name: Deploy PR Preview

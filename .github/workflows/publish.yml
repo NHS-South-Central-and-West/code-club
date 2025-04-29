@@ -10,6 +10,9 @@ on:
       runs-on: ubuntu-latest
       permissions:
         contents: write
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       steps:
         - name: Check out repository
           uses: actions/checkout@v4
@@ -17,9 +20,12 @@ on:
         - name: Set up Quarto
           uses: quarto-dev/quarto-actions/setup@v2
 
-        - name: Render and Publish
-          uses: quarto-dev/quarto-actions/publish@v2
+        - name: Render Quarto
+          uses: quarto-dev/quarto-actions/render@v2
+
+        - name: Deploy Quarto
+          uses: JamesIves/github-pages-deploy-action@v4
           with:
-            target: gh-pages
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            folder: _site/
+            clean-exclude: pr-preview/
+            force: false
