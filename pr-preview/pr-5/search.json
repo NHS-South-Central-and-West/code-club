@@ -1,0 +1,198 @@
+[
+  {
+    "objectID": "glossary.html",
+    "href": "glossary.html",
+    "title": "Glossary",
+    "section": "",
+    "text": "This page will have a list of definitions for commonly used (and/or commonly misunderstood) terminology and acronyms relating to python or data analysis and manipulation in general.\n\n\n\n\n\n\n\n  \n  \n  \n\n\n\n\n\n  Term\n  Definition\n  Notes and links\n\n\n\n  \n    Exploratory Data Analysis (EDA)\n    The process of analysing datasets to summarise their main characteristics, often using visual methods, before formal modeling.\n    \n  \n  \n    Functional programming\n    A programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.\n    \n  \n  \n    Git\n    A distributed version control system used to track changes in source code during software development.\n    \n  \n  \n    Github\n    A cloud-based platform that provides hosting for repositories of files and folders (usually of software code) using git as its backend for version control.\n    website\n  \n  \n    JuPyter\n    A software package that allows the creation of python notebooks that can include a mixture of markdown-formatted text and live Python code.\n    \n  \n  \n    Markdown (.md)\n    A simple plain-text markup scheme designed to allow for rapid production of formatted text (with headings, links, etc) within a plaintext file. Used by Quarto (as a Quarto-specific flavour with the .qmd extension).\n    \n  \n  \n    matplotlib\n    The baseline Python library for creating static, animated, and interactive visualisations, offering extensive customisation options for plots and charts. Also used as a framework for more advanced or visually pleasing visualisation packages like seaborn.\n    \n  \n  \n    Object-oriented programming (OOP)\n    A programming paradigm based on the concept of \"objects,\" which can contain data and code to manipulate that data.\n    \n  \n  \n    pandas\n    A python data analysis and manipulation library for working with dataframes (tabular data)\n    website\n  \n  \n    Python\n    A general-purpose programming language\n    website\n  \n  \n    Regression\n    A method for modeling the relationship between a dependent variable and one or more independent variables. It it used to predictoutcomes and understand the impact of changes in predictor variables on the response variable.\n    \n  \n  \n    Repository (repo)\n    In git and github, a repository is a self-contained \"project\" of files and folders.\n    \n  \n  \n    Reproducible Analytical Pipelines (RAP)\n    A set of processes and tools designed to ensure that data analysis can be consistently repeated and verified by others.\n    \n  \n  \n    seaborn (sns)\n    A Python data visualisation library based on Matplotlib, providing a high-level interface for drawing attractive and informative statistical graphics.\n    website\n  \n  \n    TOML\n    Tom's Obvious Minimal Language - simple, human-readable data serialisation format designed for configuration files, emphasizing readability and ease of use. Used by uv to specify its projects.\n    \n  \n  \n    uv\n    A Python package manager, which can manage python projects (folders) and manage the installation and management of the python environment and libraries within that folder.\n    website\n  \n  \n    YAML\n    Yet Another Markup Language - a human-readable data serialisation format often used for configuration files and data exchange between languages.",
+    "crumbs": [
+      "Glossary"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#what-to-expect",
+    "href": "sessions/01-onboarding/slides.html#what-to-expect",
+    "title": "Python Onboarding",
+    "section": "What to Expect?",
+    "text": "What to Expect?\n\nLearning a language is hard. It is frustrating. Perseverance is key.\nThese sessions will introduce you to Python, showing you what is possible and how to achieve some of what might be beneficial in your work.\nBut the real learning comes by doing. You need to run the code yourself, have a play around, and really cement what you’ve learned by applying it."
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#why-learn-python",
+    "href": "sessions/01-onboarding/slides.html#why-learn-python",
+    "title": "Python Onboarding",
+    "section": "Why Learn Python?",
+    "text": "Why Learn Python?\n\nCoding skills generally and Python specifically seem to be a priority in the NHS right now. It’s a clear direction of travel. Learning now sets you up for the future.\nPython and the applied skills taught in these sessions will enable you to use advanced methods and design flexible, scalable solutions.\nPython is very valuable for career development.\nIt is (hopefully) fun!"
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#the-toolkit",
+    "href": "sessions/01-onboarding/slides.html#the-toolkit",
+    "title": "Python Onboarding",
+    "section": "The Toolkit",
+    "text": "The Toolkit\n\nWe will be using the following tools throughout this course:\n\nLanguage: Python\nDependency management: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)"
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#python",
+    "href": "sessions/01-onboarding/slides.html#python",
+    "title": "Python Onboarding",
+    "section": "Python",
+    "text": "Python\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nit is also well-suited to front-end development, automation, and orchestration."
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#dependency-management",
+    "href": "sessions/01-onboarding/slides.html#dependency-management",
+    "title": "Python Onboarding",
+    "section": "Dependency Management",
+    "text": "Dependency Management\n\nDependency management refers to the process of tracking and managing all of the packages (dependencies) that a project needs to run. It ensures:\n\nThe right packages are installed.\nThe correct versions are used.\nConflicts between packages are avoided.\n\nWe are using uv for dependency management."
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#virtual-environments",
+    "href": "sessions/01-onboarding/slides.html#virtual-environments",
+    "title": "Python Onboarding",
+    "section": "Virtual Environments",
+    "text": "Virtual Environments\n\nVirtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system. They help by:\n\nKeeping dependencies separate for each project.\nAvoiding version conflicts between projects.\nMaking dependency management more predictable and reproducible.\n\nVirtual environments are a part of dependency management, and we will use uv to manage both the dependencies and virtual environments."
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#version-control",
+    "href": "sessions/01-onboarding/slides.html#version-control",
+    "title": "Python Onboarding",
+    "section": "Version Control",
+    "text": "Version Control\n\nVersion control is the practice of tracking and managing changes to code or files over time, allowing you to:\n\nRevert to earlier versions if needed.\nCollaborate with others on the same project easily.\nMaintain a history of changes.\n\nWe are using Git (the version control system) and GitHub (the platform for hosting our work)."
+  },
+  {
+    "objectID": "sessions/01-onboarding/slides.html#ide",
+    "href": "sessions/01-onboarding/slides.html#ide",
+    "title": "Python Onboarding",
+    "section": "IDE",
+    "text": "IDE\n\nAn IDE (Integrated Development Environment) is a fully-featured tool that provides everything you need to write code as conveniently as possible.\nIt typically includes a code editor, debugger, build tools, and features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, and Positron.\nWe will use VS Code or Jupyter Notebooks (which is not exactly an IDE, but similar)."
+  },
+  {
+    "objectID": "resources/ncf.html",
+    "href": "resources/ncf.html",
+    "title": "National Competency Framework",
+    "section": "",
+    "text": "We have mapped the contents of the syllabus to competencies in the National Competency Framework for Data Professionals in Health and Care so that you can see which sessions will help you on your way towards them.\nFor full details of the skills in the framework, the self-assessment tool can be found on FutureNHS.\nPlease note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.\n\n\n\n\n\n\n\n  \n  \n  \n  \n  \n  \n\n\n\n\n\n  Session Number\n  Session Date\n  Module\n  Session Name\n  Description\n  NCF Competency\n\n\n\n  \n    1\n    22/04/2025\n    N/A\n    Nectar Re-Launch\n    Showcasing the re-launch of Code Club\n    -\n  \n  \n    2\n    01/05/2025\n    On-boarding\n     Python On-boarding\n    What to install, basic virtual environment management, introduction to VS Code\n    SA21 : Python Proficiency\n  \n  \n    3\n    15/05/2025\n    On-boarding\n    Jupyter Notebooks\n    Demonstration of Jupyter Notebooks\n    SA21 : Python Proficiency\n  \n  \n    4\n    29/05/2025\n    Visualisation\n    EDA and Visualisations\n    Introduction to Exploratory Data Analysis and how to visualise it\n    SA4 : Descriptive and Explicative Analytics\n  \n  \n    5\n    12/06/2025\n    Visualisation\n    Visualisation with Seaborn\n    Aesthetically-pleasing visualisations\n    SA1 : Data Visualisation\n  \n  \n    6\n    26/06/2025\n    Core concepts\n    Data Types\n    Introduction to Data Types\n    SA21 : Python Proficiency\n  \n  \n    7\n    10/07/2025\n    Core concepts\n    Control Flow\n    Introduction to Control Flow\n    SA21 : Python Proficiency\n  \n  \n    8\n    24/07/2025\n    Core concepts\n    Functions & Functional Programming\n    Introduction to Functions and Functional Programming\n    SA21 : Python Proficiency\n  \n  \n    9\n    07/08/2025\n    Core concepts\n    Object-Oriented Programming\n    Introduction to Object-Oriented Programming\n    SA21 : Python Proficiency\n  \n  \n    10\n    21/08/2025\n    Visualisation\n    Streamlit dashboards\n    How to present data (visualisations) in a Streamlit dashboard\n    SA1 : Data Visualisation\n  \n  \n    11\n    04/09/2025\n    Data Science\n    Comparing Samples\n    Understanding data distributions and comparisons between samples\n    SA4 : Descriptive and Explicative Analytics\n  \n  \n    12\n    18/09/2025\n    Data Science\n    Analysing Relationships\n    Quantifying relationships with hypothesis tests and statistical significance\n    SA15 : Hypothesis Testing\n  \n  \n    13\n    02/10/2025\n    Data Science\n    Introduction to Linear Regression\n    Introduction to regression concepts and the component parts of linear regression\n    SA7 : Advanced Statistics\n  \n  \n    14\n    16/10/2025\n    Data Science\n    Implementing Linear Regression\n    Building linear models, assessing model fit, and interpreting coefficients\n    SA7 : Advanced Statistics\n  \n  \n    15\n    30/10/2025\n    Data Science\n    Beyond Linearity\n    Introduction to generalised linear regression models\n    SA7 : Advanced Statistics",
+    "crumbs": [
+      "Resources",
+      "National Competency Framework"
+    ]
+  },
+  {
+    "objectID": "schedule.html",
+    "href": "schedule.html",
+    "title": "Schedule",
+    "section": "",
+    "text": "This is the schedule for Code Club in FY25/26.\nMaterials, including presentations and coding notebooks, have been made available in the associated GitHub repository and recordings of the sessions will be accessible via the Recording Link.\nThe Demonstration, Presentation, and Notebook columns indicate the content to be expected for each session:\n\nDemonstration: A live show-and-tell relating to the discussion topic.\nPresentation: A slide deck covering the discussion topic.\nNotebook: A Jupyter Notebook containing code-along elements or examples for people to work through after the session.\n\nTutorials will be divided into Modules. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.\nSessions have been mapped to the National Competency Framework for Data Professionals in Health and Care, see more information here\n\n\n\n\n\n\n\n  \n  \n  \n  \n  \n  \n  \n  \n  \n  \n\n\n\n\n\n  Session Number\n  Session Date\n  Module\n  Session Name\n  Description\n  Demonstration\n  Presentation\n  Notebook\n  GitHub Link\n  Recording Link\n\n\n\n  \n    1\n    22/04/2025\n    N/A\n    Nectar Re-Launch\n    Showcasing the re-launch of Code Club\n    🎬\n    💻\n    -\n    Nectar Re-Launch\n    \n  \n  \n    2\n    01/05/2025\n    On-boarding\n     Python On-boarding\n    What to install, basic virtual environment management, introduction to VS Code\n    🎬\n    -\n    -\n    \n    \n  \n  \n    3\n    15/05/2025\n    On-boarding\n    Jupyter Notebooks\n    Demonstration of Jupyter Notebooks\n    🎬\n    -\n    📖\n    \n    \n  \n  \n    4\n    29/05/2025\n    Visualisation\n    EDA and Visualisations\n    Introduction to Exploratory Data Analysis and how to visualise it\n    🎬\n    -\n    📖\n    \n    \n  \n  \n    5\n    12/06/2025\n    Visualisation\n    Visualisation with Seaborn\n    Aesthetically-pleasing visualisations\n    🎬\n    -\n    📖\n    \n    \n  \n  \n    6\n    26/06/2025\n    Core concepts\n    Data Types\n    Introduction to Data Types\n    -\n    💻\n    📖\n    \n    \n  \n  \n    7\n    10/07/2025\n    Core concepts\n    Control Flow\n    Introduction to Control Flow\n    -\n    💻\n    📖\n    \n    \n  \n  \n    8\n    24/07/2025\n    Core concepts\n    Functions & Functional Programming\n    Introduction to Functions and Functional Programming\n    -\n    💻\n    📖\n    \n    \n  \n  \n    9\n    07/08/2025\n    Core concepts\n    Object-Oriented Programming\n    Introduction to Object-Oriented Programming\n    -\n    💻\n    📖\n    \n    \n  \n  \n    10\n    21/08/2025\n    Visualisation\n    Streamlit dashboards\n    How to present data (visualisations) in a Streamlit dashboard\n    -\n    -\n    -\n    \n    \n  \n  \n    11\n    04/09/2025\n    Data Science\n    Comparing Samples\n    Understanding data distributions and comparisons between samples\n    -\n    💻\n    📖\n    \n    \n  \n  \n    12\n    18/09/2025\n    Data Science\n    Analysing Relationships\n    Quantifying relationships with hypothesis tests and statistical significance\n    -\n    💻\n    📖\n    \n    \n  \n  \n    13\n    02/10/2025\n    Data Science\n    Introduction to Linear Regression\n    Introduction to regression concepts and the component parts of linear regression\n    -\n    💻\n    📖\n    \n    \n  \n  \n    14\n    16/10/2025\n    Data Science\n    Implementing Linear Regression\n    Building linear models, assessing model fit, and interpreting coefficients\n    🎬\n    💻\n    📖\n    \n    \n  \n  \n    15\n    30/10/2025\n    Data Science\n    Beyond Linearity\n    Introduction to generalised linear regression models\n    🎬\n    💻\n    📖",
+    "crumbs": [
+      "Schedule"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html",
+    "href": "sessions/01-onboarding/index.html",
+    "title": "Python Onboarding",
+    "section": "",
+    "text": "Use the left ⬅️ and right ➡️ arrow keys to navigate through slides.",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#session-slides",
+    "href": "sessions/01-onboarding/index.html#session-slides",
+    "title": "Python Onboarding",
+    "section": "",
+    "text": "Use the left ⬅️ and right ➡️ arrow keys to navigate through slides.",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#the-tools-you-will-need",
+    "href": "sessions/01-onboarding/index.html#the-tools-you-will-need",
+    "title": "Python Onboarding",
+    "section": "The Tools You Will Need",
+    "text": "The Tools You Will Need\n\nLanguage: Python\nDependency management: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#python",
+    "href": "sessions/01-onboarding/index.html#python",
+    "title": "Python Onboarding",
+    "section": "Python",
+    "text": "Python\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nit is also well-suited to front-end development, automation, and orchestration.",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#dependency-management",
+    "href": "sessions/01-onboarding/index.html#dependency-management",
+    "title": "Python Onboarding",
+    "section": "Dependency Management",
+    "text": "Dependency Management\nDependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.\nIt ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#virtual-environments",
+    "href": "sessions/01-onboarding/index.html#virtual-environments",
+    "title": "Python Onboarding",
+    "section": "Virtual Environments",
+    "text": "Virtual Environments\nVirtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.\nUsing a virtual environment for every project is necessary because Python’s dependencies can be volatile, and keeping each project in a walled off space away from all other projects keeps all your work safe and stable.\nThey help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#version-control",
+    "href": "sessions/01-onboarding/index.html#version-control",
+    "title": "Python Onboarding",
+    "section": "Version Control",
+    "text": "Version Control\n\nVersion control is the practice of tracking and managing changes to code or files over time, allowing you to:\n\nRevert to earlier versions if needed.\nCollaborate with others without overwriting work.\nMaintain a history of changes.",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#ide",
+    "href": "sessions/01-onboarding/index.html#ide",
+    "title": "Python Onboarding",
+    "section": "IDE",
+    "text": "IDE\n\nAn IDE (Integrated Development Environment) is software that provides tools for writing, testing, and debugging code in one place.\nIt typically includes a code editor, debugger, and build tools, often with features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, and Positron.\nWe will use VS Code or Jupyter Notebooks (which are not a full IDE but are used for writing code).",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#project-setup",
+    "href": "sessions/01-onboarding/index.html#project-setup",
+    "title": "Python Onboarding",
+    "section": "Project Setup",
+    "text": "Project Setup\n\nWalk through of how to set up a project\n\nSetup with uv (uv init, uv add, uv sync?)\nCreate a notebook (see if I can get IT to fix so can use uv)\nRun some simple code as evidence of setup",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome to Code Club!",
+    "section": "",
+    "text": "Brought to you by the Specialist Analytics Team\nYou can find our Teams channel here\n\nMission statement\nHere at Code Club our main aim is to bring more advanced analytical skills to the organisation, and we believe that the best medium for this is interpretive dance coding. We want to foster a programming ecosystem at SCW so that we can all learn from each other and improve the way we do things together. The Code Club syllabus has been designed to support people with little-to-no coding experience with extending their analytical skills and driving efficiency through the automation of day-to-day tasks. We believe that these are indispensable skills in an ever-changing NHS landscape, where delivering high quality insights efficiently, economically and systematically is more essential than ever. This won’t merely be a series of lectures; it will be a place to spark ideas and nurture collaboration.\n\n\nWhat to expect\nSessions will be an hour long, held once per fortnight- 2:00 PM on a Thursday. Each hour will cover a topic from the syllabus, followed by a time for a Q & A with your Code Club hosts, whether that’s on the theme of the day or troubleshooting any coding issues you have run into. Aside from that, Code Clubbers are welcome to submit requests to cover a topic of interest -or indeed be a guest speaker themselves! -and we will find the best week for it to fit in around the syllabus. Most of the syllabus will be delivered with Python as the main programming language, but that isn’t to say that other languages won’t feature and won’t be welcome. If you want to get an idea of what we will be covering and see if it is right for you, head to the Schedule page.\nCredit for the Code Club logo goes to our erstwhile colleague Jeffrey Morgan-Harrisskitt",
+    "crumbs": [
+      "Welcome!"
+    ]
+  }
+]
