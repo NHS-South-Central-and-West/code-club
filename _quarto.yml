@@ -40,7 +40,7 @@ format:
     toc: true # table of contents
     code-copy: true
   revealjs:
-    author: Specialist Analytics Team
+    author: Specialist Analytics Team (SAT)
     menu: false
     controls: true
     section-divs: true
