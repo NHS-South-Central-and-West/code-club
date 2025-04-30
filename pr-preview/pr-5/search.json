@@ -28,14 +28,14 @@
     "href": "sessions/01-onboarding/slides.html#the-toolkit",
     "title": "Python Onboarding",
     "section": "The Toolkit",
-    "text": "The Toolkit\n\nWe will be using the following tools throughout this course:\n\nLanguage: Python\nDependency management: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)"
+    "text": "The Toolkit\n\nWe will be using the following tools throughout this course:\n\nLanguage: Python\nDependency management: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)\n\nYou can install all these tools by running the following in PowerShell:\n\nwinget install astral-sh.uv Microsoft.VisualStudioCode github-desktop"
   },
   {
     "objectID": "sessions/01-onboarding/slides.html#python",
     "href": "sessions/01-onboarding/slides.html#python",
     "title": "Python Onboarding",
     "section": "Python",
-    "text": "Python\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nit is also well-suited to front-end development, automation, and orchestration."
+    "text": "Python\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nIt is also well-suited to front-end development, automation, and orchestration."
   },
   {
     "objectID": "sessions/01-onboarding/slides.html#dependency-management",
@@ -91,7 +91,7 @@
     "href": "sessions/01-onboarding/index.html",
     "title": "Python Onboarding",
     "section": "",
-    "text": "Use the left ⬅️ and right ➡️ arrow keys to navigate through slides.",
+    "text": "Use the left ⬅️ and right ➡️ arrow keys to navigate through slides below. To view in a separate tab/window, follow this link.",
     "crumbs": [
       "Sessions",
       "Python Onboarding"
@@ -102,7 +102,7 @@
     "href": "sessions/01-onboarding/index.html#session-slides",
     "title": "Python Onboarding",
     "section": "",
-    "text": "Use the left ⬅️ and right ➡️ arrow keys to navigate through slides.",
+    "text": "Use the left ⬅️ and right ➡️ arrow keys to navigate through slides below. To view in a separate tab/window, follow this link.",
     "crumbs": [
       "Sessions",
       "Python Onboarding"
@@ -113,7 +113,7 @@
     "href": "sessions/01-onboarding/index.html#the-tools-you-will-need",
     "title": "Python Onboarding",
     "section": "The Tools You Will Need",
-    "text": "The Tools You Will Need\n\nLanguage: Python\nDependency Management & Virtual Environments: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)\n\nYou can install all the tools you’ll need using the following one liner run in PowerShell:\nwinget install astral-sh.uv Microsoft.VisualStudioCode github-desktop\n\nPython\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nit is also well-suited to front-end development, automation, and orchestration.\n\n\n\n\nDependency Management\nDependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.\nIt ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.\n\n\nVirtual Environments\nVirtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.\nUsing a virtual environment for every project is necessary because Python’s dependencies can be volatile, and keeping each project in a walled off space away from all other projects keeps all your work safe and stable.\nThey help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.\n\n\nVersion Control\n\nVersion control is the practice of tracking and managing changes to code or files over time, allowing you to:\n\nRevert to earlier versions if needed.\nCollaborate with others without overwriting work.\nMaintain a history of changes.\n\n\n\n\nIDE\n\nAn IDE (Integrated Development Environment) is software that provides tools for writing, testing, and debugging code in one place.\nIt typically includes a code editor, debugger, and build tools, often with features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, and Positron.\nWe will use VS Code or Jupyter Notebooks (which are not a full IDE but are used for writing code).",
+    "text": "The Tools You Will Need\nWhile the focus of this course is on Python, there are several other tools that we will be using throughout.\n\nLanguage: Python\nDependency Management & Virtual Environments: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)\n\nYou can install all the tools you’ll need by running the following one liner run in PowerShell:\nwinget install astral-sh.uv Microsoft.VisualStudioCode github-desktop\n\nPython\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nit is also well-suited to front-end development, automation, and orchestration.\n\n\n\n\nDependency Management\nDependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.\nIt ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.\n\n\nVirtual Environments\nVirtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.\nUsing a virtual environment for every project is necessary because Python’s dependencies can be volatile, and keeping each project in a walled off space away from all other projects keeps all your work safe and stable.\nThey help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.\n\n\nVersion Control\n\nVersion control is the practice of tracking and managing changes to code or files over time, allowing you to:\n\nRevert to earlier versions if needed.\nCollaborate with others without overwriting work.\nMaintain a history of changes.\n\n\n\n\nIDE\n\nAn IDE (Integrated Development Environment) is software that provides tools for writing, testing, and debugging code in one place.\nIt typically includes a code editor, debugger, and build tools, often with features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, and Positron.\nWe will use VS Code or Jupyter Notebooks (which are not a full IDE but are used for writing code).",
     "crumbs": [
       "Sessions",
       "Python Onboarding"
@@ -124,7 +124,18 @@
     "href": "sessions/01-onboarding/index.html#project-setup",
     "title": "Python Onboarding",
     "section": "Project Setup",
-    "text": "Project Setup\n\nWalk through of how to set up a project\n\nSetup with uv (uv init, uv add, uv sync?)\nCreate a notebook (see if I can get IT to fix so can use uv)\nRun some simple code as evidence of setup",
+    "text": "Project Setup\nEvery new Python project should start with using uv to set up a virtual environment for the project. This keeps everything neat and tidy, and reduces the risk of finding yourself in dependency hell.\nThe entire process for setting up a project can be handled in the command line. We will use PowerShell for consistency.\nWhen you open a PowerShell window, it should open in your C drive (ie C:\\Users\\user.name). If it does not, run cd ~, and it should return to your root directory.\nWe will create a new uv project in the root directory1, using the command uv init. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called test-project, use the following command:\nuv init test-project\nHaving created this new directory, navigate to it using cd test-project. You can check the files in a directory using the command ls. If you run this command, you will see that there are three files in the project directory (hello.py, pyproject.toml, and README.md). The project doesn’t yet have a Python installation or a virtual environment, but this will be added when we add external Python packages.\nYou can install Python packages using the command uv add. We can add some common Python packages that we will use in most projects (pandas, numpy, seaborn) using the following command:\nuv add pandas numpy seaborn\nThe output from this command will reference the Python installation that has been used and the creation of a virtual environment directory .venv. Now, if you run ls, you will see that there are two new items in the directory, uv.lock and .venv.\nYour Python project is now set up and you are ready to start writing some code.\nFor more information about creating and managing projects using uv, check out the uv documentation.",
+    "crumbs": [
+      "Sessions",
+      "Python Onboarding"
+    ]
+  },
+  {
+    "objectID": "sessions/01-onboarding/index.html#footnotes",
+    "href": "sessions/01-onboarding/index.html#footnotes",
+    "title": "Python Onboarding",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWe recommend using the C drive for all Python projects, especially if using version control, because storing projects like these on One Drive will create a lot of unnecessary issues.↩︎",
     "crumbs": [
       "Sessions",
       "Python Onboarding"

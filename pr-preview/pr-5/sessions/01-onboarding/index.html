@@ -204,19 +204,20 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="session-slides" class="level2">
 <h2 class="anchored" data-anchor-id="session-slides">Session Slides</h2>
-<p>Use the left ⬅️ and right ➡️ arrow keys to navigate through slides.</p>
+<p>Use the left ⬅️ and right ➡️ arrow keys to navigate through slides below. To view in a separate tab/window, <a href="slides.html">follow this link</a>.</p>
 <iframe src="slides.html" style="border:1px;" height="500" width="100%">
 </iframe>
 </section>
 <section id="the-tools-you-will-need" class="level2">
 <h2 class="anchored" data-anchor-id="the-tools-you-will-need">The Tools You Will Need</h2>
+<p>While the focus of this course is on Python, there are several other tools that we will be using throughout.</p>
 <ul>
 <li>Language: <a href="https://www.python.org/">Python</a></li>
 <li>Dependency Management &amp; Virtual Environments: <a href="https://docs.astral.sh/uv/">uv</a></li>
 <li>Version Control: <a href="https://git-scm.com/">Git</a>, <a href="https://github.com/apps/desktop">GitHub Desktop</a></li>
 <li>IDE: <a href="https://code.visualstudio.com/">VS Code</a>/<a href="https://jupyter.org/">Jupyter Notebooks</a> (or your preferred IDE)</li>
 </ul>
-<p>You can install all the tools you’ll need using the following one liner run in PowerShell:</p>
+<p>You can install all the tools you’ll need by running the following one liner run in PowerShell:</p>
 <p><code>winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop</code></p>
 <section id="python" class="level3">
 <h3 class="anchored" data-anchor-id="python">Python</h3>
@@ -263,19 +264,28 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="project-setup" class="level2">
 <h2 class="anchored" data-anchor-id="project-setup">Project Setup</h2>
-<ul>
-<li>Walk through of how to set up a project
-<ul>
-<li>Setup with uv (uv init, uv add, uv sync?)</li>
-<li>Create a notebook (see if I can get IT to fix so can use uv)</li>
-<li>Run some simple code as evidence of setup</li>
-</ul></li>
-</ul>
+<p>Every new Python project should start with using uv to set up a virtual environment for the project. This keeps everything neat and tidy, and reduces the risk of finding yourself in dependency hell.</p>
+<p>The entire process for setting up a project can be handled in the command line. We will use PowerShell for consistency.</p>
+<p>When you open a PowerShell window, it should open in your C drive (ie <code>C:\Users\user.name</code>). If it does not, run <code>cd ~</code>, and it should return to your root directory.</p>
+<p>We will create a new uv project in the root directory<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, using the command <code>uv init</code>. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called <code>test-project</code>, use the following command:</p>
+<p><code>uv init test-project</code></p>
+<p>Having created this new directory, navigate to it using <code>cd test-project</code>. You can check the files in a directory using the command <code>ls</code>. If you run this command, you will see that there are three files in the project directory (<code>hello.py</code>, <code>pyproject.toml</code>, and <code>README.md</code>). The project doesn’t yet have a Python installation or a virtual environment, but this will be added when we add external Python packages.</p>
+<p>You can install Python packages using the command <code>uv add</code>. We can add some common Python packages that we will use in most projects (pandas, numpy, seaborn) using the following command:</p>
+<p><code>uv add pandas numpy seaborn</code></p>
+<p>The output from this command will reference the Python installation that has been used and the creation of a virtual environment directory <code>.venv</code>. Now, if you run <code>ls</code>, you will see that there are two new items in the directory, <code>uv.lock</code> and <code>.venv</code>.</p>
+<p>Your Python project is now set up and you are ready to start writing some code.</p>
+<p>For more information about creating and managing projects using uv, check out the <a href="https://docs.astral.sh/uv/guides/projects/#creating-a-new-project">uv documentation</a>.</p>
 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>We recommend using the C drive for all Python projects, especially if using version control, because storing projects like these on One Drive will create a lot of unnecessary issues.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
