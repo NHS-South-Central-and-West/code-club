@@ -227,18 +227,33 @@ ul.task-list li input[type="checkbox"] {
 <section id="dependency-management" class="level3">
 <h3 class="anchored" data-anchor-id="dependency-management">Dependency Management</h3>
 <p>One of Python’s greatest weaknesses is dependency management. Despite its many strengths, there is no escaping the dependency hell that every Python user faces.</p>
-<p>Dependency management refers to the process of tracking and managing all of the packages (dependencies) a project needs to run. It is a consideration in any programming language. It ensures: &nbsp; - The right packages are installed. &nbsp; - The correct versions are used. &nbsp; - Conflicts between packages are avoided.</p>
+<p>Dependency management refers to the process of tracking and managing all of the packages (dependencies) a project needs to run. It is a consideration in any programming language. It ensures:</p>
+<ul>
+<li>The right packages are installed.</li>
+<li>The correct versions are used.</li>
+<li>Conflicts between packages are avoided.</li>
+</ul>
 <p>There are many reasons that Python handles dependency management so poorly, but there are some tools that make this a little easier on users. We are using uv for dependency management. It is relatively new, but it is quickly becoming the consensus tool for dependency management in Python because it makes the process about as painless as it can be without moving to a different language entirely.</p>
 <section id="virtual-environments" class="level4">
 <h4 class="anchored" data-anchor-id="virtual-environments">Virtual Environments</h4>
 <p>Virtual environments are a component of dependency management. Dependency management becomes much messier when you have many Python projects, each using their own packages, some overlapping and some requiring specific versions, either for compatibility or functionality reasons. Reducing some of this friction by isolating each project in its own virtual environment, like each project is walled off from all other projects, makes dependency management a little easier. Virtual environments allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.</p>
-<p>Virtual environments help by: &nbsp; - Keeping dependencies separate for each project. &nbsp; - Avoiding version conflicts between projects. &nbsp; - Making dependency management more predictable and reproducible.</p>
+<p>Virtual environments help by:</p>
+<ul>
+<li>Keeping dependencies separate for each project.</li>
+<li>Avoiding version conflicts between projects.</li>
+<li>Making dependency management more predictable and reproducible.</li>
+</ul>
 <p>We will use uv to manage all dependencies, virtual environments, and even versions of Python.</p>
 </section>
 </section>
 <section id="version-control" class="level3">
 <h3 class="anchored" data-anchor-id="version-control">Version Control</h3>
-<p>Version control is the practice of tracking and managing changes to code or files over time, allowing you to: &nbsp; - Revert to earlier versions if needed. &nbsp; - Collaborate with others on the same project easily. &nbsp; - Maintain a history of changes.</p>
+<p>Version control is the practice of tracking and managing changes to code or files over time, allowing you to:</p>
+<ul>
+<li>Revert to earlier versions if needed.</li>
+<li>Collaborate with others on the same project easily.</li>
+<li>Maintain a history of changes.</li>
+</ul>
 <p>We are using Git, a version control system, to host our work and GitHub Desktop to manage version control locally.</p>
 <p>Version control and Git are topics entirely in their own right, and covering them in detail is out of the scope of this session. We hope to cover version control in a future session, but right now, you just need to be able to access materials for these sessions. You can find the materials in the <a href="https://github.com/NHS-South-Central-and-West/code-club">Code Club repository</a>.</p>
 <p>If you have downloaded GitHub Desktop, the easiest way to access these materials and keep up-to-date is by cloning the Code Club repository (go to File, then Clone Repository, select URL, and paste the Code Club repository link in the URL field). You can then ensure that the materials you are using are the most current by clicking the Fetch Origin button in GitHub Desktop, which grabs the changes we’ve made from the central repository on GitHub.</p>
@@ -246,7 +261,14 @@ ul.task-list li input[type="checkbox"] {
 <section id="ide" class="level3">
 <h3 class="anchored" data-anchor-id="ide">IDE</h3>
 <p>IDEs (Integrated Development Environments) are software that simplifies programming and development by combining many of the most common tasks and helpful features for programming into a single tool. These typically include a code editor, debugging functionality, build tools, and features like syntax highlighting and code completion. When you start your code journey, you might not need all these tools, and fully-featured IDEs can be overwhelming. But as you become more comfortable with programming, all these different features will become very valuable.</p>
-<p>Some common IDEs that are used for Python include: &nbsp; - VS Code &nbsp; - PyCharm &nbsp; - Vim &nbsp; - Jupyter Notebooks/JupyterLab &nbsp; - Positron</p>
+<p>Some common IDEs that are used for Python include:</p>
+<ul>
+<li>VS Code</li>
+<li>PyCharm</li>
+<li>Vim</li>
+<li>Jupyter Notebooks/JupyterLab</li>
+<li>Positron</li>
+</ul>
 <p>We will use VS Code or Jupyter Notebooks (which is not exactly an IDE but is similar).</p>
 </section>
 </section>
