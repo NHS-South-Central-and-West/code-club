@@ -63,5 +63,20 @@ format:
     fig-align: center
     output-location: column
 
+editor: source
+
 execute:
   freeze: auto
+  echo: true
+  warning: false
+
+revealjs-plugins:
+  - verticator
+
+title-slide-attributes:
+    data-background-image: "images/scw_logo.jpg"
+    data-background-position: "right 5% bottom 5%"
+    data-background-size: "22%"
+    data-background-opacity: "1"
+
+from: markdown+emoji
