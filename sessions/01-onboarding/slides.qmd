@@ -29,13 +29,15 @@ Everything you will need to get started
   - Dependency management: uv
   - Version Control: Git, GitHub Desktop
   - IDE: VS Code/Jupyter Notebooks (or your preferred IDE)
+- You can install all these tools by running the following in PowerShell:
+  - `winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop`
 
 ## Python {.center}
 
 - Python is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.
 - Python's popularity is owed to its flexibility -- it is the second best tool for every job.
 - It is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.
-  - it is also well-suited to front-end development, automation, and orchestration.
+  - It is also well-suited to front-end development, automation, and orchestration.
 
 ## Dependency Management {.center}
 
@@ -90,4 +92,4 @@ Code & Slides:
 </ul>
 <br>
 
-Don't forget to give us your [feedback](https://forms.office.com/Pages/ResponsePage.aspx?id=slTDN7CF9UeyIge0jXdO4xKzhJuIdf5Jn6lo2Sj712VUOUQwRVkyQVVORjBXS0I3VjEwRkZZVUFWUC4u&r9c3b3920176d417fa3de7c78342c76ea=%2201%20-%20Onboarding%22).
+Don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
