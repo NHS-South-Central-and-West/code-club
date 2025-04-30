@@ -5,18 +5,20 @@ format: html
 
 ## Session Slides
 
-Use the left ⬅️ and right ➡️ arrow keys to navigate through slides.
+Use the left ⬅️ and right ➡️ arrow keys to navigate through slides below. To view in a separate tab/window, [follow this link](slides.html).
 
 <iframe src="slides.html" style="border:1px;" height="500" width="100%"></iframe>
 
 ## The Tools You Will Need
+
+While the focus of this course is on Python, there are several other tools that we will be using throughout.
 
 - Language: [Python](https://www.python.org/)
 - Dependency Management & Virtual Environments: [uv](https://docs.astral.sh/uv/)
 - Version Control: [Git](https://git-scm.com/), [GitHub Desktop](https://github.com/apps/desktop)
 - IDE: [VS Code](https://code.visualstudio.com/)/[Jupyter Notebooks](https://jupyter.org/) (or your preferred IDE)
 
-You can install all the tools you'll need using the following one liner run in PowerShell:
+You can install all the tools you'll need by running the following one liner run in PowerShell:
 
 `winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop`
 
@@ -63,9 +65,28 @@ They help by:
 
 ## Project Setup
 
-- Walk through of how to set up a project
-  - Setup with uv (uv init, uv add, uv sync?)
-  - Create a notebook (see if I can get IT to fix so can use uv)
-  - Run some simple code as evidence of setup
+Every new Python project should start with using uv to set up a virtual environment for the project. This keeps everything neat and tidy, and reduces the risk of finding yourself in dependency hell.
 
+The entire process for setting up a project can be handled in the command line. We will use PowerShell for consistency.
 
+When you open a PowerShell window, it should open in your C drive (ie `C:\Users\user.name`). If it does not, run `cd ~`, and it should return to your root directory.
+
+We will create a new uv project in the root directory[^Root], using the command `uv init`. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called `test-project`, use the following command:
+
+`uv init test-project`
+
+Having created this new directory, navigate to it using `cd test-project`. You can check the files in a directory using the command `ls`. If you run this command, you will see that there are three files in the project directory (`hello.py`, `pyproject.toml`, and `README.md`). The project doesn't yet have a Python installation or a virtual environment, but this will be added when we add external Python packages.
+
+You can install Python packages using the command `uv add`. We can add some common Python packages that we will use in most projects (pandas, numpy, seaborn) using the following command:
+
+`uv add pandas numpy seaborn`
+
+The output from this command will reference the Python installation that has been used and the creation of a virtual environment directory `.venv`. Now, if you run `ls`, you will see that there are two new items in the directory, `uv.lock` and `.venv`.
+
+Your Python project is now set up and you are ready to start writing some code.
+
+For more information about creating and managing projects using uv, check out the [uv documentation](https://docs.astral.sh/uv/guides/projects/#creating-a-new-project).
+
+[^Root]:
+
+We recommend using the C drive for all Python projects, especially if using version control, because storing projects like these on One Drive will create a lot of unnecessary issues.
