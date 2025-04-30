@@ -1,7 +1,7 @@
 ---
 title: "Python Onboarding"
 subtitle: "Getting Started with Python & Using the Right Tools"
-footer: '**Specialist Analytics Team //** Python Onboarding **//** May 01, 2025'
+footer: '**SAT //** Python Onboarding **//** May 01, 2025'
 format: revealjs
 ---
 
