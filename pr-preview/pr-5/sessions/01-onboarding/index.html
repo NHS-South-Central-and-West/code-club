@@ -168,12 +168,14 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#session-slides" id="toc-session-slides" class="nav-link active" data-scroll-target="#session-slides">Session Slides</a></li>
-  <li><a href="#the-tools-you-will-need" id="toc-the-tools-you-will-need" class="nav-link" data-scroll-target="#the-tools-you-will-need">The Tools You Will Need</a></li>
+  <li><a href="#the-tools-you-will-need" id="toc-the-tools-you-will-need" class="nav-link" data-scroll-target="#the-tools-you-will-need">The Tools You Will Need</a>
+  <ul class="collapse">
   <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
   <li><a href="#dependency-management" id="toc-dependency-management" class="nav-link" data-scroll-target="#dependency-management">Dependency Management</a></li>
   <li><a href="#virtual-environments" id="toc-virtual-environments" class="nav-link" data-scroll-target="#virtual-environments">Virtual Environments</a></li>
   <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">Version Control</a></li>
   <li><a href="#ide" id="toc-ide" class="nav-link" data-scroll-target="#ide">IDE</a></li>
+  </ul></li>
   <li><a href="#project-setup" id="toc-project-setup" class="nav-link" data-scroll-target="#project-setup">Project Setup</a></li>
   </ul>
 </nav>
@@ -209,14 +211,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="the-tools-you-will-need" class="level2">
 <h2 class="anchored" data-anchor-id="the-tools-you-will-need">The Tools You Will Need</h2>
 <ul>
-<li>Language: Python</li>
-<li>Dependency management: uv</li>
-<li>Version Control: Git, GitHub Desktop</li>
-<li>IDE: VS Code/Jupyter Notebooks (or your preferred IDE)</li>
+<li>Language: <a href="https://www.python.org/">Python</a></li>
+<li>Dependency Management &amp; Virtual Environments: <a href="https://docs.astral.sh/uv/">uv</a></li>
+<li>Version Control: <a href="https://git-scm.com/">Git</a>, <a href="https://github.com/apps/desktop">GitHub Desktop</a></li>
+<li>IDE: <a href="https://code.visualstudio.com/">VS Code</a>/<a href="https://jupyter.org/">Jupyter Notebooks</a> (or your preferred IDE)</li>
 </ul>
-</section>
-<section id="python" class="level2">
-<h2 class="anchored" data-anchor-id="python">Python</h2>
+<p>You can install all the tools you’ll need using the following one liner run in PowerShell:</p>
+<p><code>winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop</code></p>
+<section id="python" class="level3">
+<h3 class="anchored" data-anchor-id="python">Python</h3>
 <ul>
 <li>Python is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.</li>
 <li>Python’s popularity is owed to its flexibility – it is the second best tool for every job.</li>
@@ -226,19 +229,19 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="dependency-management" class="level2">
-<h2 class="anchored" data-anchor-id="dependency-management">Dependency Management</h2>
+<section id="dependency-management" class="level3">
+<h3 class="anchored" data-anchor-id="dependency-management">Dependency Management</h3>
 <p>Dependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.</p>
 <p>It ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.</p>
 </section>
-<section id="virtual-environments" class="level2">
-<h2 class="anchored" data-anchor-id="virtual-environments">Virtual Environments</h2>
+<section id="virtual-environments" class="level3">
+<h3 class="anchored" data-anchor-id="virtual-environments">Virtual Environments</h3>
 <p>Virtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.</p>
 <p>Using a virtual environment for every project is necessary because Python’s dependencies can be volatile, and keeping each project in a walled off space away from all other projects keeps all your work safe and stable.</p>
 <p>They help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.</p>
 </section>
-<section id="version-control" class="level2">
-<h2 class="anchored" data-anchor-id="version-control">Version Control</h2>
+<section id="version-control" class="level3">
+<h3 class="anchored" data-anchor-id="version-control">Version Control</h3>
 <ul>
 <li>Version control is the practice of tracking and managing changes to code or files over time, allowing you to:
 <ul>
@@ -248,14 +251,15 @@ ul.task-list li input[type="checkbox"] {
 </ul></li>
 </ul>
 </section>
-<section id="ide" class="level2">
-<h2 class="anchored" data-anchor-id="ide">IDE</h2>
+<section id="ide" class="level3">
+<h3 class="anchored" data-anchor-id="ide">IDE</h3>
 <ul>
 <li>An IDE (Integrated Development Environment) is software that provides tools for writing, testing, and debugging code in one place.</li>
 <li>It typically includes a code editor, debugger, and build tools, often with features like syntax highlighting and code completion.</li>
 <li>Some common IDEs used for Python include VS Code, PyCharm, and Positron.</li>
 <li>We will use VS Code or Jupyter Notebooks (which are not a full IDE but are used for writing code).</li>
 </ul>
+</section>
 </section>
 <section id="project-setup" class="level2">
 <h2 class="anchored" data-anchor-id="project-setup">Project Setup</h2>

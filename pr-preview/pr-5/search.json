@@ -113,62 +113,7 @@
     "href": "sessions/01-onboarding/index.html#the-tools-you-will-need",
     "title": "Python Onboarding",
     "section": "The Tools You Will Need",
-    "text": "The Tools You Will Need\n\nLanguage: Python\nDependency management: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)",
-    "crumbs": [
-      "Sessions",
-      "Python Onboarding"
-    ]
-  },
-  {
-    "objectID": "sessions/01-onboarding/index.html#python",
-    "href": "sessions/01-onboarding/index.html#python",
-    "title": "Python Onboarding",
-    "section": "Python",
-    "text": "Python\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nit is also well-suited to front-end development, automation, and orchestration.",
-    "crumbs": [
-      "Sessions",
-      "Python Onboarding"
-    ]
-  },
-  {
-    "objectID": "sessions/01-onboarding/index.html#dependency-management",
-    "href": "sessions/01-onboarding/index.html#dependency-management",
-    "title": "Python Onboarding",
-    "section": "Dependency Management",
-    "text": "Dependency Management\nDependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.\nIt ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.",
-    "crumbs": [
-      "Sessions",
-      "Python Onboarding"
-    ]
-  },
-  {
-    "objectID": "sessions/01-onboarding/index.html#virtual-environments",
-    "href": "sessions/01-onboarding/index.html#virtual-environments",
-    "title": "Python Onboarding",
-    "section": "Virtual Environments",
-    "text": "Virtual Environments\nVirtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.\nUsing a virtual environment for every project is necessary because Python’s dependencies can be volatile, and keeping each project in a walled off space away from all other projects keeps all your work safe and stable.\nThey help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.",
-    "crumbs": [
-      "Sessions",
-      "Python Onboarding"
-    ]
-  },
-  {
-    "objectID": "sessions/01-onboarding/index.html#version-control",
-    "href": "sessions/01-onboarding/index.html#version-control",
-    "title": "Python Onboarding",
-    "section": "Version Control",
-    "text": "Version Control\n\nVersion control is the practice of tracking and managing changes to code or files over time, allowing you to:\n\nRevert to earlier versions if needed.\nCollaborate with others without overwriting work.\nMaintain a history of changes.",
-    "crumbs": [
-      "Sessions",
-      "Python Onboarding"
-    ]
-  },
-  {
-    "objectID": "sessions/01-onboarding/index.html#ide",
-    "href": "sessions/01-onboarding/index.html#ide",
-    "title": "Python Onboarding",
-    "section": "IDE",
-    "text": "IDE\n\nAn IDE (Integrated Development Environment) is software that provides tools for writing, testing, and debugging code in one place.\nIt typically includes a code editor, debugger, and build tools, often with features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, and Positron.\nWe will use VS Code or Jupyter Notebooks (which are not a full IDE but are used for writing code).",
+    "text": "The Tools You Will Need\n\nLanguage: Python\nDependency Management & Virtual Environments: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)\n\nYou can install all the tools you’ll need using the following one liner run in PowerShell:\nwinget install astral-sh.uv Microsoft.VisualStudioCode github-desktop\n\nPython\n\nPython is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.\nPython’s popularity is owed to its flexibility – it is the second best tool for every job.\nIt is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.\n\nit is also well-suited to front-end development, automation, and orchestration.\n\n\n\n\nDependency Management\nDependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.\nIt ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.\n\n\nVirtual Environments\nVirtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.\nUsing a virtual environment for every project is necessary because Python’s dependencies can be volatile, and keeping each project in a walled off space away from all other projects keeps all your work safe and stable.\nThey help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.\n\n\nVersion Control\n\nVersion control is the practice of tracking and managing changes to code or files over time, allowing you to:\n\nRevert to earlier versions if needed.\nCollaborate with others without overwriting work.\nMaintain a history of changes.\n\n\n\n\nIDE\n\nAn IDE (Integrated Development Environment) is software that provides tools for writing, testing, and debugging code in one place.\nIt typically includes a code editor, debugger, and build tools, often with features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, and Positron.\nWe will use VS Code or Jupyter Notebooks (which are not a full IDE but are used for writing code).",
     "crumbs": [
       "Sessions",
       "Python Onboarding"
