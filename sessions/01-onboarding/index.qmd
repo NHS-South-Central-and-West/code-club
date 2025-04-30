@@ -40,9 +40,10 @@ Skills Report](https://www.hackerrank.com/blog/most-popular-languages-2024/), an
 One of Python's greatest weaknesses is dependency management. Despite its many strengths, there is no escaping the dependency hell that every Python user faces.
 
 Dependency management refers to the process of tracking and managing all of the packages (dependencies) a project needs to run. It is a consideration in any programming language. It ensures:
-  - The right packages are installed.
-  - The correct versions are used.
-  - Conflicts between packages are avoided.
+
+- The right packages are installed.
+- The correct versions are used.
+- Conflicts between packages are avoided.
 
 There are many reasons that Python handles dependency management so poorly, but there are some tools that make this a little easier on users. We are using uv for dependency management. It is relatively new, but it is quickly becoming the consensus tool for dependency management in Python because it makes the process about as painless as it can be without moving to a different language entirely.
 
@@ -51,18 +52,20 @@ There are many reasons that Python handles dependency management so poorly, but 
 Virtual environments are a component of dependency management. Dependency management becomes much messier when you have many Python projects, each using their own packages, some overlapping and some requiring specific versions, either for compatibility or functionality reasons. Reducing some of this friction by isolating each project in its own virtual environment, like each project is walled off from all other projects, makes dependency management a little easier. Virtual environments allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.
 
 Virtual environments help by:
-  - Keeping dependencies separate for each project.
-  - Avoiding version conflicts between projects.
-  - Making dependency management more predictable and reproducible.
+
+- Keeping dependencies separate for each project.
+- Avoiding version conflicts between projects.
+- Making dependency management more predictable and reproducible.
 
 We will use uv to manage all dependencies, virtual environments, and even versions of Python.
 
 ### Version Control
 
 Version control is the practice of tracking and managing changes to code or files over time, allowing you to:
-  - Revert to earlier versions if needed.
-  - Collaborate with others on the same project easily.
-  - Maintain a history of changes.
+
+- Revert to earlier versions if needed.
+- Collaborate with others on the same project easily.
+- Maintain a history of changes.
 
 We are using Git, a version control system, to host our work and GitHub Desktop to manage version control locally.
 
@@ -75,11 +78,12 @@ If you have downloaded GitHub Desktop, the easiest way to access these materials
 IDEs (Integrated Development Environments) are software that simplifies programming and development by combining many of the most common tasks and helpful features for programming into a single tool. These typically include a code editor, debugging functionality, build tools, and features like syntax highlighting and code completion. When you start your code journey, you might not need all these tools, and fully-featured IDEs can be overwhelming. But as you become more comfortable with programming, all these different features will become very valuable.
 
 Some common IDEs that are used for Python include:
-  - VS Code
-  - PyCharm
-  - Vim
-  - Jupyter Notebooks/JupyterLab
-  - Positron
+
+- VS Code
+- PyCharm
+- Vim
+- Jupyter Notebooks/JupyterLab
+- Positron
 
 We will use VS Code or Jupyter Notebooks (which is not exactly an IDE but is similar).
 

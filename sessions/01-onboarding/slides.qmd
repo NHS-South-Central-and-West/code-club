@@ -25,42 +25,42 @@ Everything you will need to get started
 ## The Toolkit {.center}
 
 - We will be using the following tools throughout this course:
-  - Language: Python
-  - Dependency management: uv
-  - Version Control: Git, GitHub Desktop
-  - IDE: VS Code/Jupyter Notebooks (or your preferred IDE)
+  - Language: Python
+  - Dependency management: uv
+  - Version Control: Git, GitHub Desktop
+  - IDE: VS Code/Jupyter Notebooks (or your preferred IDE)
 - You can install all these tools by running the following in PowerShell:
-  - `winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop`
+  - `winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop`
 
 ## Python {.center}
 
 - Python is an all-purpose programming language that is the most popular worldwide and widely used in almost every industry.
 - Python's popularity is owed to its flexibility -- it is the second-best tool for every job.
 - It is a strong choice for data science and analytics, being one of the best languages for data wrangling, data visualisation, statistics, and machine learning.
-  - It is also well-suited to web development, scientific computing, and automation.
+  - It is also well-suited to web development, scientific computing, and automation.
 
 ## Dependency Management {.center}
 
 - Dependency management refers to the process of tracking and managing all of the packages (dependencies) a project needs to run. It ensures:
-  - The right packages are installed.
-  - The correct versions are used.
-  - Conflicts between packages are avoided.
+  - The right packages are installed.
+  - The correct versions are used.
+  - Conflicts between packages are avoided.
 - We are using uv for dependency management.
 
 ## Virtual Environments {.center}
 
 - Virtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system. They help by:
-  - Keeping dependencies separate for each project.
-  - Avoiding version conflicts between projects.
-  - Making dependency management more predictable and reproducible.
+  - Keeping dependencies separate for each project.
+  - Avoiding version conflicts between projects.
+  - Making dependency management more predictable and reproducible.
 - Virtual environments are a part of dependency management, and we will use uv to manage both the dependencies and virtual environments.
 
 ## Version Control {.center}
 
 - Version control is the practice of tracking and managing changes to code or files over time, allowing you to:
-  - Revert to earlier versions if needed.
-  - Collaborate with others on the same project easily.
-  - Maintain a history of changes.
+  - Revert to earlier versions if needed.
+  - Collaborate with others on the same project easily.
+  - Maintain a history of changes.
 - We are using Git (the version control system) and GitHub (the platform for hosting our work).
 
 ## IDE {.center}
@@ -76,6 +76,7 @@ A Walkthrough of the Python Project Workflow
 
 # Thank You! {.center}
 
+<br>
 Contact:
 <br>
 
@@ -92,4 +93,4 @@ Code & Slides:
 </ul>
 <br>
 
-Don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
