@@ -11,19 +11,23 @@ Use the left ⬅️ and right ➡️ arrow keys to navigate through slides.
 
 ## The Tools You Will Need
 
-- Language: Python
-- Dependency management: uv
-- Version Control: Git, GitHub Desktop
-- IDE: VS Code/Jupyter Notebooks (or your preferred IDE)
+- Language: [Python](https://www.python.org/)
+- Dependency Management & Virtual Environments: [uv](https://docs.astral.sh/uv/)
+- Version Control: [Git](https://git-scm.com/), [GitHub Desktop](https://github.com/apps/desktop)
+- IDE: [VS Code](https://code.visualstudio.com/)/[Jupyter Notebooks](https://jupyter.org/) (or your preferred IDE)
 
-## Python
+You can install all the tools you'll need using the following one liner run in PowerShell:
+
+`winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop`
+
+### Python
 
 - Python is a an all-purpose programming language that is the most popular language in the world, widely used in almost every industry.
 - Python's popularity is owed to its flexibility -- it is the second best tool for every job.
 - It is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.
   - it is also well-suited to front-end development, automation, and orchestration.
 
-## Dependency Management
+### Dependency Management
 
 Dependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.
 
@@ -32,7 +36,7 @@ It ensures:
   - The correct versions are used.
   - Conflicts between packages are avoided.
 
-## Virtual Environments
+### Virtual Environments
 
 Virtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.
 
@@ -43,14 +47,14 @@ They help by:
   - Avoiding version conflicts between projects.
   - Making dependency management more predictable and reproducible.
 
-## Version Control
+### Version Control
 
 - Version control is the practice of tracking and managing changes to code or files over time, allowing you to:
   - Revert to earlier versions if needed.
   - Collaborate with others without overwriting work.
   - Maintain a history of changes.
 
-## IDE
+### IDE
 
 - An IDE (Integrated Development Environment) is software that provides tools for writing, testing, and debugging code in one place.
 - It typically includes a code editor, debugger, and build tools, often with features like syntax highlighting and code completion.
