@@ -172,7 +172,6 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#python" id="toc-python" class="nav-link" data-scroll-target="#python">Python</a></li>
   <li><a href="#dependency-management" id="toc-dependency-management" class="nav-link" data-scroll-target="#dependency-management">Dependency Management</a></li>
-  <li><a href="#virtual-environments" id="toc-virtual-environments" class="nav-link" data-scroll-target="#virtual-environments">Virtual Environments</a></li>
   <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">Version Control</a></li>
   <li><a href="#ide" id="toc-ide" class="nav-link" data-scroll-target="#ide">IDE</a></li>
   </ul></li>
@@ -205,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="session-slides" class="level2">
 <h2 class="anchored" data-anchor-id="session-slides">Session Slides</h2>
 <p>Use the left ⬅️ and right ➡️ arrow keys to navigate through slides below. To view in a separate tab/window, <a href="slides.html">follow this link</a>.</p>
-<iframe src="slides.html" style="border:1px;" height="500" width="100%">
+<iframe src="slides.html" height="500" width="100%">
 </iframe>
 </section>
 <section id="the-tools-you-will-need" class="level2">
@@ -226,31 +225,28 @@ ul.task-list li input[type="checkbox"] {
 <li>Python’s popularity is owed to its flexibility – it is the second best tool for every job.</li>
 <li>It is a strong choice for data science and analytics, being one of or the best language for data wrangling, data visualisation, statistics, and machine learning.
 <ul>
-<li>it is also well-suited to front-end development, automation, and orchestration.</li>
+<li>It is also well-suited to front-end development, automation, and orchestration.</li>
 </ul></li>
 </ul>
 </section>
 <section id="dependency-management" class="level3">
 <h3 class="anchored" data-anchor-id="dependency-management">Dependency Management</h3>
-<p>Dependency management in Python refers to the process of tracking, installing, and updating the external packages (dependencies) that your project needs to run correctly.</p>
-<p>It ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.</p>
+<p>One of Python’s greatest weaknesses is dependency management. For all of Python’s many strengths, there is no escaping the dependency hell that is a challenge facing every Python user.</p>
+<p>Dependency management refers to the process of tracking and managing all of the packages (dependencies) that a project needs to run. It is a consideration in any programming language. It ensures: - The right packages are installed. - The correct versions are used. - Conflicts between packages are avoided.</p>
+<p>There are lots of reasons that Python handles dependency management so poorly, but there are some tools that make this a little easier on users. We are using uv for dependency management. It is relatively new but it is quickly becoming the consensus tool for dependency management in Python because it makes the process about as painless as it can be without moving to a different language entirely.</p>
+<section id="virtual-environments" class="level4">
+<h4 class="anchored" data-anchor-id="virtual-environments">Virtual Environments</h4>
+<p>Virtual environments are a component in dependency management. Dependency management becomes much messier when you have many Python projects each using their own packages, some of which are overlapping and some of which require certain versions, either for compatibility or functionality reasons. Reducing some of this friction by isolating each project in its own virtual environment, like each project is walled off from all other projects, makes dependency management a little easier. Virtual environments allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.</p>
+<p>Virtual environments help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.</p>
+<p>We will use uv for all dependency management, managing virtual environments, and even managing Python versions.</p>
 </section>
-<section id="virtual-environments" class="level3">
-<h3 class="anchored" data-anchor-id="virtual-environments">Virtual Environments</h3>
-<p>Virtual environments are isolated Python environments that allow you to manage dependencies for a specific project without the state of those dependencies affecting other projects or your wider system.</p>
-<p>Using a virtual environment for every project is necessary because Python’s dependencies can be volatile, and keeping each project in a walled off space away from all other projects keeps all your work safe and stable.</p>
-<p>They help by: - Keeping dependencies separate for each project. - Avoiding version conflicts between projects. - Making dependency management more predictable and reproducible.</p>
 </section>
 <section id="version-control" class="level3">
 <h3 class="anchored" data-anchor-id="version-control">Version Control</h3>
-<ul>
-<li>Version control is the practice of tracking and managing changes to code or files over time, allowing you to:
-<ul>
-<li>Revert to earlier versions if needed.</li>
-<li>Collaborate with others without overwriting work.</li>
-<li>Maintain a history of changes.</li>
-</ul></li>
-</ul>
+<p>Version control is the practice of tracking and managing changes to code or files over time, allowing you to: - Revert to earlier versions if needed. - Collaborate with others on the same project easily. - Maintain a history of changes.</p>
+<p>We are using the version control system Git the platform for hosting our work, GitHub, and we are using GitHub Desktop to manage version control locally.</p>
+<p>Version control and Git are an entire topic in their own right and covering them in detail is out of scope for this session. We are hoping to cover version control in a future session, but right now you just need to be able to access materials for these sessions. You can find the materials in the <a href="https://github.com/NHS-South-Central-and-West/code-club">Code Club repository</a>.</p>
+<p>If you have downloaded GitHub Desktop, the easiest way to access these materials and keep up-to-date is by cloning the Code Club repository (go to File, then Clone Repository, select URL, and paste the Code Club repository link in the URL field). You can then make sure that the materials you are using are the most current by clicking the Fetch Origin button in GitHub Desktop, which grabs the changes we’ve made from the central repository on GitHub.</p>
 </section>
 <section id="ide" class="level3">
 <h3 class="anchored" data-anchor-id="ide">IDE</h3>
@@ -270,10 +266,10 @@ ul.task-list li input[type="checkbox"] {
 <p>We will create a new uv project in the root directory<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, using the command <code>uv init</code>. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called <code>test-project</code>, use the following command:</p>
 <p><code>uv init test-project</code></p>
 <p>Having created this new directory, navigate to it using <code>cd test-project</code>. You can check the files in a directory using the command <code>ls</code>. If you run this command, you will see that there are three files in the project directory (<code>hello.py</code>, <code>pyproject.toml</code>, and <code>README.md</code>). The project doesn’t yet have a Python installation or a virtual environment, but this will be added when we add external Python packages.</p>
-<p>You can install Python packages using the command <code>uv add</code>. We can add some common Python packages that we will use in most projects (pandas, numpy, seaborn) using the following command:</p>
-<p><code>uv add pandas numpy seaborn</code></p>
+<p>You can install Python packages using the command <code>uv add</code>. We can add some common Python packages that we will use in most projects (pandas, numpy, seaborn, and ipykernel<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>) using the following command:</p>
+<p><code>uv add pandas numpy seaborn ipykernel</code></p>
 <p>The output from this command will reference the Python installation that has been used and the creation of a virtual environment directory <code>.venv</code>. Now, if you run <code>ls</code>, you will see that there are two new items in the directory, <code>uv.lock</code> and <code>.venv</code>.</p>
-<p>Your Python project is now set up and you are ready to start writing some code.</p>
+<p>Your Python project is now set up and you are ready to start writing some code. You can open VS Code from your PowerShell window by running <code>code .</code>.</p>
 <p>For more information about creating and managing projects using uv, check out the <a href="https://docs.astral.sh/uv/guides/projects/#creating-a-new-project">uv documentation</a>.</p>
 
 
@@ -284,6 +280,7 @@ ul.task-list li input[type="checkbox"] {
 
 <ol>
 <li id="fn1"><p>We recommend using the C drive for all Python projects, especially if using version control, because storing projects like these on One Drive will create a lot of unnecessary issues.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Strictly speaking, we should install ipykernel as a development dependency (a dependency that is needed for any development but not when the project is put into production). In this case, we would add it by running <code>uv add --dev ipykernel</code>. However, in this case it is simpler to just add it as a regular dependency and doesn’t do any harm.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
