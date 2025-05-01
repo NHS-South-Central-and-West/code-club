@@ -7,9 +7,10 @@ format: revealjs
 
 ## What to Expect? {.center}
 
-- Learning a language is hard. It is frustrating. Perseverance is key.
+- Learning a language is hard. It can be frustrating. Perseverance is key to success.
 - These sessions will introduce you to Python, showing you what is possible and how to achieve some of what might benefit your work.
 - But the real learning comes by doing. You need to run the code yourself, have a play around, and cement what you've learned by applying it.
+- Practice, repetition, and making mistakes along the way is how real progress is made.
 
 ## Why Learn Python? {.center}
 
