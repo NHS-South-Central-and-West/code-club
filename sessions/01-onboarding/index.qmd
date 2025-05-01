@@ -125,8 +125,8 @@ To open your newly-created `uv` project in VS Code, launch the application and c
 
 Once VS Code realises you've opened a folder with Python code and a virtual environment, it should do the following:
 
-1. Suggest you install the Python and Jupyter *extension* offered by Microsoft - go ahead and do this. If this doesn't happen, you can install them manually from the *Extensions* pane on the left-hand side.
+1. Suggest you install the Python *extension* (and, once you've created a Jupyter notebook, the Jupyter one) offered by Microsoft - go ahead and do this. If this doesn't happen, you can install extensions manually from the *Extensions* pane on the left-hand side.
 2. Select the `uv`-created `.venv` as the python Environment we're going to use to actually run our code. If this doesn't happen, press `ctrl-shift-P`, type "python environment" to find the `Python - Create Environment...` option, hit enter, choose "Venv" and proceed to "Use Existing".
 
-If all has gone well, you should be able to hit the "play" icon in the top right to execute `main.py`. The *TerminaL* pane should open up below and display something like `Hello from (your-project-name)!`.
+If all has gone well, you should be able to hit the "play" icon in the top right to execute `main.py`. The *Terminal* pane should open up below and display something like `Hello from (your-project-name)!`.
 
