@@ -175,7 +175,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#version-control" id="toc-version-control" class="nav-link" data-scroll-target="#version-control">Version Control</a></li>
   <li><a href="#ide" id="toc-ide" class="nav-link" data-scroll-target="#ide">IDE</a></li>
   </ul></li>
-  <li><a href="#project-setup" id="toc-project-setup" class="nav-link" data-scroll-target="#project-setup">Project Setup</a></li>
+  <li><a href="#project-setup" id="toc-project-setup" class="nav-link" data-scroll-target="#project-setup">Project Setup</a>
+  <ul class="collapse">
+  <li><a href="#opening-your-project-in-vs-code" id="toc-opening-your-project-in-vs-code" class="nav-link" data-scroll-target="#opening-your-project-in-vs-code">Opening your project in VS Code</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -285,8 +288,18 @@ ul.task-list li input[type="checkbox"] {
 <p>The output from this command will reference the Python installation used and the creation of a virtual environment directory <code>.venv</code>. Now, if you run <code>ls</code>, you will see two new items in the directory, <code>uv.lock</code> and <code>.venv</code>.</p>
 <p>Your Python project is now set up, and you are ready to start writing some code. You can open VS Code from your PowerShell window by running <code>code .</code>.</p>
 <p>For more information about creating and managing projects using uv, check out the <a href="https://docs.astral.sh/uv/guides/projects/#creating-a-new-project">uv documentation</a>.</p>
+<section id="opening-your-project-in-vs-code" class="level3">
+<h3 class="anchored" data-anchor-id="opening-your-project-in-vs-code">Opening your project in VS Code</h3>
+<p>To open your newly-created <code>uv</code> project in VS Code, launch the application and click <code>File &gt; Open Folder...</code>. You’ll want to make sure you select the <em>root</em> level of your project. Once you’ve opened the folder, the file navigation pane in VS Code should display the files that <code>uv</code> has created, including a <code>main.py</code> example file. Click on this to open it.</p>
+<p>Once VS Code realises you’ve opened a folder with Python code and a virtual environment, it should do the following:</p>
+<ol type="1">
+<li>Suggest you install the Python and Jupyter <em>extension</em> offered by Microsoft - go ahead and do this. If this doesn’t happen, you can install them manually from the <em>Extensions</em> pane on the left-hand side.</li>
+<li>Select the <code>uv</code>-created <code>.venv</code> as the python Environment we’re going to use to actually run our code. If this doesn’t happen, press <code>ctrl-shift-P</code>, type “python environment” to find the <code>Python - Create Environment...</code> option, hit enter, choose “Venv” and proceed to “Use Existing”.</li>
+</ol>
+<p>If all has gone well, you should be able to hit the “play” icon in the top right to execute <code>main.py</code>. The <em>TerminaL</em> pane should open up below and display something like <code>Hello from (your-project-name)!</code>.</p>
 
 
+</section>
 </section>
 
 
