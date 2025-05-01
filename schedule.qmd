@@ -16,7 +16,7 @@ The **Demonstration**, **Presentation**, and **Notebook** columns indicate the c
 
 Tutorials will be divided into **Modules**. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.
 
-Sessions have been mapped to the National Competency Framework for Data Professionals in Health and Care, see more information [here](/docs/resources/ncf.html)
+Sessions have been mapped to the National Competency Framework for Data Professionals in Health and Care, see more information [here](/resources/ncf.html)
 
 ::: column-screen-inset-right
 ```{python schedule_table}
