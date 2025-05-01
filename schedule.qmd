@@ -1,5 +1,6 @@
 ---
 title: "Schedule"
+format: html
 execute:
     echo: false
 ---

@@ -1,5 +1,6 @@
 ---
 title: Page Not Found
+format: html
 ---
 
 ![](images/404_man_vs_giant_dark_souls3.jpg){fig-align="left"}

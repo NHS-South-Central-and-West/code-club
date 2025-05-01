@@ -1,5 +1,6 @@
 ---
 title: "Welcome to Code Club!"
+format: html
 ---
 
 Brought to you by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)
