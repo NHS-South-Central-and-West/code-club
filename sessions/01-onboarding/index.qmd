@@ -7,7 +7,7 @@ This is the first session of Code Club's relaunch. It focuses on giving users al
 
 ## Session Slides
 
-Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html).
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
 
 <iframe src="slides.html" height="500" width="100%"></iframe>
 
