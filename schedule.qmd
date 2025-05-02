@@ -22,7 +22,8 @@ We have mapped the contents of the syllabus to competencies in the National Comp
 **Please note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.**
 
 ::: column-screen-inset
-```{python schedule_table}
+```{python}
+#| label: schedule_table
 
 import polars as pl
 from great_tables import GT, html, style, loc
@@ -111,8 +112,5 @@ COLUMN_WIDTHS = {
     )
     .opt_row_striping()
 )
-
-
-
 ```
 :::
