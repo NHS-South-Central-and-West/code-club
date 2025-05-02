@@ -1,16 +1,29 @@
 ---
-title: "Welcome to Code Club!"
+title: Welcome to Code Club!
+
+about:
+  template: jolla
+  image: images/code_club_snot_pink.png
+  image-shape: rectangle
+  links:
+    - icon: envelope-at-fill
+      aria-label: Email
+      href: mailto:scwcsu.analytics.specialist@nhs.net
+    - icon: microsoft-teams
+      aria-label: Microsoft Teams
+      href: https://teams.microsoft.com/l/channel/19%3Ade1e6d9a00c94b7ea473b8ab34546c14%40thread.tacv2/General?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3
+    - icon: github
+      aria-label: GitHub
+      href: https://github.com/NHS-South-Central-and-West
+
+
 format: html
 ---
 
-Brought to you by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)
-
-You can find our Teams channel [here](https://teams.microsoft.com/l/channel/19%3Ade1e6d9a00c94b7ea473b8ab34546c14%40thread.tacv2/General?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3)
-
-# Mission statement
 Here at Code Club our main aim is to bring more advanced analytical skills to the organisation, and we believe that the best medium for this is ~~interpretive dance~~ coding. We want to foster a programming ecosystem at SCW so that we can all learn from each other and improve the way we do things together. The Code Club syllabus has been designed to support people with little-to-no coding experience with extending their analytical skills and driving efficiency through the automation of day-to-day tasks. We believe that these are indispensable skills in an ever-changing NHS landscape, where delivering high quality insights efficiently, economically and systematically is more essential than ever. This won't merely be a series of lectures; it will be a place to spark ideas and nurture collaboration.
 
-# What to expect
+## What to Expect
+
 Sessions will be an hour long, held once per fortnight- 2:00 PM on a Thursday. Each hour will cover a topic from the syllabus, followed by a time for a Q & A with your Code Club hosts, whether that's on the theme of the day or troubleshooting any coding issues you have run into. Aside from that, Code Clubbers are welcome to submit requests to cover a topic of interest -or indeed be a guest speaker themselves! -and we will find the best week for it to fit in around the syllabus. Most of the syllabus will be delivered with Python as the main programming language, but that isn’t to say that other languages won’t feature and won’t be welcome. If you want to get an idea of what we will be covering and see if it is right for you, head to the [Schedule](/schedule.html) page.
 
-Credit for the Code Club logo goes to our erstwhile colleague Jeffrey Morgan-Harrisskitt
+Credit for the Code Club logo goes to our erstwhile colleague Jeffrey Morgan-Harrisskitt.
