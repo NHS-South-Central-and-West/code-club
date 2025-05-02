@@ -30,6 +30,8 @@ website:
         contents:
           - href: sessions/01-onboarding/index.qmd
             text: Python Onboarding
+          - href: sessions/10-comparing-samples/index.qmd
+            text: Regression - Comparing Samples
       - href: glossary.qmd
         text: Glossary
 

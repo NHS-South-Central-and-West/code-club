@@ -1,0 +1,343 @@
+---
+title: "Comparison - Thief of Joy?"
+format:
+  html: default
+  ipynb: default
+---
+
+This notebook walks through the process of comparing samples, demonstrating **why** comparisons matter and how we go about them, applying these ideas using data on fatal car crashes in the U.S.
+
+**We'll cover:**
+- Why we compare groups in data analysis
+- How samples differ from populations
+- How to visualize and interpret group differences
+- How to assess whether a difference is meaningful (statistically)
+
+## Why Compare?
+
+**Motivating example:**
+Imagine an online store tests two versions of its homepage: Version A and Version B. After a week, it finds Version B users spent more money on average.
+- Is that difference real, or just random chance?
+- Could we expect the same pattern next week?
+
+**Takeaway:** Comparing samples helps us decide whether patterns in our data are **meaningful** or simply **random variation**. It’s a core building block before modelling relationships.
+
+**Questions:**
+
+- What kinds of comparisons matter in your work?
+- How do you currently decide whether the difference you observe in your data is real or occurred by chance?
+- Why is it important to know if differences are real or noise?
+
+### Population vs. Sample
+
+![Source: [Martijn Wieling](https://www.let.rug.nl/wieling/Statistiek-I/HC2/)](images/popsample.png)
+
+**Key concepts:**
+
+- **Population**: the full group we're interested in (e.g. all customers, all days from 1992–2016)
+- **Sample**: a subset we actually observe or focus on (e.g. one week's users, a set of 4/20 days)
+
+If we had access to the population, comparisons would be straightforward. But we usually don’t—so we have to take a sample of the population and make inferences about the population from our sample. That means dealing with uncertainty, variation, and potential bias.
+
+To compare groups responsibly, we need to consider how sampling affects what we observe, and how it may limit our comparisons. The sample is a small snapshot of the population, and there are lots of reasons why a sample might not be representative of the wider population.
+
+
+```{python}
+#| label: population-vs-sample
+
+import numpy as np
+import random
+
+# simulate drawing 10 cards from a standard deck
+deck = list(range(1, 14)) * 4
+
+# draw two random samples of ten cards
+sample1 = random.sample(deck, 5)
+sample2 = random.sample(deck, 5)
+
+# compute sample means
+mean1 = np.mean(sample1)
+mean2 = np.mean(sample2)
+
+# compute population mean
+population_mean = np.mean(deck)
+
+print("Sample means:", mean1, mean2)
+print("Population mean:", population_mean)
+```
+
+**Question:** Why might these two sample means differ from each other—and from the deck’s true mean?
+
+**Takeaway:** Even if the process is fair, individual samples vary. This is a core challenge of inference.
+
+We rely on well-designed comparisons to manage these uncertainties, using statistical tools that help us determine whether sample-level observations likely reflect real population-level differences.
+
+## Comparing Car Crash Fatalities - High or Not?
+
+Now we can apply this logic to a real-world dataset. We will use a dataset that records the daily count of fatal U.S. car crashes from 1992–2016, taken from a [study into the effects of the annual cannabis holiday, 4/20, on fatal car accidents](https://injuryprevention.bmj.com/content/25/5/433). Previous research has concluded that fatalities are higher on 4/20, suggesting that the holiday is the cause of the increase.
+
+We are using a dataset, provided by [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-22/readme.md), which includes an indicator for April 20th (4/20). We will investigate whether 4/20 sees more crashes than expected.
+
+### Import & Process Data
+
+
+```{python}
+#| label: import-data
+
+import pandas as pd
+
+# load data
+raw_420 = pd.read_csv('data/daily_accidents_420.csv', parse_dates=['date'])
+
+# inspect data
+raw_420.head()
+```
+
+
+```{python}
+#| label: count-missing-values
+
+# count missing values
+raw_420.isna().sum()
+```
+
+
+```{python}
+#| label: inspect-missing-values
+
+# inspect missing values
+raw_420[raw_420['e420'].isna()]
+```
+
+
+```{python}
+#| label: transform-data
+
+df = (
+    raw_420
+    # convert e420 to boolean and rename
+    .assign(is_420=raw_420['e420'].astype(bool))
+    # drop missing values
+    .dropna()
+    # create boolean where TRUE if date is 07/04
+    .assign(is_4th_july=(raw_420['date'].dt.month == 7) & (raw_420['date'].dt.day == 4))
+    # select relevant columns
+    [['date', 'is_420', 'is_4th_july', 'fatalities_count']]
+)
+```
+
+
+```{python}
+#| label: check-data
+
+df.head()
+```
+
+### Visual Comparisons
+
+```{python}
+#| label: group-means
+
+df.groupby('is_420')['fatalities_count'].mean()
+```
+
+
+```{python}
+#| label: time-series
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.figure(figsize=(15, 8))
+
+# line plot of daily fatalities
+sns.lineplot(data=df, x='date', y='fatalities_count', color="#0081a7", linewidth=0.5)
+
+# scatter plot for 4/20 days, filter using .loc to avoid NA issues
+sns.scatterplot(
+    data=df.loc[df['is_420'] == True],
+    x='date', y='fatalities_count',
+    color='#ef233c', label='4/20'
+    )
+
+plt.title('Daily Fatalities (1992-2016)')
+plt.legend()
+plt.show()
+```
+
+
+```{python}
+#| label: raw-distributions
+
+plt.figure(figsize=(12, 6))
+
+# define colour palette
+custom_palette = {False: '#0081a7', True: '#ef233c'}
+
+# histogram
+plt.subplot(1, 2, 1)
+sns.histplot(data=df, x='fatalities_count', hue='is_420', kde=True, palette=custom_palette)
+plt.title('Histogram')
+
+# boxplot
+plt.subplot(1, 2, 2)
+sns.boxplot(data=df, x='is_420', y='fatalities_count', hue='is_420', palette=custom_palette, legend=False)
+plt.xticks([0, 1], ['Other days', '4/20'])
+plt.title('Boxplot')
+
+# figure title
+plt.suptitle('Distribution of Fatalities', fontsize=14)
+
+plt.tight_layout()
+plt.show()
+```
+
+The imbalance between 4/20 and other days in the year makes it impossible to really see what is going on in our histogram. We can normalise the two distributions such that the total area of both equals one. This preserves their shape but accounts for the count imbalance between the two.
+
+See the Seaborn documentation for more information: https://seaborn.pydata.org/generated/seaborn.histplot.html
+
+We can also replace the boxplot with a violin plot, which will give us a little more intuition for the shape of the two groups.
+
+```{python}
+#| label: normalised-distributions
+
+plt.figure(figsize=(12, 6))
+
+plt.subplot(1, 2, 1)
+sns.histplot(data=df, x='fatalities_count', hue='is_420', palette=custom_palette, kde=True, stat='density', common_norm=False)
+plt.title('Density-Normalised Histogram')
+
+plt.subplot(1, 2, 2)
+sns.violinplot(data=df, x='is_420', y='fatalities_count', inner='quart', hue='is_420', palette=custom_palette, legend=False)
+plt.xticks([0, 1], ['Other days', '4/20'])
+plt.title('Violin Plot')
+
+plt.suptitle('Distribution of Fatalities', fontsize=14)
+
+plt.tight_layout()
+plt.show()
+
+```
+
+**Question:** What do you notice about center, spread, or outliers?
+
+### Testing Comparisons
+
+Visual and descriptive comparisons are limited because they only tell us whether there is a difference. They don't help us infer whether those difference occurred due to random variation or if there is something real going on. Visual comparisons cannot tell us whether we should expect to observe the differences we see in our samples in the population.
+
+That's where statistical tests come in! Once we’ve visualized potential differences, we can test whether they’re statistically significant, using a two-sample *t*-test.
+
+A *t*-test is a statistical test used to compare the means of two groups to determine if the difference between them is statistically significant. It takes into account:
+
+- The size of the difference between the two group means.
+- The variability (spread) of the data within each group.
+- The sample size (number of observations in each group).
+
+The *t*-test calculates a p-value, which is the probability of observing a difference as extreme or more extreme than the one found, assuming there is no true difference between the groups in the population (i.e., the null hypothesis is true). If the p-value is small enough (below a threshold like 0.05), you reject the null hypothesis and conclude that the difference between the groups is likely real and not due to random chance.
+
+{{< video https://youtu.be/0oc49DyA3hU?si=0x24ncYVQKbJP2sY >}}
+
+```{python}
+#| label: t-test
+
+from scipy.stats import ttest_ind
+
+# create our samples for comparison
+group_420 = df.loc[df.is_420, 'fatalities_count']
+group_other = df.loc[~df.is_420, 'fatalities_count']
+
+# calculate t-statistic and p-value
+t_stat, p_val = ttest_ind(group_420, group_other, equal_var=False)
+print(f"t-statistic = {t_stat:.3f}, p-value = {p_val:.3f}")
+
+# calculate mean difference
+mean_diff = group_420.mean() - group_other.mean()
+# calculate standard errors
+se_diff = np.sqrt(
+    group_420.var(ddof=1)/len(group_420)
+    + group_other.var(ddof=1)/len(group_other)
+    )
+
+# ci_lower = mean_diff - 1.96 * se_diff
+# ci_upper = mean_diff + 1.96 * se_diff
+# print(f"Mean difference = {mean_diff:.2f} (95% CI: {ci_lower:.2f}, {ci_upper:.2f})")
+
+print(f"Mean difference = {mean_diff:.2f}")
+```
+
+**Interpretation:**
+
+- If *p* < 0.05, we reject the null that there is no true difference between the groups in the population.
+- **Here**, the *p*-value is below 0.05 — suggesting that 4/20 days see **significantly less** fatal crashes than other days. The evidence supports a real difference.
+
+{{< video https://youtu.be/vemZtEM63GY?si=8l3GMwdxxdUI2Rod >}}
+
+#### Simulation-Based Tests
+
+Let’s briefly replicate the comparison using a simulation-based method. This avoids strong distributional assumptions.
+
+
+```{python}
+#| label: simulation-function
+
+def simulate_two_groups(data1, data2):
+
+    n, m = len(data1), len(data2)
+    data = np.append(data1, data2)
+    np.random.shuffle(data)
+    group1 = data[:n]
+    group2 = data[n:]
+    return group1.mean() - group2.mean()
+```
+
+
+```{python}
+#| label: simulation-test
+
+# run 5000 simulations to test null
+np.random.seed(42)
+simulated_diffs = [simulate_two_groups(group_420, group_other) for _ in range(5000)]
+
+# observed mean difference
+observed_diff = group_420.mean() - group_other.mean()
+
+# calculate p-value
+diffs = np.array(simulated_diffs)
+p_sim = np.mean(np.abs(diffs) >= np.abs(observed_diff))
+
+# plot distribution of simulated differences with p-value
+plt.figure(figsize=(12, 6))
+sns.histplot(diffs, kde=True, color='#0081a7')
+plt.axvline(observed_diff, color='#ef233c', linewidth=3, linestyle="--", label='Observed Mean Difference')
+plt.legend(loc='upper right')
+plt.title('Simulated Mean Differences (Permutation Test)')
+
+# annotate p-value on the plot
+plt.text(
+    x=observed_diff+5,
+    y=plt.gca().get_ylim()[1]*0.9,
+    s=f'p-value = {p_sim:.4f}'
+    )
+
+plt.tight_layout()
+plt.show()
+```
+
+**Takeaway:** Simulation confirms the result and emphasizes flexibility: even when assumptions are questionable, we can still test meaningfully. It also reinforces that inference is about what would happen if we repeated the experiment many times.
+
+## Limitations of Comparison
+
+Comparing samples of data can be very useful. There is descriptive value in just knowing that differences exist in the data, and this may point to a meaningful difference in the population. However, if you are trying to understand what _caused_ the differences between the two samples, comparison is not enough.
+
+**Questions:** What might be wrong with our comparison?
+
+## Wrapping Up
+
+1. **Workflow recap:**
+   Start with a question → consider population vs. sample → visualize → compare → test → interpret.
+2. **Limits of this approach:**
+   Group comparisons are powerful, but rigid. They don’t account for multiple variables or continuous predictors. Context and sample size also matter.
+3. **Looking ahead:**
+   Next we will move from comparing means to **analysing relationships** between variables. That lets us ask new types of questions. We’ll explore how variables change **together**, detect trends, and lay the foundation for regression.
+
+**Potential extension:** Pick another potentially "special" date—e.g., July 4, New Year’s Day—and apply the same steps. Are there elevated crash counts there too? You can also explore other factors, like day of week or holiday status, to dig deeper into what might influence crash rates.
