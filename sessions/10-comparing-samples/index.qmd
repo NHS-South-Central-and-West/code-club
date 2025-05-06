@@ -24,9 +24,9 @@ Imagine an online store tests two versions of its homepage: Version A and Versio
 
 **Questions:**
 
-- What kinds of comparisons matter in your work?
+- Can you think of any healthcare-related comparisons similar to the motivating example?
 - How do you currently decide whether the difference you observe in your data is real or occurred by chance?
-- Why is it important to know if differences are real or noise?
+- Why is it important to know if differences observed in data occurred by chance?
 
 ### Population vs. Sample
 
@@ -66,7 +66,7 @@ print("Sample means:", mean1, mean2)
 print("Population mean:", population_mean)
 ```
 
-**Question:** Why might these two sample means differ from each other—and from the deck’s true mean?
+**Question:** Why are the sample means different? And why are they different from the population mean?
 
 **Takeaway:** Even if the process is fair, individual samples vary. This is a core challenge of inference.
 
@@ -219,7 +219,7 @@ plt.show()
 
 ```
 
-**Question:** What do you notice about center, spread, or outliers?
+**Question:** What do you notice about the distribution (centre, spread, outliers, etc.)?
 
 ### Testing Comparisons
 
