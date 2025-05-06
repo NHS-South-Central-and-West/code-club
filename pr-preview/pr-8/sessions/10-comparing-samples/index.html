@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.29">
+<meta name="generator" content="quarto-1.7.30">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -70,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de070a7b0ab54f8780927367ac907214.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a73b0ff70c61b05251685762fb11950f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-e630748627cf9162e6984ffcb0d6ced3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -256,9 +256,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Takeaway:</strong> Comparing samples helps us decide whether patterns in our data are <strong>meaningful</strong> or simply <strong>random variation</strong>. It’s a core building block before modelling relationships.</p>
 <p><strong>Questions:</strong></p>
 <ul>
-<li>What kinds of comparisons matter in your work?</li>
+<li>Can you think of any healthcare-related comparisons similar to the motivating example?</li>
 <li>How do you currently decide whether the difference you observe in your data is real or occurred by chance?</li>
-<li>Why is it important to know if differences are real or noise?</li>
+<li>Why is it important to know if differences observed in data occurred by chance?</li>
 </ul>
 <section id="population-vs.-sample" class="level3">
 <h3 class="anchored" data-anchor-id="population-vs.-sample">Population vs.&nbsp;Sample</h3>
@@ -296,11 +296,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample means:"</span>, mean1, mean2)</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Population mean:"</span>, population_mean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Sample means: 5.2 7.8
+<pre><code>Sample means: 7.0 6.4
 Population mean: 7.0</code></pre>
 </div>
 </div>
-<p><strong>Question:</strong> Why might these two sample means differ from each other—and from the deck’s true mean?</p>
+<p><strong>Question:</strong> Why are the sample means different? And why are they different from the population mean?</p>
 <p><strong>Takeaway:</strong> Even if the process is fair, individual samples vary. This is a core challenge of inference.</p>
 <p>We rely on well-designed comparisons to manage these uncertainties, using statistical tools that help us determine whether sample-level observations likely reflect real population-level differences.</p>
 </section>
@@ -647,7 +647,7 @@ Name: fatalities_count, dtype: float64</code></pre>
 </div>
 </div>
 </div>
-<p><strong>Question:</strong> What do you notice about center, spread, or outliers?</p>
+<p><strong>Question:</strong> What do you notice about the distribution (centre, spread, outliers, etc.)?</p>
 </section>
 <section id="testing-comparisons" class="level3">
 <h3 class="anchored" data-anchor-id="testing-comparisons">Testing Comparisons</h3>
