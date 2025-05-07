@@ -8,16 +8,21 @@ about:
   links:
     - icon: envelope-at-fill
       aria-label: Email
+      text: Email
       href: mailto:scwcsu.analytics.specialist@nhs.net
     - icon: microsoft-teams
       aria-label: Microsoft Teams
+      text: Teams
       href: https://teams.microsoft.com/l/channel/19%3Ade1e6d9a00c94b7ea473b8ab34546c14%40thread.tacv2/General?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3
     - icon: github
       aria-label: GitHub
+      text: GitHub
       href: https://github.com/NHS-South-Central-and-West
 
 
-format: html
+format:
+  html:
+    page-layout: full
 ---
 
 Here at Code Club our main aim is to bring more advanced analytical skills to the organisation, and we believe that the best medium for this is ~~interpretive dance~~ coding. We want to foster a programming ecosystem at SCW so that we can all learn from each other and improve the way we do things together. The Code Club syllabus has been designed to support people with little-to-no coding experience with extending their analytical skills and driving efficiency through the automation of day-to-day tasks. We believe that these are indispensable skills in an ever-changing NHS landscape, where delivering high quality insights efficiently, economically and systematically is more essential than ever. This won't merely be a series of lectures; it will be a place to spark ideas and nurture collaboration.
