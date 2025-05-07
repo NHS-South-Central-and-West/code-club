@@ -1,13 +1,15 @@
 ---
 title: "Glossary"
-format: html
+format:
+  html:
+    page-layout: full
 execute:
     echo: false
 ---
 
 This page will have a list of definitions for commonly used (and/or commonly misunderstood) terminology and acronyms relating to python or data analysis and manipulation in general.
 
-::: column-screen-inset
+<!-- ::: column-screen-inset -->
 ```{python}
 #| label: glossary-table
 
@@ -55,4 +57,4 @@ COLUMN_WIDTHS = {
     .opt_row_striping()
 )
 ```
-:::
+<!-- ::: -->

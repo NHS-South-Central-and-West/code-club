@@ -1,6 +1,8 @@
 ---
 title: "Schedule"
-format: html
+format:
+  html:
+    page-layout: full
 execute:
     echo: false
 ---
@@ -21,7 +23,7 @@ We have mapped the contents of the syllabus to competencies in the National Comp
 
 **Please note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.**
 
-::: column-screen-inset
+<!-- ::: column-page -->
 ```{python}
 #| label: schedule_table
 
@@ -59,7 +61,7 @@ df_processed = df.with_columns(
     .alias("Recording Link")
 )
 
-df_processed.drop(["Session Number", "GitHub","Recording"])
+df_processed.drop(["Session Number", "GitHub", "GitHub Link", "Recording", "Recording Link"])
 
 # Column Widths for table.
 # Please note that these values fit our standard Dell monitors nicely,
@@ -69,10 +71,10 @@ COLUMN_WIDTHS = {
             # "Session Number" : "100px",
             "Session Date" : "100px",
             "Module" : "100px",
-            "Session Name" : "200px",
-            "Description" : "400px",
-            "GitHub Link" : "200px",
-            "Recording Link" : "200px",
+            "Session Name" : "150px",
+            "Description" : "250px",
+            # "GitHub Link" : "200px",
+            # "Recording Link" : "200px",
             "Demonstration" : "120px",
             "Presentation" : "100px",
             "Notebook" : "100px",
@@ -94,14 +96,14 @@ COLUMN_WIDTHS = {
                 "Demonstration",
                 "Presentation",
                 "Notebook",
-                "GitHub Link",
-                "Recording Link",
+                # "GitHub Link",
+                # "Recording Link",
                 "NCF Competency"
             ]
             )
             .fill_null('-') # so that the emoji columns don't return "None" when empty
     )
-    .fmt_markdown(columns=["GitHub Link","Recording Link"]) # turns the hyperlink markdown into rendered link
+    # .fmt_markdown(columns=["GitHub Link","Recording Link"]) # turns the hyperlink markdown into rendered link
     .cols_width(COLUMN_WIDTHS)
     .tab_options(quarto_disable_processing=True) # needed to override Quarto's own table formatting
     .cols_align(align="center")
@@ -113,4 +115,4 @@ COLUMN_WIDTHS = {
     .opt_row_striping()
 )
 ```
-:::
+<!-- ::: -->
