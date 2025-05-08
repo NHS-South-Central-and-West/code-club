@@ -26,17 +26,15 @@ website:
       - text: Schedule
         aria-label: Sessions Schedule
         href: schedule.qmd
-      # - text: Resources
-      #   aria-label: Additional Resources
-      #   menu:
-      #     - text: National Competency Framework
-      #       aria-label: National Competency Framework
-      #       href: resources/ncf.qmd
       - text: Sessions
         href: sessions/01-onboarding/index.qmd
-      - text: Glossary
-        aria-label: Glossary
-        href: glossary.qmd
+      - text: Resources
+        aria-label: Additional Resources
+        menu:
+          - text: Glossary
+            aria-label: Glossary
+            href: resources/glossary.qmd
+
 
   sidebar:
     - title: Sessions

@@ -19,7 +19,9 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # import .csv
-df = pl.read_csv('data/glossary.csv')
+df = pl.read_csv('../data/glossary.csv')
+
+df.drop('Notes')
 
 # Column Widths for table.
 # Please note that these values fit our standard Dell monitors nicely,
@@ -28,7 +30,7 @@ df = pl.read_csv('data/glossary.csv')
 COLUMN_WIDTHS = {
             "Term" : "100px",
             "Definition" : "800px",
-            "Notes and links" : "200px"
+            # "Notes" : "200px"
         }
 
 # Render the table as a great_table object
@@ -39,7 +41,7 @@ COLUMN_WIDTHS = {
             [
 				"Term",
 				"Definition",
-				"Notes and links"
+				# "Notes"
             ]
             )
 		.fill_null(' ')
