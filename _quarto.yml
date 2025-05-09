@@ -74,7 +74,7 @@ format:
   html:
     theme: cosmo
     css: styles.css
-    # toc: true # table of contents
+    toc: true # table of contents
     code-copy: true
   revealjs:
     author: Specialist Analytics Team (SAT)
