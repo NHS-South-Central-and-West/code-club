@@ -9,8 +9,6 @@ execute:
 
 This is the schedule for Code Club in FY25/26.
 
-Materials, including presentations and coding notebooks, have been made available in the associated **GitHub** repository and recordings of the sessions will be accessible via the **Recording Link**.
-
 The **Demonstration**, **Presentation**, and **Notebook** columns indicate the content to be expected for each session:
 
 - **Demonstration:** A live show-and-tell relating to the discussion topic.
@@ -19,7 +17,7 @@ The **Demonstration**, **Presentation**, and **Notebook** columns indicate the c
 
 Tutorials will be divided into **Modules**. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.
 
-We have mapped the contents of the syllabus to competencies in the National Competency Framework for Data Professionals in Health and Care so that you can see which sessions will help you on your way towards them. For full details of the skills in the framework, the self-assessment tool can be found [on FutureNHS](https://future.nhs.uk/DataAnalytics/view?objectID=163018181).
+We have mapped the contents of the syllabus to competencies in the National Competency Framework for Data Professionals in Health and Care so that you can see which sessions will help you on your way towards them. For full details of the skills in the framework, the self-assessment tool can be found on [FutureNHS](https://future.nhs.uk/DataAnalytics/view?objectID=163018181).
 
 **Please note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.**
 
@@ -33,7 +31,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # import .csv
-df = pl.read_csv('data/schedule.csv')
+df = pl.read_csv('../data/schedule.csv')
 
 
 # replace 'x' with emojis and create hyperlink markdown
