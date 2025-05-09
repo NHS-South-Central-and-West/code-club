@@ -4,14 +4,7 @@
     "href": "index.html",
     "title": "Welcome to Code Club!",
     "section": "",
-    "text": "Here at Code Club our main aim is to bring more advanced analytical skills to the organisation, and we believe that the best medium for this is interpretive dance coding. We want to foster a programming ecosystem at SCW so that we can all learn from each other and improve the way we do things together. The Code Club syllabus has been designed to support people with little-to-no coding experience with extending their analytical skills and driving efficiency through the automation of day-to-day tasks. We believe that these are indispensable skills in an ever-changing NHS landscape, where delivering high quality insights efficiently, economically and systematically is more essential than ever. This won’t merely be a series of lectures; it will be a place to spark ideas and nurture collaboration."
-  },
-  {
-    "objectID": "index.html#what-to-expect",
-    "href": "index.html#what-to-expect",
-    "title": "Welcome to Code Club!",
-    "section": "What to Expect",
-    "text": "What to Expect\nSessions will be an hour long, held once per fortnight- 2:00 PM on a Thursday. Each hour will cover a topic from the syllabus, followed by a time for a Q & A with your Code Club hosts, whether that’s on the theme of the day or troubleshooting any coding issues you have run into. Aside from that, Code Clubbers are welcome to submit requests to cover a topic of interest -or indeed be a guest speaker themselves! -and we will find the best week for it to fit in around the syllabus. Most of the syllabus will be delivered with Python as the main programming language, but that isn’t to say that other languages won’t feature and won’t be welcome. If you want to get an idea of what we will be covering and see if it is right for you, head to the Schedule page.\nCredit for the Code Club logo goes to our erstwhile colleague Jeffrey Morgan-Harrisskitt."
+    "text": "Code Club aims to support everyone at SCW in developing technical and analytical skills through interpretive dance code. We believe these skills are indispensable to the NHS today and in the future, enabling the delivery of high-quality insights through data science and advanced analytics, and the automation of day-to-day tasks with programming. We want to foster an environment that welcomes everybody, sparks ideas, and nurtures collaboration.\nThe Code Club syllabus has been designed to help people with little to no coding experience develop their skills in Python and extend their analytical skills through code. Sessions will be an hour long and held once per fortnight at 2:00 PM on Thursdays. To get an idea of what we will be covering and see if it is right for you, go to the Schedule page. We would love for you to join us!"
   },
   {
     "objectID": "sessions/01-onboarding/slides.html#what-to-expect",
