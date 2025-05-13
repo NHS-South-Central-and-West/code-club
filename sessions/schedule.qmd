@@ -1,6 +1,8 @@
 ---
 title: "Schedule"
-format: html
+format:
+  html:
+    page-layout: full
 execute:
     echo: false
 ---
