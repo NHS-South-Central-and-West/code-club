@@ -35,7 +35,7 @@ Our project set-up will follow the same steps as used in the onboarding session,
 To get started we will use PowerShell powershell to open a command prompt, it should open in your C drive (e.g., `C:\Users\user.name`). If it does not, run `cd ~`, and it should return to your home directory. We recommend the use of a single folder to hold your python projects while learning, because we will be using git version control we will call this "Git". we can use the command `mkdir code_club` to make this folder and then use `cd code_club` to relocate to this folder[^Dir].
 
 
-We will create a new uv project in this directory using the command `uv init`. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called `test-project`, use the following command:
+We will create a new uv project in this directory using the command `uv init`. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called `test-project`, use the following command: 
 
 `uv init test_project`
 
