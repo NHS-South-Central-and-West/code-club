@@ -63,11 +63,113 @@
     "text": "IDE\n\nAn IDE (Integrated Development Environment) is fully featured software that provides everything you need to write code as conveniently as possible.\nIt typically includes a code editor, debugger, build tools, and features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, Vim, Jupyter Notebooks/JupyterLab, and Positron.\nWe will use VS Code or Jupyter Notebooks (which is not exactly an IDE but is similar)."
   },
   {
+    "objectID": "sessions/02-jupyter_notebooks/index.html",
+    "href": "sessions/02-jupyter_notebooks/index.html",
+    "title": "Jupyter Notebooks",
+    "section": "",
+    "text": "This is the second session following Code Club’s relaunch. The focus is introducing jupyter notebooks and explaing to users how to get started with a new project and briefly introducing some key concepts.\nWe are also planning some time for Q&A following the first session.",
+    "crumbs": [
+      "Sessions",
+      "Onboarding",
+      "2. Jupyter Notebooks"
+    ]
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/index.html#session-slides",
+    "href": "sessions/02-jupyter_notebooks/index.html#session-slides",
+    "title": "Jupyter Notebooks",
+    "section": "Session Slides",
+    "text": "Session Slides\nUse the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, follow this link.",
+    "crumbs": [
+      "Sessions",
+      "Onboarding",
+      "2. Jupyter Notebooks"
+    ]
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/index.html#the-tools-you-will-need",
+    "href": "sessions/02-jupyter_notebooks/index.html#the-tools-you-will-need",
+    "title": "Jupyter Notebooks",
+    "section": "The Tools You Will Need",
+    "text": "The Tools You Will Need\nThough Jupyter notebooks can be used with a variety of coding languages and in different settings the key tools used in this session are:\n\nLanguage: Python\nDependency Management & Virtual Environments: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code/Jupyter Notebooks (or your preferred IDE)\n\nYou can install all the tools you’ll need by running the following one-liner run in PowerShell:\nwinget install astral-sh.uv Microsoft.VisualStudioCode github-desktop\nYou can find more information on these topics in the Python Onboarding session",
+    "crumbs": [
+      "Sessions",
+      "Onboarding",
+      "2. Jupyter Notebooks"
+    ]
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/index.html#project-setup",
+    "href": "sessions/02-jupyter_notebooks/index.html#project-setup",
+    "title": "Jupyter Notebooks",
+    "section": "Project Setup",
+    "text": "Project Setup\nOur project set-up will follow the same steps as used in the onboarding session, by using uv to set up a new project folder.\nTo get started we will use PowerShell powershell to open a command prompt, it should open in your C drive (e.g., C:\\Users\\user.name). If it does not, run cd ~, and it should return to your home directory. We recommend the use of a single folder to hold your python projects while learning, because we will be using git version control we will call this “Git”. we can use the command mkdir code_club to make this folder and then use cd code_club to relocate to this folder1.\nWe will create a new uv project in this directory using the command uv init. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called test-project, use the following command:\nuv init test_project\nHaving created this new directory, navigate to it using cd test_project.\nFor this session you will need to add 3 Python packages, ipykernel2, pandas and seaborn We can use the following command:\nuv add ipykernel pandas seaborn\nWe are going to create a blank notebook in this file by running the command new-item first_notebook.ipynb if you now run ls you will note this file has been created\nYour Python project is now set up, and you are ready to start writing some code. You can open VS Code from your PowerShell window by running code ..\n\nOpening your project in VS Code\nYou could also do this from within VS Code as most IDEs include a terminal interface which will be demonstrated in session.\nFor now launch VS Code and click File &gt; Open Folder.... You’ll want to make sure you select the root level of your project. Once you’ve opened the folder, the file navigation pane in VS Code should display the files that uv has created, as well as the notebook you created: first_notebook.ipynb. Click on this to open it.\nOnce VS Code realises you’ve opened a folder with Python code and a virtual environment, it should do the following:\n\nSuggest you install the Python extension (and, once you’ve created a Jupyter notebook, the Jupyter one) offered by Microsoft - go ahead and do this. If this doesn’t happen, you can install extensions manually from the Extensions pane on the left-hand side.\nSelect the uv-created .venv as the python Environment we’re going to use to actually run our code. If this doesn’t happen, press ctrl-shift-P, type “python environment” to find the Python - Create Environment... option, hit enter, choose “Venv” and proceed to “Use Existing”.\n\nIf VS Code has found the virtual environment, it may pick up the correct kernel. If not you may need to select this mannually this can be done by clicking in the top right where you can see Select Kernel (see below)\n\n\n\nClick ‘Select Kernel’\n\n\nWe can then select the appropriate kernel from python enviroments and looking for\n\n\n\nclick Python Environments\n\n\n\n\n\nclick venv - recommended\n\n\nOnce the kernal is enabled you are ready to start adding cells to your notebook. these can either be code cells which is where you include your program elements or markdown which enable the addition of headings, analysis and commentary.",
+    "crumbs": [
+      "Sessions",
+      "Onboarding",
+      "2. Jupyter Notebooks"
+    ]
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/index.html#footnotes",
+    "href": "sessions/02-jupyter_notebooks/index.html#footnotes",
+    "title": "Jupyter Notebooks",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWe recommend using the C drive for all Python projects, especially if using version control. Storing projects like these on One Drive will create many unnecessary issues. It can be helpful to use a sub-directory to store projects but is not necessary and is not a requirement for code club↩︎\nStrictly speaking, we should install ipykernel as a development dependency (a dependency that is needed for any development but not when the project is put into production). In this case, we would add it by running uv add --dev ipykernel. However, in this case, it is simpler to just add it as a regular dependency, and it doesn’t harm.↩︎",
+    "crumbs": [
+      "Sessions",
+      "Onboarding",
+      "2. Jupyter Notebooks"
+    ]
+  },
+  {
     "objectID": "resources/glossary.html",
     "href": "resources/glossary.html",
     "title": "Glossary",
     "section": "",
     "text": "This page will have a list of definitions for commonly used (and/or commonly misunderstood) terminology and acronyms relating to python or data analysis and manipulation in general.\n\n\n\n\n\n\n\n  \n  \n\n\n\n\n\n  Term\n  Definition\n\n\n\n  \n    Exploratory Data Analysis (EDA)\n    The process of analysing datasets to summarise their main characteristics, often using visual methods, before formal modeling.\n  \n  \n    Functional programming\n    A programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.\n  \n  \n    Git\n    A distributed version control system used to track changes in source code during software development.\n  \n  \n    GitHub\n    A cloud-based platform that provides hosting for repositories of files and folders (usually of software code) using git as its backend for version control.\n  \n  \n    Jupyter\n    A software package that allows the creation of python notebooks that can include a mixture of markdown-formatted text and live Python code.\n  \n  \n    Markdown (.md)\n    A simple plain-text markup scheme designed to allow for rapid production of formatted text (with headings, links, etc) within a plaintext file. Used by Quarto (as a Quarto-specific flavour with the .qmd extension).\n  \n  \n    matplotlib\n    The baseline Python library for creating static, animated, and interactive visualisations, offering extensive customisation options for plots and charts. Also used as a framework for more advanced or visually pleasing visualisation packages like seaborn.\n  \n  \n    Object-oriented programming (OOP)\n    A programming paradigm based on the concept of \"objects,\" which can contain data and code to manipulate that data.\n  \n  \n    pandas\n    A python data analysis and manipulation library for working with dataframes (tabular data)\n  \n  \n    Python\n    A general-purpose programming language\n  \n  \n    Regression\n    A method for modeling the relationship between one or more explanatory variables and an outcome. It is used to predict outcomes and understand the impact of changes in predictors (explanatory variables) on the response (outcome).\n  \n  \n    Repository (repo)\n    In git and github, a repository is a self-contained \"project\" of files and folders.\n  \n  \n    Reproducible Analytical Pipelines (RAP)\n    A set of processes and tools designed to ensure that data analysis can be consistently repeated and verified by others.\n  \n  \n    seaborn (sns)\n    A Python data visualisation library based on Matplotlib, providing a high-level interface for drawing attractive and informative statistical graphics.\n  \n  \n    TOML\n    Tom's Obvious Minimal Language - simple, human-readable data serialisation format designed for configuration files, emphasizing readability and ease of use. Used by uv to specify its projects.\n  \n  \n    uv\n    A Python package manager, which can manage python projects (folders) and manage the installation and management of the python environment and libraries within that folder.\n  \n  \n    YAML\n    Yet Another Markup Language - a human-readable data serialisation format often used for configuration files and data exchange between languages."
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/slides.html#what-is-a-notebook",
+    "href": "sessions/02-jupyter_notebooks/slides.html#what-is-a-notebook",
+    "title": "Jupyter Notebooks",
+    "section": "What is a notebook",
+    "text": "What is a notebook\n\nThe standard for programming in python is the .py file which can hold a block of code which can contain lines of code that allow you to export the results as visualisations or data files.\nJupyter Notebooks have been developed with the data science and analytical community.\nNotebooks are a collection interactive cells which a user can run as a collection or individually, based on the current state of program.\nCells can be denoted as Code, Markdown or Raw Depending on use case.\n\nCode cells use a process called a kernel to run programme elements in the user selected code base (e.g. Python or R).\nMarkdown cells allow the user to include formatted text and other elements (such as links and images).\nRaw cells have no processing attached and output as plain text."
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/slides.html#a-brief-history-of-jupyter-notebooks",
+    "href": "sessions/02-jupyter_notebooks/slides.html#a-brief-history-of-jupyter-notebooks",
+    "title": "Jupyter Notebooks",
+    "section": "A brief history of Jupyter notebooks",
+    "text": "A brief history of Jupyter notebooks\n\nIn 2001, Fernando Perez started development of the iPython project as a way of incorperating prompts and access to previous output, as he continuted development he amalgamated iPython with 2 other projects [^iPy]\nIn 2014, Project Jupyter was born out of the initial iPython project. The key aim was to make the project independent of a programming language and allow different code bases to use notebooks. The Name is a reference to the three initial languages:\n\nJulia\nPython\nR [^Jupyter]\n\nJupyter Notebooks and more recently Jupiter Labs are more than just the notebook, they are interactive development environments launched from the command line.\nJupyter notebooks are used by many online platforms and service providers including: Kaggle, Microsoft Fabric, and the NHS Federated Data Platform."
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/slides.html#pros-and-cons-of-using-a-notebook",
+    "href": "sessions/02-jupyter_notebooks/slides.html#pros-and-cons-of-using-a-notebook",
+    "title": "Jupyter Notebooks",
+    "section": "Pros and cons of using a notebook",
+    "text": "Pros and cons of using a notebook\nthyere are some notable pros and cons to using a Jupyter notebook, it is implortant to be aware of these before selecting them as the right tool for your task.\nOn the plus side…\n\nNotebooks are highly interactive and allow cells to be run n any order.\nYou can re-run a cell without the whole program, meaning you can iteratively test code segments.\nNotebooks can be used to provide a structured report for an end user regardless of coding knowledge.\n\nHaving said that…\n\nIf you are not careful you can save a notebook in a state that cannot run as intended if changes are not checked.\nThere are some tasks that are better contained outside of a notebook."
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/slides.html#the-toolkit",
+    "href": "sessions/02-jupyter_notebooks/slides.html#the-toolkit",
+    "title": "Jupyter Notebooks",
+    "section": "The Toolkit",
+    "text": "The Toolkit\n\nYou will need the following pre-installed:\n\nLanguage: Python\nDependency management: uv\nVersion Control: Git, GitHub Desktop\nIDE: VS Code (or your preferred IDE)\n\nYou can install all these tools by running the following in PowerShell:\n\nwinget install astral-sh.uv Microsoft.VisualStudioCode github-desktop"
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/slides.html#walkthrough-and-demonstration",
+    "href": "sessions/02-jupyter_notebooks/slides.html#walkthrough-and-demonstration",
+    "title": "Jupyter Notebooks",
+    "section": "Walkthrough and demonstration",
+    "text": "Walkthrough and demonstration\n\nif reviewing these slids this section is only available in the recording, though the initial steps used should be available on the associated Code Club site page"
+  },
+  {
+    "objectID": "sessions/02-jupyter_notebooks/slides.html#resources",
+    "href": "sessions/02-jupyter_notebooks/slides.html#resources",
+    "title": "Jupyter Notebooks",
+    "section": "Resources",
+    "text": "Resources\n\nCheck out the History of iPython\nYou can find out more about Project Jupyter\nThe demonstration makes use of this markdown cheatsheet\nLikewise this is the Jupyter shortcuts Cheat Sheet"
   },
   {
     "objectID": "sessions/schedule.html",
