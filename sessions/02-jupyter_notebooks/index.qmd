@@ -76,4 +76,6 @@ We can then select the appropriate kernel from python enviroments and looking fo
 
 ![click Python Environments](images/img2_PythonEnv.png)
 
-![click .venv - recommended](images/(img3_RecVenv.png)
+![click venv - recommended](images/(img3_RecVenv.png)
+
+Once the kernal is enabled you are ready to start adding cells to your notebook. these can either be `code` cells which is where you include your program elements or `markdown` which enable the addition of headings, analysis and commentary.
