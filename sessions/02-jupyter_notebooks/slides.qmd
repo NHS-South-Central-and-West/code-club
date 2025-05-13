@@ -1,0 +1,89 @@
+---
+title: "Jupyter Notebooks"
+subtitle: "Introducing a way to support interactive data science"
+footer: '**SAT //** Jupyter Notebooks **//** May 15, 2025'
+format: revealjs
+---
+
+# Introduction {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+## What is a notebook {.center}
+
+- The standard for programming in  python is the `.py` file which can hold a block of code which can contain lines of code that allow you to export the results as visualisations or data files. 
+- Jupyter Notebooks have been developed with the data science and analytical community.
+- Notebooks are a collection interactive cells which a user can run as a collection or individually, based on the current state of program.
+- Cells can be denoted as `Code`, `Markdown` or `Raw` Depending on use case.
+  - **`Code`** cells use a process called a `kernel` to run programme elements in the user selected code base (e.g. Python or R).
+  - **`Markdown`** cells allow the user to include formatted text and other elements (such as links and images).
+  - **`Raw`** cells have no processing attached and output as plain text.
+
+## A brief history of Jupyter notebooks {.center}
+
+- In 2001, Fernando Perez started development of the `iPython` project as a way of incorperating prompts and access to previous output, as he continuted development he amalgamated `iPython` with 2 other projects [^iPy]
+- In 2014, *Project Jupyter* was born out of the initial iPython project. The key aim was to make the project independent of a programming language and allow different code bases to use notebooks. The Name is a reference to the three initial languages:
+  - **Ju**lia
+  - **Py**thon
+  - **R** [^Jupyter]
+- Jupyter Notebooks and more recently Jupiter Labs are more than just the notebook, they are interactive development environments launched from the command line.
+- Jupyter notebooks are used by many online platforms and service providers including: Kaggle, Microsoft Fabric, and the NHS Federated Data Platform.
+
+## Pros and cons of using a notebook {.center}
+
+thyere are some notable pros and cons to using a Jupyter notebook, it is implortant to be aware of these before selecting them as the right tool for your task.
+
+**On the plus side...**  
+
+- Notebooks are highly interactive and allow cells to be run n any order.
+- You can re-run a cell without the whole program, meaning you can iteratively test code segments.
+- Notebooks can be used to provide a structured report for an end user regardless of coding knowledge.
+
+**Having said that...**  
+
+- If you are not careful you can save a notebook in a state that cannot run as intended if changes are not checked.
+- There are some tasks that are better contained outside of a notebook.
+
+# Making a start {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+How to install and launch `Jupyter` in VS Code
+
+## The Toolkit {.center}
+
+- You will need the following pre-installed:
+  - Language: Python
+  - Dependency management: uv
+  - Version Control: Git, GitHub Desktop
+  - IDE: VS Code (or your preferred IDE)
+- You can install all these tools by running the following in PowerShell:
+  - `winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop`
+
+## Walkthrough and demonstration {.center}
+
+- if reviewing these slids this section is only available in the recording, though the initial steps used should be available on the associated [Code Club site page](index.html)
+
+## Resources {.center}
+
+- Check out the [History of iPython](https://ipython.readthedocs.io/en/stable/about/history.html)
+- You can find out more about [Project Jupyter](https://jupyter.org/about)
+- The demonstration makes use of this [markdown cheatsheet](https://www.markdown-cheatsheet.com/)
+- Likewise this is the [Jupyter shortcuts Cheat Sheet](https://ugoproto.github.io/ugo_py_doc/pdf/weidadeyue_jupyter-notebook.pdf)
+
+# Thank You! {.center}
+
+<br>
+Contact:
+<br>
+
+<ul >
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+</ul>
+
+
+Code & Slides:
+<br>
+
+<ul >
+{{< fa brands github >}}[/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+</ul>
+<br>
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).

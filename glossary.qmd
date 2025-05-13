@@ -7,8 +7,9 @@ execute:
 
 This page will have a list of definitions for commonly used (and/or commonly misunderstood) terminology and acronyms relating to python or data analysis and manipulation in general.
 
-::: column-screen-inset-right
-```{python glossary_table}
+::: column-screen-inset
+```{python}
+#| label: glossary-table
 
 import polars as pl
 from great_tables import GT, html, style, loc
@@ -53,8 +54,5 @@ COLUMN_WIDTHS = {
     )
     .opt_row_striping()
 )
-
-
-
 ```
 :::

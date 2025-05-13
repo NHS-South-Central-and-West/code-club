@@ -1,7 +1,7 @@
 [project]
-name = "code_club_webpage"
-version = "0.1.0"
-description = "Code Club Webpage"
+name = "code-club"
+version = "1.0.0"
+description = "The webpage for SCW's Code Club."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

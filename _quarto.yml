@@ -2,42 +2,78 @@ project:
   type: website
 
 website:
-  title: "Code Club"
+  # title: "Code Club"
+  image: "images/code_club_pink_white.png"
   page-footer:
     left: "Created and maintained by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)"
-    center: "[SCW's GitHub Repository](https://github.com/NHS-South-Central-and-West)"
+    center: "[SCW GitHub](https://github.com/NHS-South-Central-and-West)"
     right: "This page was built with [Quarto](https://quarto.org/)"
 
 
-  sidebar:
+  navbar:
     background: "#1C355E" # SCW Dark Blue
-    logo: "images/code_club_pink_white.png"
-    pinned: true
-    align: center
-    style: docked
+    logo: "images/code_club_text.png"
+    # pinned: true
+    # align: center
+    # style: docked
     search: true
-    collapse-level: 1
-    contents:
-      - href: index.qmd
-        text: Welcome!
-      - href: schedule.qmd
-        text: Schedule
-      - section: "Resources"
-        contents:
-          - href: resources/ncf.qmd
-            text: National Competency Framework
-      - section: "Sessions"
-        contents:
-          - href: sessions/01-onboarding/index.qmd
-            text: Python Onboarding
-      - href: glossary.qmd
-        text: Glossary
+    # collapse-level: 1
+    tools:
+      - icon: github
+        aria-label: GitHub
+        href: https://github.com/NHS-South-Central-and-West/code-club
+    right:
+      - text: Schedule
+        aria-label: Sessions Schedule
+        href: schedule.qmd
+      # - text: Resources
+      #   aria-label: Additional Resources
+      #   menu:
+      #     - text: National Competency Framework
+      #       aria-label: National Competency Framework
+      #       href: resources/ncf.qmd
+      - text: Sessions
+        href: sessions/01-onboarding/index.qmd
+      - text: Glossary
+        aria-label: Glossary
+        href: glossary.qmd
+
+  sidebar:
+    - title: Sessions
+      style: docked
+      contents:
+        - section: Onboarding
+          contents:
+            - text: 1. Python Onboarding
+              file: sessions/01-onboarding/index.qmd
+            - text: 2. Jupyter Notebooks
+              file: sessions/02-jupyter_notebooks/index.qmd
+        - section: Visualisation
+          contents:
+            - text: 3. EDA & Visualisations
+            - text: 4. Visualisations with Seaborn
+        - section: Core Concepts
+          contents:
+            - text: 5. Data Types
+            - text: 6. Control Flow
+            - text: 7. Functions & Functional Programming
+            - text: 8. Object-Oriented Programming
+        - section: Visualisation
+          contents:
+            - text: 9. Streamlit Dashboards
+        - section: Data Science
+          contents:
+            - text: 10. Comparing Samples
+            - text: 11. Analysing Relationships
+            - text: 12. Introduction to Linear Regression
+            - text: 13. Implementing Linear Regression
+            - text: 14. Beyond Linearity
 
 format:
   html:
     theme: cosmo
     css: styles.css
-    toc: true # table of contents
+    # toc: true # table of contents
     code-copy: true
   revealjs:
     author: Specialist Analytics Team (SAT)
