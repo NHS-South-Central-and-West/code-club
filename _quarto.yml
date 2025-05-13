@@ -47,6 +47,7 @@ website:
             - text: 1. Python Onboarding
               file: sessions/01-onboarding/index.qmd
             - text: 2. Jupyter Notebooks
+              file: sessions/02-jupyter_notebooks/index.qmd
         - section: Visualisation
           contents:
             - text: 3. EDA & Visualisations
