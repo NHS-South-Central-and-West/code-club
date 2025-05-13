@@ -19,17 +19,14 @@ format: revealjs
 
 ## A brief history of Jupyter notebooks {.center}
 
-- In 2001, Fernando Perez started development of the `iPython` project as a way of incorperating prompts and access to previous output, as he continuted development he amalgamated `iPython` with 2 other projects [^iPy]
-- In 2014, *Project Jupyter* was born out of the initial iPython project. The key aim was to make the project independent of a programming language and allow different code bases to use notebooks. The Name is a reference to the three initial languages:
-  - **Ju**lia
-  - **Py**thon
-  - **R** [^Jupyter]
+- In 2001, Fernando Perez started development of the `iPython` project as a way of incorporating prompts and access to previous output, as he continued development he amalgamated `iPython` with 2 other projects
+- In 2014, *Project Jupyter* was born out of the initial iPython project. The key aim was to make the project independent of a programming language and allow different code bases to use notebooks. The Name is a reference to the three initial languages: **Ju**lia, **Py**thon, and **R**.
 - Jupyter Notebooks and more recently Jupiter Labs are more than just the notebook, they are interactive development environments launched from the command line.
 - Jupyter notebooks are used by many online platforms and service providers including: Kaggle, Microsoft Fabric, and the NHS Federated Data Platform.
 
 ## Pros and cons of using a notebook {.center}
 
-thyere are some notable pros and cons to using a Jupyter notebook, it is implortant to be aware of these before selecting them as the right tool for your task.
+There are some notable pros and cons to using a Jupyter notebook.
 
 **On the plus side...**  
 
@@ -58,7 +55,7 @@ How to install and launch `Jupyter` in VS Code
 
 ## Walkthrough and demonstration {.center}
 
-- if reviewing these slids this section is only available in the recording, though the initial steps used should be available on the associated [Code Club site page](index.html)
+if reviewing these slides this section is only available in the recording, though the initial steps used should be available on the associated [Code Club site page](index.html)
 
 ## Resources {.center}
 
