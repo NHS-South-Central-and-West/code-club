@@ -19,28 +19,23 @@ format: revealjs
 
 ## A brief history of Jupyter notebooks {.center}
 
-- In 2001, Fernando Perez started development of the `iPython` project as a way of incorperating prompts and access to previous output, as he continuted development he amalgamated `iPython` with 2 other projects [^iPy]
-- In 2014, *Project Jupyter* was born out of the initial iPython project. The key aim was to make the project independent of a programming language and allow different code bases to use notebooks. The Name is a reference to the three initial languages:
-  - **Ju**lia
-  - **Py**thon
-  - **R** [^Jupyter]
+- In 2001, Fernando Perez started development of the `iPython` project as a way of incorporating prompts and access to previous output, as he continued development he amalgamated `iPython` with 2 other projects
+- In 2014, *Project Jupyter* was born out of the initial iPython project. The key aim was to make the project independent of a programming language and allow different code bases to use notebooks. The Name is a reference to the three initial languages: **Ju**lia, **Py**thon, and **R**.
 - Jupyter Notebooks and more recently Jupiter Labs are more than just the notebook, they are interactive development environments launched from the command line.
 - Jupyter notebooks are used by many online platforms and service providers including: Kaggle, Microsoft Fabric, and the NHS Federated Data Platform.
 
 ## Pros and cons of using a notebook {.center}
 
-thyere are some notable pros and cons to using a Jupyter notebook, it is implortant to be aware of these before selecting them as the right tool for your task.
-
 **On the plus side...**  
 
-- Notebooks are highly interactive and allow cells to be run n any order.
-- You can re-run a cell without the whole program, meaning you can iteratively test code segments.
+- Notebooks are highly interactive and allow cells to be run in any order.
+- You can re-run each cell separately, so iterative testing is more granular.
 - Notebooks can be used to provide a structured report for an end user regardless of coding knowledge.
 
 **Having said that...**  
 
 - If you are not careful you can save a notebook in a state that cannot run as intended if changes are not checked.
-- There are some tasks that are better contained outside of a notebook.
+- It can be harder to understand complex code interactions.
 
 # Making a start {data-background-color="#425563" data-verticator="#E8EDEE"}
 
@@ -58,7 +53,7 @@ How to install and launch `Jupyter` in VS Code
 
 ## Walkthrough and demonstration {.center}
 
-- if reviewing these slids this section is only available in the recording, though the initial steps used should be available on the associated [Code Club site page](index.html)
+if reviewing these slides this section is only available in the recording, though the initial steps used should be available on the associated [Code Club site page](index.html)
 
 ## Resources {.center}
 
@@ -70,7 +65,7 @@ How to install and launch `Jupyter` in VS Code
 # Thank You! {.center}
 
 <br>
-Contact:
+Contact: 
 <br>
 
 <ul >

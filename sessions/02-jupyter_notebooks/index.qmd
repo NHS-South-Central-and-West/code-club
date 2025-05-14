@@ -3,7 +3,7 @@ title: "Jupyter Notebooks"
 format: html
 ---
 
-This is the second session following Code Club's relaunch. The focus is introducing jupyter notebooks and explaing to users how to get started with a new project and briefly introducing some key concepts. 
+This is the second session following Code Club's relaunch. The focus is introducing jupyter notebooks and explaining to users how to get started with a new project and briefly introducing some key concepts. 
 
 We are also planning some time for Q&A following the first session.
 
@@ -35,7 +35,7 @@ Our project set-up will follow the same steps as used in the onboarding session,
 To get started we will use PowerShell powershell to open a command prompt, it should open in your C drive (e.g., `C:\Users\user.name`). If it does not, run `cd ~`, and it should return to your home directory. We recommend the use of a single folder to hold your python projects while learning, because we will be using git version control we will call this "Git". we can use the command `mkdir code_club` to make this folder and then use `cd code_club` to relocate to this folder[^Dir].
 
 
-We will create a new uv project in this directory using the command `uv init`. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called `test-project`, use the following command:
+We will create a new uv project in this directory using the command `uv init`. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called `test-project`, use the following command: 
 
 `uv init test_project`
 
@@ -68,14 +68,14 @@ Once VS Code realises you've opened a folder with Python code and a virtual envi
 1. Suggest you install the Python *extension* (and, once you've created a Jupyter notebook, the Jupyter one) offered by Microsoft - go ahead and do this. If this doesn't happen, you can install extensions manually from the *Extensions* pane on the left-hand side.
 2. Select the `uv`-created `.venv` as the python Environment we're going to use to actually run our code. If this doesn't happen, press `ctrl-shift-P`, type "python environment" to find the `Python - Create Environment...` option, hit enter, choose "Venv" and proceed to "Use Existing".
 
-If VS Code has found the virtual environment, it may pick up the correct kernel. If not you may need to select this mannually this can be done by clicking in the top right where you can see `Select Kernel` (see below)
+If VS Code has found the virtual environment, it may pick up the correct kernel. If not you may need to select this manually this can be done by clicking in the top right where you can see `Select Kernel` (see below)
 
 ![Click 'Select Kernel'](images/img1_SelectKernel.png)
 
-We can then select the appropriate kernel from python enviroments and looking for 
+We can then select the appropriate kernel from python environments and looking for 
 
 ![click Python Environments](images/img2_PythonEnv.png)
 
 ![click venv - recommended](images/img3_RecVenv.png)
 
-Once the kernal is enabled you are ready to start adding cells to your notebook. these can either be `code` cells which is where you include your program elements or `markdown` which enable the addition of headings, analysis and commentary.
+Once the kernel is enabled you are ready to start adding cells to your notebook. these can either be `code` cells which is where you include your program elements or `markdown` which enable the addition of headings, analysis and commentary.

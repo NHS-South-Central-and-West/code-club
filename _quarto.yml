@@ -6,7 +6,6 @@ website:
   image: "images/code_club_pink_white.png"
   page-footer:
     left: "Created and maintained by the [Specialist Analytics Team](mailto:scwcsu.analytics.specialist@nhs.net)"
-    center: "[SCW GitHub](https://github.com/NHS-South-Central-and-West)"
     right: "This page was built with [Quarto](https://quarto.org/)"
 
 
@@ -23,25 +22,28 @@ website:
         aria-label: GitHub
         href: https://github.com/NHS-South-Central-and-West/code-club
     right:
-      - text: Schedule
-        aria-label: Sessions Schedule
-        href: schedule.qmd
-      # - text: Resources
-      #   aria-label: Additional Resources
-      #   menu:
-      #     - text: National Competency Framework
-      #       aria-label: National Competency Framework
-      #       href: resources/ncf.qmd
+      - text: Home
+        aria-label: Home
+        href: index.qmd
+      # - text: Schedule
+      #   aria-label: Sessions Schedule
+      #   href: schedule.qmd
       - text: Sessions
-        href: sessions/01-onboarding/index.qmd
-      - text: Glossary
-        aria-label: Glossary
-        href: glossary.qmd
+        href: sessions/schedule.qmd
+      - text: Resources
+        aria-label: Additional Resources
+        menu:
+          - text: Glossary
+            aria-label: Glossary
+            href: resources/glossary.qmd
+
 
   sidebar:
     - title: Sessions
       style: docked
       contents:
+        - text: Session Schedule
+          file: sessions/schedule.qmd
         - section: Onboarding
           contents:
             - text: 1. Python Onboarding
@@ -74,7 +76,7 @@ format:
   html:
     theme: cosmo
     css: styles.css
-    # toc: true # table of contents
+    toc: true # table of contents
     code-copy: true
   revealjs:
     author: Specialist Analytics Team (SAT)
