@@ -26,18 +26,16 @@ format: revealjs
 
 ## Pros and cons of using a notebook {.center}
 
-There are some notable pros and cons to using a Jupyter notebook.
-
 **On the plus side...**  
 
-- Notebooks are highly interactive and allow cells to be run n any order.
-- You can re-run a cell without the whole program, meaning you can iteratively test code segments.
+- Notebooks are highly interactive and allow cells to be run in any order.
+- You can re-run each cell separately, so iterative testing is more granular.
 - Notebooks can be used to provide a structured report for an end user regardless of coding knowledge.
 
 **Having said that...**  
 
 - If you are not careful you can save a notebook in a state that cannot run as intended if changes are not checked.
-- There are some tasks that are better contained outside of a notebook.
+- It can be harder to understand complex code interactions.
 
 # Making a start {data-background-color="#425563" data-verticator="#E8EDEE"}
 
