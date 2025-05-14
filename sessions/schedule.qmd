@@ -1,13 +1,13 @@
 ---
 title: "Schedule"
-format: html
+format:
+  html:
+    page-layout: full
 execute:
     echo: false
 ---
 
 This is the schedule for Code Club in FY25/26.
-
-Materials, including presentations and coding notebooks, have been made available in the associated **GitHub** repository and recordings of the sessions will be accessible via the **Recording Link**.
 
 The **Demonstration**, **Presentation**, and **Notebook** columns indicate the content to be expected for each session:
 
@@ -17,10 +17,13 @@ The **Demonstration**, **Presentation**, and **Notebook** columns indicate the c
 
 Tutorials will be divided into **Modules**. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.
 
-Sessions have been mapped to the National Competency Framework for Data Professionals in Health and Care, see more information [here](/resources/ncf.html)
+We have mapped the contents of the syllabus to competencies in the National Competency Framework for Data Professionals in Health and Care so that you can see which sessions will help you on your way towards them. For full details of the skills in the framework, the self-assessment tool can be found on [FutureNHS](https://future.nhs.uk/DataAnalytics/view?objectID=163018181).
 
-::: column-screen-inset-right
-```{python schedule_table}
+**Please note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.**
+
+<!-- ::: column-page -->
+```{python}
+#| label: schedule_table
 
 import polars as pl
 from great_tables import GT, html, style, loc
@@ -28,7 +31,8 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # import .csv
-df = pl.read_csv('data/schedule.csv')
+df = pl.read_csv('../data/schedule.csv')
+
 
 # replace 'x' with emojis and create hyperlink markdown
 df_processed = df.with_columns(
@@ -51,27 +55,28 @@ df_processed = df.with_columns(
             separator=""
         )
     )
-    .otherwise(pl.lit("")) 
+    .otherwise(pl.lit(""))
     .alias("Recording Link")
 )
 
-df_processed.drop(["GitHub","Recording","NCF Competency"])
+df_processed.drop(["Session Number", "GitHub", "GitHub Link", "Recording", "Recording Link"])
 
 # Column Widths for table.
 # Please note that these values fit our standard Dell monitors nicely,
 # so bear this in mind if you feel the need to change any of them.
 
 COLUMN_WIDTHS = {
-            "Session Number" : "100px",
+            # "Session Number" : "100px",
             "Session Date" : "100px",
             "Module" : "100px",
-            "Session Name" : "200px",
-            "Description" : "400px",
-            "GitHub Link" : "200px",
-            "Recording Link" : "200px",
+            "Session Name" : "150px",
+            "Description" : "250px",
+            # "GitHub Link" : "200px",
+            # "Recording Link" : "200px",
             "Demonstration" : "120px",
             "Presentation" : "100px",
-            "Notebook" : "100px"
+            "Notebook" : "100px",
+            "NCF Competency" : "200px"
 
         }
 
@@ -81,7 +86,7 @@ COLUMN_WIDTHS = {
     GT(
         df_processed.select(
             [
-                "Session Number",
+                # "Session Number",
                 "Session Date",
                 "Module",
                 "Session Name",
@@ -89,13 +94,14 @@ COLUMN_WIDTHS = {
                 "Demonstration",
                 "Presentation",
                 "Notebook",
-                "GitHub Link",
-                "Recording Link"
+                # "GitHub Link",
+                # "Recording Link",
+                "NCF Competency"
             ]
             )
             .fill_null('-') # so that the emoji columns don't return "None" when empty
     )
-    .fmt_markdown(columns=["GitHub Link","Recording Link"]) # turns the hyperlink markdown into rendered link
+    # .fmt_markdown(columns=["GitHub Link","Recording Link"]) # turns the hyperlink markdown into rendered link
     .cols_width(COLUMN_WIDTHS)
     .tab_options(quarto_disable_processing=True) # needed to override Quarto's own table formatting
     .cols_align(align="center")
@@ -106,8 +112,5 @@ COLUMN_WIDTHS = {
     )
     .opt_row_striping()
 )
-
-
-
 ```
-:::
+<!-- ::: -->
