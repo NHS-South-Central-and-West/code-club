@@ -51,6 +51,7 @@ website:
         - section: Visualisation
           contents:
             - text: 3. EDA & Visualisations
+              file: sessions/03-eda/index.qmd
             - text: 4. Visualisations with Seaborn
         - section: Core Concepts
           contents:
