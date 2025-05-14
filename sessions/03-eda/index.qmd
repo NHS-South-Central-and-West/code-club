@@ -5,8 +5,10 @@ format:
   ipynb: default
 ---
 
-We are using Australian weather data, taken from Kaggle. To download the data, click [here](data/weatherAUS.csv).
+We are using Australian weather data, taken from Kaggle. To download the data, click <a href="data/weatherAUS.csv" download>here</a>.
 ```{python}
+#| label: setup
+
 # install necessary packages
 !uv add skimpy
 
@@ -20,12 +22,16 @@ from skimpy import skim
 ```
 
 ```{python}
+#| label: import-data
+
 # import the dataset
 df = pd.read_csv('data/weatherAUS.csv')
 ```
 
 
 ```{python}
+#| label: python-version
+
 # use the ! prefix to interact with the terminal in a notebook
 !python --version
 # !python --help
@@ -67,42 +73,56 @@ df = pd.read_csv('data/weatherAUS.csv')
 
 
 ```{python}
+#| label: inspect-data-head
+
 # view the top five rows
 df.head()
 ```
 
 
 ```{python}
+#| label: inspect-data-tail
+
 # view the bottom ten rows
 df.tail(10)
 ```
 
 
 ```{python}
+#| label: data-shape
+
 # get the object shape (number of rows, number of columns)
 df.shape
 ```
 
 
 ```{python}
+#| label: data-length
+
 # get the object length
 len(df)
 ```
 
 
 ```{python}
+#| label: col-names
+
 # get all column names
 df.columns
 ```
 
 
 ```{python}
+#| label: data-info
+
 # get dataframe info (column indices, non-null counts, data types)
 df.info()
 ```
 
 
 ```{python}
+#| label: null-values-percent
+
 # calculate the percentage of null values in each column
 df.isnull().sum()/len(df)
 ```
@@ -115,12 +135,16 @@ df.isnull().sum()/len(df)
 
 
 ```{python}
+#| label: select-col
+
 # selecting a single column by name
 df['Date']
 ```
 
 
 ```{python}
+#| label: alt-select
+
 # there's always multiple ways to achieve something in python
 df.loc[:, 'Date'] # this is good
 # df.Date
@@ -128,6 +152,8 @@ df.loc[:, 'Date'] # this is good
 
 
 ```{python}
+#| label: select-multiple-cols
+
 # selecting multiple columns (and all rows) by name
 df[['Date', 'Location', 'Rainfall']]
 # df.loc[:, ['Date', 'Location', 'Rainfall']]
@@ -135,18 +161,15 @@ df[['Date', 'Location', 'Rainfall']]
 
 
 ```{python}
+#| label: subset-rows
+
 # slicing by rows
 df[200:211]
 ```
 
-
 ```{python}
-# find unique values
-df['Location'].unique()
-```
+#| label: filter-vals
 
-
-```{python}
 # filtering by values
 # df[df['Location'] == 'Perth']
 # df[df['Rainfall'] > 0]
@@ -155,18 +178,24 @@ df[(df['Rainfall'] == 0) & (df['Location'] == 'Perth')]
 
 
 ```{python}
+#| label: convert-to-datetime
+
 # convert date column to datetime
 df['Date'] = pd.to_datetime(df['Date'])
 ```
 
 
 ```{python}
+#| label: convert-to-cat
+
 # convert object columns to categorical
 df.apply(lambda x: x.astype('category') if x.dtype == 'object' else x)
 ```
 
 
 ```{python}
+#| label: filter-not-null
+
 # filter observations where sunshine is NA
 # (this is illustrative but should not be done without careful consideration generally)
 df[df['Sunshine'].notnull()]
@@ -176,36 +205,48 @@ df[df['Sunshine'].notnull()]
 
 
 ```{python}
+#| label: describe-data
+
 # quick summary of numeric variables
 df.describe()
 ```
 
 
 ```{python}
+#| label: summarise-data
+
 # a more informative summary function from the skimpy package
 skim(df)
 ```
 
 
 ```{python}
+#| label: count-unique
+
 # count unique values
 df['Location'].nunique()
 ```
 
 
 ```{python}
+#| label: unique-vals
+
 # get unique values
 df['Location'].unique()
 ```
 
 
 ```{python}
+#| label: mean
+
 # calculate variable mean
 np.round(df['Sunshine'].mean(), decimals=2)
 ```
 
 
 ```{python}
+#| label: median
+
 # calculate other summary statistics
 df['Sunshine'].median()
 # df['Sunshine'].sum()
@@ -213,12 +254,15 @@ df['Sunshine'].median()
 
 
 ```{python}
+#| label: group-means
+
 # calculate group means
 np.round(df.groupby(by='Location')['Sunshine'].mean(), decimals=1)
 ```
 
 
 ```{python}
+#| label: count-group-non-nulls
 # group by location and count non-null sunshine values
 df.groupby('Location')['Sunshine'].count()
 ```
@@ -253,29 +297,9 @@ Objectives:
 - Show how to visualising data is a shortcut for describing central tendency, spread, uncertainty etc.
 - Introduce ideas around describing and visualising relationships between variables
 
-
 ```{python}
-# import packages
-import warnings
+#| label: big-cities-subset
 
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import seaborn as sns
-
-# control some deprecation warnings in seaborn
-warnings.filterwarnings(
-    "ignore",
-    category=FutureWarning,
-    module="seaborn"
-)
-
-# set figure size
-plt.rcParams['figure.figsize'] = (12, 6)
-```
-
-
-```{python}
 # subset of observations from five biggest cities
 big_cities = (
     df.loc[df['Location'].isin(['Adelaide', 'Brisbane', 'Melbourne', 'Perth', 'Sydney'])]
@@ -305,36 +329,48 @@ big_cities = (
 
 
 ```{python}
+#| label: mode-rainfall
+
 # mode rainfall by location
 big_cities.groupby('Location')['Rainfall'].agg(pd.Series.mode)
 ```
 
 
 ```{python}
+#| label: mode-location
+
 # mode location
 big_cities['Location'].agg(pd.Series.mode)
 ```
 
 
 ```{python}
+#| label: location-value-counts
+
 # mode location using value counts
 big_cities['Location'].value_counts().iloc[0:1]
 ```
 
 
 ```{python}
+#| label: mean-rainfall-location
+
 # mean rainfall by location
 np.round(big_cities.groupby('Location')['Rainfall'].mean(), decimals=2)
 ```
 
 
 ```{python}
+#| label: median-rainfall-location
+
 # median rainfall by location
 big_cities.groupby('Location')['Rainfall'].median()
 ```
 
 
 ```{python}
+#| label: mean-max-temp-location
+
 # geometric mean max temperature by location
 big_cities.groupby('Location')['MaxTemp'].apply(lambda x: np.exp(np.log(x).mean()))
 ```
@@ -348,6 +384,8 @@ big_cities.groupby('Location')['MaxTemp'].apply(lambda x: np.exp(np.log(x).mean(
 - We have simulated three different distributions that have slightly different shapes. and see how their mean and median values differ.
 
 ```{python}
+#| label: simulate-skewed-distributions
+
 # generate distributions
 np.random.seed(123)
 normal_dist = np.random.normal(10, 1, 1000)
@@ -357,6 +395,24 @@ left_skewed_dist = np.concatenate([np.random.normal(14, 2, 600), np.random.norma
 
 
 ```{python}
+#| label: avg-plot-function
+
+# import packages
+import warnings
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# control some deprecation warnings in seaborn
+warnings.filterwarnings(
+    "ignore",
+    category=FutureWarning,
+    module="seaborn"
+)
+
+# set figure size
+plt.rcParams['figure.figsize'] = (12, 6)
+
 # function for calculating summary statistics and plotting distributions
 def plot_averages(ax, data, title):
     mean = np.mean(data)
@@ -372,6 +428,8 @@ def plot_averages(ax, data, title):
 
 
 ```{python}
+#| label: plot-skewed-distributions
+
 # plot distributions
 fig, axes = plt.subplots(1, 3, sharey=True)
 
@@ -385,7 +443,7 @@ plt.show()
 ```
 
 - The mean and median of the normal distribution are identical, while the two skewed distributions have slightly different means and medians.
-    - The mean is larger than the media when the distribution is right-skewed, and the median is larger than the mean when it is left-skewed. 
+    - The mean is larger than the media when the distribution is right-skewed, and the median is larger than the mean when it is left-skewed.
     - When the distribution is skewed, the median value will be a better description of the central tendency, because the mean value is more sensitive to extreme values (and skewed distributions have longer tails of extreme values).
 - These differences point to another important factor to consider when summarising data - the spread or deviation of the sample.
 - How do we measure how a sample is spread around the central tendency?
@@ -395,6 +453,8 @@ plt.show()
 
 
 ```{python}
+#| label: simulate-variance-distributions
+
 # generate distributions
 np.random.seed(123)
 mean = 10
@@ -404,6 +464,8 @@ distributions = [np.random.normal(mean, std_dev, 1000) for std_dev in std_devs]
 
 
 ```{python}
+#| label: spread-plot-function
+
 # function for calculating summary statistics and plotting distributions
 def plot_spread(ax, data, std_dev, title):
     mean = np.mean(data)
@@ -419,6 +481,8 @@ def plot_spread(ax, data, std_dev, title):
 
 
 ```{python}
+#| label: plot-variance-distributions
+
 # plot distributions
 fig, axes = plt.subplots(1, 3, sharey=True, sharex=True)
 
@@ -436,6 +500,8 @@ plt.show()
 
 
 ```{python}
+#| label: rainfall-distribution
+
 # plot distribution of rainfall
 rainfall_mean = np.mean(big_cities['Rainfall'])
 rainfall_median = np.median(big_cities['Rainfall'].dropna())
@@ -453,6 +519,8 @@ plt.show()
 
 
 ```{python}
+#| label: sunshine-distribution
+
 # plot distribution of sunshine
 sunshine_mean = np.mean(big_cities['Sunshine'])
 sunshine_median = np.median(big_cities['Sunshine'].dropna())
@@ -472,6 +540,8 @@ plt.show()
 
 
 ```{python}
+#| label: max-temp-distribution
+
 sns.histplot(data=big_cities, x='MaxTemp')
 plt.tight_layout()
 plt.show()
@@ -479,6 +549,8 @@ plt.show()
 
 
 ```{python}
+#| label: location-distribution
+
 sns.countplot(big_cities, x='Location', color="#d9dcd6", edgecolor='black')
 plt.ylim(3000, 3500)
 plt.tight_layout()
@@ -487,6 +559,8 @@ plt.show()
 
 
 ```{python}
+#| label: rain-tomorrow-distribution
+
 sns.countplot(big_cities, x='RainTomorrow', color="#d9dcd6", edgecolor='black')
 plt.tight_layout()
 plt.show()
@@ -494,6 +568,8 @@ plt.show()
 
 
 ```{python}
+#| label: count-rain-tomorrow
+
 big_cities['RainTomorrow'].value_counts()
 ```
 
@@ -503,15 +579,17 @@ big_cities['RainTomorrow'].value_counts()
 - This may not indicate a relationship, but it helps us better understand our data.
 
 ```{python}
+#| label: sunshine-location-boxplot
 
 sns.barplot(big_cities, x='Location', y='Sunshine', color="#d9dcd6", edgecolor='black')
 plt.tight_layout()
 plt.show()
-
 ```
 
 
 ```{python}
+#| label: max-temp-location-boxplot
+
 sns.boxplot(big_cities, x='Location', y='MaxTemp', color="#d9dcd6")
 plt.tight_layout()
 plt.show()
@@ -519,6 +597,8 @@ plt.show()
 
 
 ```{python}
+#| label: humidity-rain-tomorrow-boxplot
+
 sns.boxplot(data=big_cities, x='RainTomorrow', y='Humidity3pm', color="#d9dcd6")
 plt.tight_layout()
 plt.show()
@@ -526,6 +606,8 @@ plt.show()
 
 
 ```{python}
+#| label: humidity-rain-tomorrow-kde-plot
+
 sns.kdeplot(data=big_cities, x='Humidity3pm', hue='RainTomorrow')
 plt.tight_layout()
 plt.show()
@@ -533,6 +615,8 @@ plt.show()
 
 
 ```{python}
+#| label: rainfall-over-time
+
 (
     big_cities
     # convert date to datetime
@@ -555,6 +639,8 @@ plt.show()
 
 
 ```{python}
+#| label: sunshine-over-time
+
 (
     big_cities
     # convert date to datetime object
@@ -573,11 +659,12 @@ plt.show()
 
 plt.tight_layout()
 plt.show()
-
 ```
 
 
 ```{python}
+#| label: rainfall-sunshine-seasonality
+
 fig, axes = plt.subplots(1, 2)
 
 (
@@ -611,143 +698,3 @@ axes[1].set_title('Average Sunshine by Month', fontsize=16)
 plt.tight_layout()
 plt.show()
 ```
-
-## Visualising Relationships
-
-- Just comparing how the values of variables change relative to changes in another variable is insufficient for assessing a "relationship" between two variables.
-- Visualising distributions tell us about the central tendency spread and shape of a sample, but we are usually interested in the relationship between variables.
-- Visualising how one variable's values differ by another's value is a good starting point for understanding their relationship.
-- Two ways of understanding the relationships between variables (in a descriptive sense), are covariance and correlation.
-    - Covariance describes how much two variables change together.
-    - Correlation can be understood as like a standardised version of covariance.
-
-
-```{python}
-np.random.seed(123)
-
-x = np.random.uniform(-1, 1, 1000)
-y1 = np.random.uniform(-1, 1, 1000)
-y2 = 0.5 * x + np.random.normal(0, 0.5, 1000)
-y3 = 0.9 * x + np.random.normal(0, 0.1, 1000)
-
-datasets = {
-    "No Correlation": (x, y1),
-    "Moderate Correlation": (x, y2),
-    "Strong Correlation": (x, y3),
-}
-```
-
-
-```{python}
-fig, axes = plt.subplots(1, 3, sharex=True, sharey=True)
-
-for ax, (title, (x, y)) in zip(axes, datasets.items()):
-    sns.scatterplot(x=x, y=y, ax=ax, alpha=0.7)
-    correlation = np.corrcoef(x, y)[0, 1]
-    ax.text(0.05, 0.95, f"r: {correlation:.2f}", transform=ax.transAxes, fontsize=12, ha="left", va="top")
-    ax.set_title(title)
-    ax.set_xlabel("X")
-    ax.set_ylabel("Y")
-
-plt.suptitle("Visualizing Correlation", fontsize=16)
-plt.tight_layout()
-plt.show()
-```
-
-
-```{python}
-x1 = np.random.uniform(0, 1, 1000)
-y1 = np.random.uniform(0, 1, 1000)
-x2 = np.random.uniform(0, 10, 1000)
-y2 = 2 * x2 + np.random.normal(0, 5, 1000)
-x3 = np.random.uniform(0, 1, 1000)
-y3 = 0.9 * x3 + np.random.normal(0, 0.1, 1000)
-x4 = np.random.uniform(0, 10, 1000)
-y4 = 2 * x4 + np.random.normal(0, 1, 1000)
-
-datasets = {
-    "Low Covariance, Low Correlation": (x1, y1),
-    "High Covariance, Low Correlation": (x2, y2),
-    "Low Covariance, High Correlation": (x3, y3),
-    "High Covariance, High Correlation": (x4, y4),
-}
-```
-
-
-```{python}
-fig, axes = plt.subplots(2, 2, figsize=(12, 10), sharex=False, sharey=False)
-
-for ax, (title, (x, y)) in zip(axes.flat, datasets.items()):
-    sns.scatterplot(x=x, y=y, ax=ax, alpha=0.7)
-    covariance = np.cov(x, y)[0, 1]
-    correlation = np.corrcoef(x, y)[0, 1]
-    ax.text(0.05, 0.95, f"Cov: {covariance:.2f}\nCorr: {correlation:.2f}",
-            transform=ax.transAxes, fontsize=12, ha="left", va="top",
-            bbox=dict(facecolor='white', boxstyle='round,pad=0.3'))
-    ax.set_title(title, fontsize=14)
-    ax.set_xlabel("X", fontsize=12)
-    ax.set_ylabel("Y", fontsize=12)
-
-plt.suptitle("Understanding Covariance and Correlation", fontsize=16)
-plt.tight_layout()
-plt.show()
-```
-
-
-```{python}
-humidity = big_cities.dropna(subset=['Humidity9am', 'Humidity3pm'])
-
-fig, ax = plt.subplots()
-
-sns.scatterplot(data=humidity, x='Humidity9am', y='Humidity3pm', ax=ax, alpha=0.7)
-
-covariance = np.cov(humidity['Humidity9am'], humidity['Humidity3pm'])[0, 1]
-correlation = np.corrcoef(humidity['Humidity9am'], humidity['Humidity3pm'])[0, 1]
-
-ax.text(0.05, 0.95, f"Cov: {covariance:.2f}\nCorr: {correlation:.2f}",
-        transform=ax.transAxes, fontsize=12, ha="left", va="top",
-        bbox=dict(facecolor='white', boxstyle='round,pad=0.6'))
-
-plt.tight_layout()
-plt.show()
-```
-
-
-```{python}
-temps = big_cities.dropna(subset=['Temp9am', 'Temp3pm'])
-
-fig, ax = plt.subplots()
-
-sns.scatterplot(data=temps, x='Temp9am', y='Temp3pm', ax=ax, alpha=0.7)
-
-covariance = np.cov(temps['Temp9am'], temps['Temp3pm'])[0, 1]
-correlation = np.corrcoef(temps['Temp9am'], temps['Temp3pm'])[0, 1]
-
-ax.text(0.05, 0.95, f"Cov: {covariance:.2f}\nCorr: {correlation:.2f}",
-        transform=ax.transAxes, fontsize=12, ha="left", va="top",
-        bbox=dict(facecolor='white', boxstyle='round,pad=0.6'))
-
-plt.tight_layout()
-plt.show()
-```
-
-
-```{python}
-(
-    # create contingency table of rain today vs rain tomorrow
-    pd.crosstab(big_cities['RainToday'], big_cities['RainTomorrow'])
-    # divide each row (count) by the sum of the row, to produce proportions 
-    .div(pd.crosstab(big_cities['RainToday'], big_cities['RainTomorrow']).sum(axis=1), axis=0)
-    # pass df object to seaborn and create a heatmap
-    .pipe(lambda df: sns.heatmap(df, annot=True, fmt='.2f', cmap="Blues", cbar=True))
-)
-
-plt.tight_layout()
-plt.show()
-```
-
-- What these don't tell us are how much of the changes in a variable relative to another are caused by chance versus how much is "meaningful".
-- To do this, we first have to have some sense of uncertainty, and we need to be able to understand how much of the variance in the outcome (the variable which changes relative to changes in the other variable) can be explained by variance in the predictor.
-- Correlation =/= Causation
-    - The amount of covariance/correlation doesn't necessarily tell us that there is or is not a meaningful relationship between two variables.
-    - But the opposite can be true too (Causation =/= Correlation)
