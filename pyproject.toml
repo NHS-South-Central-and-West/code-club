@@ -13,4 +13,5 @@ dependencies = [
     "pyyaml>=6.0.2",
     "quarto>=0.1.0",
     "rsconnect-python>=1.25.2",
+    "skimpy>=0.0.18",
 ]
