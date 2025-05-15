@@ -303,8 +303,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#correlations-limitations" id="toc-correlations-limitations" class="nav-link" data-scroll-target="#correlations-limitations">Correlation’s Limitations</a></li>
   <li><a href="#visualising-linear-regressions" id="toc-visualising-linear-regressions" class="nav-link" data-scroll-target="#visualising-linear-regressions">Visualising Linear Regressions</a></li>
-  <li><a href="#plotted-regression-limitations" id="toc-plotted-regression-limitations" class="nav-link" data-scroll-target="#plotted-regression-limitations">Plotted Regression Limitations</a></li>
-  <li><a href="#wrapup-bridge-to-regression" id="toc-wrapup-bridge-to-regression" class="nav-link" data-scroll-target="#wrapup-bridge-to-regression">8. Wrap‑Up &amp; Bridge to Regression</a></li>
+  <li><a href="#visualisation-limitations" id="toc-visualisation-limitations" class="nav-link" data-scroll-target="#visualisation-limitations">Visualisation Limitations</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -335,7 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Variable types &amp; framing</li>
 <li>Visual exploration of relationships</li>
 <li>Calculating correlation</li>
-<li>Spotting and diagnosing non‑linear patterns</li>
+<li>Limitations with correlation and visual exploration</li>
 </ul>
 <section id="why-analyse-relationships" class="level2">
 <h2 class="anchored" data-anchor-id="why-analyse-relationships">Why Analyse Relationships?</h2>
@@ -358,7 +358,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv'</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins_raw <span class="op">=</span> pd.read_csv(url)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins_raw.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="import-data" class="cell-output cell-output-display" data-execution_count="1">
+<div id="import-data" class="cell-output cell-output-display" data-execution_count="57">
 <div>
 
 
@@ -443,14 +443,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># focus on key continuous variables and drop missing values</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> penguins_raw.dropna()</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="clean-data" class="cell-output cell-output-display" data-execution_count="2">
+<div id="clean-data" class="cell-output cell-output-display" data-execution_count="58">
 <pre><code>(333, 8)</code></pre>
 </div>
 </div>
 </section>
 <section id="visualing-relationships" class="level2">
 <h2 class="anchored" data-anchor-id="visualing-relationships">Visualing Relationships</h2>
-<div id="cell-flipper-mass-scatter-plot" class="cell" data-execution_count="3">
+<div id="cell-fig-flipper-mass-scatter-plot" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -468,20 +468,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Body Mass (g)'</span>)</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/flipper-mass-scatter-plot-output-1.png" id="flipper-mass-scatter-plot" class="img-fluid figure-img"></p>
+<div id="fig-flipper-mass-scatter-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flipper-mass-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-flipper-mass-scatter-plot-output-1.png" id="fig-flipper-mass-scatter-plot" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-flipper-mass-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>Questions:</strong></p>
 <ul>
-<li>What pattern do you see?</li>
+<li>What pattern do you see in <a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a>?</li>
 <li>How does body mass change when flipper length increases, according to this plot?</li>
 <li>Are there differences by species?</li>
 </ul>
-<div id="cell-bill-scatter-plot" class="cell" data-execution_count="4">
+<div id="cell-fig-bill-scatter-plot" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter of bill length vs. bill depth</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
@@ -496,16 +501,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/bill-scatter-plot-output-1.png" id="bill-scatter-plot" class="img-fluid figure-img"></p>
+<div id="fig-bill-scatter-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bill-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-bill-scatter-plot-output-1.png" id="fig-bill-scatter-plot" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-bill-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>Questions:</strong></p>
 <ul>
-<li>What pattern do you see?</li>
+<li>What pattern do you see in <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a>?</li>
 <li>How does bill depth change when bill length increases, according to this plot?</li>
 <li>Are there differences by species?</li>
 </ul>
@@ -550,7 +560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .corr()</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="correlation-matrix" class="cell-output cell-output-display" data-execution_count="7">
+<div id="correlation-matrix" class="cell-output cell-output-display" data-execution_count="63">
 <div>
 
 
@@ -612,8 +622,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>We can also visualise a correlation matrix.</p>
-<div id="cell-correlation-matrix-plot" class="cell" data-execution_count="8">
+<p>We can also visualise a correlation matrix, shown below in <a href="#fig-correlation-matrix-plot" class="quarto-xref">Figure&nbsp;3</a>.</p>
+<div id="cell-fig-correlation-matrix-plot" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add correlation matrix to summarise relationships</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>).corr()</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot heatmap</span></span>
@@ -622,9 +632,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix"</span>)</span>
 <span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/correlation-matrix-plot-output-1.png" id="correlation-matrix-plot" class="img-fluid figure-img"></p>
+<div id="fig-correlation-matrix-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-correlation-matrix-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-correlation-matrix-plot-output-1.png" id="fig-correlation-matrix-plot" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-correlation-matrix-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3
+</figcaption>
 </figure>
 </div>
 </div>
@@ -638,7 +653,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    .drop(<span class="st">'body_mass'</span>)</span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="body-mass-correlations" class="cell-output cell-output-display" data-execution_count="9">
+<div id="body-mass-correlations" class="cell-output cell-output-display" data-execution_count="65">
 <pre><code>bill_len       0.59
 bill_dep      -0.47
 flipper_len    0.87
@@ -650,7 +665,8 @@ Name: body_mass, dtype: float64</code></pre>
 </section>
 <section id="correlations-limitations" class="level2">
 <h2 class="anchored" data-anchor-id="correlations-limitations">Correlation’s Limitations</h2>
-<div id="cell-non-linear-relationships" class="cell" data-execution_count="10">
+<p>Computing correlation can be very informative, but there are a lot of ways it is limited. Correlation (at least the most common method for calculating correlation, Pearson’s <em>r</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>) does not handle non-linearity well.</p>
+<div id="cell-fig-non-linear-relationships" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate a u‑shaped relationship example</span></span>
@@ -663,9 +679,14 @@ Name: body_mass, dtype: float64</code></pre>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'u-shaped pattern'</span>)</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/non-linear-relationships-output-1.png" id="non-linear-relationships" class="img-fluid figure-img"></p>
+<div id="fig-non-linear-relationships" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-non-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-non-linear-relationships-output-1.png" id="fig-non-linear-relationships" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-non-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4
+</figcaption>
 </figure>
 </div>
 </div>
@@ -674,14 +695,14 @@ Name: body_mass, dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim[<span class="st">'x'</span>], sim[<span class="st">'y'</span>])</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correlation (r) = -0.00</code></pre>
+<pre><code>Correlation (r) = -0.02</code></pre>
 </div>
 </div>
 <p><strong>Takeaway:</strong> Pearson’s <em>r</em> misses non-linear relationships</p>
 </section>
 <section id="visualising-linear-regressions" class="level2">
 <h2 class="anchored" data-anchor-id="visualising-linear-regressions">Visualising Linear Regressions</h2>
-<div id="cell-flipper-mass-regression-plot" class="cell" data-execution_count="12">
+<div id="cell-fig-flipper-mass-regression-plot" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add linear fit line</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sns.regplot(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
@@ -695,14 +716,19 @@ Name: body_mass, dtype: float64</code></pre>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Body Mass (g)'</span>)</span>
 <span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/flipper-mass-regression-plot-output-1.png" id="flipper-mass-regression-plot" class="img-fluid figure-img"></p>
+<div id="fig-flipper-mass-regression-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flipper-mass-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-flipper-mass-regression-plot-output-1.png" id="fig-flipper-mass-regression-plot" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-flipper-mass-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-bill-regression-plot" class="cell" data-execution_count="13">
+<div id="cell-fig-bill-regression-plot" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add linear fit line</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sns.regplot(</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
@@ -716,18 +742,24 @@ Name: body_mass, dtype: float64</code></pre>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/bill-regression-plot-output-1.png" id="bill-regression-plot" class="img-fluid figure-img"></p>
+<div id="fig-bill-regression-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-bill-regression-plot-output-1.png" id="fig-bill-regression-plot" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="plotted-regression-limitations" class="level2">
-<h2 class="anchored" data-anchor-id="plotted-regression-limitations">Plotted Regression Limitations</h2>
-<p>These plots points to another limitation with Pearson’s <em>r</em> that also applies to regression plots. Grouping structures!</p>
-<div id="cell-grouping-structures" class="cell" data-execution_count="14">
+<section id="visualisation-limitations" class="level2">
+<h2 class="anchored" data-anchor-id="visualisation-limitations">Visualisation Limitations</h2>
+<p>Visualising relationships has many of the same issues that computing correlation does, but fundamentally the biggest issue is that it is pairwise, and few relationships are strictly pairwise in the real world.</p>
+<p><a href="#fig-bill-regression-plot" class="quarto-xref">Figure&nbsp;6</a> points to another limitation with Pearson’s <em>r</em> that also applies to regression plots. Grouping structures!</p>
+<div id="cell-fig-grouping-structures" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"bill_len"</span>, y<span class="op">=</span><span class="st">"bill_dep"</span>, hue<span class="op">=</span><span class="st">"species"</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Accounting for groups'</span>)</span>
@@ -735,16 +767,24 @@ Name: body_mass, dtype: float64</code></pre>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/grouping-structures-output-1.png" id="grouping-structures" class="img-fluid figure-img"></p>
+<div id="fig-grouping-structures" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-grouping-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-grouping-structures-output-1.png" id="fig-grouping-structures" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-grouping-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p><a href="#fig-grouping-structures" class="quarto-xref">Figure&nbsp;7</a> shows how pairwise examination of relationships can miss so much.</p>
+<p>Drawing a straight line through data is strictly linear, but unlike correlation coefficients, you will be able to <em>see</em> when this is inappropriate. A linear regression plot will not handle the non-linear pattern above any better than a correlation coefficient, but you will be able to see the problem for yourself.</p>
+<p>Visualising data helps you to get a sense of how two variables are related, but where you are seeking to understand the relationship between variables, or even explain what causes a certain outcome, you have to go further.</p>
 </section>
-<section id="wrapup-bridge-to-regression" class="level2">
-<h2 class="anchored" data-anchor-id="wrapup-bridge-to-regression">8. Wrap‑Up &amp; Bridge to Regression</h2>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
 <li>Correlation quantifies strength of linear link.</li>
 <li>Only linear, pairwise, no adjustment for other variables.</li>
@@ -759,6 +799,7 @@ Name: body_mass, dtype: float64</code></pre>
 
 <ol>
 <li id="fn1"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>There are a number of other ways of calculating correlation, including methods that account for non-linearity, but more often than not you will encounter Pearson’s <em>r</em>. Any time correlation is mentioned without specifying the way it was calculated, you should assume it is using Pearson’s <em>r</em>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
