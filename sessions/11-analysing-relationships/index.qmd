@@ -10,7 +10,7 @@ This notebook explores relationships in data and the process for analysing relat
 - Variable types & framing
 - Visual exploration of relationships
 - Calculating correlation
-- Spotting and diagnosing non‑linear patterns
+- Limitations with correlation and visual exploration
 
 ## Why Analyse Relationships?
 
@@ -54,7 +54,7 @@ df.shape
 ## Visualing Relationships
 
 ```{python}
-#| label: flipper-mass-scatter-plot
+#| label: fig-flipper-mass-scatter-plot
 
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -76,12 +76,12 @@ plt.show()
 
 **Questions:**
 
-- What pattern do you see?
+- What pattern do you see in @fig-flipper-mass-scatter-plot?
 - How does body mass change when flipper length increases, according to this plot?
 - Are there differences by species?
 
 ```{python}
-#| label: bill-scatter-plot
+#| label: fig-bill-scatter-plot
 
 # scatter of bill length vs. bill depth
 plt.figure(figsize=(8, 6))
@@ -100,7 +100,7 @@ plt.show()
 
 **Questions:**
 
-- What pattern do you see?
+- What pattern do you see in @fig-bill-scatter-plot?
 - How does bill depth change when bill length increases, according to this plot?
 - Are there differences by species?
 
@@ -156,10 +156,10 @@ We may be interested in the pairwise correlation between multiple variables. If 
 )
 ```
 
-We can also visualise a correlation matrix.
+We can also visualise a correlation matrix, shown below in @fig-correlation-matrix-plot.
 
 ```{python}
-#| label: correlation-matrix-plot
+#| label: fig-correlation-matrix-plot
 
 # add correlation matrix to summarise relationships
 corr_matrix = df.select_dtypes(include='number').corr()
@@ -186,8 +186,10 @@ If you are concerned with a certain outcome and you want to quickly look at the 
 
 ## Correlation's Limitations
 
+Computing correlation can be very informative, but there are a lot of ways it is limited. Correlation (at least the most common method for calculating correlation, Pearson's _r_[^R]) does not handle non-linearity well.
+
 ```{python}
-#| label: non-linear-relationships
+#| label: fig-non-linear-relationships
 
 import numpy as np
 
@@ -209,12 +211,16 @@ r, p = pearsonr(sim['x'], sim['y'])
 print(f"Correlation (r) = {r:.2f}")
 ```
 
-**Takeaway:** Pearson’s *r* misses non-linear relationships
+**Takeaway:** Pearson’s _r_ misses non-linear relationships
+
+[^R]:
+
+There are a number of other ways of calculating correlation, including methods that account for non-linearity, but more often than not you will encounter Pearson's _r_. Any time correlation is mentioned without specifying the way it was calculated, you should assume it is using Pearson's _r_.
 
 ## Visualising Linear Regressions
 
 ```{python}
-#| label: flipper-mass-regression-plot
+#| label: fig-flipper-mass-regression-plot
 
 # add linear fit line
 sns.regplot(
@@ -231,7 +237,7 @@ plt.show()
 ```
 
 ```{python}
-#| label: bill-regression-plot
+#| label: fig-bill-regression-plot
 
 # add linear fit line
 sns.regplot(
@@ -247,12 +253,14 @@ plt.ylabel('Bill Depth (mm)')
 plt.show()
 ```
 
-## Plotted Regression Limitations
+## Visualisation Limitations
 
-These plots points to another limitation with Pearson's *r* that also applies to regression plots. Grouping structures!
+Visualising relationships has many of the same issues that computing correlation does, but fundamentally the biggest issue is that it is pairwise, and few relationships are strictly pairwise in the real world.
+
+@fig-bill-regression-plot points to another limitation with Pearson's *r* that also applies to regression plots. Grouping structures!
 
 ```{python}
-#| label: grouping-structures
+#| label: fig-grouping-structures
 
 sns.lmplot(data=df, x="bill_len", y="bill_dep", hue="species")
 
@@ -262,7 +270,13 @@ plt.ylabel('Bill Depth (mm)')
 plt.show()
 ```
 
-## 8. Wrap‑Up & Bridge to Regression
+@fig-grouping-structures shows how pairwise examination of relationships can miss so much.
+
+Drawing a straight line through data is strictly linear, but unlike correlation coefficients, you will be able to _see_ when this is inappropriate. A linear regression plot will not handle the non-linear pattern above any better than a correlation coefficient, but you will be able to see the problem for yourself.
+
+Visualising data helps you to get a sense of how two variables are related, but where you are seeking to understand the relationship between variables, or even explain what causes a certain outcome, you have to go further.
+
+## Summary
 
 - Correlation quantifies strength of linear link.
 - Only linear, pairwise, no adjustment for other variables.
