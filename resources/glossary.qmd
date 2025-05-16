@@ -1,0 +1,62 @@
+---
+title: "Glossary"
+format:
+  html:
+    page-layout: full
+execute:
+    echo: false
+---
+
+This page will have a list of definitions for commonly used (and/or commonly misunderstood) terminology and acronyms relating to python or data analysis and manipulation in general.
+
+<!-- ::: column-screen-inset -->
+```{python}
+#| label: glossary-table
+
+import polars as pl
+from great_tables import GT, html, style, loc
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+# import .csv
+df = pl.read_csv('../data/glossary.csv')
+
+df.drop('Notes')
+
+# Column Widths for table.
+# Please note that these values fit our standard Dell monitors nicely,
+# so bear this in mind if you feel the need to change any of them.
+
+COLUMN_WIDTHS = {
+            "Term" : "100px",
+            "Definition" : "800px",
+            # "Notes" : "200px"
+        }
+
+# Render the table as a great_table object
+#.select() allows column order to be specified
+(
+    GT(
+        df.select(
+            [
+				"Term",
+				"Definition",
+				# "Notes"
+            ]
+            )
+		.fill_null(' ')
+    )
+    
+    .cols_width(COLUMN_WIDTHS)
+    .tab_options(quarto_disable_processing=True) # needed to override Quarto's own table formatting
+	.fmt_markdown()
+    .cols_align(align="left")
+    .opt_align_table_header(align="left")
+    .tab_style(
+        style=style.text(weight="bold"),
+        locations=loc.column_labels()
+    )
+    .opt_row_striping()
+)
+```
+<!-- ::: -->
