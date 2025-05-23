@@ -1,0 +1,122 @@
+---
+title: "EDA Exercise Solutions"
+format:
+  html: default
+  ipynb: default
+---
+
+```{python}
+
+# import packages
+import numpy as np
+import pandas as pd
+```
+
+```{python}
+# import the dataset
+df = pd.read_csv('data/weatherAUS.csv')
+```
+
+1. What is the 'Sunshine' column's data type?
+
+```{python}
+
+# What is the 'Sunshine' column's data type?
+df['Sunshine'].dtypes
+```
+
+2. Identify all the columns that are of dtype 'object'.
+
+```{python}
+# Identify all the columns that are of dtype 'object'
+list(df.select_dtypes(include=['object']))
+```
+
+3. How many of the dataframe's columns are of dtype 'object'?
+```{python}
+# How many of the dataframe's columns are of dtype 'object'?
+len(list(df.select_dtypes(include=['object'])))
+```
+
+4. How many of the 'Rainfall' column values are NAs?
+
+```{python}
+# How many of the 'Rainfall' column values are NAs?
+df['Rainfall'].isna().sum()
+```
+
+5. Create a new dataframe which only includes the 'Date', 'Location, 'Sunshine', 'Rainfall', and 'RainTomorrow' columns.
+
+```{python}
+# Create a new dataframe which only includes the 'Date', 'Location, 'Sunshine', 'Rainfall', and 'RainTomorrow' columns.
+new_df = df[['Date', 'Location', 'Sunshine', 'Rainfall', 'RainTomorrow']]
+new_df.head()
+```
+
+6. Convert 'RainTomorrow' to a numeric variable, where 'Yes' = 1 and 'No' = 0.
+
+```{python}
+# Convert 'RainTomorrow' to a numeric variable, where 'Yes' = 1 and 'No' = 0.
+# df['Location'].astype('category').cat.codes
+# df['RainTomorrow'].astype('category').cat.codes
+df['RainTomorrow'].map({'Yes': 1, 'No': 0})
+```
+
+7. What is the average amount of rainfall for each location?
+
+```{python}
+# What is the average amount of rainfall for each location?
+df.groupby('Location')['Rainfall'].mean().sort_values(ascending=False)
+```
+
+8. What is the average amount of rainfall for days that it will rain tomorrow?
+
+```{python}
+# What is the average amount of rainfall for days that it will rain tomorrow?
+df.groupby('RainTomorrow')['Rainfall'].mean()
+```
+
+9. What is the average amount of sunshine in Perth when it will not rain tomorrow?
+
+```{python}
+# What is the average amount of sunshine in Perth when it will not rain tomorrow?
+df.loc[(df['Location'] == 'Perth') & (df['RainTomorrow'] == 'No'), 'Sunshine'].mean()
+# df[(df['Location']=='Perth') & (df['RainTomorrow']=='No')]['Sunshine'].mean()
+```
+
+10. We want to understand the role that time plays in the dataset. Using the original dataframe, carry the following tasks and answer the corresponding questions:
+    - Create columns representing the year and month from the 'Date' column. How many years of data are in the dataset?
+    - Examine the distribution of the 'Sunshine' NAs over time. Is time a component in the 'Sunshine' data quality issues?
+    - Calculate the average rainfall and sunshine by month. How do rainfall and sunshine vary through the year?
+    - Calculate the average rainfall and sunshine by year. How have rainfall and sunshine changed over time?
+
+```{python}
+# Create columns representing the year and month from the 'Date' column. How many years of data are in the dataset?
+df = (
+    df.assign(Date=pd.to_datetime(df['Date']))
+    .assign(
+        Year=lambda x: x['Date'].dt.year,
+        Month=lambda x: x['Date'].dt.month
+    )
+)
+
+df['Year'].nunique()
+```
+
+
+```{python}
+# Examine the distribution of the 'Sunshine' NAs over time. Is time a component in the 'Sunshine' data quality issues?
+df.groupby('Year')['Sunshine'].apply(lambda x: x.isna().sum())
+```
+
+
+```{python}
+# Calculate the average rainfall and sunshine by month. How do rainfall and sunshine vary through the year?
+df.groupby('Month')[['Rainfall', 'Sunshine']].mean()
+```
+
+
+```{python}
+# Calculate the average rainfall and sunshine by year. How have rainfall and sunshine changed over time?
+df.groupby('Year')[['Rainfall', 'Sunshine']].mean()
+```
