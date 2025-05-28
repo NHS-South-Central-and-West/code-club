@@ -36,6 +36,7 @@ df = pd.read_csv('data/weatherAUS.csv')
 Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions wwith any exploration, and any analysis that follows.
 
 **Questions:**
+
 - What are we trying to achieve?
 - How do our goals impact our analysis?
 - What should we take into consideration before we write any code?
@@ -46,6 +47,7 @@ Before we start to explore any dataset, we need to establish what we are looking
 We also need to consider what the data is and where it came from.
 
 **Questions:**
+
 - How was the data collected?
 - What is it missing?
 - What do the variables in our dataset actually mean, and are they a good approximation of the concepts we are interested in?
@@ -55,6 +57,7 @@ We also need to consider what the data is and where it came from.
 First, we should start with dataset-wide operations.
 
 **Questions:**
+
 - What do we want to know about a dataset when we first encounter it?
 - How do we get a quick overview of the data that can help us in our next steps?
 - We need to get a "feel" for the data before we can really make any decisions about how to analyse it. How do we get there with a new dataset?
@@ -231,6 +234,7 @@ For more information, I'd recommend the [pandas documentation](https://pandas.py
 Now that we know how to select the variables or observations we are interested in, we can start doing some descriptive analysis. The operations we use will depend on the questions we are trying to answer, and the possibilities will be almost endless.
 
 **Questions:**
+
 - What "functions" might we need to carry out on our data when we are exploring it?
 
 We know that the weather data includes observations from all over the country, but we might want to check exactly how many different locations there are. We can use `pd.DataFrame.nunique()` to do this.
@@ -344,6 +348,7 @@ Some functions should be wrapped in `print()` in order to return a value that is
 Datasets are rarely perfectly clean and [tidy](https://vita.had.co.nz/papers/tidy-data.pdf). We often need to transform the data before we can get the most out of it.
 
 **Questions:**
+
 - What sort of transformations would help us get the most out of the analysis of the Australian weather data?
 
 The first step with any analysis is often converting columns to the correct types. With a longitudinal (time-series) dataset,the date column is a good place to start. We can use `pd.DataFrame.dtypes` to check the data type, either of a single column (using the selector brackets) or all columns in the dataset.
@@ -438,7 +443,7 @@ Some of these questions are easily answered by scrolling up and finding the answ
 ```{python}
 #| label: reset-data
 #| code-fold: true
-#| code-summary: 'Import Data (to Reset Following Transformations)'
+#| code-summary: 'Import Data (to Reset)'
 
 # import the dataset
 df = pd.read_csv('data/weatherAUS.csv')
