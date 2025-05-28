@@ -5,15 +5,15 @@ format:
   ipynb: default
 ---
 
-This is the first of four sessions looking at how to explore data in Python. This session will focus on introducing the Python library, pandas. We will use pandas
+This is the first of four sessions looking at how to explore data in Python. This session will focus on introducing the Python library, [pandas](https://pandas.pydata.org/docs/). We will use pandas to import, inspect, summarise, and transform the data, illustrating a typical exploratory data analysis workflow.
 
-We are using Australian weather data, taken from Kaggle. To download the data, click <a href="data/weatherAUS.csv" download>here</a>.
+We are using [Australian weather data](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package), taken from [Kaggle](https://kaggle.com). To download the data, click <a href="data/weatherAUS.csv" download>here</a>.
 
 ```{python}
 #| label: setup
 
 # install necessary packages
-!uv add skimpy
+# !uv add skimpy
 
 # import packages
 import matplotlib.pyplot as plt
@@ -63,12 +63,15 @@ We also need to consider what the data is and where it came from.
 - Do they impact the way we structure our analysis?
 - Do they impact the code we write?
 
-## Describing Data
+## Exploring the Dataset
+
+First, we should start with dataset-wide operations.
 
 - What do we want to know about a dataset when we first encounter it?
 - How do we get a quick overview of the data that can help us in our next steps?
 - We need to get a "feel" for the data before we can really make any decisions about how to analyse it. How do we get there with a new dataset?
 
+We can start by getting a quick glance at the data. The starting point when you have just imported a new dataset is usually the pandas function `pd.DataFrame.head()`, which shows the top $n$ rows of the dataset (by default it shows the top five rows).
 
 ```{python}
 #| label: inspect-data-head
@@ -77,6 +80,7 @@ We also need to consider what the data is and where it came from.
 df.head()
 ```
 
+You can also look at the bottom rows of the dataset, using `pd.DataFrame.tail()`. This might be useful if you are dealing with time-series data. Below, we specify that we want to look at the bottom ten rows.
 
 ```{python}
 #| label: inspect-data-tail
@@ -85,14 +89,7 @@ df.head()
 df.tail(10)
 ```
 
-
-```{python}
-#| label: data-shape
-
-# get the object shape (number of rows, number of columns)
-df.shape
-```
-
+A quick glimpse at the data is useful, but we may also want to get quick descriptions of several aspects of the data. Such as the length of the dataset (`len()`, which can also be used to get the length of various Python objects), which tells us how many observations we have.
 
 ```{python}
 #| label: data-length
@@ -101,6 +98,16 @@ df.shape
 len(df)
 ```
 
+Another option is `pd.DataFrame.shape()`, which shows the length (number of rows) and width (number of columns).
+
+```{python}
+#| label: data-shape
+
+# get the object shape (number of rows, number of columns)
+df.shape
+```
+
+Speaking of columns, if we want a quick list of the column names, we can get this using `pd.DataFrame.columns()`.
 
 ```{python}
 #| label: col-names
@@ -109,6 +116,7 @@ len(df)
 df.columns
 ```
 
+A quick and easy way to get some valuable information about the dataset is `pd.DataFrame.info()`.
 
 ```{python}
 #| label: data-info
@@ -117,6 +125,7 @@ df.columns
 df.info()
 ```
 
+If we wanted to get a better sense of the null values in each column, we could calculate the percentage of null values by capturing whether each row of each column is null (`pd.DataFrame.isnull()`), summing the total null values in each column (`pd.DataFrame.sum()`), and then dividing by the length of the dataframe (`/len()`).
 
 ```{python}
 #| label: null-values-percent
@@ -125,29 +134,42 @@ df.info()
 df.isnull().sum()/len(df)
 ```
 
-## Wrangling Data
+If we want a quick summary of all the numeric columns in the dataset, we can use `pd.DataFrame.describe()`.
 
-- Datasets are rarely perfectly clean and [tidy](https://vita.had.co.nz/papers/tidy-data.pdf). It is often necessary to make changes to our data, such as selecting a subset of columns, filtering for a range of values, and transforming how certain variables are represented.
-- What "functions" might we need to carry out on our data when we are exploring it?
-- What sort of transformations might be necessary here?
+```{python}
+#| label: describe-data
 
+# quick summary of numeric variables
+df.describe()
+```
+
+However, I prefer to bring in another package, skimpy, that does all of this very quickly and cleanly. We can get a detailed description of the entire dataset using `skim()`.
+
+```{python}
+#| label: summarise-data
+
+# a more informative summary function from the skimpy package
+skim(df)
+```
+
+## Exploring Variables (Columns) & Observations (Rows)
+
+If we are going to narrow our focus to specific variables or groups of observations, we need to know how to select columns, filter values, and group the data. There are lots of different ways we can slice up the data. We won't cover all of them here[^Docs], but we will try to cover a range that helps illustrate how pandas works and will help you build the intuition for working with data in pandas.
+
+We can select columns in a variety of ways, but the "correct" way to select columns in most circumstances is using selection brackets (the square brackets `[]`), also known as the indexing operator.
 
 ```{python}
 #| label: select-col
 
 # selecting a single column by name
 df['Date']
-```
 
-
-```{python}
-#| label: alt-select
-
-# there's always multiple ways to achieve something in python
-df.loc[:, 'Date'] # this is good
+# alternative ways to select columns
+# df.loc[:, 'Date']
 # df.Date
 ```
 
+If we want to select multiple columns, we can use double squared brackets (`[[ ]]`). This is the same process as before, but the inner brackets define a list, and the outer are the selection brackets.
 
 ```{python}
 #| label: select-multiple-cols
@@ -157,23 +179,162 @@ df[['Date', 'Location', 'Rainfall']]
 # df.loc[:, ['Date', 'Location', 'Rainfall']]
 ```
 
+While selection brackets are a quick and easy solution if we want to grab a subset of variables in the dataset, it is realy only intended to be used for simple operations using only column selection.
+
+For row selection, we should use `pd.DataFrame.iloc[]`. The `iloc` function is used for "integer position" selection, which means you can select rows or columns using their integer position. For rows 10-15, you can select them using the following:
 
 ```{python}
 #| label: subset-rows
 
 # slicing by rows
-df[200:211]
+df.iloc[10:16]
 ```
+
+We can do similar using a column's integer position, but we have to select all rows (`:`) first:
 
 ```{python}
-#| label: filter-vals
+#| label: col-iloc
 
-# filtering by values
-# df[df['Location'] == 'Perth']
-# df[df['Rainfall'] > 0]
-df[(df['Rainfall'] == 0) & (df['Location'] == 'Perth')]
+
+# using iloc with columns
+df.iloc[:, 20]
 ```
 
+Finally, we can put both together to take a subset of both rows and columns:
+
+```{python}
+#| label: col-rows-iloc
+
+# using iloc with rows and columns
+df.iloc[10:16, 20]
+```
+
+However, selecting by integer position is relatively limited. It is more likely we would want to subset the data based on the values of certain columns. We can filter rows by condition using `pd.DataFrame.loc[]`. The `loc` function slices by label, instead of integer position.
+
+For example, we might want to look at a subset of the data based on location.
+
+```{python}
+#| label: filter-location
+
+# select all observations in Perth
+df.loc[df['Location'] == 'Perth']
+```
+
+We can also filter by multiple values, such as location and rainfall.
+
+```{python}
+#| label: filter-multiple-vals
+
+df.loc[(df['Rainfall'] == 0) & (df['Location'] == 'Perth')]
+```
+
+For any complex process for subsetting the data, including multiple conditions, `pd.DataFrame.loc[]` is the best bet.
+
+[^Docs]:
+
+For more information, I'd recommend the [pandas documentation](https://pandas.pydata.org/docs/), and this pandas tutorial on [subsetting data](https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html).
+
+### Summarising Data
+
+Now that we know how to select the variables or observations we are interested in, we can start doing some descriptive analysis. The operations we use will depend on the questions we are trying to answer, and the possibilities will be almost endless.
+
+We know that the weather data includes observations from all over the country, but we might want to check exactly how many different locations there are. We can use `pd.DataFrame.nunique()` to do this.
+
+```{python}
+#| label: count-unique
+
+# count unique values
+df['Location'].nunique()
+```
+
+We may also be interested in the locations themselves, which may tell us more about the spatial distribution of our data. In this case, we can use `pd.DataFrame.unique()`.
+
+```{python}
+#| label: unique-vals
+
+# get unique values
+df['Location'].unique()
+```
+
+Another common operation we might look to do is calculating the mean value (`pd.DataFrame.mean()`) of a certain variable. What is the average value of sunshine across the entire dataset?
+
+```{python}
+#| label: simple-mean
+
+# calculate variable mean
+df['Sunshine'].mean()
+```
+
+This gives us the mean to many decimal places, and we probably don't need to know the average sunshine hours to this level of precision. We can use numpy's `round()` function to round to two decimal places.
+
+```{python}
+#| label: rounded-mean
+
+# round mean value
+np.round(df['Sunshine'].mean(), decimals=2)
+```
+
+Many operations will return the value with information about the object's type included. The above values are wrapped in `np.float64()` because `pd.DataFrame.mean()` uses numpy to calculate the mean value. However, if you want to strip this information out so you only see the value itself, you can use `print()`.
+
+```{python}
+#| label: print-values
+
+# print mean value
+print(np.round(df['Sunshine'].mean(), decimals=2))
+```
+
+While we are often interested in the mean value when we talk about averages, we might want to know the median instead (`pd.DataFrame.median()`).
+
+```{python}
+#| label: median
+
+# calculate other summary statistics
+print(df['Sunshine'].median())
+```
+
+Another common calculation is summing values (`pd.DataFrame.sum()`). We can use `sum()` to see the total hours of sunshine in our dataset, and we can use `int()` to convert this value to an integer (which also means we don't need to use `print()`[^Print]).
+```{python}
+#| label: sum
+
+# calculate sum value and return an integer
+int(df['Sunshine'].sum())
+```
+
+The next step when exploring specific variables will often be group-level summaries. The average amount of sunshine across the whole dataset has limited utility, but the average hours of sunshine in each location allows us to compare between locations and start to understand how different variables are related to each other. If we want to do a group-level operation, we have to use `pd.DataFrame.groupby()`.
+
+```{python}
+#| label: group-means
+
+# calculate group means
+np.round(df.groupby(by='Location')['Sunshine'].mean(), decimals=1)
+```
+
+The `groupby(by='Location')` function tells us the grouping variable (location), then we select the variable we want to summarise by location (sunshine), and then we specify the operation (mean).
+
+There are multiple locations that return `NaN` (**N**ot **a** **N**umber). This indicates that numpy was unable to calculate a mean value for those locations. This is likely to be because all sunshine values for those locations are null.
+
+We can check this using `pd.DataFrame.count()`, which counts the total non-null values (whereas `pd.DataFrame.size()` counts the total values).
+
+```{python}
+#| label: count-group-non-nulls
+
+# group by location and count non-null sunshine values
+df.groupby('Location')['Sunshine'].count()
+```
+
+The results show that all the locations that return `NaN` in our group mean calculation have zero non-null values.
+
+[^Print]:
+
+Some functions should be wrapped in `print()` in order to return a value that is easy to read, but others won't. There will be an internal logic for which is which, but it's not of huge importance to us. You are better off just testing functions out and wrapping them in `print()` if necessary.
+
+## Transforming Data
+
+Datasets are rarely perfectly clean and [tidy](https://vita.had.co.nz/papers/tidy-data.pdf). It is often necessary to make changes to our data, such as selecting a subset of columns, filtering for a range of values, and transforming how certain variables are represented.
+
+- **Questions:**
+    - What "functions" might we need to carry out on our data when we are exploring it?
+    - What sort of transformations might be necessary here?
 
 ```{python}
 #| label: convert-to-datetime
@@ -199,71 +360,6 @@ df.apply(lambda x: x.astype('category') if x.dtype == 'object' else x)
 df[df['Sunshine'].notnull()]
 ```
 
-## Summarising Data
-
-
-```{python}
-#| label: describe-data
-
-# quick summary of numeric variables
-df.describe()
-```
-
-
-```{python}
-#| label: summarise-data
-
-# a more informative summary function from the skimpy package
-skim(df)
-```
-
-
-```{python}
-#| label: count-unique
-
-# count unique values
-df['Location'].nunique()
-```
-
-
-```{python}
-#| label: unique-vals
-
-# get unique values
-df['Location'].unique()
-```
-
-
-```{python}
-#| label: mean
-
-# calculate variable mean
-np.round(df['Sunshine'].mean(), decimals=2)
-```
-
-
-```{python}
-#| label: median
-
-# calculate other summary statistics
-df['Sunshine'].median()
-# df['Sunshine'].sum()
-```
-
-
-```{python}
-#| label: group-means
-
-# calculate group means
-np.round(df.groupby(by='Location')['Sunshine'].mean(), decimals=1)
-```
-
-
-```{python}
-#| label: count-group-non-nulls
-# group by location and count non-null sunshine values
-df.groupby('Location')['Sunshine'].count()
-```
 
 ## Exercises
 
@@ -272,63 +368,54 @@ Some of these questions are easily answered by scrolling up and finding the answ
 **Remember, if you don't know the answer, it's okay to Google it (or speak to others, including me, for help)!**
 
 1. What is the 'Sunshine' column's data type?
-2. Identify all the columns that are of dtype 'object'.
-3. How many of the dataframe's columns are of dtype 'object'?
-4. How many of the 'Rainfall' column values are NAs?
-5. Create a new dataframe which only includes the 'Date', 'Location, 'Sunshine', 'Rainfall', and 'RainTomorrow' columns.
-6. Convert 'RainTomorrow' to a numeric variable, where 'Yes' = 1 and 'No' = 0.
-7. What is the average amount of rainfall for each location?
-8. What is the average amount of rainfall for days that it will rain tomorrow?
-9. What is the average amount of sunshine in Perth when it will not rain tomorrow?
-10. We want to understand the role that time plays in the dataset. Using the original dataframe, carry the following tasks and answer the corresponding questions:
-    - Create columns representing the year and month from the 'Date' column. How many years of data are in the dataset?
-    - Examine the distribution of the 'Sunshine' NAs over time. Is time a component in the 'Sunshine' data quality issues?
-    - Calculate the average rainfall and sunshine by month. How do rainfall and sunshine vary through the year?
-    - Calculate the average rainfall and sunshine by year. How have rainfall and sunshine changed over time?
 
-### Solutions
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
-
-# import packages
-import numpy as np
-import pandas as pd
-```
-
-```{python}
-# import the dataset
-df = pd.read_csv('data/weatherAUS.csv')
-```
-
-1. What is the 'Sunshine' column's data type?
-
-```{python}
+#| label: col-type
 
 # What is the 'Sunshine' column's data type?
 df['Sunshine'].dtypes
 ```
 
+:::
+
 2. Identify all the columns that are of dtype 'object'.
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # Identify all the columns that are of dtype 'object'
 list(df.select_dtypes(include=['object']))
 ```
 
+:::
+
 3. How many of the dataframe's columns are of dtype 'object'?
+
+::: {.callout-note title="Solution" collapse="true"}
+
 ```{python}
 # How many of the dataframe's columns are of dtype 'object'?
 len(list(df.select_dtypes(include=['object'])))
 ```
 
+:::
+
 4. How many of the 'Rainfall' column values are NAs?
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # How many of the 'Rainfall' column values are NAs?
 df['Rainfall'].isna().sum()
 ```
 
+:::
+
 5. Create a new dataframe which only includes the 'Date', 'Location, 'Sunshine', 'Rainfall', and 'RainTomorrow' columns.
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # Create a new dataframe which only includes the 'Date', 'Location, 'Sunshine', 'Rainfall', and 'RainTomorrow' columns.
@@ -336,7 +423,11 @@ new_df = df[['Date', 'Location', 'Sunshine', 'Rainfall', 'RainTomorrow']]
 new_df.head()
 ```
 
+:::
+
 6. Convert 'RainTomorrow' to a numeric variable, where 'Yes' = 1 and 'No' = 0.
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # Convert 'RainTomorrow' to a numeric variable, where 'Yes' = 1 and 'No' = 0.
@@ -345,21 +436,33 @@ new_df.head()
 df['RainTomorrow'].map({'Yes': 1, 'No': 0})
 ```
 
+:::
+
 7. What is the average amount of rainfall for each location?
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # What is the average amount of rainfall for each location?
 df.groupby('Location')['Rainfall'].mean().sort_values(ascending=False)
 ```
 
+:::
+
 8. What is the average amount of rainfall for days that it will rain tomorrow?
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # What is the average amount of rainfall for days that it will rain tomorrow?
 df.groupby('RainTomorrow')['Rainfall'].mean()
 ```
 
+:::
+
 9. What is the average amount of sunshine in Perth when it will not rain tomorrow?
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # What is the average amount of sunshine in Perth when it will not rain tomorrow?
@@ -367,11 +470,15 @@ df.loc[(df['Location'] == 'Perth') & (df['RainTomorrow'] == 'No'), 'Sunshine'].m
 # df[(df['Location']=='Perth') & (df['RainTomorrow']=='No')]['Sunshine'].mean()
 ```
 
+:::
+
 10. We want to understand the role that time plays in the dataset. Using the original dataframe, carry the following tasks and answer the corresponding questions:
     - Create columns representing the year and month from the 'Date' column. How many years of data are in the dataset?
     - Examine the distribution of the 'Sunshine' NAs over time. Is time a component in the 'Sunshine' data quality issues?
     - Calculate the average rainfall and sunshine by month. How do rainfall and sunshine vary through the year?
     - Calculate the average rainfall and sunshine by year. How have rainfall and sunshine changed over time?
+
+::: {.callout-note title="Solution" collapse="true"}
 
 ```{python}
 # Create columns representing the year and month from the 'Date' column. How many years of data are in the dataset?
@@ -403,3 +510,5 @@ df.groupby('Month')[['Rainfall', 'Sunshine']].mean()
 # Calculate the average rainfall and sunshine by year. How have rainfall and sunshine changed over time?
 df.groupby('Year')[['Rainfall', 'Sunshine']].mean()
 ```
+
+:::
