@@ -56,7 +56,7 @@ website:
               file: sessions/03-eda-pandas/index.qmd
             - text: 4. Visualisations with Seaborn
             - text: 5. EDA with Seaborn
-              file: sessions/05-eda-seaborn/index.qmd
+              # file: sessions/05-eda-seaborn/index.qmd
         - section: Core Concepts
           contents:
             - text: 6. Data Types
