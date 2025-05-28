@@ -80,6 +80,7 @@ format:
     css: styles.css
     toc: true # table of contents
     code-copy: true
+    callout-appearance: simple
   revealjs:
     author: Specialist Analytics Team (SAT)
     menu: false
