@@ -50,27 +50,29 @@ website:
               file: sessions/01-onboarding/index.qmd
             - text: 2. Jupyter Notebooks
               file: sessions/02-jupyter_notebooks/index.qmd
-        - section: Visualisation
+        - section: Exploration & Visualisation
           contents:
-            - text: 3. EDA & Visualisations
+            - text: 3. EDA with Pandas
+              file: sessions/03-eda-pandas/index.qmd
             - text: 4. Visualisations with Seaborn
+            - text: 5. EDA with Seaborn
+              # file: sessions/05-eda-seaborn/index.qmd
         - section: Core Concepts
           contents:
-            - text: 5. Data Types
-            - text: 6. Control Flow
-            - text: 7. Functions & Functional Programming
-            - text: 8. Object-Oriented Programming
-        - section: Visualisation
+            - text: 6. Data Types
+            - text: 7. Control Flow
+            - text: 8. Functions & Functional Programming
+            - text: 9. Object-Oriented Programming
+        - section: Exploration & Visualisation
           contents:
-            - text: 9. Streamlit Dashboards
+            - text: 10. Streamlit Dashboards
         - section: Data Science
           contents:
-            - text: 10. Comparing Samples
-            - text: 11. Analysing Relationships
-              file: sessions/11-analysing-relationships/index.qmd
-            - text: 12. Introduction to Linear Regression
-            - text: 13. Implementing Linear Regression
-            - text: 14. Beyond Linearity
+            - text: 11. Comparing Samples
+            - text: 12. Analysing Relationships
+            - text: 13. Introduction to Linear Regression
+            - text: 14. Implementing Linear Regression
+            - text: 15. Beyond Linearity
 
 format:
   html:
@@ -78,6 +80,7 @@ format:
     css: styles.css
     toc: true # table of contents
     code-copy: true
+    callout-appearance: simple
   revealjs:
     author: Specialist Analytics Team (SAT)
     menu: false
