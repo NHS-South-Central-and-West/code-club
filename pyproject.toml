@@ -18,10 +18,11 @@ dependencies = [
     "rsconnect-python>=1.25.2",
     "scipy>=1.15.2",
     "seaborn>=0.13.2",
-    "skimpy>=0.0.18",
+    "skimpy>=0.0.18"
 ]
 
 [tool.uv]
 dev-dependencies = [
-    "ipykernel>=6.29.5",
+    "ipykernel>=6.29.5"
+]
 
