@@ -26,8 +26,6 @@ Here we will compare two continuous variables, considering how one variable (the
 
 There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can't reduce either to their average, and are instead making statements about the way they vary together.
 
-**Question:** What relationships have you explored in your own work?
-
 ## Load & Preview Penguins Data
 
 ```{python}
@@ -41,12 +39,12 @@ penguins_raw = pd.read_csv(url)
 penguins_raw.head()
 ```
 
-**Focus:** Drop rows with missing values in key numeric columns.
+There are several missing values in this dataset. While we should generally be a little careful when discarding missing values, we will do so here just to simplify the process.
 
 ```{python}
 #| label: clean-data
 
-# focus on key continuous variables and drop missing values
+# drop missing values
 df = penguins_raw.dropna()
 df.shape
 ```
@@ -278,6 +276,7 @@ Visualising data helps you to get a sense of how two variables are related, but 
 
 ## Summary
 
-- Correlation quantifies strength of linear link.
-- Only linear, pairwise, no adjustment for other variables.
+- Visualising data can help intuit how variables are related.
+- Correlations can tell us a lot, but typical methods for calculating correlation will miss non-linearity.
 - Correlation does not imply causation (but does not _not_ imply causation, either).
+- Both of these approaches are generally only able to handle pairwise relationships.
