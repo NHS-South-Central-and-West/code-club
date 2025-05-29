@@ -5,48 +5,23 @@ description = "The webpage for SCW's Code Club."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-
-
     "great-tables>=0.17.0",
-
-
     "jinja2>=3.1.6",
-
-
     "jupyterlab>=4.3.5",
-
-
     "matplotlib>=3.10.1",
-
-
     "nbformat>=5.10.4",
-
-
     "numpy>=2.2.3",
-
-
     "pandas>=2.2.3",
-
-
     "polars>=1.25.2",
-
-
     "pyyaml>=6.0.2",
-
-
     "quarto>=0.1.0",
-
-
     "rsconnect-python>=1.25.2",
-
-
     "scipy>=1.15.2",
-
-
     "seaborn>=0.13.2",
+    "skimpy>=0.0.18",
 ]
 
 [tool.uv]
 dev-dependencies = [
     "ipykernel>=6.29.5",
-]
+
