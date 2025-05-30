@@ -5,28 +5,33 @@ format:
   ipynb: default
 ---
 
-This notebook explores relationships in data and the process for analysing relationships, using the **TidyTuesday Palmer Penguins** dataset. We’ll cover:
+This is the second in our series of sessions that builds the regression foundations. Here we will look at how to explore relationships in data, using both quantitative measures such as correlation and a range of visualisations methods.
 
-- Variable types & framing
-- Visual exploration of relationships
-- Calculating correlation
-- Limitations with correlation and visual exploration
+This session discusses what it means to analyse relationships between variables, what is possible with different types of variables (and how this links to the previous session that looked at [comparing samples](/sessions/11-comparing-samples)), and what these methods can and cannot tell us.
+
+We will use the [**Palmer Penguins**](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md) dataset throughout this session, taken from the [TidyTuesday](https://github.com/rfordatascience/tidytuesday/) GitHub repository (originally from the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) R package[^Datasets]). We will import the data directly from GitHub, but if you would prefer to download it instead, click <a href="https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv" download>here</a>.
+
+[^Datasets]:
+
+And now a part of the Base R datasets package included as default in R installations (R >= 4.5.0).
 
 ## Why Analyse Relationships?
 
-We’ve learned to ask “Does A differ from B?”, but now we can ask, “How do two measures move together?”
+In the [first session](/sessions/11-comparing-samples) in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. The problem with comparing samples is that you can only really conclude that the samples are probably drawn from the same distribution or not. If they are not drawn from the same population distribution, what does this really tell us? It is possible to structure our analysis such that this could be quite meaningful, but in many cases it won't be.
+
+This is why we need to take the next step, to analysing relationships. How do two variables move together? Strictly speaking, what we will be analysing today is less "relationships", which implies causality, and more "associations". We are unable to make claims about causality with the methods we are using, because we are only considering how variables vary together, and not directly estimating how one variable causes changes in another. Still, the methods we will discuss here get us one step closer to being able to measure effects and infer causality.
 
 In this session, we’ll explore the penguins dataset to see how body mass relates to flipper length, how bill length relates to bill depth, and how to identify relationships between continuous traits.
 
-## Variables & Framing
+## From Categorical to Continuous
 
-In our previous session, comparing samples, we were comparing the average value of a continuous variable by groups (categorical variables).
-
-Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).
+In our previous session, comparing samples, we were comparing the average value of a continuous variable by groups (categorical variables). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).
 
 There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can't reduce either to their average, and are instead making statements about the way they vary together.
 
-## Load & Preview Penguins Data
+## Penguins with Long Characteristics
+
+### Import & Process Data
 
 ```{python}
 #| label: import-data
@@ -49,7 +54,7 @@ df = penguins_raw.dropna()
 df.shape
 ```
 
-## Visualing Relationships
+### Visualing Relationships
 
 ```{python}
 #| label: fig-flipper-mass-scatter-plot
@@ -102,9 +107,9 @@ plt.show()
 - How does bill depth change when bill length increases, according to this plot?
 - Are there differences by species?
 
-## Computing Correlations
+### Computing Correlations
 
-### Pairwise Correlation
+#### Pairwise Correlation
 
 We can compute the correlation between two variables, using `scipy.stats`.
 
@@ -139,7 +144,7 @@ A correlation of +/- ~0.2 doesn't necessarily mean there is no relationship. The
 
 Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is _not_ present. You just can't conclude causation exists simply because you observe a correlation.
 
-### Correlation Matrix
+#### Correlation Matrix
 
 We may be interested in the pairwise correlation between multiple variables. If so, computing each correlation between pairs of variables is very cumbersome. Instead, we can compute a correlation matrix.
 
@@ -182,7 +187,7 @@ If you are concerned with a certain outcome and you want to quickly look at the 
 )
 ```
 
-## Correlation's Limitations
+### Correlation's Limitations
 
 Computing correlation can be very informative, but there are a lot of ways it is limited. Correlation (at least the most common method for calculating correlation, Pearson's _r_[^R]) does not handle non-linearity well.
 
@@ -215,7 +220,7 @@ print(f"Correlation (r) = {r:.2f}")
 
 There are a number of other ways of calculating correlation, including methods that account for non-linearity, but more often than not you will encounter Pearson's _r_. Any time correlation is mentioned without specifying the way it was calculated, you should assume it is using Pearson's _r_.
 
-## Visualising Linear Regressions
+### Visualising Linear Regressions
 
 ```{python}
 #| label: fig-flipper-mass-regression-plot
@@ -251,7 +256,7 @@ plt.ylabel('Bill Depth (mm)')
 plt.show()
 ```
 
-## Visualisation Limitations
+### Visualisation Limitations
 
 Visualising relationships has many of the same issues that computing correlation does, but fundamentally the biggest issue is that it is pairwise, and few relationships are strictly pairwise in the real world.
 
