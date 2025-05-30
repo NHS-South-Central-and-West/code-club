@@ -164,17 +164,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#why-analyse-relationships" id="toc-why-analyse-relationships" class="nav-link active" data-scroll-target="#why-analyse-relationships">Why Analyse Relationships?</a></li>
-  <li><a href="#variables-framing" id="toc-variables-framing" class="nav-link" data-scroll-target="#variables-framing">Variables &amp; Framing</a></li>
-  <li><a href="#load-preview-penguins-data" id="toc-load-preview-penguins-data" class="nav-link" data-scroll-target="#load-preview-penguins-data">Load &amp; Preview Penguins Data</a></li>
-  <li><a href="#visualing-relationships" id="toc-visualing-relationships" class="nav-link" data-scroll-target="#visualing-relationships">Visualing Relationships</a></li>
-  <li><a href="#computing-correlations" id="toc-computing-correlations" class="nav-link" data-scroll-target="#computing-correlations">Computing Correlations</a>
+  <li><a href="#from-categorical-to-continuous" id="toc-from-categorical-to-continuous" class="nav-link" data-scroll-target="#from-categorical-to-continuous">From Categorical to Continuous</a></li>
+  <li><a href="#penguins-with-long-characteristics" id="toc-penguins-with-long-characteristics" class="nav-link" data-scroll-target="#penguins-with-long-characteristics">Penguins with Long Characteristics</a>
   <ul class="collapse">
-  <li><a href="#pairwise-correlation" id="toc-pairwise-correlation" class="nav-link" data-scroll-target="#pairwise-correlation">Pairwise Correlation</a></li>
-  <li><a href="#correlation-matrix" id="toc-correlation-matrix" class="nav-link" data-scroll-target="#correlation-matrix">Correlation Matrix</a></li>
-  </ul></li>
+  <li><a href="#import-process-data" id="toc-import-process-data" class="nav-link" data-scroll-target="#import-process-data">Import &amp; Process Data</a></li>
+  <li><a href="#visualing-relationships" id="toc-visualing-relationships" class="nav-link" data-scroll-target="#visualing-relationships">Visualing Relationships</a></li>
+  <li><a href="#computing-correlations" id="toc-computing-correlations" class="nav-link" data-scroll-target="#computing-correlations">Computing Correlations</a></li>
   <li><a href="#correlations-limitations" id="toc-correlations-limitations" class="nav-link" data-scroll-target="#correlations-limitations">Correlation’s Limitations</a></li>
   <li><a href="#visualising-linear-regressions" id="toc-visualising-linear-regressions" class="nav-link" data-scroll-target="#visualising-linear-regressions">Visualising Linear Regressions</a></li>
   <li><a href="#visualisation-limitations" id="toc-visualisation-limitations" class="nav-link" data-scroll-target="#visualisation-limitations">Visualisation Limitations</a></li>
+  </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
@@ -201,26 +200,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This notebook explores relationships in data and the process for analysing relationships, using the <strong>TidyTuesday Palmer Penguins</strong> dataset. We’ll cover:</p>
-<ul>
-<li>Variable types &amp; framing</li>
-<li>Visual exploration of relationships</li>
-<li>Calculating correlation</li>
-<li>Limitations with correlation and visual exploration</li>
-</ul>
+<p>This is the second in our series of sessions that builds the regression foundations. Here we will look at how to explore relationships in data, using both quantitative measures such as correlation and a range of visualisations methods.</p>
+<p>This session discusses what it means to analyse relationships between variables, what is possible with different types of variables (and how this links to the previous session that looked at <a href="../../sessions/11-comparing-samples">comparing samples</a>), and what these methods can and cannot tell us.</p>
+<p>We will use the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md"><strong>Palmer Penguins</strong></a> dataset throughout this session, taken from the <a href="https://github.com/rfordatascience/tidytuesday/">TidyTuesday</a> GitHub repository (originally from the <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a> R package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>). We will import the data directly from GitHub, but if you would prefer to download it instead, click <a href="https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv" download="">here</a>.</p>
 <section id="why-analyse-relationships" class="level2">
 <h2 class="anchored" data-anchor-id="why-analyse-relationships">Why Analyse Relationships?</h2>
-<p>We’ve learned to ask “Does A differ from B?”, but now we can ask, “How do two measures move together?”</p>
+<p>In the <a href="../../sessions/11-comparing-samples">first session</a> in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. The problem with comparing samples is that you can only really conclude that the samples are probably drawn from the same distribution or not. If they are not drawn from the same population distribution, what does this really tell us? It is possible to structure our analysis such that this could be quite meaningful, but in many cases it won’t be.</p>
+<p>This is why we need to take the next step, to analysing relationships. How do two variables move together? Strictly speaking, what we will be analysing today is less “relationships”, which implies causality, and more “associations”. We are unable to make claims about causality with the methods we are using, because we are only considering how variables vary together, and not directly estimating how one variable causes changes in another. Still, the methods we will discuss here get us one step closer to being able to measure effects and infer causality.</p>
 <p>In this session, we’ll explore the penguins dataset to see how body mass relates to flipper length, how bill length relates to bill depth, and how to identify relationships between continuous traits.</p>
 </section>
-<section id="variables-framing" class="level2">
-<h2 class="anchored" data-anchor-id="variables-framing">Variables &amp; Framing</h2>
-<p>In our previous session, comparing samples, we were comparing the average value of a continuous variable by groups (categorical variables).</p>
-<p>Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
+<section id="from-categorical-to-continuous" class="level2">
+<h2 class="anchored" data-anchor-id="from-categorical-to-continuous">From Categorical to Continuous</h2>
+<p>In our previous session, comparing samples, we were comparing the average value of a continuous variable by groups (categorical variables). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
 <p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
 </section>
-<section id="load-preview-penguins-data" class="level2">
-<h2 class="anchored" data-anchor-id="load-preview-penguins-data">Load &amp; Preview Penguins Data</h2>
+<section id="penguins-with-long-characteristics" class="level2">
+<h2 class="anchored" data-anchor-id="penguins-with-long-characteristics">Penguins with Long Characteristics</h2>
+<section id="import-process-data" class="level3">
+<h3 class="anchored" data-anchor-id="import-process-data">Import &amp; Process Data</h3>
 <div id="cell-import-data" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -318,8 +315,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="visualing-relationships" class="level2">
-<h2 class="anchored" data-anchor-id="visualing-relationships">Visualing Relationships</h2>
+<section id="visualing-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="visualing-relationships">Visualing Relationships</h3>
 <div id="cell-fig-flipper-mass-scatter-plot" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -390,10 +387,10 @@ Figure&nbsp;2
 <li>Are there differences by species?</li>
 </ul>
 </section>
-<section id="computing-correlations" class="level2">
-<h2 class="anchored" data-anchor-id="computing-correlations">Computing Correlations</h2>
-<section id="pairwise-correlation" class="level3">
-<h3 class="anchored" data-anchor-id="pairwise-correlation">Pairwise Correlation</h3>
+<section id="computing-correlations" class="level3">
+<h3 class="anchored" data-anchor-id="computing-correlations">Computing Correlations</h3>
+<section id="pairwise-correlation" class="level4">
+<h4 class="anchored" data-anchor-id="pairwise-correlation">Pairwise Correlation</h4>
 <p>We can compute the correlation between two variables, using <code>scipy.stats</code>.</p>
 <div id="flipper-mass-correlation" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
@@ -404,7 +401,7 @@ Figure&nbsp;2
 <pre><code>Correlation (r) = 0.87</code></pre>
 </div>
 </div>
-<p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>When we visualised the relationship between bill length and bill depth, there appeared to be a grouping structure going on that complicated things, and the overall relationship appeared pretty noisy.</p>
 <div id="bill-correlation" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'bill_len'</span>], df[<span class="st">'bill_dep'</span>])</span>
@@ -420,8 +417,8 @@ Figure&nbsp;2
 </ul>
 <p>A correlation of +/- ~0.2 doesn’t necessarily mean there is no relationship. There are lots of ways correlation can mislead, because it is a limited measure. Visualising the relationship between bill length and bill depth showed us that species is highly relevant, and not factoring this in limits what we can say about this relationship.</p>
 </section>
-<section id="correlation-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-matrix">Correlation Matrix</h3>
+<section id="correlation-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="correlation-matrix">Correlation Matrix</h4>
 <p>We may be interested in the pairwise correlation between multiple variables. If so, computing each correlation between pairs of variables is very cumbersome. Instead, we can compute a correlation matrix.</p>
 <div id="cell-correlation-matrix" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute correlation matrix</span></span>
@@ -533,9 +530,9 @@ Name: body_mass, dtype: float64</code></pre>
 </div>
 </section>
 </section>
-<section id="correlations-limitations" class="level2">
-<h2 class="anchored" data-anchor-id="correlations-limitations">Correlation’s Limitations</h2>
-<p>Computing correlation can be very informative, but there are a lot of ways it is limited. Correlation (at least the most common method for calculating correlation, Pearson’s <em>r</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>) does not handle non-linearity well.</p>
+<section id="correlations-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="correlations-limitations">Correlation’s Limitations</h3>
+<p>Computing correlation can be very informative, but there are a lot of ways it is limited. Correlation (at least the most common method for calculating correlation, Pearson’s <em>r</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>) does not handle non-linearity well.</p>
 <div id="cell-fig-non-linear-relationships" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -565,13 +562,13 @@ Figure&nbsp;4
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim[<span class="st">'x'</span>], sim[<span class="st">'y'</span>])</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correlation (r) = 0.02</code></pre>
+<pre><code>Correlation (r) = 0.01</code></pre>
 </div>
 </div>
 <p><strong>Takeaway:</strong> Pearson’s <em>r</em> misses non-linear relationships</p>
 </section>
-<section id="visualising-linear-regressions" class="level2">
-<h2 class="anchored" data-anchor-id="visualising-linear-regressions">Visualising Linear Regressions</h2>
+<section id="visualising-linear-regressions" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-linear-regressions">Visualising Linear Regressions</h3>
 <div id="cell-fig-flipper-mass-regression-plot" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add linear fit line</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sns.regplot(</span>
@@ -625,8 +622,8 @@ Figure&nbsp;6
 </div>
 </div>
 </section>
-<section id="visualisation-limitations" class="level2">
-<h2 class="anchored" data-anchor-id="visualisation-limitations">Visualisation Limitations</h2>
+<section id="visualisation-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="visualisation-limitations">Visualisation Limitations</h3>
 <p>Visualising relationships has many of the same issues that computing correlation does, but fundamentally the biggest issue is that it is pairwise, and few relationships are strictly pairwise in the real world.</p>
 <p><a href="#fig-bill-regression-plot" class="quarto-xref">Figure&nbsp;6</a> points to another limitation with Pearson’s <em>r</em> that also applies to regression plots. Grouping structures!</p>
 <div id="cell-fig-grouping-structures" class="cell" data-execution_count="14">
@@ -653,6 +650,7 @@ Figure&nbsp;7
 <p>Drawing a straight line through data is strictly linear, but unlike correlation coefficients, you will be able to <em>see</em> when this is inappropriate. A linear regression plot will not handle the non-linear pattern above any better than a correlation coefficient, but you will be able to see the problem for yourself.</p>
 <p>Visualising data helps you to get a sense of how two variables are related, but where you are seeking to understand the relationship between variables, or even explain what causes a certain outcome, you have to go further.</p>
 </section>
+</section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <ul>
@@ -669,8 +667,9 @@ Figure&nbsp;7
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>There are a number of other ways of calculating correlation, including methods that account for non-linearity, but more often than not you will encounter Pearson’s <em>r</em>. Any time correlation is mentioned without specifying the way it was calculated, you should assume it is using Pearson’s <em>r</em>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>And now a part of the Base R datasets package included as default in R installations (R &gt;= 4.5.0).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>There are a number of other ways of calculating correlation, including methods that account for non-linearity, but more often than not you will encounter Pearson’s <em>r</em>. Any time correlation is mentioned without specifying the way it was calculated, you should assume it is using Pearson’s <em>r</em>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
