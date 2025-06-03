@@ -1,0 +1,36 @@
+---
+title: "Introduction to Open Source"
+subtitle: ""
+footer: '**SAT //** Open Source Intro **//** Prepared in June 2025'
+format: revealjs
+---
+
+# Introduction {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+# History of Open Source {.center}
+
+
+
+
+# Resources {.center}
+
+Links, etc
+
+# Thank You! {.center}
+
+<br>
+Contact: 
+<br>
+
+<ul >
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+</ul>
+
+
+Code & Slides:
+<br>
+
+<ul >
+{{< fa brands github >}}[/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+</ul>
+<br>
