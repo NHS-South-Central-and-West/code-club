@@ -19,18 +19,31 @@ format: revealjs
 
 **Open source rules the world!**
 
-- Linux
-- Apache
-- ...
+Open-source software is everywhere.
+
+- The Linux operating source kernel combined with the Apache or Nginx server software runs on the **majority** of servers, so it effectively runs the internet.
+- The Android smartphone OS has many open source components.
+- Even Microsoft, historically a symbol of proprietary software, now releases many tools (e.g. VS Code) as open source.
 
 ## Benefits of open source
 
 # Common misconceptions {data-background-color="#425563" data-verticator="#E8EDEE"}
 
-## Misconception 1
+## Myth: "open source is less secure"
 
-## Misconception 2
+With all else being equal, open source code with many people (including, for example, paid security researchers) being able to review an application's source code tends to make it *more* secure, not less.
 
+## Myth: "if we use open-source tools, we'll have to release our work as open source as well"
+
+The common open source licenses say nothing about needing to release the code for products that use open source libraries or software; we only have to give attribution. Only if we *modify* the code (for example, in the event we wanted to build a custom SCW version of a library or application) does the "copyleft" requirement apply.
+
+## Myth: "if we rely on open-source tools, we'd be snookered if they suddenly decided to close the source and start charging money"
+
+The major open licenses are all irrevocable. Once a *version* of a tool or library has been released under an open license, that tool or library is open source in perpetuity. It's always possible that (especially corporate-backed) projects could go closed-source for future versions, but in that case it is very likely that someone will take the last open version and "fork" it off into a separate project - this has happened many times e.g. LibreOffice from OpenOffice, MariaDB from MySQL.
+
+## Myth: "if we use an open-source tool on sensitive/proprietary data (e.g. SUS) we are at risk of this leaking out, or we are required to release it along with our code"
+
+The open source licenses apply to the code itself, not the data we use it on. Even if we did decide to release one of our own products as open source, there is no requirement at all to publish any data alongside it. Furthermore, the fact that we can inspect the source code means we can assure ourselves as to how safe a tool is ourselves; with closed-source tools we have to trust the developer's word for it (or, at best, an external security audit). Open tools such as R, python and PostgreSQL are in widespread use even with highly sensitive data (banks, governments, healthcare).
 
 ## Resources 
 
