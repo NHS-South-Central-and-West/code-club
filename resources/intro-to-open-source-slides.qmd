@@ -5,18 +5,38 @@ footer: '**SAT //** Open Source Intro **//** Prepared in June 2025'
 format: revealjs
 ---
 
-# Introduction {data-background-color="#425563" data-verticator="#E8EDEE"}
+# Introduction & background {data-background-color="#425563" data-verticator="#E8EDEE"}
 
-# History of Open Source {.center}
+## What is open source?
+
+- Software *source code* is ...
+- Broadly, software can be *proprietary* (closed source) or *open source*
+- "Free as in freedom"
+
+## History of Open Source
+
+## Open source today
+
+**Open source rules the world!**
+
+- Linux
+- Apache
+- ...
+
+## Benefits of open source
+
+# Common misconceptions {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+## Misconception 1
+
+## Misconception 2
 
 
-
-
-# Resources {.center}
+## Resources 
 
 Links, etc
 
-# Thank You! {.center}
+## Thank You!
 
 <br>
 Contact: 
