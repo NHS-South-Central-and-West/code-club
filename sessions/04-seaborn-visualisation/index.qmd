@@ -35,17 +35,50 @@ rcParams['font.sans-serif'] = ['Calibri','Segoe UI','Arial'] # use a nicer font 
 df = pd.read_csv('data/weatherAUS.csv')
 ```
 
-## Setting the Scene
+## Data manipulation
 
-Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions wwith any exploration, and any analysis that follows.
+Before we start actually generating some visuals, we need to make sure our Date column contains proper datetimes. We're also going to drop the years with partial data so that our dataset only has full years. Finally we're going to change the RainTomorrow field to contain a 0 or a 1 rather than yes/no.
 
-**Questions:**
+```{python}
+# convert date column to datetime
+df['Date'] = pd.to_datetime(df['Date'])
 
-- What are we trying to achieve?
-- How do our goals impact our analysis?
-- What should we take into consideration before we write any code?
-- What sort of questions might we be interested in with this dataset?
+# drop the partial years (2007,2017)
+df['year'] = df['Date'].dt.year
+df = df[~df['year'].isin([2007,2017])]
 
-### What Our Data Can Tell Us (And What it Can't)
+# convert 'RainTomorrow' to a numeric variable, where 'Yes' = 1 and 'No' = 0.
+df['RainToday']=df['RainToday'].replace({'Yes': 1, 'No': 0, 'NA':0}).fillna(0).astype(int)
+df['RainTomorrow']=df['RainTomorrow'].map({'Yes': 1, 'No': 0,'NA': 0}).fillna(0).astype(int); 
+
+# little tip: the semicolon suppresses textual output when we don't want it
+```
+
+Next, we're going to create some helper dataframes by filtering, grouping and pivoting the data. These will be used for different types of visuals later.
+
+```{python}
+# we need a month order for our "mmm" months - there is probably an official way of doing this...
+month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+# build a month column
+df['month'] = df['Date'].dt.strftime('%b') # Add a column that just contains the month in mmm format
+df['month'] = pd.Categorical(df['month'], categories=month_order, ordered=True) # Make it categorical using our custom order so that it appears in the right order
+
+# we're going to filter to top 5 cities from now on
+df_top5Cities = df[df['Location'].isin(['Perth','Adelaide','Sydney','Melbourne','Brisbane'])]
+
+# a grouped dataframe with the number of rainy days per year and month, and location
+df_top5Cities_rainyDays = df_top5Cities.groupby(['Location','year', 'month'])['RainToday'].sum().reset_index()
+
+# a couple of fully-pivoted dataframes
+df_top5Cities_Rainfall_grouped = df_top5Cities.groupby(['Location', 'month'])['Rainfall'].mean().reset_index()
+df_top5Cities_Rainfall_pivoted = df_top5Cities_Rainfall_grouped.pivot(index="Location",columns="month", values="Rainfall")
+df_top5Cities_rainyDays_pivoted = df_top5Cities.groupby(['Location', 'month'])['RainToday'].sum().reset_index().pivot(index="Location",columns="month", values="RainToday")
+df_top5Cities_monthly_rainyDays_pivoted = df_top5Cities.groupby(['Location', 'month','year'])['RainToday'].sum().reset_index().groupby(['Location','month'])['RainToday'].mean().reset_index().pivot(index="Location",columns="month", values="RainToday")
+
+
+# we need a sort order for our city names. This just returns an array with our city names in alphabetical order.
+colOrder_top5Cities=sorted(df_top5Cities['Location'].unique())
+```
 
 :::
