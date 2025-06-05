@@ -1,0 +1,51 @@
+---
+title: "Visualisation with Seaborn"
+format:
+  html: default
+  ipynb: default
+---
+
+Intro text intro text intro text
+
+We are using [Australian weather data](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package), taken from [Kaggle](https://kaggle.com). This dataset is used to build machine learning models that predict whether it will rain tomorrow, using data about the weather every day from 2007 to 2017. To download the data, click <a href="data/weatherAUS.csv" download>here</a>.
+
+```{python}
+#| label: setup
+
+# install necessary packages
+import matplotlib.pyplot as plt
+from matplotlib import rcParams
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
+# suppress some annoying warnings
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning) 
+
+sns.set_theme(style='darkgrid') # If we don't call this, we just get default matplotlib styling
+sns.set_context("notebook") # Set an overall scale. Notebook is the default. In increasing size: paper, notebook, talk, poster.
+rcParams['font.sans-serif'] = ['Calibri','Segoe UI','Arial'] # use a nicer font in matplotlib (if available)
+```
+
+```{python}
+#| label: import-data
+
+# import the dataset
+df = pd.read_csv('data/weatherAUS.csv')
+```
+
+## Setting the Scene
+
+Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions wwith any exploration, and any analysis that follows.
+
+**Questions:**
+
+- What are we trying to achieve?
+- How do our goals impact our analysis?
+- What should we take into consideration before we write any code?
+- What sort of questions might we be interested in with this dataset?
+
+### What Our Data Can Tell Us (And What it Can't)
+
+:::
