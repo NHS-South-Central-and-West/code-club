@@ -1,0 +1,12 @@
+{
+  "hash": "953bfec86e87752cb10ccf88250b23b8",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Visualisation with Seaborn\"\nformat:\n  html: default\n  ipynb: default\n---\n\nIntro text intro text intro text\n\nWe are using [Australian weather data](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package), taken from [Kaggle](https://kaggle.com). This dataset is used to build machine learning models that predict whether it will rain tomorrow, using data about the weather every day from 2007 to 2017. To download the data, click <a href=\"data/weatherAUS.csv\" download>here</a>.\n\n::: {#setup .cell execution_count=1}\n``` {.python .cell-code}\n# install necessary packages\nimport matplotlib.pyplot as plt\nfrom matplotlib import rcParams\nimport numpy as np\nimport pandas as pd\nimport seaborn as sns\n\n# suppress some annoying warnings\nimport warnings\nwarnings.simplefilter(action='ignore', category=FutureWarning) \n\nsns.set_theme(style='darkgrid') # If we don't call this, we just get default matplotlib styling\nsns.set_context(\"notebook\") # Set an overall scale. Notebook is the default. In increasing size: paper, notebook, talk, poster.\nrcParams['font.sans-serif'] = ['Calibri','Segoe UI','Arial'] # use a nicer font in matplotlib (if available)\n```\n:::\n\n\n::: {#import-data .cell execution_count=2}\n``` {.python .cell-code}\n# import the dataset\ndf = pd.read_csv('data/weatherAUS.csv')\n```\n:::\n\n\n## Setting the Scene\n\nBefore we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions wwith any exploration, and any analysis that follows.\n\n**Questions:**\n\n- What are we trying to achieve?\n- How do our goals impact our analysis?\n- What should we take into consideration before we write any code?\n- What sort of questions might we be interested in with this dataset?\n\n### What Our Data Can Tell Us (And What it Can't)\n\n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
