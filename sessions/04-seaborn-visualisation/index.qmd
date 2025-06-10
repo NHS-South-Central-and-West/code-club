@@ -46,15 +46,19 @@ df = pd.read_csv('data/weatherAUS.csv')
 
 ## Data manipulation
 
+### Column conversions
+
 Before we start actually generating some visuals, we need to make sure our Date column contains proper datetimes. We're also going to drop the years with partial data so that our dataset only has full years. Finally we're going to change the RainTomorrow field to contain a 0 or a 1 rather than yes/no.
 
 ```{python}
 # convert date column to datetime
 df['Date'] = pd.to_datetime(df['Date'])
 
+# create a column that just contains the year
+df['Year'] = df['Date'].dt.year
+
 # drop the partial years (2007,2017)
-df['year'] = df['Date'].dt.year
-df = df[~df['year'].isin([2007,2017])]
+df = df[~df['Year'].isin([2007,2017])]
 
 # convert 'RainTomorrow' to a numeric variable, where 'Yes' = 1 and 'No' = 0.
 df['RainToday']=df['RainToday'].replace({'Yes': 1, 'No': 0, 'NA':0}).fillna(0).astype(int)
@@ -63,29 +67,54 @@ df['RainTomorrow']=df['RainTomorrow'].map({'Yes': 1, 'No': 0,'NA': 0}).fillna(0)
 # little tip: the semicolon suppresses textual output when we don't want it
 ```
 
+### Sort order and other helper tables
+
+We need a month order for our "mmm" months - there is probably an official way of doing this...
+
+```{python}
+month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+```
+
+We also need a sort order for our city names to use as a column order for some of our charts later. We'll just arrange them alphabetically.
+
+```{python}
+colOrder_top5Cities=['Adelaide','Brisbane','Melbourne','Perth','Sydney']
+```
+
+To enhance a chart we're going to build later, we're going to dynamically calculate some text describing our data range.
+
+```{python}
+# Calculate the date range dynamically; we're going to use this later...
+date_min = df['Date'].min().strftime('%Y')
+date_max = df['Date'].max().strftime('%Y')
+date_range = f"{date_min} - {date_max}"
+
+print(date_range)
+```
+
+### Pivoting and grouping
+
 Next, we're going to create some helper dataframes by filtering, grouping and pivoting the data. These will be used for different types of visuals later. Of course, we could have just created these groupings and pivots inline when we do the actual visualisation, but we're doing it this way because:
 
 1. It's easier to follow
 2. It's tidier (and probably faster) to create these dataframes once as we're going to be using them multiple times.
 
 ```{python}
-# we need a month order for our "mmm" months - there is probably an official way of doing this...
-month_order = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 # build a month column
-df['month'] = df['Date'].dt.strftime('%b') # Add a column that just contains the month in mmm format
-df['month'] = pd.Categorical(df['month'], categories=month_order, ordered=True) # Make it categorical using our custom order so that it appears in the right order
+df['Month'] = df['Date'].dt.strftime('%b') # Add a column that just contains the month in mmm format
+df['Month'] = pd.Categorical(df['Month'], categories=month_order, ordered=True) # Make it categorical using our custom order so that it appears in the right order
 
 # we're going to filter to top 5 cities from now on
 df_top5Cities = df[df['Location'].isin(['Perth','Adelaide','Sydney','Melbourne','Brisbane'])]
 
 # a dataframe with the number of rainy days per year and month, and location
-df_top5Cities_rainyDays = df_top5Cities.groupby(['Location','year', 'month'])['RainToday'].sum().reset_index()
+df_top5Cities_rainyDays = df_top5Cities.groupby(['Location','Year', 'Month'])['RainToday'].sum().reset_index()
 
 # finally, we're going to create some grouped and pivoted dataframes. Picture these as PivotTables in Excel.
-df_top5Cities_Rainfall_grouped = df_top5Cities.groupby(['Location', 'month'])['Rainfall'].mean().reset_index()
-df_top5Cities_Rainfall_pivoted = df_top5Cities_Rainfall_grouped.pivot(index="Location",columns="month", values="Rainfall")
-df_top5Cities_monthly_rainyDays_pivoted = df_top5Cities.groupby(['Location', 'month','year'])['RainToday'].sum().reset_index().groupby(['Location','month'])['RainToday'].mean().reset_index().pivot(index="Location",columns="month", values="RainToday")
+df_top5Cities_Rainfall_grouped = df_top5Cities.groupby(['Location', 'Month'])['Rainfall'].mean().reset_index()
+df_top5Cities_Rainfall_pivoted = df_top5Cities_Rainfall_grouped.pivot(index="Location",columns="Month", values="Rainfall")
+df_top5Cities_monthly_rainyDays_pivoted = df_top5Cities.groupby(['Location', 'Month','Year'])['RainToday'].sum().reset_index().groupby(['Location','Month'])['RainToday'].mean().reset_index().pivot(index="Location",columns="Month", values="RainToday")
 ```
 
 Let's use `head()` to make sure we understand what each grouped/pivoted DF is for.
@@ -102,22 +131,11 @@ df_top5Cities_Rainfall_pivoted.head(2)
 df_top5Cities_monthly_rainyDays_pivoted.head(2)
 ```
 
-```{python}
-# we need a sort order for our city names. This just returns an array with our city names in alphabetical order.
-colOrder_top5Cities=sorted(df_top5Cities['Location'].unique())
-```
-
-To enhance a chart we're going to build later, we're going to dynamically calculate some text describing our data range.
 
 
-```{python}
-# Calculate the date range dynamically; we're going to use this later...
-date_min = df['Date'].min().strftime('%Y')
-date_max = df['Date'].max().strftime('%Y')
-date_range = f"{date_min} - {date_max}"
 
-print(date_range)
-```
+
+
 
 ## Doing some actual plotting
 
@@ -138,7 +156,7 @@ sns.lineplot(
 ```{python}
 our_barplot = sns.barplot(
   data=df_top5Cities_Rainfall_grouped 
-  ,x="month"
+  ,x="Month"
   ,y="Rainfall"
   ,hue="Location" # read "hue" as "series"
   ,palette="tab10" # https://matplotlib.org/stable/users/explain/colors/colormaps.html
@@ -211,7 +229,7 @@ boxgrid = sns.FacetGrid(df_top5Cities
                         ,col_order=colOrder_top5Cities  # Using our alphabetical order of city names to arrange our facets
 )
 boxgrid.map(sns.boxplot # This is what tells sns what sort of plots we want in our grid
-            ,"month" # X
+            ,"Month" # X
             ,"MaxTemp" # Y
             ,linewidth=1.5
             ,color="skyblue"
@@ -221,13 +239,13 @@ boxgrid.map(sns.boxplot # This is what tells sns what sort of plots we want in o
 
 # Setting up the grid of line plots
 # Using the default matplotlib plot here
-linegrid = sns.FacetGrid(df_top5Cities.groupby(['Location', 'month'])['Rainfall'].mean().reset_index()
+linegrid = sns.FacetGrid(df_top5Cities.groupby(['Location', 'Month'])['Rainfall'].mean().reset_index()
                          ,col="Location" 
                          ,hue="Location",palette="Set2" 
                          ,col_wrap=5, height=4.5 
                          ,col_order=colOrder_top5Cities
 )
-linegrid.map(plt.plot, "month", "Rainfall",marker="o")
+linegrid.map(plt.plot, "Month", "Rainfall",marker="o")
 
 # Formatting axes
 for ax in boxgrid.axes.flat:
@@ -254,15 +272,15 @@ boxgrid.fig.subplots_adjust(top=0.85);
 ```{python}
 # Credit to https://seaborn.pydata.org/examples/timeseries_facets.html
 
-df_Sydney = df[df['Location']=="Sydney"].groupby(['month', 'Location','year'], as_index=False)['MaxTemp'].max()
+df_Sydney = df[df['Location']=="Sydney"].groupby(['Month', 'Location','Year'], as_index=False)['MaxTemp'].max()
 sns.set_theme()
 
 #Plot each year's time series in its own facet
 g = sns.relplot(data=df_Sydney
-                ,x="month"
+                ,x="Month"
                 ,y="MaxTemp"
-                ,col="year"
-                ,hue="year"
+                ,col="Year"
+                ,hue="Year"
                 ,kind="line"
                 ,palette="viridis"
                 ,linewidth=4
@@ -282,7 +300,7 @@ for year, ax in g.axes_dict.items():
 
     # Plot every year's time series in the background
     sns.lineplot(
-        data=df_Sydney, x="month", y="MaxTemp", units="year",
+        data=df_Sydney, x="Month", y="MaxTemp", units="Year",
         estimator=None, color=".7", linewidth=1, ax=ax
     )
 
