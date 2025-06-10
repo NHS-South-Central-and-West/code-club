@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-906c945f8e6386bc25084840a8f2cf51.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-83d3e0f7a50b6bec418b60b884719aed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -377,7 +377,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="column-conversions" class="level3">
 <h3 class="anchored" data-anchor-id="column-conversions">Column conversions</h3>
 <p>Before we start actually generating some visuals, we need to make sure our Date column contains proper datetimes. We’re also going to drop the years with partial data so that our dataset only has full years. Finally we’re going to change the RainTomorrow field to contain a 0 or a 1 rather than yes/no.</p>
-<div id="d08a0582" class="cell" data-execution_count="3">
+<div id="6d47b740" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert date column to datetime</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -397,15 +397,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sort-order-and-other-helper-tables" class="level3">
 <h3 class="anchored" data-anchor-id="sort-order-and-other-helper-tables">Sort order and other helper tables</h3>
 <p>We need a month order for our “mmm” months - there is probably an official way of doing this…</p>
-<div id="e11d794c" class="cell" data-execution_count="4">
+<div id="6f4ced02" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>month_order <span class="op">=</span> [<span class="st">'Jan'</span>, <span class="st">'Feb'</span>, <span class="st">'Mar'</span>, <span class="st">'Apr'</span>, <span class="st">'May'</span>, <span class="st">'Jun'</span>, <span class="st">'Jul'</span>, <span class="st">'Aug'</span>, <span class="st">'Sep'</span>, <span class="st">'Oct'</span>, <span class="st">'Nov'</span>, <span class="st">'Dec'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We also need a sort order for our city names to use as a column order for some of our charts later. We’ll just arrange them alphabetically.</p>
-<div id="bb971378" class="cell" data-execution_count="5">
+<div id="a327d379" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>colOrder_top5Cities<span class="op">=</span>[<span class="st">'Adelaide'</span>,<span class="st">'Brisbane'</span>,<span class="st">'Melbourne'</span>,<span class="st">'Perth'</span>,<span class="st">'Sydney'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To enhance a chart we’re going to build later, we’re going to dynamically calculate some text describing our data range.</p>
-<div id="a67f65ed" class="cell" data-execution_count="6">
+<div id="4a67b59e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the date range dynamically; we're going to use this later...</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>date_min <span class="op">=</span> df[<span class="st">'Date'</span>].<span class="bu">min</span>().strftime(<span class="st">'%Y'</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>date_max <span class="op">=</span> df[<span class="st">'Date'</span>].<span class="bu">max</span>().strftime(<span class="st">'%Y'</span>)</span>
@@ -424,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>It’s easier to follow</li>
 <li>It’s tidier (and probably faster) to create these dataframes once as we’re going to be using them multiple times.</li>
 </ol>
-<div id="92aaec73" class="cell" data-execution_count="7">
+<div id="d674a76f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build a month column</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Month'</span>] <span class="op">=</span> df[<span class="st">'Date'</span>].dt.strftime(<span class="st">'%b'</span>) <span class="co"># Add a column that just contains the month in mmm format</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Month'</span>] <span class="op">=</span> pd.Categorical(df[<span class="st">'Month'</span>], categories<span class="op">=</span>month_order, ordered<span class="op">=</span><span class="va">True</span>) <span class="co"># Make it categorical using our custom order so that it appears in the right order</span></span>
@@ -441,9 +441,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>df_top5Cities_monthly_rainyDays_pivoted <span class="op">=</span> df_top5Cities.groupby([<span class="st">'Location'</span>, <span class="st">'Month'</span>,<span class="st">'Year'</span>])[<span class="st">'RainToday'</span>].<span class="bu">sum</span>().reset_index().groupby([<span class="st">'Location'</span>,<span class="st">'Month'</span>])[<span class="st">'RainToday'</span>].mean().reset_index().pivot(index<span class="op">=</span><span class="st">"Location"</span>,columns<span class="op">=</span><span class="st">"Month"</span>, values<span class="op">=</span><span class="st">"RainToday"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s use <code>head()</code> to make sure we understand what each grouped/pivoted DF is for.</p>
-<div id="e003e7ce" class="cell" data-execution_count="8">
+<div id="e6f27afb" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_top5Cities_Rainfall_grouped.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="120">
 <div>
 
 
@@ -475,9 +475,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="2b7a1fd3" class="cell" data-execution_count="9">
+<div id="210cc4c8" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_top5Cities_Rainfall_pivoted.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="121">
 <div>
 
 
@@ -551,9 +551,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="d5166c16" class="cell" data-execution_count="10">
+<div id="6898b791" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_top5Cities_monthly_rainyDays_pivoted.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="122">
 <div>
 
 
@@ -627,6 +627,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
+<section id="aside-why-dfdf..." class="level4">
+<h4 class="anchored" data-anchor-id="aside-why-dfdf...">Aside: why <code>df[df[...</code>?</h4>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df_top5Cities <span class="op">=</span> df[df[<span class="st">'Location'</span>].isin([<span class="st">'Perth'</span>,<span class="st">'Adelaide'</span>,<span class="st">'Sydney'</span>,<span class="st">'Melbourne'</span>,<span class="st">'Brisbane'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>The first (outer) <code>df[</code> tells pandas that we want to select a subset of rows based on some condition.</li>
+<li>The second (inner) <code>df[</code> is going to tell pandas this condition. In this case, we’re using <code>isin</code> to return a dataframe that contains a series of <code>True</code> and <code>False</code> rows corresponding to whether the rows in our original dataframe had the <code>Location</code> column as one of our 5 cities.</li>
+<li>The final dataframe is then a filtered copy where the inner condition is <code>True</code>.</li>
+</ul>
+<p>Yes, there are other ways of doing this! For example by using <code>.query()</code> to specify our conditions.</p>
+</section>
 </section>
 </section>
 <section id="doing-some-actual-plotting" class="level2">
@@ -634,10 +644,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The Seaborn home page has a very good <a href="https://seaborn.pydata.org/tutorial/introduction.html">introductory tutorial</a>, <a href="https://seaborn.pydata.org/api.html">reference documentation</a>, and a <a href="https://seaborn.pydata.org/examples/index.html">nice collection of examples</a>. You should familiarise yourself with the documentation; it’ll pay off massively if you actually grasp what each function and argument is for, rather than just copy/pasting examples and tweaking them until they work (without really understanding what they’re doing).</p>
 <section id="a-basic-one-line-line-chart" class="level3">
 <h3 class="anchored" data-anchor-id="a-basic-one-line-line-chart">A basic one-line line chart</h3>
-<div id="a04f7d3c" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sns.lineplot(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  data<span class="op">=</span>df_top5Cities_Rainfall_pivoted.T <span class="co">#.T gives the transpose (flips rows and columns)</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c9d8dc9e" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.lineplot(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  data<span class="op">=</span>df_top5Cities_Rainfall_pivoted.T <span class="co">#.T gives the transpose (flips rows and columns)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -650,18 +660,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="just-a-little-bit-of-customisation---a-bar-chart" class="level3">
 <h3 class="anchored" data-anchor-id="just-a-little-bit-of-customisation---a-bar-chart">Just a little bit of customisation - a bar chart</h3>
 <p><a href="https://seaborn.pydata.org/generated/seaborn.barplot.html">https://seaborn.pydata.org/generated/seaborn.barplot.html</a></p>
-<div id="3afdb3dd" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>our_barplot <span class="op">=</span> sns.barplot(</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  data<span class="op">=</span>df_top5Cities_Rainfall_grouped </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  ,x<span class="op">=</span><span class="st">"Month"</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  ,y<span class="op">=</span><span class="st">"Rainfall"</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  ,hue<span class="op">=</span><span class="st">"Location"</span> <span class="co"># read "hue" as "series"</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  ,palette<span class="op">=</span><span class="st">"tab10"</span> <span class="co"># https://matplotlib.org/stable/users/explain/colors/colormaps.html</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>our_barplot.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Average daily rainfall by month and city'</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>sns.move_legend(our_barplot,<span class="st">"upper left"</span>) <span class="co"># https://seaborn.pydata.org/generated/seaborn.move_legend.html</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7f2809ab" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>our_barplot <span class="op">=</span> sns.barplot(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  data<span class="op">=</span>df_top5Cities_Rainfall_grouped </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  ,x<span class="op">=</span><span class="st">"Month"</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  ,y<span class="op">=</span><span class="st">"Rainfall"</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  ,hue<span class="op">=</span><span class="st">"Location"</span> <span class="co"># read "hue" as "series"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  ,palette<span class="op">=</span><span class="st">"tab10"</span> <span class="co"># https://matplotlib.org/stable/users/explain/colors/colormaps.html</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>our_barplot.<span class="bu">set</span>(title<span class="op">=</span><span class="st">'Average daily rainfall by month and city'</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>sns.move_legend(our_barplot,<span class="st">"upper left"</span>) <span class="co"># https://seaborn.pydata.org/generated/seaborn.move_legend.html</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -677,22 +687,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="heatmaps" class="level3">
 <h3 class="anchored" data-anchor-id="heatmaps">Heatmaps</h3>
-<div id="8164dc2b" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We need to use some matplotlib code to set our output size, add a title, and capitalise our x-axis label</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>)) </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Average daily rainfall (/mm) each month (</span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">) for Australia's top 5 cities"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, pad<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df_top5Cities_Rainfall_pivoted <span class="co"># Heatmap expects rectangular (pivot-like) data</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            ,annot<span class="op">=</span><span class="va">True</span> <span class="co"># Put numbers inside the cells</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            ,fmt<span class="op">=</span><span class="st">".1f"</span> <span class="co"># Make the numbers have 1 decimal place</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            ,square<span class="op">=</span><span class="va">True</span> <span class="co"># Square vs rectangular cells</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            ,cbar<span class="op">=</span><span class="va">False</span> <span class="co"># Get rid of the colourbar legend on the side</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            ,cmap<span class="op">=</span><span class="st">"Blues"</span> <span class="co"># Seems appropriate for rainfall. Colourmaps reference: https://matplotlib.org/stable/users/explain/colors/colormaps.html </span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>            ,ax<span class="op">=</span>ax <span class="co"># Tell it to use the matplotlib axes we created earlier</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>           )</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Month"</span>)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="020872b4" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We need to use some matplotlib code to set our output size, add a title, and capitalise our x-axis label</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>f,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>)) </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Average daily rainfall (/mm) each month (</span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">) for Australia's top 5 cities"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, pad<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df_top5Cities_Rainfall_pivoted <span class="co"># Heatmap expects rectangular (pivot-like) data</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            ,annot<span class="op">=</span><span class="va">True</span> <span class="co"># Put numbers inside the cells</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            ,fmt<span class="op">=</span><span class="st">".1f"</span> <span class="co"># Make the numbers have 1 decimal place</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            ,square<span class="op">=</span><span class="va">True</span> <span class="co"># Square vs rectangular cells</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            ,cbar<span class="op">=</span><span class="va">False</span> <span class="co"># Get rid of the colourbar legend on the side</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>            ,cmap<span class="op">=</span><span class="st">"Blues"</span> <span class="co"># Seems appropriate for rainfall. Colourmaps reference: https://matplotlib.org/stable/users/explain/colors/colormaps.html </span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>            ,ax<span class="op">=</span>ax <span class="co"># Tell it to use the matplotlib axes we created earlier</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>ax.<span class="bu">set</span>(xlabel<span class="op">=</span><span class="st">"Month"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -704,29 +714,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="another-heatmap-with-some-further-tweaks" class="level3">
 <h3 class="anchored" data-anchor-id="another-heatmap-with-some-further-tweaks">Another heatmap with some further tweaks</h3>
-<div id="b13532a2" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Again setting up matplotlib subplots so that we can make some changes later</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>f,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>)) </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df_top5Cities_monthly_rainyDays_pivoted <span class="co"># Heatmap expects rectangular (pivot-like) data</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            ,annot<span class="op">=</span><span class="va">True</span> <span class="co"># Put numbers inside the cells</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            ,fmt<span class="op">=</span><span class="st">".0f"</span> <span class="co"># Force the number format</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            ,square<span class="op">=</span><span class="va">True</span> <span class="co"># Square vs rectangular cells</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            ,cbar<span class="op">=</span><span class="va">False</span> <span class="co"># Get rid of the colourbar legend on the side</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            ,cmap<span class="op">=</span><span class="st">"crest"</span> <span class="co"># Colourmaps reference: https://matplotlib.org/stable/users/explain/colors/colormaps.html </span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>            ,ax<span class="op">=</span>ax <span class="co"># Tell it to use the matplotlib axes we created earlier</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>           )</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We need to use some matplotlib code to set our output size, add a title, and capitalise our x-axis label</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, labelsize<span class="op">=</span><span class="dv">11</span>, rotation<span class="op">=</span><span class="dv">45</span>) <span class="co"># I think 45-degree month labels look nicer, but this is a matter of taste.</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelsize<span class="op">=</span><span class="dv">11</span>)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually changing our axis labels for more control</span></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Month"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">12</span>) </span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"City"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Set our title dynamically</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Mean number of rainy days by month between </span><span class="sc">{</span>date_min<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>date_max<span class="sc">}</span><span class="ss"> for Australia's top 5 cities"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, pad<span class="op">=</span><span class="dv">15</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4f43d56f" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Again setting up matplotlib subplots so that we can make some changes later</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>f,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>)) </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sns.heatmap(df_top5Cities_monthly_rainyDays_pivoted <span class="co"># Heatmap expects rectangular (pivot-like) data</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>            ,annot<span class="op">=</span><span class="va">True</span> <span class="co"># Put numbers inside the cells</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>            ,fmt<span class="op">=</span><span class="st">".0f"</span> <span class="co"># Force the number format</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            ,square<span class="op">=</span><span class="va">True</span> <span class="co"># Square vs rectangular cells</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>            ,cbar<span class="op">=</span><span class="va">False</span> <span class="co"># Get rid of the colourbar legend on the side</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>            ,cmap<span class="op">=</span><span class="st">"crest"</span> <span class="co"># Colourmaps reference: https://matplotlib.org/stable/users/explain/colors/colormaps.html </span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>            ,ax<span class="op">=</span>ax <span class="co"># Tell it to use the matplotlib axes we created earlier</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co"># We need to use some matplotlib code to set our output size, add a title, and capitalise our x-axis label</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, labelsize<span class="op">=</span><span class="dv">11</span>, rotation<span class="op">=</span><span class="dv">45</span>) <span class="co"># I think 45-degree month labels look nicer, but this is a matter of taste.</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually changing our axis labels for more control</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Month"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">12</span>) </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"City"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Set our title dynamically</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Mean number of rainy days by month between </span><span class="sc">{</span>date_min<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>date_max<span class="sc">}</span><span class="ss"> for Australia's top 5 cities"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, pad<span class="op">=</span><span class="dv">15</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -738,51 +748,51 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="a-fancy-multi-chart-visual" class="level3">
 <h3 class="anchored" data-anchor-id="a-fancy-multi-chart-visual">A fancy multi-chart visual</h3>
-<div id="f64d51c7" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the grid of box plots</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plots are a bit of a rabbit hole and are extremely customisable; we're mostly using defaults here</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>boxgrid <span class="op">=</span> sns.FacetGrid(df_top5Cities </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                        ,col<span class="op">=</span><span class="st">"Location"</span> <span class="co"># Defining the different facets</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                        ,col_wrap<span class="op">=</span><span class="dv">5</span>, height<span class="op">=</span><span class="fl">4.5</span> <span class="co"># Layout and sizing for our facet grid</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>                        ,col_order<span class="op">=</span>colOrder_top5Cities  <span class="co"># Using our alphabetical order of city names to arrange our facets</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>boxgrid.<span class="bu">map</span>(sns.boxplot <span class="co"># This is what tells sns what sort of plots we want in our grid</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>            ,<span class="st">"Month"</span> <span class="co"># X</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>            ,<span class="st">"MaxTemp"</span> <span class="co"># Y</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>            ,linewidth<span class="op">=</span><span class="fl">1.5</span></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>            ,color<span class="op">=</span><span class="st">"skyblue"</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>            ,order<span class="op">=</span>month_order</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>            ,fliersize<span class="op">=</span><span class="dv">0</span> <span class="co"># Seaborn boxplots by default include markers for outliers, which it calls "fliers". For this chart we'd like to disable these.</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>            ) </span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the grid of line plots</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the default matplotlib plot here</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>linegrid <span class="op">=</span> sns.FacetGrid(df_top5Cities.groupby([<span class="st">'Location'</span>, <span class="st">'Month'</span>])[<span class="st">'Rainfall'</span>].mean().reset_index()</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>                         ,col<span class="op">=</span><span class="st">"Location"</span> </span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>                         ,hue<span class="op">=</span><span class="st">"Location"</span>,palette<span class="op">=</span><span class="st">"Set2"</span> </span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>                         ,col_wrap<span class="op">=</span><span class="dv">5</span>, height<span class="op">=</span><span class="fl">4.5</span> </span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>                         ,col_order<span class="op">=</span>colOrder_top5Cities</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>linegrid.<span class="bu">map</span>(plt.plot, <span class="st">"Month"</span>, <span class="st">"Rainfall"</span>,marker<span class="op">=</span><span class="st">"o"</span>)</span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatting axes</span></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> boxgrid.axes.flat:</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, labelsize<span class="op">=</span><span class="dv">9</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> linegrid.axes.flat:</span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, labelsize<span class="op">=</span><span class="dv">9</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>linegrid.set_titles(col_template<span class="op">=</span><span class="st">"</span><span class="sc">{col_name}</span><span class="st">"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>linegrid.set_axis_labels(<span class="st">"Month"</span>,<span class="st">"Average rainfall /mm"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>boxgrid.set_titles(col_template<span class="op">=</span><span class="st">"</span><span class="sc">{col_name}</span><span class="st">"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>boxgrid.set_axis_labels(<span class="st">"Month"</span>,<span class="st">"Max temp /$</span><span class="ch">\\</span><span class="st">degree$C"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">10</span>)</span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting overall titles and spacing</span></span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>linegrid.fig.suptitle(<span class="ss">f"Mean daily rainfall by month for top 5 cities, </span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, color<span class="op">=</span><span class="st">'black'</span>,fontweight<span class="op">=</span><span class="st">'bold'</span>) </span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>boxgrid.fig.suptitle(<span class="ss">f"Max temperature by month for top 5 cities, </span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, color<span class="op">=</span><span class="st">'black'</span>,fontweight<span class="op">=</span><span class="st">'bold'</span>) </span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>linegrid.fig.subplots_adjust(top<span class="op">=</span><span class="fl">0.85</span>)  </span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>boxgrid.fig.subplots_adjust(top<span class="op">=</span><span class="fl">0.85</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a00e9452" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the grid of box plots</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plots are a bit of a rabbit hole and are extremely customisable; we're mostly using defaults here</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>boxgrid <span class="op">=</span> sns.FacetGrid(df_top5Cities </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                        ,col<span class="op">=</span><span class="st">"Location"</span> <span class="co"># Defining the different facets</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                        ,col_wrap<span class="op">=</span><span class="dv">5</span>, height<span class="op">=</span><span class="fl">4.5</span> <span class="co"># Layout and sizing for our facet grid</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                        ,col_order<span class="op">=</span>colOrder_top5Cities  <span class="co"># Using our alphabetical order of city names to arrange our facets</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>boxgrid.<span class="bu">map</span>(sns.boxplot <span class="co"># This is what tells sns what sort of plots we want in our grid</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>            ,<span class="st">"Month"</span> <span class="co"># X</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>            ,<span class="st">"MaxTemp"</span> <span class="co"># Y</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>            ,linewidth<span class="op">=</span><span class="fl">1.5</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>            ,color<span class="op">=</span><span class="st">"skyblue"</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>            ,order<span class="op">=</span>month_order</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>            ,fliersize<span class="op">=</span><span class="dv">0</span> <span class="co"># Seaborn boxplots by default include markers for outliers, which it calls "fliers". For this chart we'd like to disable these.</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>            ) </span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the grid of line plots</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the default matplotlib plot here</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>linegrid <span class="op">=</span> sns.FacetGrid(df_top5Cities.groupby([<span class="st">'Location'</span>, <span class="st">'Month'</span>])[<span class="st">'Rainfall'</span>].mean().reset_index()</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>                         ,col<span class="op">=</span><span class="st">"Location"</span> </span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>                         ,hue<span class="op">=</span><span class="st">"Location"</span>,palette<span class="op">=</span><span class="st">"Set2"</span> </span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>                         ,col_wrap<span class="op">=</span><span class="dv">5</span>, height<span class="op">=</span><span class="fl">4.5</span> </span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>                         ,col_order<span class="op">=</span>colOrder_top5Cities</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>linegrid.<span class="bu">map</span>(plt.plot, <span class="st">"Month"</span>, <span class="st">"Rainfall"</span>,marker<span class="op">=</span><span class="st">"o"</span>)</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Formatting axes</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> boxgrid.axes.flat:</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, labelsize<span class="op">=</span><span class="dv">9</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> linegrid.axes.flat:</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'x'</span>, labelsize<span class="op">=</span><span class="dv">9</span>, rotation<span class="op">=</span><span class="dv">45</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'y'</span>, labelsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>linegrid.set_titles(col_template<span class="op">=</span><span class="st">"</span><span class="sc">{col_name}</span><span class="st">"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>linegrid.set_axis_labels(<span class="st">"Month"</span>,<span class="st">"Average rainfall /mm"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>boxgrid.set_titles(col_template<span class="op">=</span><span class="st">"</span><span class="sc">{col_name}</span><span class="st">"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>boxgrid.set_axis_labels(<span class="st">"Month"</span>,<span class="st">"Max temp /$</span><span class="ch">\\</span><span class="st">degree$C"</span>,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting overall titles and spacing</span></span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>linegrid.fig.suptitle(<span class="ss">f"Mean daily rainfall by month for top 5 cities, </span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, color<span class="op">=</span><span class="st">'black'</span>,fontweight<span class="op">=</span><span class="st">'bold'</span>) </span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>boxgrid.fig.suptitle(<span class="ss">f"Max temperature by month for top 5 cities, </span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, color<span class="op">=</span><span class="st">'black'</span>,fontweight<span class="op">=</span><span class="st">'bold'</span>) </span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>linegrid.fig.subplots_adjust(top<span class="op">=</span><span class="fl">0.85</span>)  </span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>boxgrid.fig.subplots_adjust(top<span class="op">=</span><span class="fl">0.85</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -801,49 +811,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="small-multiples-type-time-series-grid" class="level3">
 <h3 class="anchored" data-anchor-id="small-multiples-type-time-series-grid">“Small multiples”-type time-series grid</h3>
-<p>This is mostly based on the example given at https://seaborn.pydata.org/examples/timeseries_facets.html.</p>
+<p>This is mostly based on the example given at <a href="https://seaborn.pydata.org/examples/timeseries_facets.html">https://seaborn.pydata.org/examples/timeseries_facets.html</a>.</p>
 <p>Firstly, for this one we need another dataframe that just contains the Sydney data.</p>
-<div id="3e82e62c" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_Sydney <span class="op">=</span> df[df[<span class="st">'Location'</span>]<span class="op">==</span><span class="st">"Sydney"</span>].groupby([<span class="st">'Month'</span>, <span class="st">'Location'</span>,<span class="st">'Year'</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'MaxTemp'</span>].<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a280b91f" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_Sydney <span class="op">=</span> df[df[<span class="st">'Location'</span>]<span class="op">==</span><span class="st">"Sydney"</span>].groupby([<span class="st">'Month'</span>, <span class="st">'Location'</span>,<span class="st">'Year'</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'MaxTemp'</span>].<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cb2d3a42" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot each year's time series in its own facet</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.relplot(data<span class="op">=</span>df_Sydney</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                ,x<span class="op">=</span><span class="st">"Month"</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>                ,y<span class="op">=</span><span class="st">"MaxTemp"</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>                ,col<span class="op">=</span><span class="st">"Year"</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>                ,hue<span class="op">=</span><span class="st">"Year"</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>                ,kind<span class="op">=</span><span class="st">"line"</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>                ,palette<span class="op">=</span><span class="st">"viridis"</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>                ,linewidth<span class="op">=</span><span class="dv">4</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>                ,zorder<span class="op">=</span><span class="dv">5</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>                ,col_wrap<span class="op">=</span><span class="dv">3</span>, height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="fl">1.5</span>, legend<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over each subplot to customize further</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year, ax <span class="kw">in</span> g.axes_dict.items():</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the title as an annotation within the plot</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    ax.text(<span class="fl">.8</span></span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>            ,<span class="fl">.85</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>            ,year</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>            ,transform<span class="op">=</span>ax.transAxes</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>            ,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot every year's time series in the background</span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    sns.lineplot(</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>df_Sydney, x<span class="op">=</span><span class="st">"Month"</span>, y<span class="op">=</span><span class="st">"MaxTemp"</span>, units<span class="op">=</span><span class="st">"Year"</span>,</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>        estimator<span class="op">=</span><span class="va">None</span>, color<span class="op">=</span><span class="st">".7"</span>, linewidth<span class="op">=</span><span class="dv">1</span>, ax<span class="op">=</span>ax</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a><span class="co"># reduce the frequency of the x axis ticks</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(ax.get_xticks()[::<span class="dv">2</span>])</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a><span class="co"># tweak the supporting aspects of the plot</span></span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>g.set_titles(<span class="st">""</span>)</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>g.fig.suptitle(<span class="ss">f"Max temperature by month in Sydney, </span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, color<span class="op">=</span><span class="st">'black'</span>,fontweight<span class="op">=</span><span class="st">'bold'</span>) </span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"Max Temp /$</span><span class="ch">\\</span><span class="st">degree </span><span class="ch">\\</span><span class="st">mathrm</span><span class="sc">{C}</span><span class="st">$"</span>)<span class="op">;</span></span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>g.tight_layout()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="7a4281fd" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot each year's time series in its own facet</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.relplot(data<span class="op">=</span>df_Sydney</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                ,x<span class="op">=</span><span class="st">"Month"</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                ,y<span class="op">=</span><span class="st">"MaxTemp"</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                ,col<span class="op">=</span><span class="st">"Year"</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                ,hue<span class="op">=</span><span class="st">"Year"</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                ,kind<span class="op">=</span><span class="st">"line"</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                ,palette<span class="op">=</span><span class="st">"viridis"</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                ,linewidth<span class="op">=</span><span class="dv">4</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>                ,zorder<span class="op">=</span><span class="dv">5</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                ,col_wrap<span class="op">=</span><span class="dv">3</span>, height<span class="op">=</span><span class="dv">2</span>, aspect<span class="op">=</span><span class="fl">1.5</span>, legend<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over each subplot to customize further</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> year, ax <span class="kw">in</span> g.axes_dict.items():</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add the title as an annotation within the plot</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    ax.text(<span class="fl">.8</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>            ,<span class="fl">.85</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>            ,year</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>            ,transform<span class="op">=</span>ax.transAxes</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>            ,fontweight<span class="op">=</span><span class="st">"bold"</span>,fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot every year's time series in the background</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    sns.lineplot(</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        data<span class="op">=</span>df_Sydney, x<span class="op">=</span><span class="st">"Month"</span>, y<span class="op">=</span><span class="st">"MaxTemp"</span>, units<span class="op">=</span><span class="st">"Year"</span>,</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        estimator<span class="op">=</span><span class="va">None</span>, color<span class="op">=</span><span class="st">".7"</span>, linewidth<span class="op">=</span><span class="dv">1</span>, ax<span class="op">=</span>ax</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co"># reduce the frequency of the x axis ticks</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(ax.get_xticks()[::<span class="dv">2</span>])</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a><span class="co"># tweak the supporting aspects of the plot</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>g.set_titles(<span class="st">""</span>)</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>g.fig.suptitle(<span class="ss">f"Max temperature by month in Sydney, </span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, color<span class="op">=</span><span class="st">'black'</span>,fontweight<span class="op">=</span><span class="st">'bold'</span>) </span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>g.set_axis_labels(<span class="st">""</span>, <span class="st">"Max Temp /$</span><span class="ch">\\</span><span class="st">degree </span><span class="ch">\\</span><span class="st">mathrm</span><span class="sc">{C}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>g.tight_layout()<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
