@@ -29,6 +29,23 @@ In our previous session, comparing samples, we were comparing the average value 
 
 There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can't reduce either to their average, and are instead making statements about the way they vary together.
 
+### Variable Types
+
+At this point, it might be necessary to walk through variable types and what continuous and categorical variables really mean.
+
+
+| Variable Type             | Example Values       | Typical Question        |
+| ------------------------- | -------------------- | ----------------------- |
+| **Continuous**            | 5.2, 7.8, 102.3      | *How much?*             |
+| **Discrete**              | 1, 2, 3, 10          | *How many?*             |
+| **Categorical (Nominal)** | Red, Blue, Green     | *Which type?*           |
+| **Categorical (Ordinal)** | Low, Medium, High    | *Which level?*          |
+| **Binary (Dichotomous)**  | Yes/No, Pass/Fail    | *Yes or no?*            |
+| **Time/Date**             | 2025-06-10, 12:30 PM | *When?*                 |
+| **Identifier**            | ID12345, username987 | *Who or what? (unique)* |
+
+A nominal category has no natural order, while ordinal categories do.
+
 ## Penguins with Long Characteristics
 
 ### Import & Process Data
