@@ -15,7 +15,9 @@ One final note before we get started - This page is a combination of text and py
 
 ## Initial setup
 
-We're just going to import some python packages. Remember that the `plt`, `np`, `sns` aliases are just for convenience - we could omit this completely or use different aliases if we prefer.
+We're going to import some python packages. Remember that the `plt`, `np`, `sns` aliases are just for convenience - we could omit this completely or use different aliases if we prefer.
+
+Seaborn being imported as `sns` is an odd convention (they are the initials of the fictional character the package was named for) that will make it easier to read or copy/paste online examples.
 
 ```{python}
 #| label: setup
@@ -30,7 +32,7 @@ import seaborn as sns
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning) 
 
-sns.set_theme(style='darkgrid') # if we don't call this, we just get default matplotlib styling
+sns.set_theme(style='darkgrid') # https://seaborn.pydata.org/generated/seaborn.set_theme.html
 sns.set_context("notebook") # set an overall scale. Notebook is the default. In increasing size: paper, notebook, talk, poster.
 plt.rcParams['font.sans-serif'] = ['Calibri','Segoe UI','Arial'] # use a nicer font in matplotlib (if available)
 ```
@@ -168,9 +170,9 @@ our_barplot = sns.barplot(
   ,palette="tab10" # https://matplotlib.org/stable/users/explain/colors/colormaps.html
   )
 
-our_barplot.set(title='Average daily rainfall by month and city')
+our_barplot.set(title='Average daily rainfall by month and city',ylim=(0,8))
 
-sns.move_legend(our_barplot,"upper left") # https://seaborn.pydata.org/generated/seaborn.move_legend.html
+sns.move_legend(our_barplot,"upper left", title=None, ncol=4) # https://seaborn.pydata.org/generated/seaborn.move_legend.html
 ```
 
 #### An aside - why did we need to set the title *after* the `sns.barplot` call?
@@ -181,8 +183,8 @@ The `barplot` function provided by Seaborn doesn't actually allow setting of a t
 
 ```{python}
 # We need to use some matplotlib code to set our output size, add a title, and capitalise our x-axis label
-f,ax = plt.subplots(figsize=(10, 5)) 
-ax.set_title(f"Average daily rainfall (/mm) each month ({date_range}) for Australia's top 5 cities", fontsize=16, fontweight="bold", pad=10)
+f,ax = plt.subplots(figsize=(10, 5)) # matplotlib subplots are a common way of setting a figure layout
+ax.set_title(f"Average daily rainfall (/mm) each month ({date_range}) for Australia's top 5 cities", fontsize=16, fontweight="bold", pad=10) # using our previously set date_range variable
 
 sns.heatmap(df_top5Cities_Rainfall_pivoted # Heatmap expects rectangular (pivot-like) data
             ,annot=True # Put numbers inside the cells
@@ -192,9 +194,6 @@ sns.heatmap(df_top5Cities_Rainfall_pivoted # Heatmap expects rectangular (pivot-
             ,cmap="Blues" # Seems appropriate for rainfall. Colourmaps reference: https://matplotlib.org/stable/users/explain/colors/colormaps.html 
             ,ax=ax # Tell it to use the matplotlib axes we created earlier
            )
-
-ax.set(xlabel="Month")
-plt.show()
 ```
 
 ### Another heatmap with some further tweaks
