@@ -164,7 +164,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#why-analyse-relationships" id="toc-why-analyse-relationships" class="nav-link active" data-scroll-target="#why-analyse-relationships">Why Analyse Relationships?</a></li>
-  <li><a href="#from-categorical-to-continuous" id="toc-from-categorical-to-continuous" class="nav-link" data-scroll-target="#from-categorical-to-continuous">From Categorical to Continuous</a></li>
+  <li><a href="#from-categorical-to-continuous" id="toc-from-categorical-to-continuous" class="nav-link" data-scroll-target="#from-categorical-to-continuous">From Categorical to Continuous</a>
+  <ul class="collapse">
+  <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">Variable Types</a></li>
+  </ul></li>
   <li><a href="#penguins-with-long-characteristics" id="toc-penguins-with-long-characteristics" class="nav-link" data-scroll-target="#penguins-with-long-characteristics">Penguins with Long Characteristics</a>
   <ul class="collapse">
   <li><a href="#import-process-data" id="toc-import-process-data" class="nav-link" data-scroll-target="#import-process-data">Import &amp; Process Data</a></li>
@@ -213,6 +216,62 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="from-categorical-to-continuous">From Categorical to Continuous</h2>
 <p>In our previous session, comparing samples, we were comparing the average value of a continuous variable by groups (categorical variables). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
 <p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
+<section id="variable-types" class="level3">
+<h3 class="anchored" data-anchor-id="variable-types">Variable Types</h3>
+<p>At this point, it might be necessary to walk through variable types and what continuous and categorical variables really mean.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 29%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Type</th>
+<th>Example Values</th>
+<th>Typical Question</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Continuous</strong></td>
+<td>5.2, 7.8, 102.3</td>
+<td><em>How much?</em></td>
+</tr>
+<tr class="even">
+<td><strong>Discrete</strong></td>
+<td>1, 2, 3, 10</td>
+<td><em>How many?</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Categorical (Nominal)</strong></td>
+<td>Red, Blue, Green</td>
+<td><em>Which type?</em></td>
+</tr>
+<tr class="even">
+<td><strong>Categorical (Ordinal)</strong></td>
+<td>Low, Medium, High</td>
+<td><em>Which level?</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Binary (Dichotomous)</strong></td>
+<td>Yes/No, Pass/Fail</td>
+<td><em>Yes or no?</em></td>
+</tr>
+<tr class="even">
+<td><strong>Time/Date</strong></td>
+<td>2025-06-10, 12:30 PM</td>
+<td><em>When?</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Identifier</strong></td>
+<td>ID12345, username987</td>
+<td><em>Who or what? (unique)</em></td>
+</tr>
+</tbody>
+</table>
+<p>A nominal category has no natural order, while ordinal categories do.</p>
+</section>
 </section>
 <section id="penguins-with-long-characteristics" class="level2">
 <h2 class="anchored" data-anchor-id="penguins-with-long-characteristics">Penguins with Long Characteristics</h2>
@@ -562,7 +621,7 @@ Figure&nbsp;4
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim[<span class="st">'x'</span>], sim[<span class="st">'y'</span>])</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correlation (r) = 0.01</code></pre>
+<pre><code>Correlation (r) = -0.01</code></pre>
 </div>
 </div>
 <p><strong>Takeaway:</strong> Pearson’s <em>r</em> misses non-linear relationships</p>
