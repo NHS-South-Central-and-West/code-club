@@ -269,13 +269,16 @@ boxgrid.fig.subplots_adjust(top=0.85);
 
 ### "Small multiples"-type time-series grid
 
+This is mostly based on the example given at https://seaborn.pydata.org/examples/timeseries_facets.html. 
+
+Firstly, for this one we need another dataframe that just contains the Sydney data.
+
 ```{python}
-# Credit to https://seaborn.pydata.org/examples/timeseries_facets.html
-
 df_Sydney = df[df['Location']=="Sydney"].groupby(['Month', 'Location','Year'], as_index=False)['MaxTemp'].max()
-sns.set_theme()
+```
 
-#Plot each year's time series in its own facet
+```{python}
+# plot each year's time series in its own facet
 g = sns.relplot(data=df_Sydney
                 ,x="Month"
                 ,y="MaxTemp"
@@ -288,7 +291,7 @@ g = sns.relplot(data=df_Sydney
                 ,col_wrap=3, height=2, aspect=1.5, legend=False,
 )
 
-# Iterate over each subplot to customize further
+# iterate over each subplot to customize further
 for year, ax in g.axes_dict.items():
 
     # Add the title as an annotation within the plot
@@ -304,10 +307,10 @@ for year, ax in g.axes_dict.items():
         estimator=None, color=".7", linewidth=1, ax=ax
     )
 
-# Reduce the frequency of the x axis ticks
+# reduce the frequency of the x axis ticks
 ax.set_xticks(ax.get_xticks()[::2])
 
-# Tweak the supporting aspects of the plot
+# tweak the supporting aspects of the plot
 g.set_titles("")
 g.fig.suptitle(f"Max temperature by month in Sydney, {date_range}", fontsize=16, color='black',fontweight='bold') 
 g.set_axis_labels("", "Max Temp /$\\degree \\mathrm{C}$");
