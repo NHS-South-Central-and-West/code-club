@@ -131,11 +131,17 @@ df_top5Cities_Rainfall_pivoted.head(2)
 df_top5Cities_monthly_rainyDays_pivoted.head(2)
 ```
 
+#### Aside: why `df[df[...`?
 
+```python
+df_top5Cities = df[df['Location'].isin(['Perth','Adelaide','Sydney','Melbourne','Brisbane'])]
+```
 
+- The first (outer) `df[` tells pandas that we want to select a subset of rows based on some condition.
+- The second (inner) `df[` is going to tell pandas this condition. In this case, we're using `isin` to return a dataframe that contains a series of `True` and `False` rows corresponding to whether the rows in our original dataframe had the `Location` column as one of our 5 cities.
+- The final dataframe is then a filtered copy where the inner condition is `True`.
 
-
-
+Yes, there are other ways of doing this! For example by using `.query()` to specify our conditions.
 
 ## Doing some actual plotting
 
@@ -269,7 +275,7 @@ boxgrid.fig.subplots_adjust(top=0.85);
 
 ### "Small multiples"-type time-series grid
 
-This is mostly based on the example given at https://seaborn.pydata.org/examples/timeseries_facets.html. 
+This is mostly based on the example given at [https://seaborn.pydata.org/examples/timeseries_facets.html](https://seaborn.pydata.org/examples/timeseries_facets.html). 
 
 Firstly, for this one we need another dataframe that just contains the Sydney data.
 
