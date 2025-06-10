@@ -55,7 +55,7 @@ website:
             - text: 3. EDA with Pandas
               file: sessions/03-eda-pandas/index.qmd
             - text: 4. Visualisations with Seaborn
-              file: sessions/04-seaborn-visualisations/index.qmd
+              file: sessions/04-seaborn-visualisation/index.qmd
             - text: 5. EDA with Seaborn
               # file: sessions/05-eda-seaborn/index.qmd
         - section: Core Concepts
