@@ -7,7 +7,7 @@ format:
 
 Python has a rich ecosystem of libraries for data visualisation, each with different strengths. Some popular options include matplotlib for fine control over plots, plotly for interactive visualisations, and bokeh for web-ready dashboards. In this session, we’ll be using seaborn. It's built on top of matplotlib but offers a simpler, high-level interface and nice looking default styles — it's therefore a good choice when you who want to quickly create clear and informative plots without needing to tweak every detail.
 
-![Python visualisation libraries.](../../resources/python_visual_libraries.png)
+![Python (and R) visualisation libraries.](../../resources/python_visual_libraries.png)
 
 We are using [Australian weather data](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package), taken from [Kaggle](https://kaggle.com). This dataset is used to build machine learning models that predict whether it will rain tomorrow, using data about the weather every day from 2007 to 2017. To download the data, click [here](data/weatherAUS.csv).
 
@@ -17,7 +17,10 @@ One final note before we get started - This page is a combination of text and py
 
 We're going to import some python packages. Remember that the `plt`, `np`, `sns` aliases are just for convenience - we could omit this completely or use different aliases if we prefer.
 
+::: {.callout-note}
+### Aside - why `sns`?
 Seaborn being imported as `sns` is an odd convention (they are the initials of the fictional character the package was named for) that will make it easier to read or copy/paste online examples.
+:::
 
 ```{python}
 #| label: setup
@@ -133,6 +136,7 @@ df_top5Cities_Rainfall_pivoted.head(2)
 df_top5Cities_monthly_rainyDays_pivoted.head(2)
 ```
 
+::: {.callout-note}
 #### Aside: why `df[df[...`?
 
 ```python
@@ -144,6 +148,7 @@ df_top5Cities = df[df['Location'].isin(['Perth','Adelaide','Sydney','Melbourne',
 - The final dataframe is then a filtered copy where the inner condition is `True`.
 
 Yes, there are other ways of doing this! For example by using `.query()` to specify our conditions.
+:::
 
 ## Doing some actual plotting
 
@@ -175,9 +180,11 @@ our_barplot.set(title='Average daily rainfall by month and city',ylim=(0,8))
 sns.move_legend(our_barplot,"upper left", title=None, ncol=4) # https://seaborn.pydata.org/generated/seaborn.move_legend.html
 ```
 
-#### An aside - why did we need to set the title *after* the `sns.barplot` call?
+::: {.callout-note}
+#### Aside - why did we need to set the title *after* the `sns.barplot` call?
 
 The `barplot` function provided by Seaborn doesn't actually allow setting of a title - it just generates a plot (including its axes) and returns this as a matplotlib `Axes` object (recall we mentioned earlier that Seaborn is a layer on top of the matplotlib library). By using the `.set(...)` method on our barplot object, we can *modify* this returned object to give it a title. We also could have used this to customise our axis labels (the defaults are fine here), set axis limits, or things like tick labels.
+:::
 
 ### Heatmaps
 
