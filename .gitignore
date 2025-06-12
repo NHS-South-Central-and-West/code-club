@@ -177,4 +177,3 @@ cython_debug/
 # Quarto site directories
 /.quarto/
 /_site/
-sessions/04-seaborn-visualisation/index.ipynb
