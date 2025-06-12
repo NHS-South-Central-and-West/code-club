@@ -188,6 +188,8 @@ The `barplot` function provided by Seaborn doesn't actually allow setting of a t
 
 ### Heatmaps
 
+The Seaborn `heatmap` function will easily let us create a two-dimensional heatmap visual with a specific colour theme and custom number formatting.
+
 ```{python}
 # We need to use some matplotlib code to set our output size, add a title, and capitalise our x-axis label
 f,ax = plt.subplots(figsize=(10, 5)) # matplotlib subplots are a common way of setting a figure layout
@@ -204,6 +206,8 @@ sns.heatmap(df_top5Cities_Rainfall_pivoted # Heatmap expects rectangular (pivot-
 ```
 
 ### Another heatmap with some further tweaks
+
+We can make our heatmap look just a little better by apply some tweaks to the subplots object.
 
 ```{python}
 # Again setting up matplotlib subplots so that we can make some changes later
@@ -231,6 +235,8 @@ ax.set_title(f"Mean number of rainy days by month between {date_min} and {date_m
 ```
 
 ### A fancy multi-chart visual
+
+This chart uses the `boxgrid` object to arrange multiple different subcharts. We're actually generating two sets of different visuals (`linegrid` and `boxgrid`) in one output. If you're not sure what the `for [...] in [...]` syntax means, don't worry - this will be covered in a future session.
 
 ```{python}
 # Setting up the grid of box plots
@@ -288,6 +294,8 @@ Firstly, for this one we need another dataframe that just contains the Sydney da
 ```{python}
 df_Sydney = df[df['Location']=="Sydney"].groupby(['Month', 'Location','Year'], as_index=False)['MaxTemp'].max()
 ```
+
+We're going to use the `relplot` function to create a grid of plots with a specific set of variables across its rows and columns. For each cell we're plotting that year's data with a different colour, and plotting all the other years in grey in the background.
 
 ```{python}
 # plot each year's time series in its own facet
