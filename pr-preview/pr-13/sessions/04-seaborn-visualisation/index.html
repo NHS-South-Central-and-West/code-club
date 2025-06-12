@@ -390,7 +390,7 @@ Aside - why <code>sns</code>?
 <section id="column-conversions" class="level3">
 <h3 class="anchored" data-anchor-id="column-conversions">Column conversions</h3>
 <p>Before we start actually generating some visuals, we need to make sure our Date column contains proper datetimes. We’re also going to drop the years with partial data so that our dataset only has full years. Finally we’re going to change the RainTomorrow field to contain a 0 or a 1 rather than yes/no.</p>
-<div id="d1e7f689" class="cell" data-execution_count="3">
+<div id="c25098fd" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert date column to datetime</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -410,15 +410,15 @@ Aside - why <code>sns</code>?
 <section id="sort-order-and-other-helper-tables" class="level3">
 <h3 class="anchored" data-anchor-id="sort-order-and-other-helper-tables">Sort order and other helper tables</h3>
 <p>We need a month order for our “mmm” months - there is probably an official way of doing this…</p>
-<div id="45c728eb" class="cell" data-execution_count="4">
+<div id="30534c24" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>month_order <span class="op">=</span> [<span class="st">'Jan'</span>, <span class="st">'Feb'</span>, <span class="st">'Mar'</span>, <span class="st">'Apr'</span>, <span class="st">'May'</span>, <span class="st">'Jun'</span>, <span class="st">'Jul'</span>, <span class="st">'Aug'</span>, <span class="st">'Sep'</span>, <span class="st">'Oct'</span>, <span class="st">'Nov'</span>, <span class="st">'Dec'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We also need a sort order for our city names to use as a column order for some of our charts later. We’ll just arrange them alphabetically.</p>
-<div id="b0cf4006" class="cell" data-execution_count="5">
+<div id="84aebe6d" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>colOrder_top5Cities<span class="op">=</span>[<span class="st">'Adelaide'</span>,<span class="st">'Brisbane'</span>,<span class="st">'Melbourne'</span>,<span class="st">'Perth'</span>,<span class="st">'Sydney'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To enhance a chart we’re going to build later, we’re going to dynamically calculate some text describing our data range.</p>
-<div id="27e1b65f" class="cell" data-execution_count="6">
+<div id="a27b3289" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the date range dynamically; we're going to use this later...</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>date_min <span class="op">=</span> df[<span class="st">'Date'</span>].<span class="bu">min</span>().strftime(<span class="st">'%Y'</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>date_max <span class="op">=</span> df[<span class="st">'Date'</span>].<span class="bu">max</span>().strftime(<span class="st">'%Y'</span>)</span>
@@ -437,7 +437,7 @@ Aside - why <code>sns</code>?
 <li>It’s easier to follow</li>
 <li>It’s tidier (and probably faster) to create these dataframes once as we’re going to be using them multiple times.</li>
 </ol>
-<div id="79b4acd7" class="cell" data-execution_count="7">
+<div id="49fab22f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build a month column</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Month'</span>] <span class="op">=</span> df[<span class="st">'Date'</span>].dt.strftime(<span class="st">'%b'</span>) <span class="co"># Add a column that just contains the month in mmm format</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Month'</span>] <span class="op">=</span> pd.Categorical(df[<span class="st">'Month'</span>], categories<span class="op">=</span>month_order, ordered<span class="op">=</span><span class="va">True</span>) <span class="co"># Make it categorical using our custom order so that it appears in the right order</span></span>
@@ -454,7 +454,7 @@ Aside - why <code>sns</code>?
 <span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>df_top5Cities_monthly_rainyDays_pivoted <span class="op">=</span> df_top5Cities.groupby([<span class="st">'Location'</span>, <span class="st">'Month'</span>,<span class="st">'Year'</span>])[<span class="st">'RainToday'</span>].<span class="bu">sum</span>().reset_index().groupby([<span class="st">'Location'</span>,<span class="st">'Month'</span>])[<span class="st">'RainToday'</span>].mean().reset_index().pivot(index<span class="op">=</span><span class="st">"Location"</span>,columns<span class="op">=</span><span class="st">"Month"</span>, values<span class="op">=</span><span class="st">"RainToday"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s use <code>head()</code> to make sure we understand what each grouped/pivoted DF is for.</p>
-<div id="64cd84a6" class="cell" data-execution_count="8">
+<div id="0a419d55" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_top5Cities_Rainfall_grouped.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -488,7 +488,7 @@ Aside - why <code>sns</code>?
 </div>
 </div>
 </div>
-<div id="a529e224" class="cell" data-execution_count="9">
+<div id="f87388ef" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df_top5Cities_Rainfall_pivoted.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -564,7 +564,7 @@ Aside - why <code>sns</code>?
 </div>
 </div>
 </div>
-<div id="4a67e2f5" class="cell" data-execution_count="10">
+<div id="d93a8c1f" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_top5Cities_monthly_rainyDays_pivoted.head(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
@@ -666,7 +666,7 @@ Aside: why <code>df[df[...</code>?
 <p>The Seaborn home page has a very good <a href="https://seaborn.pydata.org/tutorial/introduction.html">introductory tutorial</a>, <a href="https://seaborn.pydata.org/api.html">reference documentation</a>, and a <a href="https://seaborn.pydata.org/examples/index.html">nice collection of examples</a>. You should familiarise yourself with the documentation; it’ll pay off massively if you actually grasp what each function and argument is for, rather than just copy/pasting examples and tweaking them until they work (without really understanding what they’re doing).</p>
 <section id="a-basic-one-line-line-chart" class="level3">
 <h3 class="anchored" data-anchor-id="a-basic-one-line-line-chart">A basic one-line line chart</h3>
-<div id="907527dc" class="cell" data-execution_count="11">
+<div id="99b2a3d9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sns.lineplot(</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  data<span class="op">=</span>df_top5Cities_Rainfall_pivoted.T <span class="co">#.T gives the transpose (flips rows and columns)</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -682,7 +682,7 @@ Aside: why <code>df[df[...</code>?
 <section id="just-a-little-bit-of-customisation---a-bar-chart" class="level3">
 <h3 class="anchored" data-anchor-id="just-a-little-bit-of-customisation---a-bar-chart">Just a little bit of customisation - a bar chart</h3>
 <p><a href="https://seaborn.pydata.org/generated/seaborn.barplot.html">https://seaborn.pydata.org/generated/seaborn.barplot.html</a></p>
-<div id="1b1d8a6e" class="cell" data-execution_count="12">
+<div id="adc6b0d3" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>our_barplot <span class="op">=</span> sns.barplot(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  data<span class="op">=</span>df_top5Cities_Rainfall_grouped </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  ,x<span class="op">=</span><span class="st">"Month"</span></span>
@@ -718,7 +718,8 @@ Aside - why did we need to set the title <em>after</em> the <code>sns.barplot</c
 </section>
 <section id="heatmaps" class="level3">
 <h3 class="anchored" data-anchor-id="heatmaps">Heatmaps</h3>
-<div id="59d4b3bf" class="cell" data-execution_count="13">
+<p>The Seaborn <code>heatmap</code> function will easily let us create a two-dimensional heatmap visual with a specific colour theme and custom number formatting.</p>
+<div id="6a52206b" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We need to use some matplotlib code to set our output size, add a title, and capitalise our x-axis label</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>f,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>)) <span class="co"># matplotlib subplots are a common way of setting a figure layout</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f"Average daily rainfall (/mm) each month (</span><span class="sc">{</span>date_range<span class="sc">}</span><span class="ss">) for Australia's top 5 cities"</span>, fontsize<span class="op">=</span><span class="dv">16</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>, pad<span class="op">=</span><span class="dv">10</span>) <span class="co"># using our previously set date_range variable</span></span>
@@ -742,7 +743,8 @@ Aside - why did we need to set the title <em>after</em> the <code>sns.barplot</c
 </section>
 <section id="another-heatmap-with-some-further-tweaks" class="level3">
 <h3 class="anchored" data-anchor-id="another-heatmap-with-some-further-tweaks">Another heatmap with some further tweaks</h3>
-<div id="25baeb6e" class="cell" data-execution_count="14">
+<p>We can make our heatmap look just a little better by apply some tweaks to the subplots object.</p>
+<div id="24bb901f" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Again setting up matplotlib subplots so that we can make some changes later</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>f,ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>)) </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -776,7 +778,8 @@ Aside - why did we need to set the title <em>after</em> the <code>sns.barplot</c
 </section>
 <section id="a-fancy-multi-chart-visual" class="level3">
 <h3 class="anchored" data-anchor-id="a-fancy-multi-chart-visual">A fancy multi-chart visual</h3>
-<div id="edd80d0c" class="cell" data-execution_count="15">
+<p>This chart uses the <code>boxgrid</code> object to arrange multiple different subcharts. We’re actually generating two sets of different visuals (<code>linegrid</code> and <code>boxgrid</code>) in one output. If you’re not sure what the <code>for [...] in [...]</code> syntax means, don’t worry - this will be covered in a future session.</p>
+<div id="abfff5c7" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting up the grid of box plots</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Box plots are a bit of a rabbit hole and are extremely customisable; we're mostly using defaults here</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>boxgrid <span class="op">=</span> sns.FacetGrid(df_top5Cities </span>
@@ -841,10 +844,11 @@ Aside - why did we need to set the title <em>after</em> the <code>sns.barplot</c
 <h3 class="anchored" data-anchor-id="small-multiples-type-time-series-grid">“Small multiples”-type time-series grid</h3>
 <p>This is mostly based on the example given at <a href="https://seaborn.pydata.org/examples/timeseries_facets.html">https://seaborn.pydata.org/examples/timeseries_facets.html</a>.</p>
 <p>Firstly, for this one we need another dataframe that just contains the Sydney data.</p>
-<div id="a1db8c54" class="cell" data-execution_count="16">
+<div id="7ea78bd7" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_Sydney <span class="op">=</span> df[df[<span class="st">'Location'</span>]<span class="op">==</span><span class="st">"Sydney"</span>].groupby([<span class="st">'Month'</span>, <span class="st">'Location'</span>,<span class="st">'Year'</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'MaxTemp'</span>].<span class="bu">max</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4964441e" class="cell" data-execution_count="17">
+<p>We’re going to use the <code>relplot</code> function to create a grid of plots with a specific set of variables across its rows and columns. For each cell we’re plotting that year’s data with a different colour, and plotting all the other years in grey in the background.</p>
+<div id="169bd856" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot each year's time series in its own facet</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> sns.relplot(data<span class="op">=</span>df_Sydney</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                ,x<span class="op">=</span><span class="st">"Month"</span></span>
