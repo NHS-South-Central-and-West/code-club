@@ -11,10 +11,19 @@ We are using Australian weather data, taken from Kaggle. To download the data, c
 #| label: setup
 
 # import packages
+import warnings
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+
+# control some deprecation warnings in seaborn
+warnings.filterwarnings(
+    "ignore",
+    category=FutureWarning,
+    module="seaborn"
+)
 
 # import the dataset
 df = pd.read_csv('data/weatherAUS.csv')
@@ -114,31 +123,14 @@ big_cities.groupby('Location')['MaxTemp'].apply(lambda x: np.exp(np.log(x).mean(
 - We have simulated three different distributions that have slightly different shapes. and see how their mean and median values differ.
 
 ```{python}
-#| label: simulate-skewed-distributions
+#| label: plot-skewed-distributions
+#| code-fold: true
 
 # generate distributions
 np.random.seed(123)
 normal_dist = np.random.normal(10, 1, 1000)
 right_skewed_dist = np.concatenate([np.random.normal(8, 2, 600), np.random.normal(14, 4, 400)])
 left_skewed_dist = np.concatenate([np.random.normal(14, 2, 600), np.random.normal(8, 4, 400)])
-```
-
-
-```{python}
-#| label: avg-plot-function
-
-# import packages
-import warnings
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-
-# control some deprecation warnings in seaborn
-warnings.filterwarnings(
-    "ignore",
-    category=FutureWarning,
-    module="seaborn"
-)
 
 # set figure size
 plt.rcParams['figure.figsize'] = (12, 6)
@@ -154,11 +146,6 @@ def plot_averages(ax, data, title):
     ax.set_title(title)
     ax.set_ylabel('')
     ax.legend()
-```
-
-
-```{python}
-#| label: plot-skewed-distributions
 
 # plot distributions
 fig, axes = plt.subplots(1, 3, sharey=True)
@@ -183,18 +170,14 @@ plt.show()
 
 
 ```{python}
-#| label: simulate-variance-distributions
+#| label: plot-variance-distributions
+#| code-fold: true
 
 # generate distributions
 np.random.seed(123)
 mean = 10
 std_devs = [1, 2, 3]
 distributions = [np.random.normal(mean, std_dev, 1000) for std_dev in std_devs]
-```
-
-
-```{python}
-#| label: spread-plot-function
 
 # function for calculating summary statistics and plotting distributions
 def plot_spread(ax, data, std_dev, title):
@@ -207,11 +190,6 @@ def plot_spread(ax, data, std_dev, title):
     ax.axvline(mean - std_dev, color="#ee9b00", linewidth=3, linestyle="--", label=f"Mean - 1 SD: {mean - std_dev:.2f}")
     ax.set_title(f"{title}")
     ax.legend()
-```
-
-
-```{python}
-#| label: plot-variance-distributions
 
 # plot distributions
 fig, axes = plt.subplots(1, 3, sharey=True, sharex=True)
