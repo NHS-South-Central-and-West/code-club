@@ -2,20 +2,57 @@
 title: "Introduction to Open Source"
 subtitle: ""
 footer: '**SAT //** Open Source Intro **//** Prepared in June 2025'
-format: revealjs
+format: 
+ revealjs: 
+  reference-location: document
+  fig-cap-location: bottom
 ---
 
 # Introduction & background {data-background-color="#425563" data-verticator="#E8EDEE"}
 
-## What is open source?
+## What is open source? {.r-fit-text style="font-size:24pt"}
 
-- Software *source code* is ...
-- Broadly, software can be *proprietary* (closed source) or *open source*
-- "Free as in freedom"
+::: {.column width="80%"}
 
-## History of Open Source
+- Software *source code* is the recipe for a piece of software; the human-readable code that is usually *compiled* into machine code before the software is distributed
+- Without the source code, it isn't possible ^[at least not easily possible] to inspect what the software does, or make modifications to it
+- Broadly, software can be *proprietary* (closed source) or *open source*. With closed-source software (which in the past was the vast majority of software in use) the source code is kept a trade secret by the software developer. Common examples of closed-source software is Microsoft Windows and Office, Apple macOS^[with exception of some kernel components] and Adobe Photoshop.
+- You may see the term "free software" used in place of open source^[there are technically differences, but the terms are often used interchangeably] - in this context this does not refer to the software not costing any money; think "free as in freedom"
+
+:::
+
+## A very brief history of Open Source {.r-fit-text}
+
+::: {.column width="65%"}
+- Much of the early days of computing took place at universities, where sharing code with colleagues was part of the culture. However, as computing (including business and home computing) became increasingly commercial in the 1960s and 1970s, code started to be copyrighted and/or protected as trade secrets, with vendors charging for licenses.
+- The modern open-source movement has its roots in the 1980s when Richard Stallman at the Massachusets Institute of Technology (MIT) in the USA founded the GNU project, which aimed to replace the major components of the then-dominant Unix operating system with open-source components, and the Free Software Foundation (FSF). 
+:::
+
+::: {.column width="35%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="../images/thompson-ritchie.jpg" />
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Ken Thompson and Dennis Ritchie working on early UNIX in 1971. Source: The Computer History Museum.</figcaption>
+</figure>
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="../images/gnusenet-manifesto.png" />
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">The original posting of the GNU Manifesto. Source: the Free Software Foundation.</figcaption>
+</figure>
+
+:::
+
+
+## A very brief history of Open Source {.r-fit-text}
+
+
+::: {.column width="60%"}
+
+- This was followed in the early 1990s by Linus Torvalds using these tools to create the Linux project which subsequently turned into a hugely popular open operating system.
+- The *git* project, originally created in 2005, was a huge improvement to collaborative development which improved the ability of geographically dispersed contributors to work on large open source projects together, and forms the basis of Github.
+:::
 
 ## Open source today
+
+::: {.column width="65%"}
 
 **Open source rules the world!**
 
@@ -25,29 +62,50 @@ Open-source software is everywhere.
 - The Android smartphone OS has many open source components.
 - Even Microsoft, historically a symbol of proprietary software, now releases many tools (e.g. VS Code) as open source.
 
+:::
+
+::: {.column width="35%"}
+
+:::
+
 ## Benefits of open source
 
 # Common misconceptions {data-background-color="#425563" data-verticator="#E8EDEE"}
 
-## Myth: "open source is less secure"
+## Myth 1 {.r-fit-text}
+
+> "Open source software is less secure"
 
 With all else being equal, open source code with many people (including, for example, paid security researchers) being able to review an application's source code tends to make it *more* secure, not less.
 
-## Myth: "if we use open-source tools, we'll have to release our work as open source as well"
+## Myth 2 {.r-fit-text}
+
+> "If we use open-source tools, we'll have to release our work as open source as well"
 
 The common open source licenses say nothing about needing to release the code for products that use open source libraries or software; we only have to give attribution. Only if we *modify* the code (for example, in the event we wanted to build a custom SCW version of a library or application) does the "copyleft" requirement apply.
 
-## Myth: "if we rely on open-source tools, we'd be snookered if they suddenly decided to close the source and start charging money"
+## Myth 3 {.r-fit-text} 
+
+:::{style="font-size:24pt"}
+
+> "If we rely on open-source tools, we'd be snookered if they suddenly decided to close the source and start charging money"
 
 The major open licenses are all irrevocable. Once a *version* of a tool or library has been released under an open license, that tool or library is open source in perpetuity. It's always possible that (especially corporate-backed) projects could go closed-source for future versions, but in that case it is very likely that someone will take the last open version and "fork" it off into a separate project - this has happened many times e.g. LibreOffice from OpenOffice, MariaDB from MySQL.
+:::
 
-## Myth: "if we use an open-source tool on sensitive/proprietary data (e.g. SUS) we are at risk of this leaking out, or we are required to release it along with our code"
+## Myth 4 {.r-fit-text}
+
+:::{style="font-size:24pt"}
+> "If we use an open-source tool on sensitive/proprietary data (e.g. SUS) we are at risk of this leaking out, or we are required to release it along with our code"
 
 The open source licenses apply to the code itself, not the data we use it on. Even if we did decide to release one of our own products as open source, there is no requirement at all to publish any data alongside it. Furthermore, the fact that we can inspect the source code means we can assure ourselves as to how safe a tool is ourselves; with closed-source tools we have to trust the developer's word for it (or, at best, an external security audit). Open tools such as R, python and PostgreSQL are in widespread use even with highly sensitive data (banks, governments, healthcare).
+:::
 
 ## Resources 
 
 Links, etc
+
+- [History of free and open-source software (wikipedia)](https://en.wikipedia.org/wiki/History_of_free_and_open-source_software)
 
 ## Thank You!
 
