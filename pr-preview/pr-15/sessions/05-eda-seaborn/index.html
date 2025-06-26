@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-83d3e0f7a50b6bec418b60b884719aed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-9aaab512fae67b80a02af3072001ad69.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -399,7 +399,12 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h2>
 <p>What does exploratory data analysis aim to achieve? What are you looking for when visualising data? <strong>Patterns, shapes, signals!</strong></p>
 <p>When we describe a variable, or a sample of that variable, we are interested in understanding the characteristics of the observations. The starting point for doing this is describing the value that the data tends to take (central tendency), and how much it tends to deviate from its typical value (spread). Visualising the distribution of a variable can tell us these things (approximately), and can tell us about the shape of the data too.</p>
-<p>The “central tendency” is the average or most common value that a variable takes. Mean, median, and mode are all descriptions of the central tendency. - Mean - Sum of values in a sample divided by the total number of observations. - Median - The midpoint value if the sample is ordered from highest to lowest. - Mode - The most common value in the sample<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
+<p>The “central tendency” is the average or most common value that a variable takes. Mean, median, and mode are all descriptions of the central tendency.</p>
+<ul>
+<li>Mean - Sum of values in a sample divided by the total number of observations.</li>
+<li>Median - The midpoint value if the sample is ordered from highest to lowest.</li>
+<li>Mode - The most common value in the sample<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</li>
+</ul>
 <p>The mean is the most common approach, but the mean, median, and mode choice are context-dependent. Other approaches exist, too, such as the geometric mean<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <div id="cell-mode-rainfall" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mode rainfall by location</span></span>
@@ -782,7 +787,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>There is still plenty of noise, but as hmidity at 9am increases, it is clear that humidity at 3pm is likely to increase.</p>
+<p>There is still plenty of noise, but as humidity at 9am increases, it is clear that humidity at 3pm is likely to increase.</p>
 <p>Another change we might make, to reduce the noise, is adding grouping structures to our scatterplot. Perhaps much of the noise in the sunshine scatterplot is because we are looking at data across many cities.</p>
 <div id="cell-scatterplot" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(biggest_cities, x<span class="op">=</span><span class="st">'Sunshine'</span>, y<span class="op">=</span><span class="st">'MaxTemp'</span>, hue<span class="op">=</span><span class="st">'Location'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
