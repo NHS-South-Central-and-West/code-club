@@ -74,7 +74,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-9aaab512fae67b80a02af3072001ad69.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-83d3e0f7a50b6bec418b60b884719aed.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -387,7 +387,7 @@ window.Quarto = {
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># import the dataset</span></span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/weatherAUS.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, we will take a subset of the data, using Australia’s five biggest cities. This is so that we can split the data by city without creating a mess.</p>
+<p>First, we will take a subset of the data, using Australia’s five biggest cities. This gives us a more manageable dataset to work with.</p>
 <div id="big-cities-subset" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset of observations from five biggest cities</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>big_cities <span class="op">=</span> (</span>
@@ -527,7 +527,7 @@ Name: MaxTemp, dtype: float64</code></pre>
 </div>
 <p>The mean and median of the normal distribution are identical, while the two skewed distributions have slightly different means and medians.</p>
 <ul>
-<li>The mean is larger than the media when the distribution is right-skewed, and the median is larger than the mean when it is left-skewed.
+<li>The mean is larger than the median when the distribution is right-skewed, and the median is larger than the mean when it is left-skewed.
 <ul>
 <li>When the distribution is skewed, the median value will be a better description of the central tendency, because the mean value is more sensitive to extreme values (and skewed distributions have longer tails of extreme values).</li>
 </ul></li>
@@ -758,7 +758,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>I tend to find it a little difficult to infer much from complex plots like this. So I prefer to create many smaller plots, like a rube, using <code>sns.scatterplot()</code>.</p>
+<p>I tend to struggle to infer much from complex plots like this, so I prefer to create separate plots using <code>sns.scatterplot()</code>.</p>
 <div id="cell-sunshine-scatterplot" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(big_cities, x<span class="op">=</span><span class="st">'Sunshine'</span>, y<span class="op">=</span><span class="st">'MaxTemp'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -831,7 +831,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>The above plot leverages an approach called <a href="https://tomaugspurger.net/posts/method-chaining/">method chaining</a>, where we call multiple methods one after the other in the same operation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>The above plot leverages an approach called <a href="https://tomaugspurger.net/posts/method-chaining/">method chaining</a>, where we call multiple methods one after the other in the same operation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Method chaining syntax is sometimes a little easier to follow, and you don’t have to create new objects for every operation, which can be a tidier way to work.</p>
 <p>We can do the same to transform the data and visualise the mean average sunshine per month.</p>
 <div id="cell-sunshine-over-time" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>(</span>
@@ -1173,11 +1173,14 @@ Solution
 <div class="callout-body-container callout-body">
 <div id="cell-max-temp-over-time" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>brisbane <span class="op">=</span> big_cities.loc[big_cities[<span class="st">"Location"</span>] <span class="op">==</span> <span class="st">"Brisbane"</span>]</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>brisbane_daily <span class="op">=</span> brisbane.groupby(<span class="st">"Date"</span>)[<span class="st">"MaxTemp"</span>].mean().reset_index()</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>brisbane_daily, x<span class="op">=</span><span class="st">"Date"</span>, y<span class="op">=</span><span class="st">"MaxTemp"</span>)</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Daily Max Temp in Brisbane"</span>)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>brisbane[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(brisbane[<span class="st">'Date'</span>])</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>brisbane_daily <span class="op">=</span> brisbane.groupby(<span class="st">"Date"</span>)[<span class="st">"MaxTemp"</span>].mean().reset_index()</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>brisbane_daily, x<span class="op">=</span><span class="st">"Date"</span>, y<span class="op">=</span><span class="st">"MaxTemp"</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Daily Max Temp in Brisbane"</span>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
