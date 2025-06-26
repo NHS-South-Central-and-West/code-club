@@ -39,7 +39,7 @@ warnings.filterwarnings(
 df = pd.read_csv('data/weatherAUS.csv')
 ```
 
-First, we will take a subset of the data, using Australia's five biggest cities. This is so that we can split the data by city without creating a mess.
+First, we will take a subset of the data, using Australia's five biggest cities. This gives us a more manageable dataset to work with.
 
 ```{python}
 #| label: big-cities-subset
@@ -155,7 +155,7 @@ plt.show()
 
 The mean and median of the normal distribution are identical, while the two skewed distributions have slightly different means and medians.
 
-- The mean is larger than the media when the distribution is right-skewed, and the median is larger than the mean when it is left-skewed.
+- The mean is larger than the median when the distribution is right-skewed, and the median is larger than the mean when it is left-skewed.
     - When the distribution is skewed, the median value will be a better description of the central tendency, because the mean value is more sensitive to extreme values (and skewed distributions have longer tails of extreme values).
 
 These differences point to another important factor to consider when summarising data - the spread or deviation of the sample.
@@ -355,7 +355,7 @@ sns.pairplot(
 plt.show()
 ```
 
-I tend to find it a little difficult to infer much from complex plots like this. So I prefer to create many smaller plots, like a rube, using `sns.scatterplot()`.
+I tend to struggle to infer much from complex plots like this, so I prefer to create separate plots using `sns.scatterplot()`.
 
 ```{python}
 #| label: sunshine-scatterplot
@@ -419,7 +419,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-The above plot leverages an approach called [method chaining](https://tomaugspurger.net/posts/method-chaining/), where we call multiple methods one after the other in the same operation[^Chaining].
+The above plot leverages an approach called [method chaining](https://tomaugspurger.net/posts/method-chaining/), where we call multiple methods one after the other in the same operation[^Chaining]. Method chaining syntax is sometimes a little easier to follow, and you don't have to create new objects for every operation, which can be a tidier way to work.
 
 We can do the same to transform the data and visualise the mean average sunshine per month.
 
@@ -606,14 +606,18 @@ plt.show()
 9. How has the maximum temperature in Brisbane changed over time? Create a time series visualisation.
 
 ::: {.callout-note title="Solution" collapse="true"}
+
 ```{python}
 #| label: max-temp-over-time
 
 brisbane = big_cities.loc[big_cities["Location"] == "Brisbane"]
+brisbane['Date'] = pd.to_datetime(brisbane['Date'])
 brisbane_daily = brisbane.groupby("Date")["MaxTemp"].mean().reset_index()
+
 plt.figure(figsize=(12, 4))
 sns.lineplot(data=brisbane_daily, x="Date", y="MaxTemp")
 plt.title("Daily Max Temp in Brisbane")
+
 plt.show()
 ```
 :::
