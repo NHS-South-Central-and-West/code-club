@@ -148,20 +148,26 @@ Widely recognised as one of the better government service portals, the gov.uk fr
 ## New Hospital Programme demand and capacity model {.r-fit-text style="font-size:24pt"}
 
 ::: {.column width="40%"}
-
+Released by the Strategy Unit (part of Mids & Lancs CSU) earlier in 2025 as part of the New Hospital Programme, this Python-based 
 ^[https://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model]
 
 :::
 
-:::
-
-:::
 
 ## OpenEyes {.r-fit-text style="font-size:24pt"}
 
 OpenEyes is an Electronic Patient Record (EPR) specifically designed for the ophthalmic specialty^[https://openeyes.apperta.org/] that is developed and released on Github under the AGPL open source license. It was developed in response to existing commercial EPRs being a poor fit. It has seen widespread success with universal deployment across Wales and Scotland and increasing rollout in England as well as international deployments.
 
-## Resources 
+## Various examples from the NHS
+
+- [HSMA programme](https://github.com/hsma-programme)
+- [Text classification for Friends and Family Test](https://github.com/The-Strategy-Unit/pxtextmining)
+- [NHS Hack Day](https://nhshackday.com/)
+- [Yorkshire and Humber Care Record](https://yhcr.org/)
+- [FutureNHS platform](https://github.com/nhsengland/futurenhs)
+
+
+## Resources
 
 Background reading
 
