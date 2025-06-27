@@ -12,7 +12,7 @@ format:
 
 ## What is open source? {.r-fit-text style="font-size:24pt"}
 
-::: {.column width="80%"}
+::: {.column width="60%"}
 
 - Software *source code* is the recipe for a piece of software; the human-readable code that is usually *compiled* into machine code before the software is distributed
 - Without the source code, it isn't possible ^[at least not easily possible] to inspect what the software does, or make modifications to it
@@ -20,6 +20,16 @@ format:
 - You may see the term "free software" used in place of open source^[there are technically differences, but the terms are often used interchangeably] - in this context this does not refer to the software not costing any money; think "free as in freedom"
 
 :::
+
+::: {.column width="40%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/revealjs-source.png" />
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A small snippet of source code from revealjs, the presentation framework powering this slide deck.</figcaption>
+</figure>
+
+
+:::
+
 
 ## A very brief history of Open Source {.r-fit-text style="font-size:24pt"}
 
@@ -44,11 +54,23 @@ format:
 ## A very brief history of Open Source {style="font-size:24pt"}
 
 
-::: {.column width="60%"}
+::: {.column width="65%"}
 
 - This was followed in the early 1990s by Linus Torvalds using these tools to create the Linux project which subsequently turned into a hugely popular open operating system.
 - The *git* project, originally created in 2005, was a huge improvement to collaborative development which improved the ability of geographically dispersed contributors to work on large open source projects together, and forms the basis of Github.
 - Subsequent large open source projects sprung up that ended up being foundational software - Docker, Python, Apache and PostgreSQL among many others.
+:::
+
+::: {.column width="35%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/tux.png" style="max-height: 300px;"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Tux, the Linux mascot.</figcaption>
+</figure>
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/git-github.png" />
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Git and Github.</figcaption>
+</figure>
+
 :::
 
 ## Open source today
@@ -128,13 +150,13 @@ The major open licenses are all irrevocable. Once a *version* of a tool or libra
 The open source licenses apply to the code itself, not the data we use it on. Even if we did decide to release one of our own products as open source, there is no requirement at all to publish any data alongside it. Furthermore, the fact that we can inspect the source code means we can assure ourselves as to how safe a tool is ourselves; with closed-source tools we have to trust the developer's word for it (or, at best, an external security audit). Open tools such as R, python and PostgreSQL are in widespread use even with highly sensitive data (banks, governments, healthcare).
 :::
 
-# Open source in the UK public sector - examples
+# Open source in the UK public sector - examples {data-background-color="#425563" data-verticator="#E8EDEE"}
 
 ## gov.uk {.r-fit-text style="font-size:24pt"}
 
 ::: {.column width="40%"}
 
-Widely recognised as one of the better government service portals, the gov.uk frontend is fully open source and hosted on GitHub by the Government Digital Service^[https://github.com/alphagov/govuk-frontend].
+Widely recognised as one of the better government service portals, the gov.uk frontend is fully open source and hosted on GitHub by the Government Digital Service^[[https://github.com/alphagov/govuk-frontend](https://github.com/alphagov/govuk-frontend)].
 
 :::
 
@@ -149,23 +171,45 @@ Widely recognised as one of the better government service portals, the gov.uk fr
 
 ::: {.column width="40%"}
 Released by the Strategy Unit (part of Mids & Lancs CSU) earlier in 2025 as part of the New Hospital Programme, this Python-based 
-^[https://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model]
+^[[https://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model](https://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model)] platform is designed to model future demand on hospital services using a complex and evolving set of inputs, parameters and outputs.
+:::
 
+::: {.column width="60%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <a href="images/gov-dot-uk.png"><img src="images/nhp-model-explainer.png" /></a>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A snippet from the New Hospital Programme model explainer page^[[https://connect.strategyunitwm.nhs.uk/nhp_model_explainer/](https://connect.strategyunitwm.nhs.uk/nhp_model_explainer/)].</figcaption>
+</figure>
 :::
 
 
 ## OpenEyes {.r-fit-text style="font-size:24pt"}
+::: {.column width="60%"}
+OpenEyes is an Electronic Patient Record (EPR) specifically designed for the ophthalmic specialty^[[https://openeyes.apperta.org/](https://openeyes.apperta.org/)] that is developed and released on Github under the AGPL open source license. It was developed in response to existing commercial EPRs being a poor fit. It has seen widespread success with universal deployment across Wales and Scotland and increasing rollout in England as well as international deployments.
+:::
 
-OpenEyes is an Electronic Patient Record (EPR) specifically designed for the ophthalmic specialty^[https://openeyes.apperta.org/] that is developed and released on Github under the AGPL open source license. It was developed in response to existing commercial EPRs being a poor fit. It has seen widespread success with universal deployment across Wales and Scotland and increasing rollout in England as well as international deployments.
+::: {.column width="40%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <a href="images/gov-dot-uk.png"><img src="images/openeyes-screenshot.png" /></a>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A screenshot of the Openeyes EPR.</figcaption>
+</figure>
+:::
 
 ## Various examples from the NHS
 
+- [Open source digital playbook (appears to not have been updated for a bit but links to numerous examples)](https://transform.england.nhs.uk/key-tools-and-info/digital-playbooks/open-source-digital-playbook/)
 - [HSMA programme](https://github.com/hsma-programme)
 - [Text classification for Friends and Family Test](https://github.com/The-Strategy-Unit/pxtextmining)
 - [NHS Hack Day](https://nhshackday.com/)
 - [Yorkshire and Humber Care Record](https://yhcr.org/)
 - [FutureNHS platform](https://github.com/nhsengland/futurenhs)
 
+## Closing thoughts {.r-fit-text style="font-size:24pt"}
+
+> A major benefit of the open-source model is that whilst every new hospital will have to be built brick by brick, nobody using a model to plan a hospital will ever have to start from scratch. Because it is open source, the NHP model can be developed, iterated and improved upon for many years to come.  
+
+> Building on the example set by this model, openness should become standard practice for all NHS analytical tools. Sharing code transparently not only builds trust and ensures quality but also sets a benchmark for how such tools can deliver maximum public value.
+
+\- Chris Beeley, Head of Data Science, The Strategy Unit ^[[https://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model](https://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model)]
 
 ## Resources
 
