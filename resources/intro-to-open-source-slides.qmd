@@ -21,42 +21,40 @@ format:
 
 :::
 
-## A very brief history of Open Source {.r-fit-text}
+## A very brief history of Open Source {.r-fit-text style="font-size:24pt"}
 
 ::: {.column width="65%"}
 - Much of the early days of computing took place at universities, where sharing code with colleagues was part of the culture. However, as computing (including business and home computing) became increasingly commercial in the 1960s and 1970s, code started to be copyrighted and/or protected as trade secrets, with vendors charging for licenses.
-- The modern open-source movement has its roots in the 1980s when Richard Stallman at the Massachusets Institute of Technology (MIT) in the USA founded the GNU project, which aimed to replace the major components of the then-dominant Unix operating system with open-source components, and the Free Software Foundation (FSF). 
+- The modern open-source movement has its roots in the 1980s when Richard Stallman at the Massachusets Institute of Technology (MIT) in the USA founded the GNU project, which aimed to replace the major components of the then-dominant Unix operating system with open-source components, and the Free Software Foundation (FSF). This is when open-source ("copyleft") licensing was conceived; a way of releasing software code in such a way that anyone who makes *modifications* of open code is cannot legally make their version closed-source.^[a number of different open-source licenses exist today e.g. GPL, MIT and the BSD license. They all have slightly different legal terms and conditions.]
 :::
 
 ::: {.column width="35%"}
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
-  <img src="../images/thompson-ritchie.jpg" />
+  <img src="images/thompson-ritchie.jpg" />
   <figcaption style="margin-top: 0.1em; line-height: 1.2;">Ken Thompson and Dennis Ritchie working on early UNIX in 1971. Source: The Computer History Museum.</figcaption>
 </figure>
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
-  <img src="../images/gnusenet-manifesto.png" />
+  <img src="images/gnusenet-manifesto.png" />
   <figcaption style="margin-top: 0.1em; line-height: 1.2;">The original posting of the GNU Manifesto. Source: the Free Software Foundation.</figcaption>
 </figure>
 
 :::
 
 
-## A very brief history of Open Source {.r-fit-text}
+## A very brief history of Open Source {style="font-size:24pt"}
 
 
 ::: {.column width="60%"}
 
 - This was followed in the early 1990s by Linus Torvalds using these tools to create the Linux project which subsequently turned into a hugely popular open operating system.
 - The *git* project, originally created in 2005, was a huge improvement to collaborative development which improved the ability of geographically dispersed contributors to work on large open source projects together, and forms the basis of Github.
+- Subsequent large open source projects sprung up that ended up being foundational software - Docker, Python, Apache and PostgreSQL among many others.
 :::
 
 ## Open source today
-
 ::: {.column width="65%"}
 
-**Open source rules the world!**
-
-Open-source software is everywhere.
+**Open source rules the world!** Open-source/free software is everywhere.
 
 - The Linux operating source kernel combined with the Apache or Nginx server software runs on the **majority** of servers, so it effectively runs the internet.
 - The Android smartphone OS has many open source components.
@@ -66,9 +64,32 @@ Open-source software is everywhere.
 
 ::: {.column width="35%"}
 
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <a href="images/idc-oss.jfif"><img src="images/idc-oss.jfif" /></a>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Major open source projects. Click for a larger version. Source: IDC</figcaption>
+</figure>
+
 :::
 
-## Benefits of open source
+# Benefits of open source {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+## According to NHS England {.r-fit-text style="font-size:18pt"}
+
+The benefits of Open Source \[to NHS trusts\] are:
+
+**Ownership**: Due to the vast configurability of open source software, Trusts have more control over the system. These modifications allow the technology to be completely bespoke to the Trust’s needs.
+
+**Accessibility**: Open source software can be used and changed by anyone. This accessibility allows for constant developments and improvements made to the software.
+
+**Freedom**: The supplier and maintenance needed to maintain the software are selected entirely by the Trust, with no lock in or long term commitments should situations change
+
+**Cost-effective**: The licensing of open source software is significantly reduced compared to its proprietary counterpart.
+
+**Empowering**: From clinicians to nurses, healthcare professionals have more input on software improvements and uses. This is bridging the gap between staff and technology, which will be critical for matters like the Paperless 2020 initiative.
+
+**Best Practice**: Much like in the practice of medicine, open source runs on the philosophy of universally shared knowledge. New ideas and solutions are combined and promoted for the community’s benefit.
+
+Source: [https://www.england.nhs.uk/digitaltechnology/open-source/](https://www.england.nhs.uk/digitaltechnology/open-source/)
 
 # Common misconceptions {data-background-color="#425563" data-verticator="#E8EDEE"}
 
@@ -80,11 +101,17 @@ With all else being equal, open source code with many people (including, for exa
 
 ## Myth 2 {.r-fit-text}
 
+> "Open source is amateur or low-quality software"
+
+Much of the internet runs on open-source software (e.g. Linux, Apache, PostgreSQL); many are maintained by top-tier engineers at Google, Meta, and others. Open-source tools are also becoming more commonplace in mission-critical systems e.g. hospital systems, banks and government.
+
+## Myth 3 {.r-fit-text}
+
 > "If we use open-source tools, we'll have to release our work as open source as well"
 
 The common open source licenses say nothing about needing to release the code for products that use open source libraries or software; we only have to give attribution. Only if we *modify* the code (for example, in the event we wanted to build a custom SCW version of a library or application) does the "copyleft" requirement apply.
 
-## Myth 3 {.r-fit-text} 
+## Myth 4 {.r-fit-text} 
 
 :::{style="font-size:24pt"}
 
@@ -93,7 +120,7 @@ The common open source licenses say nothing about needing to release the code fo
 The major open licenses are all irrevocable. Once a *version* of a tool or library has been released under an open license, that tool or library is open source in perpetuity. It's always possible that (especially corporate-backed) projects could go closed-source for future versions, but in that case it is very likely that someone will take the last open version and "fork" it off into a separate project - this has happened many times e.g. LibreOffice from OpenOffice, MariaDB from MySQL.
 :::
 
-## Myth 4 {.r-fit-text}
+## Myth 5 {.r-fit-text}
 
 :::{style="font-size:24pt"}
 > "If we use an open-source tool on sensitive/proprietary data (e.g. SUS) we are at risk of this leaking out, or we are required to release it along with our code"
@@ -101,11 +128,52 @@ The major open licenses are all irrevocable. Once a *version* of a tool or libra
 The open source licenses apply to the code itself, not the data we use it on. Even if we did decide to release one of our own products as open source, there is no requirement at all to publish any data alongside it. Furthermore, the fact that we can inspect the source code means we can assure ourselves as to how safe a tool is ourselves; with closed-source tools we have to trust the developer's word for it (or, at best, an external security audit). Open tools such as R, python and PostgreSQL are in widespread use even with highly sensitive data (banks, governments, healthcare).
 :::
 
+# Open source in the UK public sector - examples
+
+## gov.uk {.r-fit-text style="font-size:24pt"}
+
+::: {.column width="40%"}
+
+Widely recognised as one of the better government service portals, the gov.uk frontend is fully open source and hosted on GitHub by the Government Digital Service^[https://github.com/alphagov/govuk-frontend].
+
+:::
+
+::: {.column width="60%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <a href="images/gov-dot-uk.png"><img src="images/gov-dot-uk.png" /></a>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">The gov.uk frontpage.</figcaption>
+</figure>
+:::
+
+## New Hospital Programme demand and capacity model {.r-fit-text style="font-size:24pt"}
+
+::: {.column width="40%"}
+
+^[https://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model]
+
+:::
+
+:::
+
+:::
+
+## OpenEyes {.r-fit-text style="font-size:24pt"}
+
+OpenEyes is an Electronic Patient Record (EPR) specifically designed for the ophthalmic specialty^[https://openeyes.apperta.org/] that is developed and released on Github under the AGPL open source license. It was developed in response to existing commercial EPRs being a poor fit. It has seen widespread success with universal deployment across Wales and Scotland and increasing rollout in England as well as international deployments.
+
 ## Resources 
 
-Links, etc
+Background reading
 
 - [History of free and open-source software (wikipedia)](https://en.wikipedia.org/wiki/History_of_free_and_open-source_software)
+- [What is open source? (opensource.com)](https://opensource.com/resources/what-open-source)
+
+Open source in the NHS and UK Government
+
+- [Be open and use open source (gov.uk)](https://www.gov.uk/guidance/be-open-and-use-open-source)
+- [NHS England Open Source Programme](https://www.england.nhs.uk/digitaltechnology/open-source/)
+- [NHS service standard 12: make new source code open](https://service-manual.nhs.uk/standards-and-technology/service-standard-points/12-make-new-source-code-open)
+- [Open sourcing analytical code (gov.uk)](https://analysisfunction.civilservice.gov.uk/policy-store/open-sourcing-analytical-code/)
 
 ## Thank You!
 
