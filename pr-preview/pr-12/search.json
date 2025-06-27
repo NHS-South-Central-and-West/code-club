@@ -4,7 +4,7 @@
     "href": "resources/intro-to-open-source-slides.html#what-is-open-source",
     "title": "Introduction to Open Source",
     "section": "What is open source?",
-    "text": "What is open source?\n\n\nSoftware source code is the recipe for a piece of software; the human-readable code that is usually compiled into machine code before the software is distributed\nWithout the source code, it isn’t possible 1 to inspect what the software does, or make modifications to it\nBroadly, software can be proprietary (closed source) or open source. With closed-source software (which in the past was the vast majority of software in use) the source code is kept a trade secret by the software developer. Common examples of closed-source software is Microsoft Windows and Office, Apple macOS2 and Adobe Photoshop.\nYou may see the term “free software” used in place of open source3 - in this context this does not refer to the software not costing any money; think “free as in freedom”"
+    "text": "What is open source?\n\n\nSoftware source code is the recipe for a piece of software; the human-readable code that is usually compiled into machine code before the software is distributed\nWithout the source code, it isn’t possible 1 to inspect what the software does, or make modifications to it\nBroadly, software can be proprietary (closed source) or open source. With closed-source software (which in the past was the vast majority of software in use) the source code is kept a trade secret by the software developer. Common examples of closed-source software is Microsoft Windows and Office, Apple macOS2 and Adobe Photoshop.\nYou may see the term “free software” used in place of open source3 - in this context this does not refer to the software not costing any money; think “free as in freedom”\n\n\n\n\n\nA small snippet of source code from revealjs, the presentation framework powering this slide deck."
   },
   {
     "objectID": "resources/intro-to-open-source-slides.html#a-very-brief-history-of-open-source",
@@ -18,7 +18,7 @@
     "href": "resources/intro-to-open-source-slides.html#a-very-brief-history-of-open-source-1",
     "title": "Introduction to Open Source",
     "section": "A very brief history of Open Source",
-    "text": "A very brief history of Open Source\n\n\nThis was followed in the early 1990s by Linus Torvalds using these tools to create the Linux project which subsequently turned into a hugely popular open operating system.\nThe git project, originally created in 2005, was a huge improvement to collaborative development which improved the ability of geographically dispersed contributors to work on large open source projects together, and forms the basis of Github.\nSubsequent large open source projects sprung up that ended up being foundational software - Docker, Python, Apache and PostgreSQL among many others."
+    "text": "A very brief history of Open Source\n\n\nThis was followed in the early 1990s by Linus Torvalds using these tools to create the Linux project which subsequently turned into a hugely popular open operating system.\nThe git project, originally created in 2005, was a huge improvement to collaborative development which improved the ability of geographically dispersed contributors to work on large open source projects together, and forms the basis of Github.\nSubsequent large open source projects sprung up that ended up being foundational software - Docker, Python, Apache and PostgreSQL among many others.\n\n\n\n\n\nTux, the Linux mascot.\n\n\n\n\n\nGit and Github."
   },
   {
     "objectID": "resources/intro-to-open-source-slides.html#open-source-today",
@@ -81,21 +81,28 @@
     "href": "resources/intro-to-open-source-slides.html#new-hospital-programme-demand-and-capacity-model",
     "title": "Introduction to Open Source",
     "section": "New Hospital Programme demand and capacity model",
-    "text": "New Hospital Programme demand and capacity model\n\nReleased by the Strategy Unit (part of Mids & Lancs CSU) earlier in 2025 as part of the New Hospital Programme, this Python-based 6"
+    "text": "New Hospital Programme demand and capacity model\n\nReleased by the Strategy Unit (part of Mids & Lancs CSU) earlier in 2025 as part of the New Hospital Programme, this Python-based 6 platform is designed to model future demand on hospital services using a complex and evolving set of inputs, parameters and outputs.\n\n\n\n\nA snippet from the New Hospital Programme model explainer page7."
   },
   {
     "objectID": "resources/intro-to-open-source-slides.html#openeyes",
     "href": "resources/intro-to-open-source-slides.html#openeyes",
     "title": "Introduction to Open Source",
     "section": "OpenEyes",
-    "text": "OpenEyes\nOpenEyes is an Electronic Patient Record (EPR) specifically designed for the ophthalmic specialty7 that is developed and released on Github under the AGPL open source license. It was developed in response to existing commercial EPRs being a poor fit. It has seen widespread success with universal deployment across Wales and Scotland and increasing rollout in England as well as international deployments."
+    "text": "OpenEyes\n\nOpenEyes is an Electronic Patient Record (EPR) specifically designed for the ophthalmic specialty8 that is developed and released on Github under the AGPL open source license. It was developed in response to existing commercial EPRs being a poor fit. It has seen widespread success with universal deployment across Wales and Scotland and increasing rollout in England as well as international deployments.\n\n\n\n\nA screenshot of the Openeyes EPR."
   },
   {
     "objectID": "resources/intro-to-open-source-slides.html#various-examples-from-the-nhs",
     "href": "resources/intro-to-open-source-slides.html#various-examples-from-the-nhs",
     "title": "Introduction to Open Source",
     "section": "Various examples from the NHS",
-    "text": "Various examples from the NHS\n\nHSMA programme\nText classification for Friends and Family Test\nNHS Hack Day\nYorkshire and Humber Care Record\nFutureNHS platform"
+    "text": "Various examples from the NHS\n\nOpen source digital playbook (appears to not have been updated for a bit but links to numerous examples)\nHSMA programme\nText classification for Friends and Family Test\nNHS Hack Day\nYorkshire and Humber Care Record\nFutureNHS platform"
+  },
+  {
+    "objectID": "resources/intro-to-open-source-slides.html#closing-thoughts",
+    "href": "resources/intro-to-open-source-slides.html#closing-thoughts",
+    "title": "Introduction to Open Source",
+    "section": "Closing thoughts",
+    "text": "Closing thoughts\n\nA major benefit of the open-source model is that whilst every new hospital will have to be built brick by brick, nobody using a model to plan a hospital will ever have to start from scratch. Because it is open source, the NHP model can be developed, iterated and improved upon for many years to come.\n\n\nBuilding on the example set by this model, openness should become standard practice for all NHS analytical tools. Sharing code transparently not only builds trust and ensures quality but also sets a benchmark for how such tools can deliver maximum public value.\n\n- Chris Beeley, Head of Data Science, The Strategy Unit 9"
   },
   {
     "objectID": "resources/intro-to-open-source-slides.html#resources",
@@ -116,7 +123,7 @@
     "href": "resources/intro-to-open-source-slides.html#footnotes",
     "title": "Introduction to Open Source",
     "section": "Footnotes",
-    "text": "Footnotes\n\n\nat least not easily possible\nwith exception of some kernel components\nthere are technically differences, but the terms are often used interchangeably\na number of different open-source licenses exist today e.g. GPL, MIT and the BSD license. They all have slightly different legal terms and conditions.\nhttps://github.com/alphagov/govuk-frontend\nhttps://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model\nhttps://openeyes.apperta.org/"
+    "text": "Footnotes\n\n\nat least not easily possible\nwith exception of some kernel components\nthere are technically differences, but the terms are often used interchangeably\na number of different open-source licenses exist today e.g. GPL, MIT and the BSD license. They all have slightly different legal terms and conditions.\nhttps://github.com/alphagov/govuk-frontend\nhttps://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model\nhttps://connect.strategyunitwm.nhs.uk/nhp_model_explainer/\nhttps://openeyes.apperta.org/\nhttps://www.strategyunitwm.nhs.uk/news/transforming-hospital-planning-open-source-demand-and-capacity-model"
   },
   {
     "objectID": "index.html",
