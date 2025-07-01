@@ -57,10 +57,11 @@ website:
             - text: 4. Visualisations with Seaborn
               file: sessions/04-seaborn-visualisation/index.qmd
             - text: 5. EDA with Seaborn
-              # file: sessions/05-eda-seaborn/index.qmd
+              file: sessions/05-eda-seaborn/index.qmd
         - section: Core Concepts
           contents:
             - text: 6. Data Types
+              file: sessions/06-data-types/index.qmd
             - text: 7. Control Flow
             - text: 8. Functions & Functional Programming
             - text: 9. Object-Oriented Programming
