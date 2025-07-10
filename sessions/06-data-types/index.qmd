@@ -17,7 +17,7 @@ Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides b
 
 ## Automatically
 
-Python automatically assigns a type to a variable based on the value we put into it. We can use the `type()` function to see what type has been given to each variable.
+Python automatically assigns a type to a variable based on the value we put into it when we use the `=` assignment operator.
 
 ```{python}
 our_integer = 1
@@ -31,12 +31,9 @@ our_string="Hello SCW!"
 If we need to, we can use a *constructor function* named after the data type, like `int()` or `str()` to force a variable to be the specific type we need it to be.
 
 ```{python}
-a = str("123")
-b = float(2)
+a = str("123") # a will contain the string 123 rather than the numeric value
+b = float(2) # b will contain the decimal value 2.0
 c = int(1.9) # just throws away the .9; not rounded!
-print ('a is a ' + str(type(a))+' with the value ' + str(a))
-print ('b is a ' + str(type(b))+' with the value ' + str(b))
-print ('c is a ' + str(type(c))+' with the value ' + str(c))
 ```
 
 ## Finding out what type a variable is
@@ -68,6 +65,8 @@ print(bool(0))		# output: False
 
 
 ## Numeric types
+
+Python supports different kinds of numbers, including integers (int), floating point numbers (float). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like round(), abs(), and pow().
  
 ```{python}
 a = 10  			# int
@@ -77,6 +76,7 @@ d = -2  			# int
 
 print(a+b) 			# output: 13, an int
 print(a+c) 			# output: 12.5, a float
+print(a ** (1/2))   # taking the square root of an int returns a float
  
 print(float(a)) 	# output: 10.0
 print(int(2.88)) 	# output: 2; just throws away the decimal part
@@ -86,6 +86,8 @@ print(round(2.88,1))# output: 2.9
 ```
 
 ## Strings
+
+Strings are sequences of characters enclosed in quotes. They support indexing, slicing, and a wide range of methods like .lower(), .replace(), .split(), and .join().
 
 ```{python}
 str_a = "Hello" 			 # string
@@ -107,6 +109,8 @@ print(str_a[:5])			 # output: Hello (give me the first 5 characters)
 ```
 
 ## Lists
+
+Lists are ordered, mutable (changeable) collections. They can hold any type of data and support operations like appending (`.append()`), removing (`.remove()`), and slicing (`our_list[1:4]`).
 
 ```{python}
 fruits = ["banana", "lychee", "raspberry", "apple"]
@@ -142,14 +146,16 @@ print(type(a)) 			#output:<class 'float'>
 
 ## Dicts
 
+Dictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using dict[key] = value, dict.get(key), or del dict[key].
+
 ```{python}
 SCW_basic_info={
-	"org_code": "0DF",
-	"short_name": "SCW CSU",
-	"long_name": "NHS South, Central and West Commissioning Support Unit",
-	"year_opened": 2014,
-	"active":True,
-	"postcode":"SO50 5PB"
+	"org_code"		: "0DF",
+	"short_name"	: "SCW CSU",
+	"long_name"		: "NHS South, Central and West Commissioning Support Unit",
+	"year_opened"	: 2014,
+	"active"		: True,
+	"postcode"		: "SO50 5PB"
 }
 
 print(type(SCW_basic_info["active"]))		#output: <class 'bool'>

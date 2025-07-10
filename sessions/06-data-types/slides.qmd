@@ -9,9 +9,9 @@ format:
   math: false
 ---
 
-# Data types overview
+# Data types overview {data-background-color="#425563" data-verticator="#E8EDEE"}
 
-## What are data types; why do they matter?
+## A brief history of data types
 
 ::: columns
 
@@ -55,11 +55,11 @@ Statically-typed languages (C++, Rust)
 
 Strongly but dynamically-typed languages (e.g. Python)
 
-- Python features *dynamic typing*. There is no need to explicitly declare variables as being a specific data type, and it does allow limited implicit conversions, but not as extensively - as e.g. JavaScript.
+- Python features *dynamic typing*. There is no need to explicitly declare variables as being a specific data type, and it does allow limited implicit conversions, but not as extensively as e.g. JavaScript.
 
 Weakly-typed languages (e.g. Javascript)
 
-- Allows extensive type *coercion*; mixing-and-matching of datatypes freely e.g. 5+”2”=“52”
+- Allows extensive type *coercion*; mixing-and-matching of datatypes freely e.g. `5+”2”=“52”`
 
 
 :::
@@ -82,13 +82,13 @@ Weakly-typed languages (e.g. Javascript)
 
 :::
 
-# Data types in Python
+# Data types in Python {data-background-color="#425563" data-verticator="#E8EDEE"}
 
 ## Overview
 
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
-  <img src="images/data-types-overview.png" />
-  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A logical overview of the basic data types in python. From geeksforgeeks.org/python-data-types
+  <img src="images/python-data-types.jpg" style="height: 80%"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A logical overview of the basic data types in python. From https://pynative.com/python-data-types/
 </figcaption>
 </figure>
 
@@ -99,10 +99,8 @@ Weakly-typed languages (e.g. Javascript)
 
 Like most programming languages, python has a `bool` datatype. In some ways, this is the simplest type available. A Boolean can only be `True` or `False`, and is returned when evaluating an expression. For example:
 
-```
-our_result = 10>9
-print(our_result)
-```
+`our_result = 10>9`
+`print(our_result)`
 
 Returns `True` - we're asking Python for the result of the comparison `10>9`, and to store this result in a variable called `our_result`. The data type of a true-false comparison result like that is `bool`, so our variable will also be of this type. 
 
@@ -156,20 +154,30 @@ Dictionaries are key-value pairs, where each entry is a pair of entries. Enclose
 
 - `our_dict = {"org_code":"0DF","name":"SCW CSU","year": 2013}`
 
-## Other data types
+## Other data types {style="font-size:24pt"}
+
+**Built-in** 
+
+- We've skipped over complex numbers and `tuple`s, the latter being like a `dict` but non-changeable.
+
+**Other packages**
 
 - You may have heard of other data types such as *arrays* (which are kind like *lists* but two-dimensional).
 - Arrays are not a built-in Python type but are offered by the `numpy` package.
 - `pandas` also offers additional data types such as `timestamp` (similar to SQL's `datetime`).
 - `dataframes` (from `pandas`) are an example of a higher-order class that makes use of datatypes within it; remember from previous sessions that a `dataframe` can contain strings, integers, timestamps etc.
 
-# Thank you!
+# Thank you! {data-background-color="#425563" data-verticator="#E8EDEE"}
 
-## Further reading
+## Final thoughts
 
-- https://docs.python.org/3/tutorial/datastructures.html 
-- https://docs.python.org/3/library/stdtypes.html 
-- https://www.geeksforgeeks.org/python-data-types/
-- https://www.w3schools.com/python/python_datatypes.asp
+**Don't worry about memorising any of this!** If you take one thing away from this session, make it the fact that data types exist, that being aware of them will help you understand problems with your code, and that resources and documentation are readily available online.
+
+### Further reading
+
+- [https://docs.python.org/3/tutorial/datastructures.html](https://docs.python.org/3/tutorial/datastructures.html) 
+- [https://docs.python.org/3/library/stdtypes.html](https://docs.python.org/3/library/stdtypes.html)
+- [https://www.geeksforgeeks.org/python-data-types/](https://www.geeksforgeeks.org/python-data-types/)
+- [https://www.w3schools.com/python/python_datatypes.asp](https://www.w3schools.com/python/python_datatypes.asp)
 
 
