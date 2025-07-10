@@ -23,7 +23,7 @@
     "href": "sessions/06-data-types/index.html#automatically",
     "title": "An Introduction to Data Types",
     "section": "Automatically",
-    "text": "Automatically\nPython automatically assigns a type to a variable based on the value we put into it. We can use the type() function to see what type has been given to each variable.\n\nour_integer = 1\nour_float = 2.2\nour_integer_turned_into_a_float = float(our_integer)\nour_string=\"Hello SCW!\"",
+    "text": "Automatically\nPython automatically assigns a type to a variable based on the value we put into it when we use the = assignment operator.\n\nour_integer = 1\nour_float = 2.2\nour_integer_turned_into_a_float = float(our_integer)\nour_string=\"Hello SCW!\"",
     "crumbs": [
       "Sessions",
       "Core Concepts",
@@ -35,7 +35,7 @@
     "href": "sessions/06-data-types/index.html#manually",
     "title": "An Introduction to Data Types",
     "section": "Manually",
-    "text": "Manually\nIf we need to, we can use a constructor function named after the data type, like int() or str() to force a variable to be the specific type we need it to be.\n\na = str(\"123\")\nb = float(2)\nc = int(1.9) # just throws away the .9; not rounded!\nprint ('a is a ' + str(type(a))+' with the value ' + str(a))\nprint ('b is a ' + str(type(b))+' with the value ' + str(b))\nprint ('c is a ' + str(type(c))+' with the value ' + str(c))\n\na is a &lt;class 'str'&gt; with the value 123\nb is a &lt;class 'float'&gt; with the value 2.0\nc is a &lt;class 'int'&gt; with the value 1",
+    "text": "Manually\nIf we need to, we can use a constructor function named after the data type, like int() or str() to force a variable to be the specific type we need it to be.\n\na = str(\"123\") # a will contain the string 123 rather than the numeric value\nb = float(2) # b will contain the decimal value 2.0\nc = int(1.9) # just throws away the .9; not rounded!",
     "crumbs": [
       "Sessions",
       "Core Concepts",
@@ -71,7 +71,7 @@
     "href": "sessions/06-data-types/index.html#numeric-types",
     "title": "An Introduction to Data Types",
     "section": "Numeric types",
-    "text": "Numeric types\n\na = 10              # int\nb = 3               # int\nc = 2.5             # float\nd = -2              # int\n\nprint(a+b)          # output: 13, an int\nprint(a+c)          # output: 12.5, a float\n \nprint(float(a))     # output: 10.0\nprint(int(2.88))    # output: 2; just throws away the decimal part\n \nprint(round(2.88))  # output: 3\nprint(round(2.88,1))# output: 2.9\n\n13\n12.5\n10.0\n2\n3\n2.9",
+    "text": "Numeric types\nPython supports different kinds of numbers, including integers (int), floating point numbers (float). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like round(), abs(), and pow().\n\na = 10              # int\nb = 3               # int\nc = 2.5             # float\nd = -2              # int\n\nprint(a+b)          # output: 13, an int\nprint(a+c)          # output: 12.5, a float\nprint(a ** (1/2))   # taking the square root of an int returns a float\n \nprint(float(a))     # output: 10.0\nprint(int(2.88))    # output: 2; just throws away the decimal part\n \nprint(round(2.88))  # output: 3\nprint(round(2.88,1))# output: 2.9\n\n13\n12.5\n3.1622776601683795\n10.0\n2\n3\n2.9",
     "crumbs": [
       "Sessions",
       "Core Concepts",
@@ -83,7 +83,7 @@
     "href": "sessions/06-data-types/index.html#strings",
     "title": "An Introduction to Data Types",
     "section": "Strings",
-    "text": "Strings\n\nstr_a = \"Hello\"              # string\nstr_b = \"SCW!\"               # string\n\nstr_ab = str_a + \" \" + str_b # python repurposes the \"+\" to mean string concatenation as well as addition\nprint(str_ab)                # output: Hello SCW!\n \nprint(str_ab.find(\"SCW\"))    # output:6 (the location in the string of the substring \"SCW\". Starts from 0!)\n \nstr_repeated = str_ab * 3 \nprint(str_repeated)          # output: Hello SCW!Hello SCW!Hello SCW!\n \nprint(len(str_a))            # output: 5\nprint(str_a[0])              # output: H\nprint(str_a[0:3])            # output: Hel (give me 3 characters starting at 0)\nprint(str_a[3:])             # output: lo (give me everything starting at 3)\nprint(str_a[:5])             # output: Hello (give me the first 5 characters)\n\nHello SCW!\n6\nHello SCW!Hello SCW!Hello SCW!\n5\nH\nHel\nlo\nHello",
+    "text": "Strings\nStrings are sequences of characters enclosed in quotes. They support indexing, slicing, and a wide range of methods like .lower(), .replace(), .split(), and .join().\n\nstr_a = \"Hello\"              # string\nstr_b = \"SCW!\"               # string\n\nstr_ab = str_a + \" \" + str_b # python repurposes the \"+\" to mean string concatenation as well as addition\nprint(str_ab)                # output: Hello SCW!\n \nprint(str_ab.find(\"SCW\"))    # output:6 (the location in the string of the substring \"SCW\". Starts from 0!)\n \nstr_repeated = str_ab * 3 \nprint(str_repeated)          # output: Hello SCW!Hello SCW!Hello SCW!\n \nprint(len(str_a))            # output: 5\nprint(str_a[0])              # output: H\nprint(str_a[0:3])            # output: Hel (give me 3 characters starting at 0)\nprint(str_a[3:])             # output: lo (give me everything starting at 3)\nprint(str_a[:5])             # output: Hello (give me the first 5 characters)\n\nHello SCW!\n6\nHello SCW!Hello SCW!Hello SCW!\n5\nH\nHel\nlo\nHello",
     "crumbs": [
       "Sessions",
       "Core Concepts",
@@ -95,7 +95,7 @@
     "href": "sessions/06-data-types/index.html#lists",
     "title": "An Introduction to Data Types",
     "section": "Lists",
-    "text": "Lists\n\nfruits = [\"banana\", \"lychee\", \"raspberry\", \"apple\"]\nprint(fruits[0])        #output: banana (string)\nprint(fruits[0:2])      #output: ['banana','lychee'] (list!)\nprint(fruits[-1])       #output: apple (string)\n\nfruits.append(\"orange\")\nprint(fruits)           #output: ['banana', 'lychee', 'raspberry', 'apple', 'orange']\n\nprint(\"orange\" in fruits) #output: True\nprint(\"tomato\" in fruits) #output: False\n\nfruits.sort()\nprint(fruits)           #output: ['apple', 'banana', 'lychee', 'orange', 'raspberry']\n\nmixed_list = [\"blue\", \"green\", False, 2, 2.55] #each item in a list can be a different data type!\nfor item in mixed_list:\n    print(type(item))   #output:&lt;class 'str'&gt; &lt;class 'str'&gt; &lt;class 'bool'&gt; &lt;class 'int'&gt; &lt;class 'float'&gt;\n\nstr_number = \"123\"\nprint(type(str_number)) #output:&lt;class 'str'&gt;\nstr_number=int(str_number)\nprint(type(str_number)) #output:&lt;class 'int'&gt;\n\na = 321\nprint(type(a))          #output:&lt;class 'int'&gt;\na = float(a)\nprint(type(a))          #output:&lt;class 'float'&gt;\n\n#b = int(\"kiwi\")        #output: ValueError: invalid literal for int() with base 10: 'kiwi'\n\nbanana\n['banana', 'lychee']\napple\n['banana', 'lychee', 'raspberry', 'apple', 'orange']\nTrue\nFalse\n['apple', 'banana', 'lychee', 'orange', 'raspberry']\n&lt;class 'str'&gt;\n&lt;class 'str'&gt;\n&lt;class 'bool'&gt;\n&lt;class 'int'&gt;\n&lt;class 'float'&gt;\n&lt;class 'str'&gt;\n&lt;class 'int'&gt;\n&lt;class 'int'&gt;\n&lt;class 'float'&gt;",
+    "text": "Lists\nLists are ordered, mutable (changeable) collections. They can hold any type of data and support operations like appending (.append()), removing (.remove()), and slicing (our_list[1:4]).\n\nfruits = [\"banana\", \"lychee\", \"raspberry\", \"apple\"]\nprint(fruits[0])        #output: banana (string)\nprint(fruits[0:2])      #output: ['banana','lychee'] (list!)\nprint(fruits[-1])       #output: apple (string)\n\nfruits.append(\"orange\")\nprint(fruits)           #output: ['banana', 'lychee', 'raspberry', 'apple', 'orange']\n\nprint(\"orange\" in fruits) #output: True\nprint(\"tomato\" in fruits) #output: False\n\nfruits.sort()\nprint(fruits)           #output: ['apple', 'banana', 'lychee', 'orange', 'raspberry']\n\nmixed_list = [\"blue\", \"green\", False, 2, 2.55] #each item in a list can be a different data type!\nfor item in mixed_list:\n    print(type(item))   #output:&lt;class 'str'&gt; &lt;class 'str'&gt; &lt;class 'bool'&gt; &lt;class 'int'&gt; &lt;class 'float'&gt;\n\nstr_number = \"123\"\nprint(type(str_number)) #output:&lt;class 'str'&gt;\nstr_number=int(str_number)\nprint(type(str_number)) #output:&lt;class 'int'&gt;\n\na = 321\nprint(type(a))          #output:&lt;class 'int'&gt;\na = float(a)\nprint(type(a))          #output:&lt;class 'float'&gt;\n\n#b = int(\"kiwi\")        #output: ValueError: invalid literal for int() with base 10: 'kiwi'\n\nbanana\n['banana', 'lychee']\napple\n['banana', 'lychee', 'raspberry', 'apple', 'orange']\nTrue\nFalse\n['apple', 'banana', 'lychee', 'orange', 'raspberry']\n&lt;class 'str'&gt;\n&lt;class 'str'&gt;\n&lt;class 'bool'&gt;\n&lt;class 'int'&gt;\n&lt;class 'float'&gt;\n&lt;class 'str'&gt;\n&lt;class 'int'&gt;\n&lt;class 'int'&gt;\n&lt;class 'float'&gt;",
     "crumbs": [
       "Sessions",
       "Core Concepts",
@@ -107,7 +107,7 @@
     "href": "sessions/06-data-types/index.html#dicts",
     "title": "An Introduction to Data Types",
     "section": "Dicts",
-    "text": "Dicts\n\nSCW_basic_info={\n    \"org_code\": \"0DF\",\n    \"short_name\": \"SCW CSU\",\n    \"long_name\": \"NHS South, Central and West Commissioning Support Unit\",\n    \"year_opened\": 2014,\n    \"active\":True,\n    \"postcode\":\"SO50 5PB\"\n}\n\nprint(type(SCW_basic_info[\"active\"]))       #output: &lt;class 'bool'&gt;\nprint(type(SCW_basic_info[\"year_opened\"]))  #output: &lt;class 'int'&gt;\n\nprint(SCW_basic_info[\"org_code\"])           #output: \"0DF\"\nprint(len(SCW_basic_info))                  #output: 6\n\nSCW_basic_info[\"number_of_staff\"] = 1000    #we can easily add a new key and value at the same time\n\nprint(len(SCW_basic_info))                  #output: 7\n\nSCW_basic_info[\"number_of_staff\"] += 1      #we hired a new member of staff\nprint(SCW_basic_info[\"number_of_staff\"])    #output: 1001\n\n&lt;class 'bool'&gt;\n&lt;class 'int'&gt;\n0DF\n6\n7\n1001",
+    "text": "Dicts\nDictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using dict[key] = value, dict.get(key), or del dict[key].\n\nSCW_basic_info={\n    \"org_code\"      : \"0DF\",\n    \"short_name\"    : \"SCW CSU\",\n    \"long_name\"     : \"NHS South, Central and West Commissioning Support Unit\",\n    \"year_opened\"   : 2014,\n    \"active\"        : True,\n    \"postcode\"      : \"SO50 5PB\"\n}\n\nprint(type(SCW_basic_info[\"active\"]))       #output: &lt;class 'bool'&gt;\nprint(type(SCW_basic_info[\"year_opened\"]))  #output: &lt;class 'int'&gt;\n\nprint(SCW_basic_info[\"org_code\"])           #output: \"0DF\"\nprint(len(SCW_basic_info))                  #output: 6\n\nSCW_basic_info[\"number_of_staff\"] = 1000    #we can easily add a new key and value at the same time\n\nprint(len(SCW_basic_info))                  #output: 7\n\nSCW_basic_info[\"number_of_staff\"] += 1      #we hired a new member of staff\nprint(SCW_basic_info[\"number_of_staff\"])    #output: 1001\n\n&lt;class 'bool'&gt;\n&lt;class 'int'&gt;\n0DF\n6\n7\n1001",
     "crumbs": [
       "Sessions",
       "Core Concepts",
@@ -536,32 +536,32 @@
     "text": "Resources\n\nCheck out the History of iPython\nYou can find out more about Project Jupyter\nThe demonstration makes use of this markdown cheatsheet\nLikewise this is the Jupyter shortcuts Cheat Sheet"
   },
   {
-    "objectID": "sessions/06-data-types/slides.html#what-are-data-types-why-do-they-matter",
-    "href": "sessions/06-data-types/slides.html#what-are-data-types-why-do-they-matter",
+    "objectID": "sessions/06-data-types/slides.html#a-brief-history-of-data-types",
+    "href": "sessions/06-data-types/slides.html#a-brief-history-of-data-types",
     "title": "An Introduction To Data Types",
-    "section": "What are data types; why do they matter?",
-    "text": "What are data types; why do they matter?\n\n\n\nAll1 computers store data in binary (1s and 0s) – example shown on the right, represented as hexadecimal\nVariables add a level of convenience and abstraction by letting us name specific buckets to put data in, and data types give structure to these buckets.\nIn the early days of computing data was stored as raw binary\nThe need for specific data types came from the emergence of structured programming from the 1950s onward\nLanguages like FORTRAN and COBOL introduced the segregation of numeric datatypes and character types\nObject-oriented languages like C++ and Java further expanded on this with user-defined data types\nSpecifying the type of data allows the machine to allocate an appropriate amount of memory to it (was very important in the early days of computing, but still relevant)\nAllows us to prevent errors; setting the expectation on the exact type of data that a specific variable will contain.\n\n\n\n\n\nRaw data in hex format (ASCII representation on right).\n\n\n\n\n\nCore rope memory. The orientation of each metal ring encodes a 0 or a 1. (Konstantin Lanzet, Wikimedia Commons)"
+    "section": "A brief history of data types",
+    "text": "A brief history of data types\n\n\n\nAll1 computers store data in binary (1s and 0s) – example shown on the right, represented as hexadecimal\nVariables add a level of convenience and abstraction by letting us name specific buckets to put data in, and data types give structure to these buckets.\nIn the early days of computing data was stored as raw binary\nThe need for specific data types came from the emergence of structured programming from the 1950s onward\nLanguages like FORTRAN and COBOL introduced the segregation of numeric datatypes and character types\nObject-oriented languages like C++ and Java further expanded on this with user-defined data types\nSpecifying the type of data allows the machine to allocate an appropriate amount of memory to it (was very important in the early days of computing, but still relevant)\nAllows us to prevent errors; setting the expectation on the exact type of data that a specific variable will contain.\n\n\n\n\n\nRaw data in hex format (ASCII representation on right).\n\n\n\n\n\nCore rope memory. The orientation of each metal ring encodes a 0 or a 1. (Konstantin Lanzet, Wikimedia Commons)"
   },
   {
     "objectID": "sessions/06-data-types/slides.html#a-quick-note-on-type-systems",
     "href": "sessions/06-data-types/slides.html#a-quick-note-on-type-systems",
     "title": "An Introduction To Data Types",
     "section": "A quick note on type systems",
-    "text": "A quick note on type systems\n\nProgramming languages have different philosophies. They are often referred as being “strong” or “weak” and “static” or “dynamic”.\n\nTypes of type checking\nStatically-typed languages (C++, Rust)\n\nThe programmer has to specify the data type for a variable or object in the code itself and they are checked at compile time\nBenefits: safety (catches errors early), possibly more performant\nDownsides: more tedious and less flexible\n\nStrongly but dynamically-typed languages (e.g. Python)\n\nPython features dynamic typing. There is no need to explicitly declare variables as being a specific data type, and it does allow limited implicit conversions, but not as extensively - as e.g. JavaScript.\n\nWeakly-typed languages (e.g. Javascript)\n\nAllows extensive type coercion; mixing-and-matching of datatypes freely e.g. 5+”2”=“52”\n\n\n\n\n\n\nhttps://remotescout24.com/en/blog/806-typed-vs-untyped-programming-languages\n\n\n\n\n\nC++. This code generates a type error; we tried to assign a string value to an int\n\n\n\n\n\nJavaScript. This is valid JS code and ends with z being a string with the content “52”"
+    "text": "A quick note on type systems\n\nProgramming languages have different philosophies. They are often referred as being “strong” or “weak” and “static” or “dynamic”.\n\nTypes of type checking\nStatically-typed languages (C++, Rust)\n\nThe programmer has to specify the data type for a variable or object in the code itself and they are checked at compile time\nBenefits: safety (catches errors early), possibly more performant\nDownsides: more tedious and less flexible\n\nStrongly but dynamically-typed languages (e.g. Python)\n\nPython features dynamic typing. There is no need to explicitly declare variables as being a specific data type, and it does allow limited implicit conversions, but not as extensively as e.g. JavaScript.\n\nWeakly-typed languages (e.g. Javascript)\n\nAllows extensive type coercion; mixing-and-matching of datatypes freely e.g. 5+”2”=“52”\n\n\n\n\n\n\nhttps://remotescout24.com/en/blog/806-typed-vs-untyped-programming-languages\n\n\n\n\n\nC++. This code generates a type error; we tried to assign a string value to an int\n\n\n\n\n\nJavaScript. This is valid JS code and ends with z being a string with the content “52”"
   },
   {
     "objectID": "sessions/06-data-types/slides.html#overview",
     "href": "sessions/06-data-types/slides.html#overview",
     "title": "An Introduction To Data Types",
     "section": "Overview",
-    "text": "Overview\n\n\n\nA logical overview of the basic data types in python. From geeksforgeeks.org/python-data-types"
+    "text": "Overview\n\n\n\nA logical overview of the basic data types in python. From https://pynative.com/python-data-types/"
   },
   {
     "objectID": "sessions/06-data-types/slides.html#booleans",
     "href": "sessions/06-data-types/slides.html#booleans",
     "title": "An Introduction To Data Types",
     "section": "Booleans",
-    "text": "Booleans\n\nLike most programming languages, python has a bool datatype. In some ways, this is the simplest type available. A Boolean can only be True or False, and is returned when evaluating an expression. For example:\nour_result = 10&gt;9\nprint(our_result)\nReturns True - we’re asking Python for the result of the comparison 10&gt;9, and to store this result in a variable called our_result. The data type of a true-false comparison result like that is bool, so our variable will also be of this type.\nBooleans will become highly relevant when we talk about conditionals and program flow.\n\n\n\n\nGeorge Boole (1815-1864) - the originator of Boolean logic"
+    "text": "Booleans\n\nLike most programming languages, python has a bool datatype. In some ways, this is the simplest type available. A Boolean can only be True or False, and is returned when evaluating an expression. For example:\nour_result = 10&gt;9 print(our_result)\nReturns True - we’re asking Python for the result of the comparison 10&gt;9, and to store this result in a variable called our_result. The data type of a true-false comparison result like that is bool, so our variable will also be of this type.\nBooleans will become highly relevant when we talk about conditionals and program flow.\n\n\n\n\nGeorge Boole (1815-1864) - the originator of Boolean logic"
   },
   {
     "objectID": "sessions/06-data-types/slides.html#numeric-types",
@@ -582,14 +582,14 @@
     "href": "sessions/06-data-types/slides.html#other-data-types",
     "title": "An Introduction To Data Types",
     "section": "Other data types",
-    "text": "Other data types\n\nYou may have heard of other data types such as arrays (which are kind like lists but two-dimensional).\nArrays are not a built-in Python type but are offered by the numpy package.\npandas also offers additional data types such as timestamp (similar to SQL’s datetime).\ndataframes (from pandas) are an example of a higher-order class that makes use of datatypes within it; remember from previous sessions that a dataframe can contain strings, integers, timestamps etc."
+    "text": "Other data types\nBuilt-in\n\nWe’ve skipped over complex numbers and tuples, the latter being like a dict but non-changeable.\n\nOther packages\n\nYou may have heard of other data types such as arrays (which are kind like lists but two-dimensional).\nArrays are not a built-in Python type but are offered by the numpy package.\npandas also offers additional data types such as timestamp (similar to SQL’s datetime).\ndataframes (from pandas) are an example of a higher-order class that makes use of datatypes within it; remember from previous sessions that a dataframe can contain strings, integers, timestamps etc."
   },
   {
-    "objectID": "sessions/06-data-types/slides.html#further-reading",
-    "href": "sessions/06-data-types/slides.html#further-reading",
+    "objectID": "sessions/06-data-types/slides.html#final-thoughts",
+    "href": "sessions/06-data-types/slides.html#final-thoughts",
     "title": "An Introduction To Data Types",
-    "section": "Further reading",
-    "text": "Further reading\n\nhttps://docs.python.org/3/tutorial/datastructures.html\nhttps://docs.python.org/3/library/stdtypes.html\nhttps://www.geeksforgeeks.org/python-data-types/\nhttps://www.w3schools.com/python/python_datatypes.asp"
+    "section": "Final thoughts",
+    "text": "Final thoughts\nDon’t worry about memorising any of this! If you take one thing away from this session, make it the fact that data types exist, that being aware of them will help you understand problems with your code, and that resources and documentation are readily available online.\n\nFurther reading\n\nhttps://docs.python.org/3/tutorial/datastructures.html\nhttps://docs.python.org/3/library/stdtypes.html\nhttps://www.geeksforgeeks.org/python-data-types/\nhttps://www.w3schools.com/python/python_datatypes.asp"
   },
   {
     "objectID": "sessions/06-data-types/slides.html#footnotes",
