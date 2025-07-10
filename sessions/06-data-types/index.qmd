@@ -7,73 +7,103 @@ format:
 
 Intro paragraph
 
-## Assigning variables
+# Slides
+
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
+
+<iframe src="slides.html" height="500" width="100%"></iframe>
+
+# Assigning types to variables
+
+## Automatically
 
 Python automatically assigns a type to a variable based on the value we put into it. We can use the `type()` function to see what type has been given to each variable.
 
 ```{python}
+our_integer = 1
+our_float = 2.2
+our_integer_turned_into_a_float = float(our_integer)
+our_string="Hello SCW!"
+```
+
+## Manually
+
+If we need to, we can use a *constructor function* named after the data type, like `int()` or `str()` to force a variable to be the specific type we need it to be.
+
+```{python}
 a = str("123")
 b = float(2)
-c = int(1.9) #just throws away the .9; not rounded!
+c = int(1.9) # just throws away the .9; not rounded!
 print ('a is a ' + str(type(a))+' with the value ' + str(a))
 print ('b is a ' + str(type(b))+' with the value ' + str(b))
 print ('c is a ' + str(type(c))+' with the value ' + str(c))
 ```
 
-## Booleans
-
-Bools are often an intermediate - they are an output of evaluations like `1 == 2`
+## Finding out what type a variable is
 
 ```{python}
-z = True
-print(type(z)) 		#output: <class 'bool'>
-print (10>9)		#output: True
-print (1 == 2)		#output: False
+print (type(a))
+print (type(b))
+print (type(c))
+```
 
-print(bool(123))	#output: True
-print(bool("abc"))	#output: True
-print(bool(None))	#output: False
-print(bool(0))		#output: False
+# Data types
+
+## Booleans
+
+Bools are often an intermediate - they are an output of evaluations like `1 == 2`. Booleans may sound very basic, but they are crucial in understanding control flow, which we'll be covering in a future session!
+
+```{python}
+z = True			# you'll rarely ever assign a boolean directly like this, but do note they are
+					# case sensitive; z = true wouldn't have worked here.
+print(type(z)) 		# output: <class 'bool'>
+print (10>9)		# output: True
+print (1 == 2)		# output: False
+ 
+print(bool(123))	# output: True
+print(bool("abc"))	# output: True
+print(bool(None))	# output: False
+print(bool(0))		# output: False
 ```
 
 
 ## Numeric types
  
 ```{python}
-a = 10  		#int
-b = 3   		#int
-c = 2.5 		#float
-d = -2  		#int
+a = 10  			# int
+b = 3   			# int
+c = 2.5 			# float
+d = -2  			# int
 
-print(a+b) 			#output: 13, an int
-print(a+c) 			#output: 12.5, a float
-
-print(float(a)) 	#output: 10.0
-print(int(2.88)) 	#output: 2; just throws away the decimal part
-
-print(round(2.88)) 	#output: 3
-print(round(2.88,1))#output: 2.9
+print(a+b) 			# output: 13, an int
+print(a+c) 			# output: 12.5, a float
+ 
+print(float(a)) 	# output: 10.0
+print(int(2.88)) 	# output: 2; just throws away the decimal part
+ 
+print(round(2.88)) 	# output: 3
+print(round(2.88,1))# output: 2.9
 ```
 
 ## Strings
 
 ```{python}
-str_a = "Hello" #string
-str_b = "SCW!"  #string
+str_a = "Hello" 			 # string
+str_b = "SCW!"  			 # string
 
-str_ab = str_a + " " + str_b #python repurposes the "+" to mean string concatenation as well as addition
-print(str_ab)                #output: Hello SCW!
-
-print(str_ab.find("SCW"))	 #output:6
-
-str_repeated = str_ab * 3
-print(str_repeated)          #output: Hello SCW!Hello SCW!Hello SCW!
-
-print(len(str_a))  			 #output: 5
-print(str_a[0])				 #output: H
-print(str_a[0:3])			 #output: Hel (give me 3 characters starting at 0)
-print(str_a[3:])			 #output: lo (give me everything starting at 3)
-print(str_a[:5])			 #output: Hello (give me the first 5 characters)
+str_ab = str_a + " " + str_b # python repurposes the "+" to mean string concatenation as well as addition
+print(str_ab)                # output: Hello SCW!
+ 
+print(str_ab.find("SCW"))	 # output:6 (the location in the string of the substring "SCW". Starts from 0!)
+ 
+str_repeated = str_ab * 3 
+print(str_repeated)          # output: Hello SCW!Hello SCW!Hello SCW!
+ 
+print(len(str_a))  			 # output: 5
+print(str_a[0])				 # output: H
+print(str_a[0:3])			 # output: Hel (give me 3 characters starting at 0)
+print(str_a[3:])			 # output: lo (give me everything starting at 3)
+print(str_a[:5])			 # output: Hello (give me the first 5 characters)
 ```
 
 ## Lists
@@ -135,3 +165,5 @@ print(len(SCW_basic_info))					#output: 7
 SCW_basic_info["number_of_staff"] += 1 		#we hired a new member of staff
 print(SCW_basic_info["number_of_staff"])	#output: 1001
 ```
+
+# Exercises

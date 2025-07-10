@@ -11,7 +11,7 @@ format:
 
 # Data types overview
 
-## What are data types and why do they matter?
+## What are data types; why do they matter?
 
 ::: columns
 
@@ -34,7 +34,7 @@ format:
 
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
   <img src="images/data-types-1b.jpg" />
-  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Core rope memory (Konstantin Lanzet, Wikimedia Commons)</figcaption>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Core rope memory. The orientation of each metal ring encodes a 0 or a 1. (Konstantin Lanzet, Wikimedia Commons)</figcaption>
 </figure>
 :::
 
@@ -82,22 +82,94 @@ Weakly-typed languages (e.g. Javascript)
 
 :::
 
-# Data types in Python {.r-fit-text style="font-size:24pt"}
+# Data types in Python
 
-## Assigning a type to a variable {.r-fit-text style="font-size:24pt"}
+## Overview
 
-## Booleans {.r-fit-text style="font-size:24pt"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/data-types-overview.png" />
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A logical overview of the basic data types in python. From geeksforgeeks.org/python-data-types
+</figcaption>
+</figure>
 
-## Numeric types {.r-fit-text style="font-size:24pt"}
 
-## Data structures {.r-fit-text style="font-size:24pt"}
+## Booleans 
 
-## Strings {.r-fit-text style="font-size:24pt"}
+::: {.column style="width:65%; font-size:20pt"}
 
-## Lists {.r-fit-text style="font-size:24pt"}
+Like most programming languages, python has a `bool` datatype. In some ways, this is the simplest type available. A Boolean can only be `True` or `False`, and is returned when evaluating an expression. For example:
 
-## Dictionaries {.r-fit-text style="font-size:24pt"}
+```
+our_result = 10>9
+print(our_result)
+```
 
-# Manipulating data types
+Returns `True` - we're asking Python for the result of the comparison `10>9`, and to store this result in a variable called `our_result`. The data type of a true-false comparison result like that is `bool`, so our variable will also be of this type. 
 
-## Conversion (casting)
+Booleans will become highly relevant when we talk about conditionals and program flow.
+
+:::
+
+::: {.column width="35%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/data-types-3a.png" />
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">George Boole (1815-1864) - the originator of Boolean logic</figcaption>
+</figure>
+:::
+
+## Numeric types {style="font-size:20pt"}
+
+Numeric types are for variables that will only contain numbers. Other programming languages often have many different numeric types, but Python (mercifully) only has two:
+
+`int` can contain any^[there is no clearly-defined maximum number for an integer in python; certainly not one you're likely to ever encounter] *whole* (no fraction or decimals) number; negative, positive or zero. E.g.
+
+- `a = -4`
+- `b = 3`
+- `c = 9087358292578`
+
+`float` can contain any number with a decimal point, to arbitrary^[again, limits exist but aren't relevant here] precision. E,g,
+- `x = -2.2`
+- `y = 3.0`
+- `z = 2452.259259999999999`
+
+If you're manually assigning a number to a variable, python will always choose an `int` or `float` depending on whether you've used a decimal point or not - so `2` and `2.0` are *not* equivalent in this context.
+
+## Data structures {style="font-size:18pt"}
+
+With data structures, we can address an element or elements by using square bracket notation - more on this below.
+
+**Strings (`str`)**
+
+An ordered sequence (string) of letters^[or numbers, symbols, etc. - any valid UTF-8 symbols]. Enclosed by quotation marks. E.g.
+
+- `our_string = "Hello world"`
+
+**Lists (`list`)**
+
+An ordered sequence of objects, where each object can be another data type (int, float, string, bool, etc). Enclosed by square brackets, and the items separated by commas. E.g.
+
+- `our_list = [1, 2.3, "abc"]`
+
+**Dictionaries (`dict`)**
+
+Dictionaries are key-value pairs, where each entry is a pair of entries. Enclosed by curly braces, the keys and values separated by a colon and each pair separated by a comma. E.g.
+
+- `our_dict = {"org_code":"0DF","name":"SCW CSU","year": 2013}`
+
+## Other data types
+
+- You may have heard of other data types such as *arrays* (which are kind like *lists* but two-dimensional).
+- Arrays are not a built-in Python type but are offered by the `numpy` package.
+- `pandas` also offers additional data types such as `timestamp` (similar to SQL's `datetime`).
+- `dataframes` (from `pandas`) are an example of a higher-order class that makes use of datatypes within it; remember from previous sessions that a `dataframe` can contain strings, integers, timestamps etc.
+
+# Thank you!
+
+## Further reading
+
+- https://docs.python.org/3/tutorial/datastructures.html 
+- https://docs.python.org/3/library/stdtypes.html 
+- https://www.geeksforgeeks.org/python-data-types/
+- https://www.w3schools.com/python/python_datatypes.asp
+
+
