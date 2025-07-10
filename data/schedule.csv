@@ -4,14 +4,14 @@
 3,15/05/2025,On-boarding,Jupyter Notebooks,Demonstration of Jupyter Notebooks,SA21 : Python Proficiency,,,x,,x
 4,29/05/2025,Exploration & Visualisation,EDA with Pandas,Introduction to exploratory data analysis using pandas,SA4 : Descriptive and Explicative Analytics,,,x,,x
 5,12/06/2025,Exploration & Visualisation,Visualisation with Seaborn,Aesthetically-pleasing visualisations,SA1 : Data Visualisation,,,x,,x
-6,26/06/2025,Exploration & Visualisation,EDA with Seaborn,Using seaborn to visualise and explore data,SA4 : Descriptive and Explicative Analytics,,,x,,x
-7,10/07/2025,Core concepts,Data Types,Introduction to data types,SA21 : Python Proficiency,,,,x,x
-8,24/07/2025,Core concepts,Control Flow,Introduction to control flow,SA21 : Python Proficiency,,,,x,x
-9,07/08/2025,Core concepts,Functions & Functional Programming,Introduction to functions and functional programming,SA21 : Python Proficiency,,,,x,x
-10,21/08/2025,Core concepts,Object-Oriented Programming,Introduction to object-oriented programming,SA21 : Python Proficiency,,,,x,x
-11,04/09/2025,Exploration & Visualisation,Streamlit dashboards,How to present data (visualisations) in a Streamlit dashboard,SA1 : Data Visualisation,,,x,,
-12,18/09/2025,Data Science,Comparing Samples,Understanding data distributions and comparisons between samples,SA4 : Descriptive and Explicative Analytics,,,,x,x
-13,02/10/2025,Data Science,Analysing Relationships,Quantifying relationships with hypothesis tests and statistical significance,SA15 : Hypothesis Testing,,,,x,x
-14,16/10/2025,Data Science,Introduction to Linear Regression,Introduction to regression concepts and the component parts of linear regression,SA7 : Advanced Statistics,,,,x,x
-15,30/10/2025,Data Science,Implementing Linear Regression,"Building linear models, assessing model fit, and interpreting coefficients",SA7 : Advanced Statistics,,,x,x,x
-16,13/11/2025,Data Science,Beyond Linearity,Introduction to generalised linear regression models,SA7 : Advanced Statistics,,,x,x,x
+6,03/07/2025,Exploration & Visualisation,EDA with Seaborn,Using seaborn to visualise and explore data,SA4 : Descriptive and Explicative Analytics,,,x,,x
+7,17/07/2025,Core concepts,Data Types,Introduction to data types,SA21 : Python Proficiency,,,,x,x
+8,31/07/2025,Core concepts,Control Flow,Introduction to control flow,SA21 : Python Proficiency,,,,x,x
+9,14/08/2025,Core concepts,Functions & Functional Programming,Introduction to functions and functional programming,SA21 : Python Proficiency,,,,x,x
+10,28/08/2025,Core concepts,Object-Oriented Programming,Introduction to object-oriented programming,SA21 : Python Proficiency,,,,x,x
+11,11/09/2025,Exploration & Visualisation,Streamlit dashboards,How to present data (visualisations) in a Streamlit dashboard,SA1 : Data Visualisation,,,x,,
+12,25/09/2025,Data Science,Comparing Samples,Understanding data distributions and comparisons between samples,SA4 : Descriptive and Explicative Analytics,,,,x,x
+13,09/10/2025,Data Science,Analysing Relationships,Quantifying relationships with hypothesis tests and statistical significance,SA15 : Hypothesis Testing,,,,x,x
+14,23/10/2025,Data Science,Introduction to Linear Regression,Introduction to regression concepts and the component parts of linear regression,SA7 : Advanced Statistics,,,,x,x
+15,06/11/2025,Data Science,Implementing Linear Regression,"Building linear models, assessing model fit, and interpreting coefficients",SA7 : Advanced Statistics,,,x,x,x
+16,20/11/2025,Data Science,Beyond Linearity,Introduction to generalised linear regression models,SA7 : Advanced Statistics,,,x,x,x
