@@ -45,7 +45,7 @@ format:
 ::: {.column style="width:65%; font-size:18pt"}
 Programming languages have different philosophies. They are often referred as being “strong” or “weak” and “static” or “dynamic”.
 
-### Types of type checking
+### Types of type checking 
 
 Statically-typed languages (C++, Rust)
 
@@ -59,8 +59,7 @@ Strongly but dynamically-typed languages (e.g. Python)
 
 Weakly-typed languages (e.g. Javascript)
 
-- Allows extensive type *coercion*; mixing-and-matching of datatypes freely e.g. `5+”2”=“52”`
-
+- Allows extensive type *coercion*; mixing-and-matching of datatypes freely e.g. `5+"2"="52"`
 
 :::
 
