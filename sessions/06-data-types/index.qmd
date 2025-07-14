@@ -175,3 +175,151 @@ print(SCW_basic_info["number_of_staff"])	#output: 1001
 ```
 
 # Exercises
+
+1. Create a new variable with the name one_two_three, and assign it the value "123" as a string.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+one_two_three = "123" 
+```
+Using the double quotes is enough to force it to be a string, but you also could have done `one_two_three=str(123)`.
+:::
+
+2. Prove that it is indeed a string, before converting it to an integer, putting the result in a new variable and keeping the old one the same.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+print(type(one_two_three))
+one_two_three_number = int(one_two_three)
+```
+:::
+
+2. If you tried to add the string and int together (using the + operator) what would happen?
+
+::: {.callout-note title="Solution" collapse="true"}
+You'd get an error - which exact error depends on whether you tried to add the string to the int, or the other way around. Python doesn't let you do this.
+:::
+
+3. Create a list that contains the names of your three favourite films.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+top_three = ["The Sound of Music", "Back to the Future", "Finding Nemo"]
+```
+Of course, any set of films would have been fine :)
+:::
+
+4. Print the second film in your list.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+print( top_three[1] )
+```
+Remember that array indices start at 0, so number 1 is the second element.
+:::
+
+5. We only have time to watch two films. Print the first two items in your list.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+print( top_three[0:2])
+```
+
+This syntax is (in my opinion) slightly confusing - it doesn't mean "from 0 to 2", it means "start at 0 and give me two elements from the list".
+
+Alternatively:
+
+```{python}
+print( top_three[:2])
+```
+
+Does the same thing - omitting the `0` results in starting from the beginning by default
+
+:::
+
+
+6. Sort your list alphabetically, and then print it out to make sure it's worked. You may need to do a quick web search along the lines of "python sort list".
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+top_three.sort()
+print( top_three )
+```
+
+Alternatively, you could have used `sorted()`, like this:
+
+```{python}
+
+top_three_sorted = sorted(top_three)
+print( top_three_sorted )
+```
+
+:::
+
+7. What is the result of doing `3 + 1.5` and what type is this result?
+
+::: {.callout-note title="Solution" collapse="true"}
+
+Adding an `int` to a `float` in Python results in a `float`. The result of this calculation is `4.5`.
+
+```{python}
+
+print (3 + 1.5)
+print(type(3 + 1.5)) # <class 'float'>
+```
+
+:::
+
+8. What's the problem with the following code, and how would you correct it?
+
+```{python}
+a = 1 + 2/3 # 1.66666...
+b = int(a)  # we only want whole numbers!
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+
+The problem is that changing a `float` into an `int` doesn't actually round the number, it just throws away the bit after the decimal point. Unless this is what we want, we should do this instead:
+
+```{python}
+a = 1 + 2/3   # 1.66666...
+b = round(a)  # round to the nearest whole number
+```
+
+:::
+
+9. Create two strings, `first_name` and `last_name` and assign them to your first and last name, and then create a new string called `full_name` with your first and last name with a space in between. Print it to make sure it's worked.
+
+::: {.callout-note title="Solution" collapse="true"}
+
+```{python}
+first_name = "Jane"
+last_name = "Bloggs"
+full_name = first_name + " " + last_name
+print(full_name)
+```
+
+:::
+
+10. We have a `dict` that we created as follows:
+
+```{python}
+person = {"first_name": "Jane", "last_name": "Bloggs", "year_of_birth": 1967, "post_code": "SO50 5PB", "person_number": 122333}
+```
+
+Print out Jane Bloggs' age, assuming she's already had her birthday this year.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+person = {"first_name": "Jane", "last_name": "Bloggs", "year_of_birth": 1967, "post_code": "SO50 5PB", "person_number": 122333}
+
+age = 2025-person["year_of_birth"]
+print(age)
+
+```
+:::
