@@ -342,7 +342,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Intro paragraph</p>
+<p>This session is the first in a series of programming fundamentals. We recognise that this content might be a bit more dry and abstract, but it is important background to know when you start to actually use Python in your day to day work.</p>
+<p>If you’ve used Excel and changed the data format for a cell, you’ve already come across data types! It is important to understand how Python stores values in variables and the pitfalls, gotchas and errors you may come across when working with data. The slide deck below gives a (<em>little</em>) bit of history before giving an overview of how data types work in Python. On the last slides are some links to useful resources on the web, which you may want to make note of for the future. Below the slides is a live notebook that demonstrates this, with some exercises at the end to check your understanding.</p>
 <section id="slides" class="level1">
 <h1>Slides</h1>
 <p>Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, <a href="slides.html" target="_blank">follow this link</a>.</p>
@@ -354,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="automatically" class="level2">
 <h2 class="anchored" data-anchor-id="automatically">Automatically</h2>
 <p>Python automatically assigns a type to a variable based on the value we put into it when we use the <code>=</code> assignment operator.</p>
-<div id="6aa6d1ef" class="cell" data-execution_count="1">
+<div id="057ff1c4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>our_integer <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>our_float <span class="op">=</span> <span class="fl">2.2</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>our_integer_turned_into_a_float <span class="op">=</span> <span class="bu">float</span>(our_integer)</span>
@@ -364,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="manually" class="level2">
 <h2 class="anchored" data-anchor-id="manually">Manually</h2>
 <p>If we need to, we can use a <em>constructor function</em> named after the data type, like <code>int()</code> or <code>str()</code> to force a variable to be the specific type we need it to be.</p>
-<div id="66f1692c" class="cell" data-execution_count="2">
+<div id="be5bbdbe" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">str</span>(<span class="st">"123"</span>) <span class="co"># a will contain the string 123 rather than the numeric value</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">float</span>(<span class="dv">2</span>) <span class="co"># b will contain the decimal value 2.0</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1.9</span>) <span class="co"># just throws away the .9; not rounded!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -372,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="finding-out-what-type-a-variable-is" class="level2">
 <h2 class="anchored" data-anchor-id="finding-out-what-type-a-variable-is">Finding out what type a variable is</h2>
-<div id="cff20f4e" class="cell" data-execution_count="3">
+<div id="ceacb4f7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="bu">type</span>(a))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="bu">type</span>(b))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="bu">type</span>(c))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -389,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="booleans" class="level2">
 <h2 class="anchored" data-anchor-id="booleans">Booleans</h2>
 <p>Bools are often an intermediate - they are an output of evaluations like <code>1 == 2</code>. Booleans may sound very basic, but they are crucial in understanding control flow, which we’ll be covering in a future session!</p>
-<div id="96a1603f" class="cell" data-execution_count="4">
+<div id="5ef3667e" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="va">True</span>            <span class="co"># you'll rarely ever assign a boolean directly like this, but do note they are</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># case sensitive; z = true wouldn't have worked here.</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(z))      <span class="co"># output: &lt;class 'bool'&gt;</span></span>
@@ -414,7 +415,7 @@ False</code></pre>
 <section id="numeric-types" class="level2">
 <h2 class="anchored" data-anchor-id="numeric-types">Numeric types</h2>
 <p>Python supports different kinds of numbers, including integers (int), floating point numbers (float). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like round(), abs(), and pow().</p>
-<div id="de058adc" class="cell" data-execution_count="5">
+<div id="6ceb61bd" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span>              <span class="co"># int</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">3</span>               <span class="co"># int</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="fl">2.5</span>             <span class="co"># float</span></span>
@@ -443,7 +444,7 @@ False</code></pre>
 <section id="strings" class="level2">
 <h2 class="anchored" data-anchor-id="strings">Strings</h2>
 <p>Strings are sequences of characters enclosed in quotes. They support indexing, slicing, and a wide range of methods like .lower(), .replace(), .split(), and .join().</p>
-<div id="d5f2bc95" class="cell" data-execution_count="6">
+<div id="e9cefe15" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>str_a <span class="op">=</span> <span class="st">"Hello"</span>              <span class="co"># string</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>str_b <span class="op">=</span> <span class="st">"SCW!"</span>               <span class="co"># string</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -475,7 +476,7 @@ Hello</code></pre>
 <section id="lists" class="level2">
 <h2 class="anchored" data-anchor-id="lists">Lists</h2>
 <p>Lists are ordered, mutable (changeable) collections. They can hold any type of data and support operations like appending (<code>.append()</code>), removing (<code>.remove()</code>), and slicing (<code>our_list[1:4]</code>).</p>
-<div id="2f1525ac" class="cell" data-execution_count="7">
+<div id="4c26a2f6" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="op">=</span> [<span class="st">"banana"</span>, <span class="st">"lychee"</span>, <span class="st">"raspberry"</span>, <span class="st">"apple"</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruits[<span class="dv">0</span>])        <span class="co">#output: banana (string)</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruits[<span class="dv">0</span>:<span class="dv">2</span>])      <span class="co">#output: ['banana','lychee'] (list!)</span></span>
@@ -528,7 +529,7 @@ False
 <section id="dicts" class="level2">
 <h2 class="anchored" data-anchor-id="dicts">Dicts</h2>
 <p>Dictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using dict[key] = value, dict.get(key), or del dict[key].</p>
-<div id="bb1bc5af" class="cell" data-execution_count="8">
+<div id="b7c13863" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>SCW_basic_info<span class="op">=</span>{</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"org_code"</span>      : <span class="st">"0DF"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"short_name"</span>    : <span class="st">"SCW CSU"</span>,</span>
