@@ -68,7 +68,7 @@ print(bool(0))		# output: False
 
 ## Numeric types
 
-Python supports different kinds of numbers, including integers (int), floating point numbers (float). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like round(), abs(), and pow().
+Python supports different kinds of numbers, including integers (`int`), floating point numbers (`float`). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like `round()`, `abs()`, and `pow()`.
  
 ```{python}
 a = 10  			# int
@@ -89,7 +89,7 @@ print(round(2.88,1))# output: 2.9
 
 ## Strings
 
-Strings are sequences of characters enclosed in quotes. They support indexing, slicing, and a wide range of methods like .lower(), .replace(), .split(), and .join().
+Strings are sequences of characters enclosed in quotes. They support indexing, slicing, and a range of methods like `.lower()`, `.replace()`, `.split()`, and .`join()`.
 
 ```{python}
 str_a = "Hello" 			 # string
@@ -148,7 +148,7 @@ print(type(a)) 			#output:<class 'float'>
 
 ## Dicts
 
-Dictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using dict[key] = value, dict.get(key), or del dict[key].
+Dictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using `dict[key] = value`, `dict.get(key)`, or `del dict[key]`.
 
 ```{python}
 SCW_basic_info={
