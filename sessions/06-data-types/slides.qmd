@@ -166,8 +166,6 @@ Dictionaries are key-value pairs, where each entry is a pair of entries. Enclose
 - `pandas` also offers additional data types such as `timestamp` (similar to SQL's `datetime`).
 - `dataframes` (from `pandas`) are an example of a higher-order class that makes use of datatypes within it; remember from previous sessions that a `dataframe` can contain strings, integers, timestamps etc.
 
-# Thank you! {data-background-color="#425563" data-verticator="#E8EDEE"}
-
 ## Final thoughts
 
 **Don't worry about memorising any of this!** If you take one thing away from this session, make it the fact that data types exist, that being aware of them will help you understand problems with your code, and that resources and documentation are readily available online.
