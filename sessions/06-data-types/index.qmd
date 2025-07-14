@@ -5,7 +5,9 @@ format:
   ipynb: default
 ---
 
-Intro paragraph
+This session is the first in a series of programming fundamentals. We recognise that this content might be a bit more dry and abstract, but it is important background to know when you start to actually use Python in your day to day work.
+
+If you've used Excel and changed the data format for a cell, you've already come across data types! It is important to understand how Python stores values in variables and the pitfalls, gotchas and errors you may come across when working with data. The slide deck below gives a (*little*) bit of history before giving an overview of how data types work in Python. On the last slides are some links to useful resources on the web, which you may want to make note of for the future. Below the slides is a live notebook that demonstrates this, with some exercises at the end to check your understanding.
 
 # Slides
 
