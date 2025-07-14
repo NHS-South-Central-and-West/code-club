@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="automatically" class="level2">
 <h2 class="anchored" data-anchor-id="automatically">Automatically</h2>
 <p>Python automatically assigns a type to a variable based on the value we put into it when we use the <code>=</code> assignment operator.</p>
-<div id="057ff1c4" class="cell" data-execution_count="1">
+<div id="f3a0c42c" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>our_integer <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>our_float <span class="op">=</span> <span class="fl">2.2</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>our_integer_turned_into_a_float <span class="op">=</span> <span class="bu">float</span>(our_integer)</span>
@@ -365,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="manually" class="level2">
 <h2 class="anchored" data-anchor-id="manually">Manually</h2>
 <p>If we need to, we can use a <em>constructor function</em> named after the data type, like <code>int()</code> or <code>str()</code> to force a variable to be the specific type we need it to be.</p>
-<div id="be5bbdbe" class="cell" data-execution_count="2">
+<div id="0986b8d9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">str</span>(<span class="st">"123"</span>) <span class="co"># a will contain the string 123 rather than the numeric value</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">float</span>(<span class="dv">2</span>) <span class="co"># b will contain the decimal value 2.0</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">int</span>(<span class="fl">1.9</span>) <span class="co"># just throws away the .9; not rounded!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -373,7 +373,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="finding-out-what-type-a-variable-is" class="level2">
 <h2 class="anchored" data-anchor-id="finding-out-what-type-a-variable-is">Finding out what type a variable is</h2>
-<div id="ceacb4f7" class="cell" data-execution_count="3">
+<div id="b7707207" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="bu">type</span>(a))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="bu">type</span>(b))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="bu">type</span>(c))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -390,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="booleans" class="level2">
 <h2 class="anchored" data-anchor-id="booleans">Booleans</h2>
 <p>Bools are often an intermediate - they are an output of evaluations like <code>1 == 2</code>. Booleans may sound very basic, but they are crucial in understanding control flow, which we’ll be covering in a future session!</p>
-<div id="5ef3667e" class="cell" data-execution_count="4">
+<div id="f8a684cd" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> <span class="va">True</span>            <span class="co"># you'll rarely ever assign a boolean directly like this, but do note they are</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                    <span class="co"># case sensitive; z = true wouldn't have worked here.</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(z))      <span class="co"># output: &lt;class 'bool'&gt;</span></span>
@@ -415,7 +415,7 @@ False</code></pre>
 <section id="numeric-types" class="level2">
 <h2 class="anchored" data-anchor-id="numeric-types">Numeric types</h2>
 <p>Python supports different kinds of numbers, including integers (int), floating point numbers (float). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like round(), abs(), and pow().</p>
-<div id="6ceb61bd" class="cell" data-execution_count="5">
+<div id="607a4f11" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">10</span>              <span class="co"># int</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">3</span>               <span class="co"># int</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="fl">2.5</span>             <span class="co"># float</span></span>
@@ -444,7 +444,7 @@ False</code></pre>
 <section id="strings" class="level2">
 <h2 class="anchored" data-anchor-id="strings">Strings</h2>
 <p>Strings are sequences of characters enclosed in quotes. They support indexing, slicing, and a wide range of methods like .lower(), .replace(), .split(), and .join().</p>
-<div id="e9cefe15" class="cell" data-execution_count="6">
+<div id="1fe3ffad" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>str_a <span class="op">=</span> <span class="st">"Hello"</span>              <span class="co"># string</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>str_b <span class="op">=</span> <span class="st">"SCW!"</span>               <span class="co"># string</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -476,7 +476,7 @@ Hello</code></pre>
 <section id="lists" class="level2">
 <h2 class="anchored" data-anchor-id="lists">Lists</h2>
 <p>Lists are ordered, mutable (changeable) collections. They can hold any type of data and support operations like appending (<code>.append()</code>), removing (<code>.remove()</code>), and slicing (<code>our_list[1:4]</code>).</p>
-<div id="4c26a2f6" class="cell" data-execution_count="7">
+<div id="35c57144" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fruits <span class="op">=</span> [<span class="st">"banana"</span>, <span class="st">"lychee"</span>, <span class="st">"raspberry"</span>, <span class="st">"apple"</span>]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruits[<span class="dv">0</span>])        <span class="co">#output: banana (string)</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(fruits[<span class="dv">0</span>:<span class="dv">2</span>])      <span class="co">#output: ['banana','lychee'] (list!)</span></span>
@@ -529,7 +529,7 @@ False
 <section id="dicts" class="level2">
 <h2 class="anchored" data-anchor-id="dicts">Dicts</h2>
 <p>Dictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using dict[key] = value, dict.get(key), or del dict[key].</p>
-<div id="b7c13863" class="cell" data-execution_count="8">
+<div id="e089212e" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>SCW_basic_info<span class="op">=</span>{</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"org_code"</span>      : <span class="st">"0DF"</span>,</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"short_name"</span>    : <span class="st">"SCW CSU"</span>,</span>
@@ -564,6 +564,297 @@ False
 </section>
 <section id="exercises" class="level1">
 <h1>Exercises</h1>
+<ol type="1">
+<li>Create a new variable with the name one_two_three, and assign it the value “123” as a string.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="19605529" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>one_two_three <span class="op">=</span> <span class="st">"123"</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Using the double quotes is enough to force it to be a string, but you also could have done <code>one_two_three=str(123)</code>.</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Prove that it is indeed a string, before converting it to an integer, putting the result in a new variable and keeping the old one the same.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="6044d9a8" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(one_two_three))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>one_two_three_number <span class="op">=</span> <span class="bu">int</span>(one_two_three)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'str'&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>If you tried to add the string and int together (using the + operator) what would happen?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>You’d get an error - which exact error depends on whether you tried to add the string to the int, or the other way around. Python doesn’t let you do this.</p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Create a list that contains the names of your three favourite films.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="d751cf01" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>top_three <span class="op">=</span> [<span class="st">"The Sound of Music"</span>, <span class="st">"Back to the Future"</span>, <span class="st">"Finding Nemo"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Of course, any set of films would have been fine :)</p>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Print the second film in your list.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="75a7aa44" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( top_three[<span class="dv">1</span>] )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Back to the Future</code></pre>
+</div>
+</div>
+<p>Remember that array indices start at 0, so number 1 is the second element.</p>
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>We only have time to watch two films. Print the first two items in your list.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="1c104abf" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( top_three[<span class="dv">0</span>:<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['The Sound of Music', 'Back to the Future']</code></pre>
+</div>
+</div>
+<p>This syntax is (in my opinion) slightly confusing - it doesn’t mean “from 0 to 2”, it means “start at 0 and give me two elements from the list”.</p>
+<p>Alternatively:</p>
+<div id="ef6a0d4f" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( top_three[:<span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['The Sound of Music', 'Back to the Future']</code></pre>
+</div>
+</div>
+<p>Does the same thing - omitting the <code>0</code> results in starting from the beginning by default</p>
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Sort your list alphabetically, and then print it out to make sure it’s worked. You may need to do a quick web search along the lines of “python sort list”.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="6be692d5" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>top_three.sort()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( top_three )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['Back to the Future', 'Finding Nemo', 'The Sound of Music']</code></pre>
+</div>
+</div>
+<p>Alternatively, you could have used <code>sorted()</code>, like this:</p>
+<div id="ec940af0" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>top_three_sorted <span class="op">=</span> <span class="bu">sorted</span>(top_three)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>( top_three_sorted )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['Back to the Future', 'Finding Nemo', 'The Sound of Music']</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li>What is the result of doing <code>3 + 1.5</code> and what type is this result?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Adding an <code>int</code> to a <code>float</code> in Python results in a <code>float</code>. The result of this calculation is <code>4.5</code>.</p>
+<div id="9a5acb17" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span> (<span class="dv">3</span> <span class="op">+</span> <span class="fl">1.5</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(<span class="dv">3</span> <span class="op">+</span> <span class="fl">1.5</span>)) <span class="co"># &lt;class 'float'&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4.5
+&lt;class 'float'&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="8" type="1">
+<li>What’s the problem with the following code, and how would you correct it?</li>
+</ol>
+<div id="39b2f3f9" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span> <span class="co"># 1.66666...</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">int</span>(a)  <span class="co"># we only want whole numbers!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The problem is that changing a <code>float</code> into an <code>int</code> doesn’t actually round the number, it just throws away the bit after the decimal point. Unless this is what we want, we should do this instead:</p>
+<div id="603d64e2" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="dv">2</span><span class="op">/</span><span class="dv">3</span>   <span class="co"># 1.66666...</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">round</span>(a)  <span class="co"># round to the nearest whole number</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="9" type="1">
+<li>Create two strings, <code>first_name</code> and <code>last_name</code> and assign them to your first and last name, and then create a new string called <code>full_name</code> with your first and last name with a space in between. Print it to make sure it’s worked.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="ece1d414" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>first_name <span class="op">=</span> <span class="st">"Jane"</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>last_name <span class="op">=</span> <span class="st">"Bloggs"</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>full_name <span class="op">=</span> first_name <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> last_name</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(full_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Jane Bloggs</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="10" type="1">
+<li>We have a <code>dict</code> that we created as follows:</li>
+</ol>
+<div id="a4016176" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> {<span class="st">"first_name"</span>: <span class="st">"Jane"</span>, <span class="st">"last_name"</span>: <span class="st">"Bloggs"</span>, <span class="st">"year_of_birth"</span>: <span class="dv">1967</span>, <span class="st">"post_code"</span>: <span class="st">"SO50 5PB"</span>, <span class="st">"person_number"</span>: <span class="dv">122333</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Print out Jane Bloggs’ age, assuming she’s already had her birthday this year.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="3256aac4" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>person <span class="op">=</span> {<span class="st">"first_name"</span>: <span class="st">"Jane"</span>, <span class="st">"last_name"</span>: <span class="st">"Bloggs"</span>, <span class="st">"year_of_birth"</span>: <span class="dv">1967</span>, <span class="st">"post_code"</span>: <span class="st">"SO50 5PB"</span>, <span class="st">"person_number"</span>: <span class="dv">122333</span>}</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>age <span class="op">=</span> <span class="dv">2025</span><span class="op">-</span>person[<span class="st">"year_of_birth"</span>]</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>58</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 
 </section>
