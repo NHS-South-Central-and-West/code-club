@@ -13,8 +13,6 @@ format:
 
 ## A brief history of data types
 
-::: columns
-
 ::: {.column style="width:65%; font-size:20pt"}
 - All^[experimental ternary computers and quantum computing are firmly out of scope of this presentation] computers store data in binary (1s and 0s) – example shown on the right, represented as hexadecimal
 - Variables add a level of convenience and abstraction by letting us name specific buckets to put data in, and data types give structure to these buckets. 
@@ -28,38 +26,61 @@ format:
 
 ::: {.column width="35%"}
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
-  <img src="images/data-types-1a.png" />
+  <img src="images/data-types-1a.png"/>
   <figcaption style="margin-top: 0.1em; line-height: 1.2;">Raw data in hex format (ASCII representation on right).</figcaption>
 </figure>
 
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
   <img src="images/data-types-1b.jpg" />
-  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Core rope memory. The orientation of each metal ring encodes a 0 or a 1. (Konstantin Lanzet, Wikimedia Commons)</figcaption>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Core rope memory. More on this on the next slide. (Konstantin Lanzet, Wikimedia Commons)</figcaption>
 </figure>
 :::
 
+## History lesson - core rope memory
+
+::: {.column style="width:55%; font-size:18pt"}
+
+The Apollo Guidance Computer for the Apollo programme which eventually landed the first person on the moon made use of *core rope memory*. The program code and fixed data (such as important physical and astronomical constant) were literally woven into a grid of magnetic round *cores* using a needle, with the sequence the wire took through the cores deciding the pattern of 0s and 1s. This highly technical work was done in bulk in factories by almost exclusively female workers. 
+
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/core-rope-closeup.jpg" style="height: 150px;" />
+  <figcaption style="margin-top: 0.1em; line-height: 1.2; font-size:12pt">A closeup of a few cores in a core rope memory module, showing the hundreds of times the sense wire goes through each core^[from https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html].</figcaption>
+</figure>
+
 :::
+
+::: {.column width="45%"}
+
+
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/rope-threader.jpg" style="height: 200px;"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A factory employee working on a core rope module^[from https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html]</figcaption>
+</figure>
+
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/agc-modules.jpg" style="height: 200px;"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">One of the memory trays of the AGC - each rectangular module contains a self-contained core rope grid^[from https://www.righto.com/2019/07/software-woven-into-wire-core-rope-and.html]</figcaption>
+</figure>
+
+:::
+
 
 ## A quick note on type systems 
 
 ::: {.column style="width:65%; font-size:18pt"}
 Programming languages have different philosophies. They are often referred as being “strong” or “weak” and “static” or “dynamic”.
 
-### Types of type checking 
-
-Statically-typed languages (C++, Rust)
-
-- The programmer has to specify the data type for a variable or object in the code itself and they are checked at compile time
-- Benefits: safety (catches errors early), possibly more performant
-- Downsides: more tedious and less flexible
-
-Strongly but dynamically-typed languages (e.g. Python)
+**Strongly but dynamically-typed languages (e.g. Python)**
 
 - Python features *dynamic typing*. There is no need to explicitly declare variables as being a specific data type, and it does allow limited implicit conversions, but not as extensively as e.g. JavaScript.
 
+Statically-typed languages (C++, Rust, SQL)
+
+- The programmer has to specify the data type for a variable or object in the code itself and they are checked at compile time. Safer (catches errors early) and possibly more performant, but more tedious and less flexible
+
 Weakly-typed languages (e.g. Javascript)
 
-- Allows extensive type *coercion*; mixing-and-matching of datatypes freely e.g. `5+"2"="52"`
+- Allows extensive type *coercion*; mixing-and-matching of datatypes freely e.g. 5+"2"="52"
 
 :::
 
@@ -114,7 +135,7 @@ Booleans will become highly relevant when we talk about conditionals and program
 </figure>
 :::
 
-## Numeric types {style="font-size:20pt"}
+## Numeric types {style="font-size:18pt"}
 
 Numeric types are for variables that will only contain numbers. Other programming languages often have many different numeric types, but Python (mercifully) only has two:
 
@@ -125,6 +146,7 @@ Numeric types are for variables that will only contain numbers. Other programmin
 - `c = 9087358292578`
 
 `float` can contain any number with a decimal point, to arbitrary^[again, limits exist but aren't relevant here] precision. E,g,
+
 - `x = -2.2`
 - `y = 3.0`
 - `z = 2452.259259999999999`
@@ -137,7 +159,7 @@ With data structures, we can address an element or elements by using square brac
 
 **Strings (`str`)**
 
-An ordered sequence (string) of letters^[or numbers, symbols, etc. - any valid UTF-8 symbols]. Enclosed by quotation marks. E.g.
+These are similar to a `VARCHAR` in SQL. They are ordered sequences (*strings*) of characters^[letters, numbers, symbols, etc. - any valid UTF-8 symbols]. Enclosed by quotation marks^[in most instances either double quotes (`"`) or single quotes (`'`) are fine - but it's a good idea to pick one style and be consistent.]. E.g.
 
 - `our_string = "Hello world"`
 
@@ -161,7 +183,7 @@ Dictionaries are key-value pairs, where each entry is a pair of entries. Enclose
 
 **Other packages**
 
-- You may have heard of other data types such as *arrays* (which are kind like *lists* but two-dimensional).
+- You may have heard of other data types such as *arrays* (which are kind like *lists* but multi-dimensional).
 - Arrays are not a built-in Python type but are offered by the `numpy` package.
 - `pandas` also offers additional data types such as `timestamp` (similar to SQL's `datetime`).
 - `dataframes` (from `pandas`) are an example of a higher-order class that makes use of datatypes within it; remember from previous sessions that a `dataframe` can contain strings, integers, timestamps etc.

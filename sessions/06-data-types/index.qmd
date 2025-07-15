@@ -41,9 +41,9 @@ c = int(1.9) # just throws away the .9; not rounded!
 ## Finding out what type a variable is
 
 ```{python}
-print (type(a))
-print (type(b))
-print (type(c))
+print (type(a)) # output: <class 'str'>
+print (type(b)) # output: <class 'float'>
+print (type(c)) # output: <class 'int'>
 ```
 
 # Data types
@@ -53,6 +53,7 @@ print (type(c))
 Bools are often an intermediate - they are an output of evaluations like `1 == 2`. Booleans may sound very basic, but they are crucial in understanding control flow, which we'll be covering in a future session!
 
 ```{python}
+#| eval: false
 z = True			# you'll rarely ever assign a boolean directly like this, but do note they are
 					# case sensitive; z = true wouldn't have worked here.
 print(type(z)) 		# output: <class 'bool'>
@@ -71,6 +72,7 @@ print(bool(0))		# output: False
 Python supports different kinds of numbers, including integers (`int`), floating point numbers (`float`). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like `round()`, `abs()`, and `pow()`.
  
 ```{python}
+#| eval: false
 a = 10  			# int
 b = 3   			# int
 c = 2.5 			# float
@@ -92,6 +94,7 @@ print(round(2.88,1))# output: 2.9
 Strings are sequences of characters enclosed in quotes. They support indexing, slicing, and a range of methods like `.lower()`, `.replace()`, `.split()`, and .`join()`.
 
 ```{python}
+#| eval: false
 str_a = "Hello" 			 # string
 str_b = "SCW!"  			 # string
 
@@ -115,35 +118,29 @@ print(str_a[:5])			 # output: Hello (give me the first 5 characters)
 Lists are ordered, mutable (changeable) collections. They can hold any type of data and support operations like appending (`.append()`), removing (`.remove()`), and slicing (`our_list[1:4]`).
 
 ```{python}
+#| eval: false
 fruits = ["banana", "lychee", "raspberry", "apple"]
-print(fruits[0]) 		#output: banana (string)
-print(fruits[0:2])		#output: ['banana','lychee'] (list!)
-print(fruits[-1])		#output: apple (string)
+print(fruits[0]) 		  # output: banana (string)
+print(fruits[0:2])		  # output: ['banana','lychee'] (list!)
+print(fruits[-1])		  # output: apple (string)
+ 
+fruits.append("orange") 
+print(fruits) 			  # output: ['banana', 'lychee', 'raspberry', 'apple', 'orange']
+ 
+print("orange" in fruits) # output: True
+print("tomato" in fruits) # output: False
+ 
+fruits.sort() 
+print(fruits)			  # output: ['apple', 'banana', 'lychee', 'orange', 'raspberry']
+```
 
-fruits.append("orange")
-print(fruits) 			#output: ['banana', 'lychee', 'raspberry', 'apple', 'orange']
+Lists can contain any combination of other data types.
 
-print("orange" in fruits) #output: True
-print("tomato" in fruits) #output: False
-
-fruits.sort()
-print(fruits)			#output: ['apple', 'banana', 'lychee', 'orange', 'raspberry']
-
-mixed_list = ["blue", "green", False, 2, 2.55] #each item in a list can be a different data type!
-for item in mixed_list:
-	print(type(item)) 	#output:<class 'str'> <class 'str'> <class 'bool'> <class 'int'> <class 'float'>
-
-str_number = "123"
-print(type(str_number)) #output:<class 'str'>
-str_number=int(str_number)
-print(type(str_number)) #output:<class 'int'>
-
-a = 321
-print(type(a)) 			#output:<class 'int'>
-a = float(a)
-print(type(a)) 			#output:<class 'float'>
-
-#b = int("kiwi")		#output: ValueError: invalid literal for int() with base 10: 'kiwi'
+```{python}
+#| eval: false
+mixed_list = ["blue", "green", False, 2, 2.55]
+for item in mixed_list: # we're using a loop here; don't worry if you don't recognise this syntax
+	print(type(item)) 	# output:<class 'str'> <class 'str'> <class 'bool'> <class 'int'> <class 'float'>
 ```
 
 ## Dicts
@@ -151,6 +148,7 @@ print(type(a)) 			#output:<class 'float'>
 Dictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using `dict[key] = value`, `dict.get(key)`, or `del dict[key]`.
 
 ```{python}
+#| eval: false
 SCW_basic_info={
 	"org_code"		: "0DF",
 	"short_name"	: "SCW CSU",
@@ -160,18 +158,43 @@ SCW_basic_info={
 	"postcode"		: "SO50 5PB"
 }
 
-print(type(SCW_basic_info["active"]))		#output: <class 'bool'>
-print(type(SCW_basic_info["year_opened"])) 	#output: <class 'int'>
+print(type(SCW_basic_info["active"]))		# output: <class 'bool'>
+print(type(SCW_basic_info["year_opened"])) 	# output: <class 'int'>
+ 
+print(SCW_basic_info["org_code"])			# output: "0DF"
+print(len(SCW_basic_info))					# output: 6
+ 
+SCW_basic_info["number_of_staff"] = 1000	# we can easily add a new key and value at the same time
+ 
+print(len(SCW_basic_info))					# output: 7
+ 
+SCW_basic_info["number_of_staff"] += 1 		# we hired a new member of staff
+print(SCW_basic_info["number_of_staff"])	# output: 1001
+```
 
-print(SCW_basic_info["org_code"])			#output: "0DF"
-print(len(SCW_basic_info))					#output: 6
+# Manipulating data types
 
-SCW_basic_info["number_of_staff"] = 1000	#we can easily add a new key and value at the same time
+We can use our constructor functions (`str()`, `int()`, etc) to convert between types in a generally intuitive way - think `CAST()` from SQL but a little less clunky.
 
-print(len(SCW_basic_info))					#output: 7
+```{python}
+#| eval: false
+str_number = "123"	        # creating a variable that has a number stored as a string
+print(type(str_number))     # output:<class 'str'>
 
-SCW_basic_info["number_of_staff"] += 1 		#we hired a new member of staff
-print(SCW_basic_info["number_of_staff"])	#output: 1001
+str_number=int(str_number)  # using the int() constructor function
+print(type(str_number))     # output:<class 'int'>
+
+a = 321                     # we didn't use a decimal point, so python assumes we want an int
+print(type(a)) 			    # output:<class 'int'>
+a = float(a)                # turning it into a float and overwriting itself this time
+print(type(a)) 			    # output:<class 'float'>
+```
+
+If we try to do something silly, we get an error.
+
+``` {python}
+#| eval: false
+b = int("kiwi")		        # output: ValueError: invalid literal for int() with base 10: 'kiwi'
 ```
 
 # Exercises
