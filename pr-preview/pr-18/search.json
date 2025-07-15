@@ -40,7 +40,7 @@
     "href": "sessions/06-data-types/index.html#finding-out-what-type-a-variable-is",
     "title": "An Introduction to Data Types",
     "section": "Finding out what type a variable is",
-    "text": "Finding out what type a variable is\n\nprint (type(a)) # output: &lt;class 'str'&gt;\nprint (type(b)) # output: &lt;class 'float'&gt;\nprint (type(c)) # output: &lt;class 'int'&gt;\n\n&lt;class 'str'&gt;\n&lt;class 'float'&gt;\n&lt;class 'int'&gt;",
+    "text": "Finding out what type a variable is\n\nprint (type(a)) # output: &lt;class 'str'&gt;\nprint (type(b)) # output: &lt;class 'float'&gt;\nprint (type(c)) # output: &lt;class 'int'&gt;",
     "crumbs": [
       "Sessions",
       "Core Concepts",
