@@ -41,6 +41,7 @@ c = int(1.9) # just throws away the .9; not rounded!
 ## Finding out what type a variable is
 
 ```{python}
+#| eval: false
 print (type(a)) # output: <class 'str'>
 print (type(b)) # output: <class 'float'>
 print (type(c)) # output: <class 'int'>
