@@ -1,0 +1,42 @@
+---
+title: "Object-Oriented Programming"
+format:
+  html: default
+  ipynb: default
+---
+
+## Session Slides
+
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
+
+<iframe src="slides.html" height="500" width="100%"></iframe>
+
+
+Code cell examples from session 03. The questions don't appear in the Jupyter Notebook. Do they just drop off?
+
+This first bit is the little drop-down that hides the basic code to 
+
+```{python}
+#| label: reset-data
+#| code-fold: true
+#| code-summary: 'Import Data (to Reset)'
+
+# import the dataset
+df = pd.read_csv('data/XXXX.csv')
+```
+
+
+1. What is the 'XXXX' column's data type?
+
+::: {.callout-note title="Solution" collapse="true"}
+
+```{python}
+#| label: col-type
+
+# What is the 'Sunshine' column's data type?
+print(df['XXXX'].dtypes)
+```
+
+:::
+
+2. Question 2
