@@ -1,0 +1,36 @@
+/*-- scc:defaults --*/
+
+/*-- Define colors for later use --*/
+$White:     #fff;
+$gray-100:  #f8f9fa;
+$gray-200:  #e9ecef;
+$gray-300:  #dee2e6;
+$gray-400:  #ced4da;
+$gray-500:  #adb5bd;
+$gray-600:  #6c757d;
+$gray-700:  #495057;
+$gray-800:  #343a40;
+$gray-900:  #212529;
+$black:     #000;
+$primary:   #bb4430;
+$secondary: #f3dfa2;
+$tertiary:  #0d5c63;
+
+// page text color.
+$body-color: $gray-800;
+// Code block background
+$code-block-bg: $secondary;
+
+/*--  scss:rules  --*/
+
+
+.column {
+  p {
+    font-size: x-small;
+  }
+}
+
+pre, code, .sourceCode {
+  font-size: 1.1em;
+}
+
