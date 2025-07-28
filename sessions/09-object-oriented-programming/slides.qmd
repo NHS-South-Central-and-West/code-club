@@ -95,7 +95,7 @@ yet _consistently_
 the presence of certain methods is more important than which class an object comes from^[The concept of "duck typing", found 
 in Python and other languages, comes from the phrase "if it walks like a duck, quacks like a duck and swims like a duck,
 then it's a duck."]
-  - The sci-kit learn library's allows the same code to work for different models
+  - The scikit-learn library's allows the same code to work for different models
 
 ## Abstraction _for simpler interfacing_
 - **Separating the implementation code from the functionality that users (i.e. other programmers) interact with**
@@ -110,8 +110,22 @@ then it's a duck."]
 - When you want to easily re-use code, to avoid repetition and to extend functionality
 - When you want to model real-world entities
 - When you want to make code modular and easy for others to work with
+- When you want to simplify end-users' interaction with Python, fostering a self-service approach to analytics
 - **Less appropriate for:** When you want to be certain of the state of your data at each step of a process, for example when cleansing data
 
+- Discrete Event Simulations for modelling queueing / capacity problems
+- Creating custom, branded visualisation packages, for example an NHS-branded SPC chart
+- Creating a package that can be used to import the latest data from a website without users having to understand API calls or the website's structure
+
+## Resources
+
+[RealPython: Object-Oriented Programming (OOP) in Python](https://realpython.com/python3-object-oriented-programming/)\
+\
+[OOP produces code that is easy to read, extend and maintain](https://medium.com/@lawjimmy123/how-data-scientists-can-leverage-object-oriented-programming-oop-design-pattern-to-write-better-699166910882)\
+\
+[HSMA's Guide to Object-Oriented Programming](https://docs.google.com/presentation/d/1e7ObbZmRNcm_lqxR_tFvwV78YV2SzBGSwWRweGiezYg/edit?slide=id.p1#slide=id.p1)\
+\
+[HSMA's Discrete Event Simulation Module](https://hsma.co.uk/hsma_content/modules/current_module_details/2_des.html)
 
 # Thank You! {.center}
 
