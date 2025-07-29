@@ -1,0 +1,349 @@
+---
+title: "An Introduction to Data Types"
+format:
+  html: default
+  ipynb: default
+---
+
+This session is the first in a series of programming fundamentals. We recognise that this content might be a bit more dry and abstract, but it is important background to know when you start to actually use Python in your day to day work.
+
+If you've used Excel and changed the data format for a cell, you've already come across data types! It is important to understand how Python stores values in variables and the pitfalls, gotchas and errors you may come across when working with data. The slide deck below gives a (*little*) bit of history before giving an overview of how data types work in Python. On the last slides are some links to useful resources on the web, which you may want to make note of for the future. Below the slides is a live notebook that demonstrates this, with some exercises at the end to check your understanding.
+
+# Slides
+
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
+
+<iframe src="slides.html" height="500" width="100%"></iframe>
+
+# Assigning types to variables
+
+## Automatically
+
+Python automatically assigns a type to a variable based on the value we put into it when we use the `=` assignment operator.
+
+```{python}
+our_integer = 1
+our_float = 2.2
+our_integer_turned_into_a_float = float(our_integer)
+our_string="Hello SCW!"
+```
+
+## Manually
+
+If we need to, we can use a *constructor function* named after the data type, like `int()` or `str()` to force a variable to be the specific type we need it to be.
+
+```{python}
+a = str("123") # a will contain the string 123 rather than the numeric value
+b = float(2) # b will contain the decimal value 2.0
+c = int(1.9) # just throws away the .9; not rounded!
+```
+
+## Finding out what type a variable is
+
+```{python}
+#| eval: false
+print (type(a)) # output: <class 'str'>
+print (type(b)) # output: <class 'float'>
+print (type(c)) # output: <class 'int'>
+```
+
+# Data types
+
+## Booleans
+
+Bools are often an intermediate - they are an output of evaluations like `1 == 2`. Booleans may sound very basic, but they are crucial in understanding control flow, which we'll be covering in a future session!
+
+```{python}
+#| eval: false
+z = True			# you'll rarely ever assign a boolean directly like this, but do note they are
+					# case sensitive; z = true wouldn't have worked here.
+print(type(z)) 		# output: <class 'bool'>
+print (10>9)		# output: True
+print (1 == 2)		# output: False
+ 
+print(bool(123))	# output: True
+print(bool("abc"))	# output: True
+print(bool(None))	# output: False
+print(bool(0))		# output: False
+```
+
+
+## Numeric types
+
+Python supports different kinds of numbers, including integers (`int`), floating point numbers (`float`). You can do basic arithmetic (+, -, *, /), exponentiation (**), and use built-in functions like `round()`, `abs()`, and `pow()`.
+ 
+```{python}
+#| eval: false
+a = 10  			# int
+b = 3   			# int
+c = 2.5 			# float
+d = -2  			# int
+
+print(a+b) 			# output: 13, an int
+print(a+c) 			# output: 12.5, a float
+print(a ** (1/2))   # taking the square root of an int returns a float
+ 
+print(float(a)) 	# output: 10.0
+print(int(2.88)) 	# output: 2; just throws away the decimal part
+ 
+print(round(2.88)) 	# output: 3
+print(round(2.88,1))# output: 2.9
+```
+
+## Strings
+
+Strings are sequences of characters enclosed in quotes. They support indexing, slicing, and a range of methods like `.lower()`, `.replace()`, `.split()`, and .`join()`.
+
+```{python}
+#| eval: false
+str_a = "Hello" 			 # string
+str_b = "SCW!"  			 # string
+
+str_ab = str_a + " " + str_b # python repurposes the "+" to mean string concatenation as well as addition
+print(str_ab)                # output: Hello SCW!
+ 
+print(str_ab.find("SCW"))	 # output:6 (the location in the string of the substring "SCW". Starts from 0!)
+ 
+str_repeated = str_ab * 3 
+print(str_repeated)          # output: Hello SCW!Hello SCW!Hello SCW!
+ 
+print(len(str_a))  			 # output: 5
+print(str_a[0])				 # output: H
+print(str_a[0:3])			 # output: Hel (give me 3 characters starting at 0)
+print(str_a[3:])			 # output: lo (give me everything starting at 3)
+print(str_a[:5])			 # output: Hello (give me the first 5 characters)
+```
+
+## Lists
+
+Lists are ordered, mutable (changeable) collections. They can hold any type of data and support operations like appending (`.append()`), removing (`.remove()`), and slicing (`our_list[1:4]`).
+
+```{python}
+#| eval: false
+fruits = ["banana", "lychee", "raspberry", "apple"]
+print(fruits[0]) 		  # output: banana (string)
+print(fruits[0:2])		  # output: ['banana','lychee'] (list!)
+print(fruits[-1])		  # output: apple (string)
+ 
+fruits.append("orange") 
+print(fruits) 			  # output: ['banana', 'lychee', 'raspberry', 'apple', 'orange']
+ 
+print("orange" in fruits) # output: True
+print("tomato" in fruits) # output: False
+ 
+fruits.sort() 
+print(fruits)			  # output: ['apple', 'banana', 'lychee', 'orange', 'raspberry']
+```
+
+Lists can contain any combination of other data types.
+
+```{python}
+#| eval: false
+mixed_list = ["blue", "green", False, 2, 2.55]
+for item in mixed_list: # we're using a loop here; don't worry if you don't recognise this syntax
+	print(type(item)) 	# output:<class 'str'> <class 'str'> <class 'bool'> <class 'int'> <class 'float'>
+```
+
+## Dicts
+
+Dictionaries store key-value pairs and are optimized for lookups. Keys must be unique and are immutable, but values are mutable. You can add, update, or delete items using `dict[key] = value`, `dict.get(key)`, or `del dict[key]`.
+
+```{python}
+#| eval: false
+SCW_basic_info={
+	"org_code"		: "0DF",
+	"short_name"	: "SCW CSU",
+	"long_name"		: "NHS South, Central and West Commissioning Support Unit",
+	"year_opened"	: 2014,
+	"active"		: True,
+	"postcode"		: "SO50 5PB"
+}
+
+print(type(SCW_basic_info["active"]))		# output: <class 'bool'>
+print(type(SCW_basic_info["year_opened"])) 	# output: <class 'int'>
+ 
+print(SCW_basic_info["org_code"])			# output: "0DF"
+print(len(SCW_basic_info))					# output: 6
+ 
+SCW_basic_info["number_of_staff"] = 1000	# we can easily add a new key and value at the same time
+ 
+print(len(SCW_basic_info))					# output: 7
+ 
+SCW_basic_info["number_of_staff"] += 1 		# we hired a new member of staff
+print(SCW_basic_info["number_of_staff"])	# output: 1001
+```
+
+# Manipulating data types
+
+We can use our constructor functions (`str()`, `int()`, etc) to convert between types in a generally intuitive way - think `CAST()` from SQL but a little less clunky.
+
+```{python}
+#| eval: false
+str_number = "123"	        # creating a variable that has a number stored as a string
+print(type(str_number))     # output:<class 'str'>
+
+str_number=int(str_number)  # using the int() constructor function
+print(type(str_number))     # output:<class 'int'>
+
+a = 321                     # we didn't use a decimal point, so python assumes we want an int
+print(type(a)) 			    # output:<class 'int'>
+a = float(a)                # turning it into a float and overwriting itself this time
+print(type(a)) 			    # output:<class 'float'>
+```
+
+If we try to do something silly, we get an error.
+
+``` {python}
+#| eval: false
+b = int("kiwi")		        # output: ValueError: invalid literal for int() with base 10: 'kiwi'
+```
+
+# Exercises
+
+1. Create a new variable with the name one_two_three, and assign it the value "123" as a string.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+one_two_three = "123" 
+```
+Using the double quotes is enough to force it to be a string, but you also could have done `one_two_three=str(123)`.
+:::
+
+2. Prove that it is indeed a string, before converting it to an integer, putting the result in a new variable and keeping the old one the same.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+print(type(one_two_three))
+one_two_three_number = int(one_two_three)
+```
+:::
+
+2. If you tried to add the string and int together (using the + operator) what would happen?
+
+::: {.callout-note title="Solution" collapse="true"}
+You'd get an error - which exact error depends on whether you tried to add the string to the int, or the other way around. Python doesn't let you do this.
+:::
+
+3. Create a list that contains the names of your three favourite films.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+top_three = ["The Sound of Music", "Back to the Future", "Finding Nemo"]
+```
+Of course, any set of films would have been fine :)
+:::
+
+4. Print the second film in your list.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+print( top_three[1] )
+```
+Remember that array indices start at 0, so number 1 is the second element.
+:::
+
+5. We only have time to watch two films. Print the first two items in your list.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+print( top_three[0:2])
+```
+
+This syntax is (in my opinion) slightly confusing - it doesn't mean "from 0 to 2", it means "start at 0 and give me two elements from the list".
+
+Alternatively:
+
+```{python}
+print( top_three[:2])
+```
+
+Does the same thing - omitting the `0` results in starting from the beginning by default
+
+:::
+
+
+6. Sort your list alphabetically, and then print it out to make sure it's worked. You may need to do a quick web search along the lines of "python sort list".
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+
+top_three.sort()
+print( top_three )
+```
+
+Alternatively, you could have used `sorted()`, like this:
+
+```{python}
+
+top_three_sorted = sorted(top_three)
+print( top_three_sorted )
+```
+
+:::
+
+7. What is the result of doing `3 + 1.5` and what type is this result?
+
+::: {.callout-note title="Solution" collapse="true"}
+
+Adding an `int` to a `float` in Python results in a `float`. The result of this calculation is `4.5`.
+
+```{python}
+
+print (3 + 1.5)
+print(type(3 + 1.5)) # <class 'float'>
+```
+
+:::
+
+8. What's the problem with the following code, and how would you correct it?
+
+```{python}
+a = 1 + 2/3 # 1.66666...
+b = int(a)  # we only want whole numbers!
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+
+The problem is that changing a `float` into an `int` doesn't actually round the number, it just throws away the bit after the decimal point. Unless this is what we want, we should do this instead:
+
+```{python}
+a = 1 + 2/3   # 1.66666...
+b = round(a)  # round to the nearest whole number
+```
+
+:::
+
+9. Create two strings, `first_name` and `last_name` and assign them to your first and last name, and then create a new string called `full_name` with your first and last name with a space in between. Print it to make sure it's worked.
+
+::: {.callout-note title="Solution" collapse="true"}
+
+```{python}
+first_name = "Jane"
+last_name = "Bloggs"
+full_name = first_name + " " + last_name
+print(full_name)
+```
+
+:::
+
+10. We have a `dict` that we created as follows:
+
+```{python}
+person = {"first_name": "Jane", "last_name": "Bloggs", "year_of_birth": 1967, "post_code": "SO50 5PB", "person_number": 122333}
+```
+
+Print out Jane Bloggs' age, assuming she's already had her birthday this year.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+person = {"first_name": "Jane", "last_name": "Bloggs", "year_of_birth": 1967, "post_code": "SO50 5PB", "person_number": 122333}
+
+age = 2025-person["year_of_birth"]
+print(age)
+
+```
+:::
