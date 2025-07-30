@@ -1,0 +1,149 @@
+---
+title: "An introduction to control flow"
+format:
+  html: default
+  ipynb: default
+---
+
+This session is second in a series of programming fundamentals. We recognise that this content might be a bit more dry and abstract, but it is important background to know when you start to actually use Python in your day to day work.
+
+Much as the flow of a stream describes how it goes from its source to its mouth, control flow describes the logical path a program is expected to take when you run it. Just as you can divert the flow of a stream with structures like dams and bridges, you can change the direction a program flows by the use of control and repetition structures. the below slides aim to provide an introduction to these concepts and the way we can use them.
+
+# Slides
+
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
+
+<iframe src="slides.html" height="500" width="100%"></iframe>
+
+# Control Flow
+
+Control flow is the way your code will flow in runtime. 
+
+in general this will follow a sequential order completing each statement from top to bottom however there are ways to control the flow of your code, even repeating through sections.
+
+## Control (or decision) structures
+
+like a case statement in SQL, control structures can be used to select different options and actions based on the input variable. These follow the structure 
+``` {python}
+if <this boolean condition is true>:
+  <do this>
+elif <this boolean condition is true>:
+  <do that>
+else:
+  <do something else>
+```
+
+In its most basic form, only an `if` clause is required. The `else` clause allows the bucketing of all circumstances not handled previously so that code can be applied in any given circumstance.
+
+## Repetition structures (or loops).
+
+Repetition structures allow for sections of code to be repeated until a condition is met. `For` loops repeat code over a set number of iterations based on an iterable condition. `While` loops repeat code until a predetermined condition is met.
+
+``` {python}
+for <i> in <iterable>:
+  <run this code>
+
+while <condition is true>:
+  <run this other code>
+```
+
+# Exercises
+
+1. What will the following code sample print?
+```{python}
+var = type(1.0*int(str(23)))
+print(var) 
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+printing `var` will display "float" the current type of var
+:::
+
+2. what will be printed in this statement?
+```{python}
+var = 'ears'
+
+if len(var)>3:
+  print(len(var))
+else:
+  print(var)
+
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+4
+```
+ears has 4 letters so its length will be printed (4 > 3).
+:::
+
+
+3. How many times will this loop run?
+```{python}
+var = 1
+
+while var = 1:
+  var = var*2
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+1
+```
+var is changed in the first iteration, when the condition is checked again it is already different so the loop stops.
+:::
+
+4. How many times will this loop run?
+```{python}
+var = 0
+
+while var = 1:
+  var = var*2
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+Infinite
+```
+var is never changed (a number multiplied by 0 is still 0), when the condition is checked again it is always the same so the loop is never able to stop itself.
+:::
+
+
+5. what is the output of the following script?
+```{python}
+var_list = ['rtt', 'ed_4Hr', 'diagnostic_waits']
+
+for var in var_list:
+  print(var)
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+rtt
+ed_4Hr
+diagnostic_waits
+```
+Each step in a loop will run as a separate statement, this simple loop prints each item of the loop in turn
+:::
+
+
+6. what is the printed on the last iteration of the following script ?
+```{python}
+for i in range(1, 10):
+  if i % 3 == 0 and i % 5 == 0: # if the remainder of i / 3 is 0 and  i / 5 is 0...
+    print('FizzBuzz!') # print 'FizzBuzz!'
+  elif i % 3 == 0: # if the remainder of i / 3 is 0...
+    print('Fizz!') # print 'Fizz!'
+  elif i % 5 == 0: # if the remainder of i / 5 is 0...
+    print('Buzz!') # print 'Buzz!'
+  else:
+    print(i) #print i
+```
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+Fizz!
+```
+On the last loop, "i" is 9 so the loop prints Fizz!
+:::
+

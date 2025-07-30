@@ -1,0 +1,400 @@
+---
+title: "Basic Control Flow"
+footer: '**SAT //** Basic Control Flow **//** August 2025'
+format: 
+ revealjs: 
+  reference-location: document
+  fig-cap-location: bottom
+  self-contained: false
+  math: false
+  html:
+    theme:
+      - control_flow.scss
+---
+
+# What is Control Flow? {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+## Things that flow: {.smaller}
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/flowing_stream.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A stream flowing towards the sea.</figcaption>
+</figure>
+
+:::
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/moterway_traffic.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Trafic flow on a busy road.</figcaption>
+</figure>
+
+:::
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/conversation.jpeg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Conversation flowing between people.</figcaption>
+</figure>
+
+:::
+
+::: {.column .my-para width="95%" height="100"}
+
+Many things can be said to flow: 
+
+ * Streams flows along their courses, direction changing as it comes to obstacles.
+ * Traffic flows along road networks, with junctions and diversions altering its path.
+ * Conversation flows between people response changing dependent on what each person thinks of what is being said.
+
+:::
+
+
+## Code flows too! {.smaller}
+
+::: {.column width="20%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/python.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Python - not code.</figcaption>
+</figure>
+:::
+
+::: {.column width="75%"}
+
+Python code flows too... we call this "control flow"
+
+  * In general code flows in the way same as a book (with some exceptions)
+  * Each function is completed before considering the next.
+  * Functions can be nested in other functions - the inner most function is completed first.
+  * Control structures can be used to change the course of a program
+  * Repetition structures can be used to repeat a section of code.
+
+:::
+
+# Explanation of control flow structure{data-background-color="#425563" data-verticator="#E8EDEE"}
+
+## Sequential structure - read like a book
+
+::: {.column style="width:65%; font-size: 80%;"}
+
+In general code flows like a book reads
+
+  * Statements (lines^[confession: statements can be run over multiple lines but for the reading analogy we can consider a statement a line]) run top to bottom line,
+  * Left to right in statement ^[The exception to this is using logical or mathematical operators] ,
+  * each statement being completed before moving to the next
+
+    ```
+    v = "2"         #stores "2" as a string in 'v'
+    i = int(v)      #stores v as an integer 'i'
+    t = type(i)     #stores the type of 'i' as 't'
+    print(t)        #prints 't'
+    ```
+
+:::
+
+::: {.column width=30%}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/child_reading.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">reading code can be like reading a book</figcaption>
+</figure>
+
+:::
+
+## Nesting functions and operations
+
+::: {.column style="width:60%; font-size: 60%;"}
+
+We are not limited to a single function or operation per row.
+
+Indeed the example from the previous page could be re-written as:
+
+
+`print(type(int("2")))`
+
+Nesting functions can be useful, however care should be taken and it may be easier to separate functions over multiple rows.
+
+:::
+
+::: {.column width="35%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/russian-nesting-doll-1187383.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Functions can be nested like these dolls^[<a href="/photographer/omster-com-50094">omster-com</a> on <a href="/">Freeimages.com</a>]</figcaption>
+</figure>
+
+:::
+
+## Control structures
+
+::: {.column style="width:70%; font-size: 60%;"}
+
+Control Structures (also known as decision structures) allow the flow to respond to varying situations.
+
+A decision is made based on one or more conditions.
+
+These control structures are very similar to the `IF` function in Excel and the `CASE` statement in SQL.
+
+| Python Control | SQL CASE       | Excel IF              |
+|:---------------|:---------------|:---------------|
+| `> if x = 2:` | `CASE WHEN x > 2` | `IF(x > 2,` |
+| `    y = 1` | `    THEN 1` | `1,` |
+| `else:` | `ELSE` |  |
+| `    y = 0` | `    0 END` | `0)` |
+
+Just remember that unlike SQL and Excel line indentation can be significant to if and how code runs.
+:::
+
+::: {.column width="25%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/direction-sign-1461435.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">choosing a path ^[Photo by <a href="/photographer/budgetstoc-29719">budgetstoc</a> on <a href="/">Freeimages.com</a>]</figcaption>
+</figure>
+
+:::
+
+## The importance of being Boole(an)
+
+::: {.column width="35%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/a1ff3d46-12ab-4e9a-9b12-490dc4956a7d.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">George Boole, The coolest Boole^[“George Boole in sunglasses” – image generated by OpenAI’s DALL·E via ChatGPT on July 24, 2025.]</figcaption>
+</figure>
+
+:::
+
+
+::: {.column style="width: 60%; font-size: 60%;"}
+
+George Boole was an English Mathmetician and logician whose work on binary logic has resulted in binary conditions bearing his name
+
+Any statement that can be evaluated as only either `True` (1) or `False` (0) is Boolean:
+
+[Boolean:]{style="color: green;"}
+
+ * [Is an integer (int) number more than 0?]{style="color: green;"}
+ * [Does a list contain the item "RXQ"?]{style="color: green;"}
+ * [Has a tuple got 4 elements?]{style="color: green;"}
+
+[Not boolean:]{style="color: red;"}
+
+ * [How many keys in dictionary (dict)?]{style="color: red;"}
+ * [What are the first characters in a string?]{style="color: red;"}
+ * [How many characters after a floating point in a float?]{style="color: red;"}
+
+:::
+
+## Repetition Structures 
+
+::: {.column style="width:70%; font-size: 60%;"}
+
+Repetition structures (commonly referred to as "loops") allow for us to recycle chunks of code to perform the same or similar operation a specified number of times or until a condition changes.
+
+* **For** loops cycle through a series of iterations, until they reach the end performing each series of statements for each iteration. This can be used to cycle through a list, dictionary or other iterable as well as working through ranges of numbers
+* **While** loops continue until a predetermined condition changes from  True to False. This can be useful for testing conditions but comes with a warning:
+
+    *Make sure your condition will change at some point or else your loop cannot end.*
+:::
+
+::: {.column width="25%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/roundabout.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;"></figcaption>
+</figure>
+:::
+
+## What is iterability?
+
+::: {.column width="25%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/female-workers-working-at-food-processing-plant-1920048.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">iteration on a production line^[Photo by <a href="/photographer/tom_kelley_archive-83718">tom_kelley_archive</a> on <a href="/">Freeimages.com</a>]</figcaption>
+</figure>
+
+:::
+
+::: {.column style="width:70%; font-size: 60%;"}
+
+Iterability is the ability to split an object into discrete items. The item may be ordered or unordered, each item will be extracted, processed ad set aside.
+
+Iterable objects include:
+
+  * Strings (the word “strings” contains 7 iterable items: s-t-r-i-n-g-s).
+  * Lists eg [1, 2, 3, 4, 4, 4, 5, 6]
+  * Tuples eg (12, ‘Red’, ‘Apples’)
+  * Sets eg {1, 2, 3, 4, 5, 6}
+  * Dict eg {ICB_Code: ‘QSL’, Metric_Code: E.M.10}
+
+Non-iterable objects include:
+
+  * Integers eg 42
+  * Floats eg 3.14
+
+In general if an object can be split into multiple items it can be iterated.
+
+:::
+
+# Code examples{data-background-color="#425563" data-verticator="#E8EDEE"}
+
+
+## Sequential structure example
+
+::: {.row style="height:20%; font-size: 60%;"}
+The following sequential code will create a variable called 'var' which is a string, it converts this string to an integer and conducts a series of mathematical operators before printing the result: 
+:::
+
+::: {.row style="height:50%;"} 
+  ```
+  var = '22' # set "var" to '22'
+  var = int(var) # convert "var" to int
+  var = var  / 2 - 3 # apply math operators
+  print (var) # print result
+  ```
+:::
+
+## Control structure example
+
+::: {.row style="height:20%; width:95%; font-size: 60%;"}
+This code checks if a variable called 'provider' in this list is equal to a selection of values and prits out an associated string. for comparison the equivelent SQL CASE statement is provided along with the logical structure of an control structure: 
+:::
+
+::: {.column style="width:30%; font-size: 80%;"} 
+Logical Structure 
+
+```
+if <boolean_0> :
+    <code_if>
+elif <boolean_1> :
+    <code_elif_0>
+elif <boolean_2> :
+    <code_elif_1>
+...
+else:
+    <code_else>
+```
+:::
+
+::: {.column style="width:30%; font-size: 80%;"} 
+Python
+
+```
+if provider == ‘ryr’:
+  print(‘SUSSEX’)
+elif provider == ‘rhu’:
+  print(‘HIOW’)
+elif provider == ‘rxq’:
+  print(‘BOB’)
+else:
+  print(‘Unknown’)
+``` 
+:::
+
+::: {.column style="width:30%; font-size: 80%;"} 
+SQL
+
+```
+CASE
+  WHEN provider = 'ryr'
+    THEN 'Sussex'
+  WHEN provider = 'rhu'
+    THEN 'HIOW'
+  WHEN provider = 'rhu'
+    THEN 'BOB'
+  ELSE 'Unknown'
+  END
+```
+:::
+
+## Repetion structure example: "for"
+
+::: {.row style="height:20%; width:95%; font-size: 60%;"}
+On this page are 2 examples of *"For"* code loops. The first loops through a list called 'providers' and prints each item. the second loops through a range of numbers and prints each.
+
+It is worth noting there is not an obvious analog for loops in sql or excel as they way they operate^[SQL operates queries over a set of data items in a table structure, excel is closer to this than a code language like python].
+:::
+
+::: {.column style="width:45%; font-size: 80%;"} 
+Logical Structure 
+
+```
+for <i> in <iterable>:
+    <code_to_iterate>
+
+for <i> in range(<a> - <b>):
+  print(<i>)
+```
+:::
+
+::: {.column style="width:45%; font-size: 80%;"} 
+Python
+
+```
+for provider in providers:
+  print(provider)
+
+for num in range(0-6):
+  print(num)
+``` 
+:::
+
+## Repetion structure example: "while"
+
+::: {.row style="height:20%; width:95%; font-size: 60%;"}
+On this page is an example *"While"* code loops. While loops check the state of a boolean condition im this case the loop runs until a declared variable is over 5 printing each incremental value. 
+:::
+
+::: {.column style="width:45%; font-size: 80%;"} 
+Logical Structure 
+
+```
+while <boolean is true>:
+    <code_to_iterate>
+```
+:::
+
+::: {.column style="width:45%; font-size: 80%;"} 
+Python
+
+```
+var = 0
+while var <= 5:
+  print(var)
+``` 
+:::
+
+## Watch out for unintended consequences
+
+::: {.column style="width:50%; font-size: 60%;"}
+Not taking care over your coding can cause big issues. Consider the corner cases and unintended consequences?
+
+Empty variables, incorrect data types, and misunderstood flow in the structure can affect your program.
+
+Close the loop! Make sure you know how your loops are being switched off and that it’s possible.
+
+A cautionary tale: <a href="https://youtu.be/HFMv_hqinvc?feature=shared">The Virtual Plague That Nearly Wiped Out The World of Warcraft</a>
+
+:::
+
+::: {.column width="45%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/plague.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">The "Corrupted Blood" Incident - a fairly famous coding error. </figcaption>
+</figure>
+
+:::
+
+
+## Final thoughts
+
+**Don't worry about memorising any of this!** The aim of this session is to give a basic understanding of the logic needed to implement control flow in your program.
+
+
+## Further reading
+
+::: {.column style="width:95%;"}
+
+* <a href="https://docs.python.org/3/tutorial/controlflow.html">Python support page for control page</a>
+* <a href="https://www.geeksforgeeks.org/dsa/control-structures-in-programming-languages/">Control structures on Geeks for geeks</a>
+* <a href="https://www.w3schools.com/python/python_conditions.asp">W3 Schools if - elif - else logic</a>
+* <a href="https://realpython.com/list-comprehension-python/">List comprehension in python</a>
+:::
+
