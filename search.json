@@ -274,14 +274,14 @@
     "href": "sessions/07-control-flow/slides.html#things-that-flow",
     "title": "An Introduction to Control Flow",
     "section": "Things That Flow",
-    "text": "Things That Flow\n\n\n\n\nA stream flowing towards the sea.\n\n\n\n\n\n\nTrafic flow on a busy road.\n\n\n\n\n\n\nConversation flowing between people."
+    "text": "Things That Flow\n\n\n\n\nA stream flowing towards the sea.\n\n\n\n\n\n\nTraffic flow on a busy road.\n\n\n\n\n\n\nConversation flowing between people."
   },
   {
     "objectID": "sessions/07-control-flow/slides.html#code-flows-too",
     "href": "sessions/07-control-flow/slides.html#code-flows-too",
     "title": "An Introduction to Control Flow",
     "section": "Code Flows Too",
-    "text": "Code Flows Too\n\nThe flow of code and the steps that impact that flow are called “control flow”.\nIn general code flows in the way same as a book (with some exceptions).\nEach function is completed before considering the next.\nFunctions can be nested in other functions - the inner most function is completed first.\nControl structures can be used to change the course of a program.\nRepetition structures can be used to repeat a section of code."
+    "text": "Code Flows Too\n\nThe flow of code and the steps that impact that flow are called “control flow”.\nIn general code flows in the way same as a book (with some exceptions).\n\nEach function is completed before considering the next.\n\nFunctions can be nested in other functions - the inner most function is completed first.\nControl structures can be used to change the course of a program.\nRepetition structures can be used to repeat a section of code."
   },
   {
     "objectID": "sessions/07-control-flow/slides.html#sequential-structure",
