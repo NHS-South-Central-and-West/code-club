@@ -270,6 +270,104 @@
     ]
   },
   {
+    "objectID": "sessions/07-control-flow/slides.html#things-that-flow",
+    "href": "sessions/07-control-flow/slides.html#things-that-flow",
+    "title": "An Introduction to Control Flow",
+    "section": "Things That Flow",
+    "text": "Things That Flow\n\n\n\n\nA stream flowing towards the sea.\n\n\n\n\n\n\nTrafic flow on a busy road.\n\n\n\n\n\n\nConversation flowing between people."
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#code-flows-too",
+    "href": "sessions/07-control-flow/slides.html#code-flows-too",
+    "title": "An Introduction to Control Flow",
+    "section": "Code Flows Too",
+    "text": "Code Flows Too\n\nThe flow of code and the steps that impact that flow are called “control flow”.\nIn general code flows in the way same as a book (with some exceptions).\nEach function is completed before considering the next.\nFunctions can be nested in other functions - the inner most function is completed first.\nControl structures can be used to change the course of a program.\nRepetition structures can be used to repeat a section of code."
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#sequential-structure",
+    "href": "sessions/07-control-flow/slides.html#sequential-structure",
+    "title": "An Introduction to Control Flow",
+    "section": "Sequential Structure",
+    "text": "Sequential Structure\n\nIn general code flows like a book reads:\n\nStatements (like lines of code) run top to bottom line,\nLeft to right in statement,\nEach statement being completed before moving to the next.\n\n\n\nv = \"2\"         #stores \"2\" as a string in 'v'\ni = int(v)      #stores v as an integer 'i'\nt = type(i)     #stores the type of 'i' as 't'\nprint(t)        #prints 't'"
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#nesting-functions-and-operations",
+    "href": "sessions/07-control-flow/slides.html#nesting-functions-and-operations",
+    "title": "An Introduction to Control Flow",
+    "section": "Nesting Functions and Operations",
+    "text": "Nesting Functions and Operations\n\nWe are not limited to a single function or operation per row.\nThe previous example could be re-written as:\n\nprint(type(int(\"2\")))\n\nNesting functions can be useful, however care should be taken and it may be easier to separate functions over multiple rows."
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#control-structures",
+    "href": "sessions/07-control-flow/slides.html#control-structures",
+    "title": "An Introduction to Control Flow",
+    "section": "Control Structures",
+    "text": "Control Structures\n\nControl structures (also known as decision structures) allow the flow to respond to varying situations.\nA decision is made based on one or more conditions.\nThese control structures are very similar to the IF function in Excel and the CASE statement in SQL (but remember that indentation matters in Python).\n\n\n\n\nPython - Control\nSQL - CASE\nExcel - IF\n\n\n\n\nif x = 2:\nCASE WHEN x &gt; 2\nIF(x &gt; 2,\n\n\ny = 1\nTHEN 1\n1,\n\n\nelse:\nELSE\n\n\n\ny = 0\n0 END\n0)"
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#the-importance-of-being-boolean",
+    "href": "sessions/07-control-flow/slides.html#the-importance-of-being-boolean",
+    "title": "An Introduction to Control Flow",
+    "section": "The Importance of Being Boole(an)",
+    "text": "The Importance of Being Boole(an)\n\n\n\n\nGeorge Boole was an English Mathmetician and logician whose work on binary logic has resulted in binary conditions bearing his name\nAny statement that can be evaluated as only either True (1) or False (0) is Boolean."
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#repetition-structures",
+    "href": "sessions/07-control-flow/slides.html#repetition-structures",
+    "title": "An Introduction to Control Flow",
+    "section": "Repetition Structures",
+    "text": "Repetition Structures\n\nRepetition structures (commonly referred to as “loops”) allow for us to recycle chunks of code to perform the same or similar operation a specified number of times or until a condition changes.\nFor loops cycle through a series of iterations, until they reach the end performing each series of statements for each iteration.\n\nThis can be used to cycle through a list, dictionary or other iterable as well as working through ranges of numbers\n\nWhile loops continue until a predetermined condition changes from True to False.\n\nThis can be useful for testing conditions but comes with a warning:\n\nMake sure your condition will change at some point or else your loop cannot end."
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#what-is-iterability",
+    "href": "sessions/07-control-flow/slides.html#what-is-iterability",
+    "title": "An Introduction to Control Flow",
+    "section": "What is Iterability?",
+    "text": "What is Iterability?\n\nIterability is the ability to split an object into discrete items. The item may be ordered or unordered, each item will be extracted, processed ad set aside.\nIn general if an object can be split into multiple items it can be iterated (integers and floats are not iterable).\nIterable objects include:\n\nStrings (the word “strings” contains 7 iterable items).\nLists eg [1, 2, 3, 4, 4, 4, 5, 6]\nTuples eg (12, ‘Red’, ‘Apples’)\nSets eg {1, 2, 3, 4, 5, 6}\nDict eg {ICB_Code: ‘QSL’, Metric_Code: E.M.10}"
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#sequential-structure-example",
+    "href": "sessions/07-control-flow/slides.html#sequential-structure-example",
+    "title": "An Introduction to Control Flow",
+    "section": "Sequential Structure Example",
+    "text": "Sequential Structure Example\n\nThe following sequential code will create a variable called ‘var’ which is a string, it converts this string to an integer and conducts a series of mathematical operators before printing the result:\n\n\nvar = '22' # set \"var\" to '22'\nvar = int(var) # convert \"var\" to int\nvar = var  / 2 - 3 # apply math operators\nprint (var) # print result"
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#control-structure-example",
+    "href": "sessions/07-control-flow/slides.html#control-structure-example",
+    "title": "An Introduction to Control Flow",
+    "section": "Control Structure Example",
+    "text": "Control Structure Example\n\nThis code checks if a variable called ‘provider’ in this list is equal to a selection of values and prints out an associated string.\n\n\nif provider == ‘ryr’:\n  print(‘SUSSEX’)\nelif provider == ‘rhu’:\n  print(‘HIOW’)\nelif provider == ‘rxq’:\n  print(‘BOB’)\nelse:\n  print(‘Unknown’)"
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#control-structure-example-1",
+    "href": "sessions/07-control-flow/slides.html#control-structure-example-1",
+    "title": "An Introduction to Control Flow",
+    "section": "Control Structure Example",
+    "text": "Control Structure Example\nFor comparison, this is the equivalent SQL CASE statement.\nCASE\n  WHEN provider = 'ryr'\n    THEN 'Sussex'\n  WHEN provider = 'rhu'\n    THEN 'HIOW'\n  WHEN provider = 'rhu'\n    THEN 'BOB'\n  ELSE 'Unknown'\n  END"
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#watch-out-for-unintended-consequences",
+    "href": "sessions/07-control-flow/slides.html#watch-out-for-unintended-consequences",
+    "title": "An Introduction to Control Flow",
+    "section": "Watch Out for Unintended Consequences",
+    "text": "Watch Out for Unintended Consequences\n\n\nNot taking care over your coding can cause big issues. Consider the corner cases and unintended consequences?\nEmpty variables, incorrect data types, and misunderstood flow in the structure can affect your program.\nClose the loop! Make sure you know how your loops are being switched off and that it’s possible.\nA cautionary tale: The Virtual Plague That Nearly Wiped Out The World of Warcraft\n\n\n\n\n\nThe “Corrupted Blood” Incident - a fairly famous coding error."
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#final-thoughts",
+    "href": "sessions/07-control-flow/slides.html#final-thoughts",
+    "title": "An Introduction to Control Flow",
+    "section": "Final Thoughts",
+    "text": "Final Thoughts\n\nDon’t worry about memorising any of this!\nThe aim of this session is to give a basic understanding of the logic needed to implement control flow in your program."
+  },
+  {
+    "objectID": "sessions/07-control-flow/slides.html#further-reading",
+    "href": "sessions/07-control-flow/slides.html#further-reading",
+    "title": "An Introduction to Control Flow",
+    "section": "Further Reading",
+    "text": "Further Reading\n\n\nPython Tutorial - Control Flow\nGeeks for Geeks - Control Structures\nW3 Schools - if/elif/else Logic\nList Comprehension in Python"
+  },
+  {
     "objectID": "sessions/schedule.html",
     "href": "sessions/schedule.html",
     "title": "Schedule",
@@ -293,6 +391,54 @@
     "title": "Welcome to Code Club!",
     "section": "",
     "text": "Code Club aims to support everyone at SCW in developing technical and analytical skills through interpretive dance code. We believe these skills are indispensable to the NHS today and in the future, enabling the delivery of high-quality insights through data science and advanced analytics, and the automation of day-to-day tasks with programming. We want to foster an environment that welcomes everybody, sparks ideas, and nurtures collaboration.\nThe Code Club syllabus has been designed to help people with little to no coding experience develop their skills in Python and extend their analytical skills through code. Sessions will be an hour long and held once per fortnight at 2:00 PM on Thursdays. To get an idea of what we will be covering and see if it is right for you, go to the Schedule page. We would love for you to join us!"
+  },
+  {
+    "objectID": "sessions/07-control-flow/index.html",
+    "href": "sessions/07-control-flow/index.html",
+    "title": "An Introduction to Control Flow",
+    "section": "",
+    "text": "This session is the second in a series of programming fundamentals. We recognise that this content might be a bit more dry and abstract, but it is important background to know when you start to actually use Python in your day to day work.\nMuch as the flow of a stream describes how it goes from its source to its mouth, control flow describes the logical path a program is expected to take when you run it. Just as you can divert the flow of a stream with structures like dams and bridges, you can change the direction a program flows by the use of control and repetition structures. The below slides aim to provide an introduction to these concepts and the way we can use them.",
+    "crumbs": [
+      "Sessions",
+      "Core Concepts",
+      "7. Control Flow"
+    ]
+  },
+  {
+    "objectID": "sessions/07-control-flow/index.html#control-or-decision-structures",
+    "href": "sessions/07-control-flow/index.html#control-or-decision-structures",
+    "title": "An Introduction to Control Flow",
+    "section": "Control (or Decision) Structures",
+    "text": "Control (or Decision) Structures\nLike a case statement in SQL, control structures can be used to select different options and actions based on the input variable. These follow the structure:\n\nif &lt;this boolean condition is true&gt;:\n  &lt;do this&gt;\nelif &lt;this boolean condition is true&gt;:\n  &lt;do that&gt;\nelse:\n  &lt;do something else&gt;\n\nIn its most basic form, only an if clause is required. The else clause allows the bucketing of all circumstances not handled previously so that code can be applied in any given circumstance.",
+    "crumbs": [
+      "Sessions",
+      "Core Concepts",
+      "7. Control Flow"
+    ]
+  },
+  {
+    "objectID": "sessions/07-control-flow/index.html#repetition-structures-or-loops",
+    "href": "sessions/07-control-flow/index.html#repetition-structures-or-loops",
+    "title": "An Introduction to Control Flow",
+    "section": "Repetition Structures (or Loops)",
+    "text": "Repetition Structures (or Loops)\nRepetition structures allow for sections of code to be repeated until a condition is met. for loops repeat code over a set number of iterations based on an iterable condition. while loops repeat code until a predetermined condition is met.\n\nfor Loops\nBelow are two examples of for code loops. The first loops through a list called ‘providers’ and prints each item. The second loops through a range of numbers and prints each.\n\nLogical Structure\nfor &lt;i&gt; in &lt;iterable&gt;:\n    &lt;code_to_iterate&gt;\n\nfor &lt;i&gt; in range(&lt;a&gt; - &lt;b&gt;):\n  print(&lt;i&gt;)\n\n\nPython\nfor provider in providers:\n  print(provider)\n\nfor num in range(0-6):\n  print(num)\n\n\n\nwith Loops\nwhile loops check the state of a boolean condition. In this case the loop runs until a declared variable is over 5 printing each incremental value.\n\nLogical Structure\nwhile &lt;boolean is true&gt;:\n    &lt;code_to_iterate&gt;\n\n\nPython\nvar = 0\nwhile var &lt;= 5:\n  print(var)",
+    "crumbs": [
+      "Sessions",
+      "Core Concepts",
+      "7. Control Flow"
+    ]
+  },
+  {
+    "objectID": "sessions/07-control-flow/index.html#exercises",
+    "href": "sessions/07-control-flow/index.html#exercises",
+    "title": "An Introduction to Control Flow",
+    "section": "Exercises",
+    "text": "Exercises\n\nWrite a function that prints whether a number is negative, zero, or positive.\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\ndef classify(x):\n    if x &lt; 0:\n        print(\"Negative\")\n    elif x == 0:\n        print(\"Zero\")\n    else:\n        print(\"Positive\")\n\n\n\n\n\nLoop through a list of ages and print if each person is a Child (&lt;13), Teenager (13–17), Adult (18–64), or Senior (65+).\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nages = [10, 15, 30, 70]\nfor age in ages:\n    if age &lt; 13:\n        print(\"Child\")\n    elif age &lt; 18:\n        print(\"Teenager\")\n    elif age &lt; 65:\n        print(\"Adult\")\n    else:\n        print(\"Senior\")\n\nChild\nTeenager\nAdult\nSenior\n\n\n\n\n\n\nUse a while loop to count down from 10 to 0.\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nx = 10\nwhile x &gt;= 0:\n    print(x)\n    x -= 1\n\n10\n9\n8\n7\n6\n5\n4\n3\n2\n1\n0\n\n\n\n\n\n\nLoop from 1 to 20 and print Fizz for multiples of 3, Buzz for 5, FizzBuzz for both.\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nfor i in range(1, 21):\n    if i % 3 == 0 and i % 5 == 0:\n        print(\"FizzBuzz\")\n    elif i % 3 == 0:\n        print(\"Fizz\")\n    elif i % 5 == 0:\n        print(\"Buzz\")\n    else:\n        print(i)\n\n1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n16\n17\nFizz\n19\nBuzz\n\n\n\n\n\n\nUse random.randint to simulate rolling a die until you get a 6.\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\nimport random\nrolls = 0\nwhile True:\n    rolls += 1\n    if random.randint(1, 6) == 6:\n        break\nprint(\"Rolled a 6 in\", rolls, \"tries\")\n\nRolled a 6 in 13 tries\n\n\n\n\n\n\nLoop through job titles and print if they contain “analyst” or “manager.”\n\n\n\n\n\n\n\nSolution\n\n\n\n\n\n\ntitles = [\"Data Analyst\", \"HR Manager\", \"Intern\"]\nfor title in titles:\n    t = title.lower()\n    if \"analyst\" in t:\n        print(\"Analyst role\")\n    elif \"manager\" in t:\n        print(\"Manager role\")\n    else:\n        print(\"Other\")\n\nAnalyst role\nManager role\nOther",
+    "crumbs": [
+      "Sessions",
+      "Core Concepts",
+      "7. Control Flow"
+    ]
   },
   {
     "objectID": "sessions/04-seaborn-visualisation/index.html",
