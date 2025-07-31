@@ -20,7 +20,7 @@ Ordering & Controlling Statements in Code
 ::: {.column width="30%" height="80%"}
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
   <img src="images/traffic.png"/>
-  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Trafic flow on a busy road.</figcaption>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Traffic flow on a busy road.</figcaption>
 </figure>
 :::
 
@@ -36,7 +36,7 @@ Ordering & Controlling Statements in Code
 
 - The flow of code and the steps that impact that flow are called "control flow".
 - In general code flows in the way same as a book (with some exceptions).
-- Each function is completed before considering the next.
+  - Each function is completed before considering the next.
 - Functions can be nested in other functions - the inner most function is completed first.
 - Control structures can be used to change the course of a program.
 - Repetition structures can be used to repeat a section of code.
