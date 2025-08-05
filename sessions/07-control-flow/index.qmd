@@ -1,0 +1,186 @@
+---
+title: "An Introduction to Control Flow"
+format:
+  html: default
+  ipynb: default
+---
+
+This session is the second in a series of programming fundamentals. We recognise that this content might be a bit more dry and abstract, but it is important background to know when you start to actually use Python in your day to day work.
+
+Much as the flow of a stream describes how it goes from its source to its mouth, control flow describes the logical path a program is expected to take when you run it. Just as you can divert the flow of a stream with structures like dams and bridges, you can change the direction a program flows by the use of control and repetition structures. The below slides aim to provide an introduction to these concepts and the way we can use them.
+
+# Slides
+
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
+
+<iframe src="slides.html" height="500" width="100%"></iframe>
+
+# What is Control Flow?
+
+Control flow is the way your code will flow in runtime. In general this will follow a sequential order completing each statement from top to bottom, however, there are ways to control the flow of your code, even repeating through sections.
+
+## Control (or Decision) Structures
+
+Like a case statement in SQL, control structures can be used to select different options and actions based on the input variable. These follow the structure:
+``` {python}
+#| label: bool-structure
+#| eval: false
+
+if <this boolean condition is true>:
+  <do this>
+elif <this boolean condition is true>:
+  <do that>
+else:
+  <do something else>
+```
+
+In its most basic form, only an `if` clause is required. The `else` clause allows the bucketing of all circumstances not handled previously so that code can be applied in any given circumstance.
+
+## Repetition Structures (or Loops)
+
+Repetition structures allow for sections of code to be repeated until a condition is met. `for` loops repeat code over a set number of iterations based on an iterable condition. `while` loops repeat code until a predetermined condition is met.
+
+### `for` Loops
+
+Below are two examples of `for` code loops. The first loops through a list called 'providers' and prints each item. The second loops through a range of numbers and prints each.
+
+::: {.column style="width:45%; font-size: 80%;"}
+Logical Structure
+
+```
+for <i> in <iterable>:
+    <code_to_iterate>
+
+for <i> in range(<a> - <b>):
+  print(<i>)
+```
+:::
+
+::: {.column style="width:45%; font-size: 80%;"}
+Python
+
+```
+for provider in providers:
+  print(provider)
+
+for num in range(0-6):
+  print(num)
+```
+:::
+
+### `with` Loops
+
+`while` loops check the state of a boolean condition. In this case the loop runs until a declared variable is over 5 printing each incremental value.
+
+
+::: {.column style="width:45%; font-size: 80%;"}
+Logical Structure
+
+```
+while <boolean is true>:
+    <code_to_iterate>
+```
+:::
+
+::: {.column style="width:45%; font-size: 80%;"} 
+Python
+
+```
+var = 0
+while var <= 5:
+  print(var)
+```
+:::
+
+## Exercises
+
+1. Write a function that prints whether a number is negative, zero, or positive.
+
+::: {.callout-note title="Solution" collapse="true"}
+
+```{python}
+def classify(x):
+    if x < 0:
+        print("Negative")
+    elif x == 0:
+        print("Zero")
+    else:
+        print("Positive")
+```
+
+:::
+
+2. Loop through a list of ages and print if each person is a Child (<13), Teenager (13–17), Adult (18–64), or Senior (65+).
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+ages = [10, 15, 30, 70]
+for age in ages:
+    if age < 13:
+        print("Child")
+    elif age < 18:
+        print("Teenager")
+    elif age < 65:
+        print("Adult")
+    else:
+        print("Senior")
+```
+
+:::
+
+3. Use a `while` loop to count down from 10 to 0.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+x = 10
+while x >= 0:
+    print(x)
+    x -= 1
+```
+:::
+
+4. Loop from 1 to 20 and print Fizz for multiples of 3, Buzz for 5, FizzBuzz for both.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+for i in range(1, 21):
+    if i % 3 == 0 and i % 5 == 0:
+        print("FizzBuzz")
+    elif i % 3 == 0:
+        print("Fizz")
+    elif i % 5 == 0:
+        print("Buzz")
+    else:
+        print(i)
+```
+:::
+
+5. Use `random.randint` to simulate rolling a die until you get a 6.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+import random
+rolls = 0
+while True:
+    rolls += 1
+    if random.randint(1, 6) == 6:
+        break
+print("Rolled a 6 in", rolls, "tries")
+```
+:::
+
+6. Loop through job titles and print if they contain “analyst” or “manager.”
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+titles = ["Data Analyst", "HR Manager", "Intern"]
+for title in titles:
+    t = title.lower()
+    if "analyst" in t:
+        print("Analyst role")
+    elif "manager" in t:
+        print("Manager role")
+    else:
+        print("Other")
+```
+:::
