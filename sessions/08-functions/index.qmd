@@ -315,7 +315,7 @@ plot_categorical_columns(df)
 
 [^Categorical]:
 
-    This is just here as a demonstration of how you would do this with categorical columns, and to show what it would look like if the function cannot find relevant columns and stops early.
+This is just here as a demonstration of how you would do this with categorical columns, and to show what it would look like if the function cannot find relevant columns and stops early.
 
 ## Summary
 
@@ -356,6 +356,8 @@ summarise_numbers(5, 10)
 :::
 
 3. Write a function that counts how many even numbers are in a list.
+
+*Hint: This requires using a 'modulo operator'.*^[Modulo]
 
 ::: {.callout-note title="Solution" collapse="true"}
 ```{python}
@@ -430,3 +432,7 @@ def lowercase_strings(df):
 lowercase_strings(sample_df)
 ```
 :::
+
+^[Modulo]:
+
+If you don't know what a modulo operator is (totally understandable), you can search this online and it will likely help you find the answer to this question. It is always okay (encouraged, even) to search for answers to code questions online.
