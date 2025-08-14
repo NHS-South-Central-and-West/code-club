@@ -25,7 +25,7 @@ A Fundamental Programming Building Block
 
 ## Shop-Bought Versus Home-Baked {.center}
 
-- All languages come with built-in functions available - you will have used some of Python's built-in functions already.
+- All languages come with built-in functions available - you will have used some of Python's built-in functions already, for example `print()`, `type()` and `sum()`.
 - They operate exactly the same as ones you make yourself - they are called, they take an argument and they return a result.
 - You can create your own functions or use pre-built functions either provided by the language itself or by others (imported from packages/libraries).
 
