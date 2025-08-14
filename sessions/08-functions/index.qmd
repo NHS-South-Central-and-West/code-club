@@ -357,7 +357,7 @@ summarise_numbers(5, 10)
 
 3. Write a function that counts how many even numbers are in a list.
 
-*Hint: This requires using a 'modulo operator'.*^[Modulo]
+*Hint: This requires using a 'modulo operator'*[^Modulo].
 
 ::: {.callout-note title="Solution" collapse="true"}
 ```{python}
@@ -433,6 +433,6 @@ lowercase_strings(sample_df)
 ```
 :::
 
-^[Modulo]:
+[^Modulo]:
 
 If you don't know what a modulo operator is (totally understandable), you can search this online and it will likely help you find the answer to this question. It is always okay (encouraged, even) to search for answers to code questions online.
