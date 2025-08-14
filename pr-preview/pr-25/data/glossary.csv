@@ -1,0 +1,23 @@
+﻿Term,Definition
+Exploratory Data Analysis (EDA),"The process of analysing datasets to summarise their main characteristics, often using visual methods, before formal modeling."
+Functional programming,A programming paradigm that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.
+[Git](https://git-scm.com/),A distributed version control system used to track changes in source code during software development.
+[GitHub](https://github.com/),A cloud-based platform that provides hosting for repositories of files and folders (usually of software code) using git as its backend for version control.
+Integrated Development Environment (IDE),"A software application that provides tools for coding, such as a code editor, debugger, terminal, and build automation, within a single interface. It helps streamline and simplify the software development process. A popular example is [VS Code](https://code.visualstudio.com/)."
+[Jupyter](https://jupyter.org/),A software package that allows the creation of python *notebooks* that can include a mixture of markdown-formatted text and live Python code.
+Markdown (.md),"A simple plain-text markup scheme designed to allow for rapid production of formatted text (with headings, links, etc) within a plaintext file. Used by Quarto (as a Quarto-specific flavour with the `.qmd` extension)."
+[matplotlib](https://matplotlib.org/),"The baseline Python library for creating static, animated, and interactive visualisations, offering extensive customisation options for plots and charts. Also used as a framework for more advanced or visually pleasing visualisation packages like seaborn."
+[numpy](https://numpy.org/),A python library for working with numbers and doing science.
+Object-oriented programming (OOP),"A programming paradigm based on the concept of ""objects,"" which can contain data and code to manipulate that data."
+[pandas](https://pandas.pydata.org/),A python data analysis and manipulation library for working with dataframes (tabular data).
+[Python](https://www.python.org/),A general-purpose programming language.
+Regression,A method for modeling the relationship between one or more explanatory variables and an outcome. It is used to predict outcomes and understand the impact of changes in predictors (explanatory variables) on the response (outcome).
+Repository (repo),"In git and github, a repository is a self-contained ""project"" of files and folders."
+Reproducible Analytical Pipelines (RAP),A set of processes and tools designed to ensure that data analysis can be consistently repeated and verified by others.
+[seaborn](https://seaborn.pydata.org/) (`sns`),"A Python data visualisation library based on Matplotlib, providing a high-level interface for drawing attractive and informative statistical graphics."
+[skimpy](https://pypi.org/project/skimpy/),A python library for creating summary statistics from dataframes
+[sqlalchemy](https://www.sqlalchemy.org/),A python library for doing SQL queries.
+TOML,"Tom's Obvious Minimal Language - simple, human-readable data serialisation format designed for configuration files, emphasizing readability and ease of use. Used by `uv` to specify its projects."
+[uv](https://github.com/astral-sh/uv),"A Python package manager, which can manage python projects (folders) and manage the installation and management of the python environment and libraries within that folder."
+Virtual Environment (`venv`),An isolated space where you (or an environment manager like `uv`) can install and manage Python packages in a self-contained way without affecting the system-wide Python setup.
+YAML,Yet Another Markup Language - a human-readable data serialisation format often used for configuration files and data exchange between languages.
