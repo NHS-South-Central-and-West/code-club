@@ -6,4 +6,8 @@ format:
 
 # Streamlit
 
-Creating interactive, web-based dashboards using Python scripts
+Create interactive, web-based dashboards with Python (no Javascript necessary).
+
+To view the example dashboard developed for the Code Club session, click [here]().
+
+To get start your Streamlit journey, visit the official website [here](https://streamlit.io/).
