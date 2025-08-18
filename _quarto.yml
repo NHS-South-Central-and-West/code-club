@@ -66,6 +66,7 @@ website:
               file: sessions/07-control-flow/index.qmd
             - text: 8. Functions & Functional Programming
             - text: 9. Object-Oriented Programming
+              file: sessions/09-object-oriented-programming/index.qmd
         - section: Exploration & Visualisation
           contents:
             - text: 10. Streamlit Dashboards
