@@ -11,7 +11,7 @@ from sklearn.metrics import mean_squared_error
 ##### Data exploration page configuration #####
 
 st.set_page_config(
-        page_title="Simple Forecasting Demo", page_icon="📶",
+        page_title="Simple Forecasting Demo", page_icon="📈",
         layout='wide'
     )
 
