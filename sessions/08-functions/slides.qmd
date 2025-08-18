@@ -1,0 +1,110 @@
+---
+title: "Functions in Python"
+subtitle: "An Introduction to Functions & Functional Programming"
+footer: '**SAT //** Functions in Python **//** August, 2025'
+format: revealjs
+---
+
+# Understanding Functions {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+A Fundamental Programming Building Block
+
+## What are Functions? {.center}
+
+- Functions are self-contained, reusable blocks of code that perform a specific task.
+- They take an input, perform a task on that input (such as a calculation or transformation), and return a result.
+- Functions help to organise code, avoid repetition, and make complex processes easier to understand and maintain.
+
+## Anatomy of a Function {.center}
+
+- Understanding how to use (and create) functions can feel a little abstract at first.
+- Functions must have names (how they are called), arguments (inputs passed to it), statements (the tasks carried out), and return values (the output/result it returns).
+- Python functions are structured as below:
+
+![](images/function-diagram.webp){fig-align="center"}
+
+## Shop-Bought Versus Home-Baked {.center}
+
+- All languages come with built-in functions available - you will have used some of Python's built-in functions already, for example `print()`, `type()` and `sum()`.
+- They operate exactly the same as ones you make yourself - they are called, they take an argument and they return a result.
+- You can create your own functions or use pre-built functions either provided by the language itself or by others (imported from packages/libraries).
+
+## Functions Are Not New {.center}
+
+- While functions are a fundamental building block of programming, they exist anywhere that you might write code.
+- For example, Excel includes lots of functions (for example, `SUM()`, `VLOOKUP()`, `LINEST()`), as does SQL ( for example, `COUNT()`, `AVG()`, `COALESCE()`)!
+- Functions work very similarly in whatever language you might use, i.e. they have the same component parts. What changes is the syntax.
+
+## Advantages of Functions {.center}
+
+- Reusability - Write code once and use it multiple times. Stay DRY (Don't Repeat Yourself)!
+- Modularity - Break down complex tasks into smaller, manageable chunks.
+- Readability - Make code clearer and more organised.
+- Maintainability - Easier to make changes to one part of the code without breaking everything.
+- Reliability - More efficient code with fewer errors that others can follow.
+
+# Writing Good Functions {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+## Best Practices {.center}
+
+- Use Descriptive Names - Give your function a name that describes what it does.
+- Perform One Task - Functions should carry out a single task so as to avoid unnecessary complexity.
+- Document Your Functions - There are lots of ways to help anyone using your functions (including future you), such as docstrings and type hints.
+- Avoid Side Effects - Functions should not change anything outside of itself.
+- Explicitly Handle Errors - Setting guardrails helps avoid unexpected consequences.
+- Write Testable Code - Functions should be easy to test (and should be tested).
+
+# Let's Write Some Code {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+Putting the **Fun** in **Fun**ctions
+
+# A Brief Introduction to Programming Paradigms {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+Understanding What the Nerds are Bickering About
+
+## What are Programming Paradigms {.center}
+
+- Programming paradigms are just the different approaches or styles to programming that define how code is structured/organised.
+- Functional and Object-Oriented Programming (OOP) are two of the most common paradigms.
+- Languages like Java, C++, and Ruby are OOP, while languages like Haskell and Scala are functional.
+- Lots of languages (including Python) can support multiple paradigms.
+
+![](images/paradigms.webp){fig-align="center"}
+
+## What is Functional Programming? {.center}
+
+> Functional programming is a programming paradigm — a style of building the structure and elements of computer programs — that treats computation as the evaluation of mathematical functions and avoids changing-state and mutable data.
+
+## What is Functional Programming, Actually? {.center}
+
+- In simple (and perhaps not entirely accurate) terms, functional programming just focuses on the use of functions for writing code.
+- Functional programming treats coding as the evaluation of mathematical functions and avoids changes in state or mutable data.
+- It relies on "pure" functions that always produce the same output for the same inputs, and do not cause side effects!
+
+## Conclusion {.center}
+
+- Functions are a great way to organise and simplify your code, and avoids repetition and inefficiency.
+- Understanding how functions work is key to learning to use them, create them, and debug them.
+- Understanding functional programming is key to following along in conversations with nerds.
+
+
+# Thank You! {.center}
+
+<br>
+Contact:
+<br>
+
+<ul >
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+</ul>
+
+
+Code & Slides:
+<br>
+
+<ul >
+{{< fa brands github >}}[/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+</ul>
+<br>
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
