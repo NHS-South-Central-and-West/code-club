@@ -65,6 +65,7 @@ website:
             - text: 7. Control Flow
               file: sessions/07-control-flow/index.qmd
             - text: 8. Functions & Functional Programming
+              file: sessions/08-functions/index.qmd
             - text: 9. Object-Oriented Programming
               file: sessions/09-object-oriented-programming/index.qmd
         - section: Exploration & Visualisation
