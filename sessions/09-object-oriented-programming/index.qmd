@@ -468,12 +468,12 @@ import matplotlib.pyplot as plt
 
 class SCWPlot:
     def __init__(self, x_data, y_data, title="SCW Plot", xlabel="X-axis", ylabel="Y-axis", grid=True):
-        self.x_data = x_data
-        self.y_data = y_data
-        self.title = title
-        self.xlabel = xlabel
-        self.ylabel = ylabel
-        self.grid = grid
+        self.x_data = x_data    # x-axis values
+        self.y_data = y_data    # y-axis values
+        self.title = title      # the chart title (has a default value unless specified)
+        self.xlabel = xlabel    # the x-axis label (has a default value unless specified)
+        self.ylabel = ylabel    # the y-axis label (has a default value unless specified)
+        self.grid = grid        # display a grid on the chart area (default == True)
         # Colour palette based on SCW colours
         self.palette = ['#1C355E','#005EB8','#00A9CE','#330072','#78BE20']
 
@@ -490,14 +490,24 @@ class SCWPlot:
     # The two methods below are each for a different kind of chart that the user can plot. They both make use of
     # the ._setup_plot() to determine certain shared, consistent characteristics.
     def plot_line(self, linestyle='-', marker='o'):
-        self._setup_plot()
-        plt.plot(self.x_data, self.y_data, color=self.palette[0], linestyle=linestyle, marker=marker)
-        plt.show()
+        self._setup_plot()            # use the common structure defined above
+        plt.plot(                     # plot a line chart with the data passed to the object
+            self.x_data, 
+            self.y_data, 
+            color=self.palette[0],    # use the first value in the palette list
+            linestyle=linestyle, 
+            marker=marker
+        )
+        plt.show()                    # display the chart
 
     def plot_bar(self):
-        self._setup_plot()
-        plt.bar(self.x_data, self.y_data, color=self.palette)
-        plt.show()
+        self._setup_plot()            # use the common structure defined above
+        plt.bar(                      # plot a bar chart with data passed to the object
+          self.x_data, 
+          self.y_data, 
+          color=self.palette
+        ) 
+        plt.show()                    # display the chart
 
 ```
 
