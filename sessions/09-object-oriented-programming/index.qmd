@@ -784,12 +784,8 @@ print(f'Is this patient still on our inpatient ward? {my_surgery_patient.admitte
 
 ## Bonus challenge
 
-<<<<<<< HEAD
 ::: {.callout-note}
 We haven't provided a suggested solution for this one, but do feel free to discuss potential answers in the Code Club channels.
 :::
 
 Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the `bed_space` class attribute values? Try using a loop.
-=======
-Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the `bed_space` class attribute values? Try using a loop.
->>>>>>> 6c074884a6b0b9e614c36ab37ac9f9eeadc69ecd
