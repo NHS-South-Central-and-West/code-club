@@ -366,7 +366,6 @@ window.Quarto = {
   <li><a href="#a-practical-example" id="toc-a-practical-example" class="nav-link" data-scroll-target="#a-practical-example">A practical example</a></li>
   <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
   <li><a href="#bonus-challenge" id="toc-bonus-challenge" class="nav-link" data-scroll-target="#bonus-challenge">Bonus challenge</a></li>
-  <li><a href="#instantiate-a-smallish-number-of-patient-objects-no-need-to-spend-too-much-time-on-this-but-you-do-need-more-than-one.-can-you-work-out-a-way-to-total-the-amount-of-bed-space-occupied-by-your-patients-by-summing-together-the-bed_space-class-attribute-values-try-using-a-loop." id="toc-instantiate-a-smallish-number-of-patient-objects-no-need-to-spend-too-much-time-on-this-but-you-do-need-more-than-one.-can-you-work-out-a-way-to-total-the-amount-of-bed-space-occupied-by-your-patients-by-summing-together-the-bed_space-class-attribute-values-try-using-a-loop." class="nav-link" data-scroll-target="#instantiate-a-smallish-number-of-patient-objects-no-need-to-spend-too-much-time-on-this-but-you-do-need-more-than-one.-can-you-work-out-a-way-to-total-the-amount-of-bed-space-occupied-by-your-patients-by-summing-together-the-bed_space-class-attribute-values-try-using-a-loop.">Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the <code>bed_space</code> class attribute values? Try using a loop.</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -566,7 +565,7 @@ Remember
 <p>And we can access the class attribute:</p>
 <div id="cell-access-attr-demo" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>doctor_duggee.daily_capacity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="access-attr-demo" class="cell-output cell-output-display" data-execution_count="62">
+<div id="access-attr-demo" class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>7.5</code></pre>
 </div>
 </div>
@@ -675,14 +674,14 @@ Seniority: Consultant</code></pre>
 <p>Note that we can still retrieve the <code>daily_capacity</code> attribute, which was defined in the parent class <code>HealthProfessional</code></p>
 <div id="cell-child-class-attr-demo" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>doctor_peppa.daily_capacity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="child-class-attr-demo" class="cell-output cell-output-display" data-execution_count="68">
+<div id="child-class-attr-demo" class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>7.5</code></pre>
 </div>
 </div>
 <p>However, we can prove that Doctor Peppa is a <code>Doctor</code> object and not a <code>HealthProfessional</code> object by using Python’s type() function</p>
 <div id="cell-type-demo" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(doctor_peppa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="type-demo" class="cell-output cell-output-display" data-execution_count="69">
+<div id="type-demo" class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>__main__.Doctor</code></pre>
 </div>
 </div>
@@ -727,7 +726,7 @@ Interesting…
 <span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(doctor_duggee)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="reinstantiate-demo" class="cell-output cell-output-display" data-execution_count="73">
+<div id="reinstantiate-demo" class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>__main__.Doctor</code></pre>
 </div>
 </div>
@@ -780,7 +779,7 @@ Nurse 10101 took the vital signs readings of Roly</code></pre>
 <p>There is also a function that can check whether an object belongs to a specified class. (This is particularly useful for checking data types when a specific type needs to be enforced, given that every variable is treated as an object belonging to a particular class. This data type enforcement doesn’t happen by default in Python since it is a dynamically-typed language. Leaving this up to Python could lead to a mismatch of data types, which could lead to errors further down the line).</p>
 <div id="cell-isinstance-demo" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">isinstance</span>(nurse_tag,Nurse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="isinstance-demo" class="cell-output cell-output-display" data-execution_count="76">
+<div id="isinstance-demo" class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>True</code></pre>
 </div>
 </div>
@@ -908,7 +907,7 @@ Solution
 <div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>my_variable <span class="op">=</span> <span class="dv">5</span></span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(my_variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="class-type" class="cell-output cell-output-display" data-execution_count="82">
+<div id="class-type" class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>int</code></pre>
 </div>
 </div>
@@ -932,7 +931,7 @@ Solution
 <div class="callout-body-container callout-body">
 <div id="cell-check-type" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="bu">isinstance</span>(my_variable,<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="check-type" class="cell-output cell-output-display" data-execution_count="83">
+<div id="check-type" class="cell-output cell-output-display" data-execution_count="30">
 <pre><code>True</code></pre>
 </div>
 </div>
@@ -956,7 +955,7 @@ Solution
 <div class="callout-body-container callout-body">
 <div id="cell-list-attr-meth" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(my_variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="list-attr-meth" class="cell-output cell-output-display" data-execution_count="84">
+<div id="list-attr-meth" class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>['__abs__',
  '__add__',
  '__and__',
@@ -1054,7 +1053,7 @@ Solution
 <p><code>object.attribute</code></p>
 <div id="cell-access-attr" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>my_variable.numerator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="access-attr" class="cell-output cell-output-display" data-execution_count="85">
+<div id="access-attr" class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>5</code></pre>
 </div>
 </div>
@@ -1079,7 +1078,7 @@ Solution
 <p><code>object.method()</code></p>
 <div id="cell-access-meth" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>my_variable.is_integer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="access-meth" class="cell-output cell-output-display" data-execution_count="86">
+<div id="access-meth" class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>True</code></pre>
 </div>
 </div>
@@ -1181,7 +1180,7 @@ Solution
 <div class="callout-body-container callout-body">
 <div id="cell-access-admit" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>my_patient.admitted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="access-admit" class="cell-output cell-output-display" data-execution_count="89">
+<div id="access-admit" class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>False</code></pre>
 </div>
 </div>
@@ -1265,11 +1264,17 @@ Is this patient still on our inpatient ward? False</code></pre>
 </section>
 <section id="bonus-challenge" class="level2">
 <h2 class="anchored" data-anchor-id="bonus-challenge">Bonus challenge</h2>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD ::: {.callout-note} We haven’t provided a suggested solution for this one, but do feel free to discuss potential answers in the Code Club channels. :::</p>
-</section>
-<section id="instantiate-a-smallish-number-of-patient-objects-no-need-to-spend-too-much-time-on-this-but-you-do-need-more-than-one.-can-you-work-out-a-way-to-total-the-amount-of-bed-space-occupied-by-your-patients-by-summing-together-the-bed_space-class-attribute-values-try-using-a-loop." class="level1">
-<h1>Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the <code>bed_space</code> class attribute values? Try using a loop.</h1>
-<p>Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the <code>bed_space</code> class attribute values? Try using a loop. &gt;&gt;&gt;&gt;&gt;&gt;&gt; 6c074884a6b0b9e614c36ab37ac9f9eeadc69ecd</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We haven’t provided a suggested solution for this one, but do feel free to discuss potential answers in the Code Club channels.</p>
+</div>
+</div>
+</div>
+<p>Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the <code>bed_space</code> class attribute values? Try using a loop.</p>
 
 
 </section>
