@@ -7,6 +7,12 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 import math
 import numpy as np
 from sklearn.metrics import mean_squared_error
+from prophet import Prophet
+from prophet.plot import (plot_plotly, 
+                          plot_components_plotly,
+                          plot_forecast_component,
+                          add_changepoints_to_plot)
+import matplotlib.pyplot as plt
 
 ##### Data exploration page configuration #####
 
@@ -72,7 +78,7 @@ if "uploaded" in st.session_state:
 
     df_mod = df.copy().groupby(['PROVIDER','REFERRAL_MONTH','MODELLING_SERVICE'], as_index=False)[['REFERRALS_RECEIVED']].sum()
 
-    tab1,tab2,tab3 = st.tabs(['Background Information','Train-Test','Predictions'])
+    tab1,tab2,tab3,tab4 = st.tabs(['Background Information','Holt-Winters Train-Test','Holt-Winters Predictions','Prophet Forecast'])
 
     with tab1:
 
@@ -82,19 +88,33 @@ if "uploaded" in st.session_state:
                     uploaded by the end user. **It should not be viewed as a demonstration
                     of a full forecasting workflow.**
 
-                    It will demonstrate the use of a Holt-Winters forecasting model from the
-                    `statsmodels` [package](https://www.statsmodels.org/stable/index.html).
+                    First of all, it will demonstrate the use of a Holt-Winters forecasting 
+                    model from the `statsmodels` [package](https://www.statsmodels.org/stable/index.html).
+                    This is an example of a forecasting model built on a traditional statistical
+                    technique. It is based on an Exponential Smoothing model, which creates forecasts
+                    by taking a weighted average of past observations, giving more weight (i.e. importance)
+                    to more recent observations. "Exponential" comes from the fact that the weight
+                    descreases exponentially as the observations get older. However, the Exponential
+                    Smoothing model is suited to data that show no trend or seasonality. The Holt-Winters
+                    model adds trend and seasonality elements to the model, so it can be applied to time
+                    series that show trend and seasonality. This demonstration will allow the users to set 
+                    the trend and seasonality parameters.
+
+                    In addition to this, there is a demonstration of Facebook's [Prophet](https://facebook.github.io/prophet/) 
+                    forecasting model, which is an example of a machine learning approach to forecasting. 
+                    It is a very effective method for getting a competent forecast "out of the box", without 
+                    the need to think about any parameters.
         '''
         )
 
     with tab2:
 
-        st.header('Training and Testing the Model')
+        st.header('Training and Testing the Holt-Winters Model')
 
         st.markdown('''
                     Here we can select the type of trend component and kind of seasonality
-                    component for our forecasting model, and then see which combination
-                    performs best at making a prediction against our test set.
+                    component for our Holt-Winters forecasting model, and then see which 
+                    combination performs best at making a prediction against our test set.
 
                     We will have the ability to make predictions of activity for each of the
                     modelling services. This is more likely what we would want to forecast, as
@@ -114,18 +134,21 @@ if "uploaded" in st.session_state:
             mod_serv_options = {val for val in df_mod['MODELLING_SERVICE'] if len(df_mod[df_mod['MODELLING_SERVICE'] == val]) > 29}
             mod_serv_select = st.selectbox(
                 label = 'Modelling Service',
-                options= mod_serv_options
+                options= mod_serv_options,
+                key=111
             )
 
         with ttcol2:
             trend = st.selectbox(
             label='Trend',
-            options=[None,'additive','multiplicative']
+            options=[None,'additive','multiplicative'],
+            key=112
         )
         with ttcol3:
             seasonality = st.selectbox(
                 label='Seasonality',
-                options=[None,'additive','multiplicative']
+                options=[None,'additive','multiplicative'],
+                key=113
             )
 
         ##### Preparing our model #####
@@ -197,7 +220,7 @@ if "uploaded" in st.session_state:
         st.altair_chart(tt_pred_plot, use_container_width=False)
 
     with tab3:
-        st.header('Making a prediction with our model')
+        st.header('Making a prediction with our Holt-Winters model')
 
         st.markdown('''
                     We can now make a prediction using our model. Lorem ipsum...
@@ -246,6 +269,72 @@ if "uploaded" in st.session_state:
 
         # Render the Altair plot
         st.altair_chart(forecast_plot, use_container_width=False)
+    
+    with tab4:
+        st.header('Using the Prophet model to make a forecast')
+
+        mod_serv_options2 = {val for val in df_mod['MODELLING_SERVICE'] if len(df_mod[df_mod['MODELLING_SERVICE'] == val]) > 29}
+        mod_serv_select2 = st.selectbox(
+            label = 'Modelling Service',
+            options= mod_serv_options2,
+            key=114
+        )
+
+        # Use this utility function to help format the data for Prophet
+        def _prophet_training_data(y_train):
+            '''
+            Courtesy of Dr. Tom Monks, University of Exeter
+            ---------
+            Converts a standard pandas datetimeindexed dataframe
+            for time series into one suitable for Prophet
+            Parameters:
+            ---------
+            y_train: pd.DataFrame
+                univariate time series data
+                
+            Returns:
+            --------
+                pd.DataFrame in Prophet format 
+                columns = ['ds', 'y']
+            '''
+            prophet_train = pd.DataFrame(y_train.index)
+            prophet_train['y'] = y_train.to_numpy()
+            prophet_train.columns = ['ds', 'y']
+
+            return prophet_train
+        
+
+        df_forecast2 = df_mod[df_mod['MODELLING_SERVICE'] == mod_serv_select2].copy()
+
+        df_forecast2.set_index('REFERRAL_MONTH',inplace=True)
+
+        # Create train and test datasets
+        train_df_forecast2 = df_forecast2['REFERRALS_RECEIVED'].iloc[:TRAIN_SIZE]
+        test_df_forecast2 = df_forecast2['REFERRALS_RECEIVED'].iloc[TRAIN_SIZE:]
+
+        # Index the data as month start
+        train_df_forecast2.index.freq = 'MS'
+
+        # Format the training data for Prophet with the utility function
+
+        prophet_train = _prophet_training_data(train_df_forecast2)
+
+        # Fit model
+        p_model = Prophet(interval_width = 0.95, seasonality_mode ='additive', seasonality_prior_scale=2.0)
+        p_model.fit(prophet_train)
+
+        # Make a prediction and analyse components
+
+        future = p_model.make_future_dataframe(periods = 12, freq = 'MS')
+        prophet_forecast = p_model.predict(future)
+
+        fig, ax = plt.subplots(figsize=(6, 4))
+        p_model.plot(prophet_forecast, xlabel='Date', ylabel='Value', ax=plt.gca())
+        test_df_forecast2.plot(color = 'red', label = 'Test data (actuals)')
+        plt.title(f'Prophet Forecast - {mod_serv_select2} Modelling Service')
+        plt.legend()
+
+        st.pyplot(fig, use_container_width=False)
 
 else:
     st.info('Please upload a .csv file of your data to continue')
