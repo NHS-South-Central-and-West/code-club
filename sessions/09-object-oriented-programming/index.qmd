@@ -525,7 +525,7 @@ plot = SCWPlot(x, y, title="SCW-Branded Plot", xlabel="Category", ylabel="Value"
 
 plot.plot_line()
 
-```
+In reality, you would not have all of the implementation code (i.e., the code written to create the class) in your script or notebook. This would be stored in a separate Python file, and the class would be imported into the script. In a future session, we will talk about this and create our own packages.
 
 ```{python}
 
