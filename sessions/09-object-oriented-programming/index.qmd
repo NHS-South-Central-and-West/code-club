@@ -22,6 +22,7 @@ Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides b
 Here is a simple demonstration of how everything, down to individual integers, is treated as an object. When we run the dir() function on an integer and print the results, we can see all of the object attributes and methods associated with it.
 
 ```{python}
+#| label: dir-demo
 
 my_int = 5
 
@@ -32,6 +33,7 @@ print(dir(my_int))
 To see which are attributes and which are methods, you can run the following code. We won't run it here, because it produces quite a long list!
 
 ```{python}
+#| label: meth-attr-demo
 #| eval: false
 
 for name in dir(my_int):
@@ -50,6 +52,7 @@ Methods and attributes that are surrounded by double underscores are ones that a
 By now, you are likely to have come across operations that can be used to transform your data by tacking them onto the end of your variable name. These are _methods_ belonging to that variable's object.
 
 ```{python}
+#| label: list-demo
 
 # Here we are calling the "append" method of the list class.
 
@@ -64,12 +67,16 @@ print(icb_list)
 If we apply the function dir() to our variable `icb_list`, we can see that "append" is one of the methods belonging to the list class.
 
 ```{python}
+#| label: dir-list-demo
 
 print(dir(icb_list))
 
 ```
 
-**Remember**: Functions precede the variable `function(my_variable)`, whereas methods are the ones that come after the variable `my_variable.method()`.
+::: {.callout-tip}
+## Remember
+Functions precede the variable `function(my_variable)`, whereas methods are the ones that come after the variable `my_variable.method()`.
+:::
 
 Functions are not tied to a particular object class (for example, `print()` can be applied to most things), while methods are bound up with particular object classes (for example, the method `pop` is associated with lists, but not with integers).
 
@@ -80,6 +87,7 @@ The brackets that come after methods will often contain parameters that determin
 To access an _attribute_, you simply write `my_variable.attribute`. Below is an example of accessing the "numerator" and "denominator" attributes of an integer. In Python, integers have these to enable consistency when working with rational numbers, i.e. fractions.
 
 ```{python}
+#| label: attr-demo
 
 print(my_int.numerator)
 print(my_int.denominator)
@@ -97,6 +105,7 @@ Now let's move onto how we create our own classes.
 Let us first of all look at a simple class to see how it is structured as a whole. Then we will look at each element in turn.
 
 ```{python}
+#| label: create-class-demo
 
 class HealthProfessional:
 
@@ -116,6 +125,7 @@ class HealthProfessional:
 The line begins the definition of the class. It starts with the `class` keyword, followed by the class name and a colon. By convention, classes in Python begin with a capital letter.
 
 ```{python}
+#| label: class-definition-demo
 #| eval: false
 
 class HealthProfessional:
@@ -127,6 +137,7 @@ class HealthProfessional:
 The next element is a _class attribute_, that is to say an attribute where the value will initially be the same for all objects created from that class. All of my health professionals have a default `daily_capacity` of 7.5 working hours per day. Class attributes sit just below the class name with one indent. Class attributes are **optional**.
 
 ```{python}
+#| label: class-attr-demo
 #| eval: false
 
 class HealthProfessional:
@@ -146,6 +157,7 @@ It is written much in the same way as defining a function, starting with the key
 Below that, each object attribute is bound to `self` with the `self.attribute` syntax and the `= attribute` syntax means that the corresponding value that gets passed to the object at instantiation will be assigned to that attribute.
 
 ```{python}
+#| label: constructor-demo
 #| eval: false
 
   def __init__(self, assignment_number, division, department):
@@ -168,6 +180,7 @@ Now, returning to the definition of a class, we come to the _class method_.
 It is again defined just like a normal function, and this time we can give it whatever name we like. The first argument is _always_ `self`, which is followed by any other arguments relevant to the method. In our example, we want to pass a `patient_name` to the HealthProfessional object so that it knows which patient it is being asked to treat.
 
 ```{python}
+#| label: method-demo
 #| eval: false
 
   def treat_patient(self,patient_name):
@@ -182,6 +195,7 @@ Now we can have a look at our HealthProfessional class in action.
 First of all, we need to instantiate a HealthProfessional object. We need to assign it to a variable name so that we can easily refer to the object later on.
 
 ```{python}
+#| label: instantiation-demo
 
 doctor_duggee = HealthProfessional(
   assignment_number = 12345,          # writing out the argument names is optional
@@ -194,6 +208,7 @@ doctor_duggee = HealthProfessional(
 We can use the `.treat_patient` method:
 
 ```{python}
+#| label: method-use-demo
 
 doctor_duggee.treat_patient("Betty")
 
@@ -202,6 +217,7 @@ doctor_duggee.treat_patient("Betty")
 We can access the object's object attributes:
 
 ```{python}
+#| label: attr-use-demo
 
 print(f'Health Professional {doctor_duggee.assignment_number} works in the {doctor_duggee.department} department')
 
@@ -210,6 +226,7 @@ print(f'Health Professional {doctor_duggee.assignment_number} works in the {doct
 And we can access the class attribute:
 
 ```{python}
+#| label: access-attr-demo
 
 doctor_duggee.daily_capacity
 
@@ -218,6 +235,7 @@ doctor_duggee.daily_capacity
 It is also very easy to update an object's attribute values. Compare this with updating the values in a `dict`, which can be quite [fiddly](https://www.geeksforgeeks.org/python-replace-dictionary-value-from-other-dictionary/).
 
 ```{python}
+#| label: update-attr-demo
 
 doctor_duggee.department = 'Medicine for Older Persons'
 doctor_duggee.division = 'C'
@@ -229,6 +247,7 @@ print(f'Health Professional {doctor_duggee.assignment_number} works in the {doct
 Class attribute values can be updated at object level in the same way. This change won't affect new objects created from the class. Think of class attributes as holding a common _default_ value.
 
 ```{python}
+#| label: update-class-attr-demo
 
 doctor_duggee.daily_capacity = 8
 print(f'Duggee\'s daily capacity: {doctor_duggee.daily_capacity} hours.')
@@ -244,6 +263,7 @@ Let us have a look at how a child class gets created from the parent class. Agai
 We are going to create "Doctor" and "Nurse" child classes of the `HealthProfessional` parent class. They will inherit the attributes and methods of the `HealthProfessional` class, but extend them in their own way.
 
 ```{python}
+#| label: create-child--demo
 
 class Doctor(HealthProfessional):
     def __init__(self,assignment_number,division,department,seniority):
@@ -261,6 +281,7 @@ class Doctor(HealthProfessional):
 First of all, when defining a child class, we start off with the keyword `class` followed by the name of the child class, followed by the name of the parent class in brackets, ending with a colon.
 
 ```{python}
+#| label: child-definition-demo
 #| eval: false
 
 class Doctor(HealthProfessional):
@@ -272,6 +293,7 @@ class Doctor(HealthProfessional):
 Then, with one indentation, we write the constructor method, just as we did with the parent class. Remember, we must always enter `self` as the first argument. Then we need to enter the names of the attributes that the child class will inherit from the parent, followed by any new object attributes. In the second line, the any new object attributes are bound to `self`.
 
 ```{python}
+#| label: child-constructor-demo
 #| eval: false
 
     def __init__(self,assignment_number,division,department,seniority):
@@ -283,6 +305,7 @@ Then, with one indentation, we write the constructor method, just as we did with
 Below any new attributes, we enter a line that draws down any methods and attributes from the parent class. `super()` is a function that calls the constructor function from the parent class.
 
 ```{python}
+#| label: super-demo
 #| eval: false
 
         super().__init__(assignment_number,division,department)
@@ -290,9 +313,11 @@ Below any new attributes, we enter a line that draws down any methods and attrib
 
 Note that you do not need to refer to any methods or _class_ attributes here. They automatically get replicated by the super() method. The only elements that you need to explicitly mention are the _object_ attributes defined in the parent class.
 
-Remember:
+::: {.callout-tip}
+## Remember
 **Class** attributes are the ones that have "default" values that are common to all objects created from a class. In our `HealthProfessional` example, this was `daily_capacity`. They are written just under the class name and are not bound to `self`.
 **Object** attributes receive their values when an object is instantiated and are specific to that object. They are bound to `self`.
+:::
 
 ### Child-specific methods
 
@@ -301,6 +326,7 @@ Last in our example is the definition of any new methods that are specific to th
 As with the `.treat_patient()` method in the parent class, we use the `def` keyword, followed by the name of the method for the child class, `self` as the first argument, and the name of any variable that we want to pass to the method, in this case the name of the patient we want to discharge.
 
 ```{python}
+#| label: child-method-demo
 #| eval: false
 
     def discharge_patient(self,patient_name):
@@ -312,6 +338,7 @@ As with the `.treat_patient()` method in the parent class, we use the `def` keyw
 Let's create an object instance of the `Doctor` class and try out the methods and attributes.
 
 ```{python}
+#| label: child-instantiation-demo
 
 doctor_peppa = Doctor(
   999999,
@@ -323,6 +350,7 @@ doctor_peppa = Doctor(
 ```
 
 ```{python}
+#| label: child-attr-demo
 
 print(f'Assignment number: {doctor_peppa.assignment_number}')
 print(f'Division: {doctor_peppa.division}')
@@ -334,6 +362,7 @@ print(f'Seniority: {doctor_peppa.seniority}')
 Note that we can still retrieve the `daily_capacity` attribute, which was defined in the parent class `HealthProfessional`
 
 ```{python}
+#| label: child-class-attr-demo
 
 doctor_peppa.daily_capacity
 
@@ -342,6 +371,7 @@ doctor_peppa.daily_capacity
 However, we can prove that Doctor Peppa is a `Doctor` object and not a `HealthProfessional` object by using Python's type() function
 
 ```{python}
+#| label: type-demo
 
 type(doctor_peppa)
 
@@ -350,14 +380,18 @@ type(doctor_peppa)
 We can also test Doctor Peppa's methods:
 
 ```{python}
+#| label: inherited-method-use-demo
 
 doctor_peppa.treat_patient("Suzy Sheep")
 
 ```
-
-**Did you notice how it said "Health professional"? This was actually unintentional, but it neatly demonstrates how the `.treat_patient()` method has been inherited from the parent class (because the text of the statement wasn't amended when the child class was created).**
+::: {.callout-tip}
+## Interesting...
+Did you notice how it said "Health professional"? This was actually unintentional, but it neatly demonstrates how the `.treat_patient()` method has been inherited from the parent class (because the text of the statement wasn't amended when the child class was created).
+:::
 
 ```{python}
+#| label: child-method-use-demo
 
 doctor_peppa.discharge_patient("Suzy Sheep")
 
@@ -366,6 +400,7 @@ doctor_peppa.discharge_patient("Suzy Sheep")
 What happens if Doctor Duggee tries to discharge a patient? Try uncommenting the Python below and running the cell.
 
 ```{python}
+#| label: unavailable-method-demo
 
 # doctor_duggee.discharge_patient("Happy")
 
@@ -376,6 +411,7 @@ We get an error, because `doctor_duggee` is a `HealthProfessional` object, which
 If you want to turn `doctor_duggee` into a `Doctor` object, you need to instantiate him as such.
 
 ```{python}
+#| label: reinstantiate-demo
 
 doctor_duggee = Doctor(
   assignment_number = 12345,
@@ -395,6 +431,7 @@ Let's quickly define the `Nurse` child class of `HealthProfessional` to demonstr
 Instead of `seniority`, `Nurse` objects will have `band` and `role` attributes, and instead of `.discharge_patient()` the method `.take_readings()`.
 
 ```{python}
+#| label: second-child-demo
 
 class Nurse(HealthProfessional):
     def __init__(self,assignment_number,division,department,band,role):
@@ -409,6 +446,7 @@ class Nurse(HealthProfessional):
 ```
 
 ```{python}
+#| label: instantiate-second-child-demo
 
 nurse_tag = Nurse(
   assignment_number = 10101,
@@ -434,6 +472,7 @@ nurse_tag.take_readings("Roly")
 There is also a function that can check whether an object belongs to a specified class. (This is particularly useful for checking data types when a specific type needs to be enforced, given that every variable is treated as an object belonging to a particular class. This data type enforcement doesn't happen by default in Python since it is a dynamically-typed language. Leaving this up to Python could lead to a mismatch of data types, which could lead to errors further down the line).
 
 ```{python}
+#| label: isinstance-demo
 
 isinstance(nurse_tag,Nurse)
 
@@ -441,6 +480,7 @@ isinstance(nurse_tag,Nurse)
 
 
 ```{python}
+#| label: isinstance-check-demo
 
 # Imagine we wanted to ensure that AfC bands always get stored as strings
 # for consistency since they can include alphanumeric values (e.g. "8a") as
@@ -463,11 +503,12 @@ Those are the fundamentals of how to create classes and objects. Let's have a lo
 Below is an example of how we might create an standard SCW chart template for different kinds of charts using a class. **The string and Boolean values in the constructor method are default values that can be overwritten by any values passed to the object at instantiation.**
 
 ```{python}
+#| label: practical-example-demo
 
 import matplotlib.pyplot as plt
 
 class SCWPlot:
-    def __init__(self, x_data, y_data, title="SCW Plot", xlabel="X-axis", ylabel="Y-axis", grid=True):
+    def __init__(self, x_data, y_data, title="SCW Plot", xlabel="X-axis", ylabel="Y-axis", grid=False):
         self.x_data = x_data
         self.y_data = y_data
         self.title = title
@@ -504,6 +545,8 @@ class SCWPlot:
 Then we will create a very simple dataset to use for testing the use of our class.
 
 ```{python}
+#| label: create-chart-data-demo
+
 x = ['A', 'B', 'C', 'D', 'E']
 y = [5, 7, 3, 8, 6]
 ```
@@ -511,6 +554,8 @@ y = [5, 7, 3, 8, 6]
 Now we can instantiate an `SCWPlot` object and call the two chart type methods to produce charts.
 
 ```{python}
+#| label: instantiate-chart-demo
+
 plot = SCWPlot(x, y, title="SCW-Branded Plot", xlabel="Category", ylabel="Value")
 
 plot.plot_line()
@@ -518,6 +563,7 @@ plot.plot_line()
 ```
 
 ```{python}
+#| label: second-chart-demo
 
 plot.plot_bar()
 
@@ -727,5 +773,9 @@ print(f'Is this patient still on our inpatient ward? {my_surgery_patient.admitte
 :::
 
 ## Bonus challenge
+
+::: {.callout-note}
+We haven't provided a suggested solution for this one, but do feel free to discuss potential answers in the Code Club channels.
+:::
 
 Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the `bed_space` class attribute values? Try using a loop.
