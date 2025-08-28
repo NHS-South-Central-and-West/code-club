@@ -508,37 +508,47 @@ Below is an example of how we might create an standard SCW chart template for di
 import matplotlib.pyplot as plt
 
 class SCWPlot:
-    def __init__(self, x_data, y_data, title="SCW Plot", xlabel="X-axis", ylabel="Y-axis", grid=False):
-        self.x_data = x_data
-        self.y_data = y_data
-        self.title = title
-        self.xlabel = xlabel
-        self.ylabel = ylabel
-        self.grid = grid
-        # Colour palette based on SCW colours
-        self.palette = ['#1C355E','#005EB8','#00A9CE','#330072','#78BE20']
+  def __init__(self, x_data, y_data, title="SCW Plot", xlabel="X-axis", ylabel="Y-axis", grid=False):
+    self.x_data = x_data
+    self.y_data = y_data
+    self.title = title
+    self.xlabel = xlabel
+    self.ylabel = ylabel
+    self.grid = grid
+    # Colour palette based on SCW colours
+    self.palette = ['#1C355E','#005EB8','#00A9CE','#330072','#78BE20']
 
-    # This part is a method internal to the class. It is not accessed by users, but helps to standardise
-    # the methods relating to each type of chart. By convention, these internal methods begin with an underscore.
-    def _setup_plot(self):
-        plt.figure(figsize=(8, 5))
-        plt.title(self.title)
-        plt.xlabel(self.xlabel)
-        plt.ylabel(self.ylabel)
-        plt.grid(visible=True,which='major',axis='both')
-        plt.tight_layout()
+  # This part is a method internal to the class. It is not accessed by users, but helps to standardise
+  # the methods relating to each type of chart. By convention, these internal methods begin with an underscore.
+  def _setup_plot(self):
+    plt.figure(figsize=(8, 5))
+    plt.title(self.title)
+    plt.xlabel(self.xlabel)
+    plt.ylabel(self.ylabel)
+    plt.grid(visible=True,which='major',axis='both')
+    plt.tight_layout()
 
-    # The two methods below are each for a different kind of chart that the user can plot. They both make use of
-    # the ._setup_plot() to determine certain shared, consistent characteristics.
-    def plot_line(self, linestyle='-', marker='o'):
-        self._setup_plot()
-        plt.plot(self.x_data, self.y_data, color=self.palette[0], linestyle=linestyle, marker=marker)
-        plt.show()
+  # The two methods below are each for a different kind of chart that the user can plot. They both make use of
+  # the ._setup_plot() to determine certain shared, consistent characteristics.
+  def plot_line(self, linestyle='-', marker='o'):
+    self._setup_plot()            # use the common structure defined above
+    plt.plot(                     # plot a line chart with the data passed to the object
+        self.x_data, 
+        self.y_data, 
+        color=self.palette[0],    # use the first value in the palette list
+        linestyle=linestyle, 
+        marker=marker
+    )
+    plt.show()                    # display the chart
 
-    def plot_bar(self):
-        self._setup_plot()
-        plt.bar(self.x_data, self.y_data, color=self.palette)
-        plt.show()
+  def plot_bar(self):
+    self._setup_plot()            # use the common structure defined above
+    plt.bar(                      # plot a bar chart with data passed to the object
+      self.x_data, 
+      self.y_data, 
+      color=self.palette
+    ) 
+    plt.show()                    # display the chart
 
 ```
 
@@ -774,8 +784,12 @@ print(f'Is this patient still on our inpatient ward? {my_surgery_patient.admitte
 
 ## Bonus challenge
 
+<<<<<<< HEAD
 ::: {.callout-note}
 We haven't provided a suggested solution for this one, but do feel free to discuss potential answers in the Code Club channels.
 :::
 
 Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the `bed_space` class attribute values? Try using a loop.
+=======
+Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the `bed_space` class attribute values? Try using a loop.
+>>>>>>> 6c074884a6b0b9e614c36ab37ac9f9eeadc69ecd
