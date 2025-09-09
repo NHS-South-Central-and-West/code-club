@@ -57,7 +57,6 @@ format: revealjs
 - We can create lots of instances of an object with their own attribute values and call methods on them separately
 yet _consistently_
 - Objects are self-contained units that can interact with objects both of the same and of other classes
-
 :::
 
 ::: {.column width="35%"}
@@ -84,7 +83,6 @@ yet _consistently_
 - Child classes can modify / override and add to what they have inherited
 - Reduces code duplication; increases re-usability
 - Improves extensibility: i.e. new classes with the same core behaviours, but new features, can be based on existing classes
-
 :::
 
 ::: {.column width="35%"}
@@ -133,6 +131,8 @@ then it's a duck."]
 
 ## When to use OOP
 - When you want to easily re-use code, to avoid repetition and to extend functionality
+- Discrete Event Simulations for modelling queueing / capacity problems
+- Creating custom, branded visualisation packages, for example an NHS-branded SPC chart
   - Creating a package that can be used to import the latest data from a website without users having to understand API calls or the website's structure
 - When you want to model real-world entities
   - Discrete Event Simulations for modelling queueing / capacity problems
@@ -140,8 +140,6 @@ then it's a duck."]
 - When you want to simplify end-users' interaction with Python, fostering a self-service approach to analytics
   - Creating custom, branded visualisation packages, for example an NHS-branded SPC chart
 - **Less appropriate for:** When you want to be certain of the state of your data at each step of a process, for example when cleansing data
-
-
 
 ## Resources
 
