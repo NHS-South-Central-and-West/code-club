@@ -9,11 +9,25 @@ This is the first of four sessions looking at how to explore data in Python. Thi
 
 We are using [Australian weather data](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package), taken from [Kaggle](https://kaggle.com). This dataset is used to build machine learning models that predict whether it will rain tomorrow, using data about the weather every day from 2007 to 2017. To download the data, click <a href="data/weatherAUS.csv" download>here</a>.
 
+::: {.callout-note}
+### Please note!
+We assume that you've created a `uv` project with packages `jupyter`, `pandas`, `numpy` and `seaborn`, and have created a blank notebook in this project and opened it in VS Code. If you're not sure how to do this, please refer back to sessions 1 and 2.
+:::
+
+## Prep work
+
+Place the `weatherAUS.csv` file you downloaded in a folder called `data` within your project folder.
+
+There's also one more package we need, called `skimpy`. In your terminal (PowerShell), from within your project folder:
+
+```sh
+uv add skimpy
+```
+
+Then, in your JuPyter notebook in VS Code, create a code cell and start by importing the packages we'll need.
+
 ```{python}
 #| label: setup
-
-# install necessary packages
-# !uv add skimpy
 
 # import packages
 import matplotlib.pyplot as plt
