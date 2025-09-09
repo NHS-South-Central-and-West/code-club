@@ -164,7 +164,7 @@
     "href": "sessions/09-object-oriented-programming/slides.html#when-to-use-oop",
     "title": "Introduction to Object-Oriented Programming",
     "section": "When to use OOP",
-    "text": "When to use OOP\n\nWhen you want to easily re-use code, to avoid repetition and to extend functionality\n\nCreating a package that can be used to import the latest data from a website without users having to understand API calls or the website’s structure\n\nWhen you want to model real-world entities\n\nDiscrete Event Simulations for modelling queueing / capacity problems\n\nWhen you want to make code modular and easy for others to work with\nWhen you want to simplify end-users’ interaction with Python, fostering a self-service approach to analytics\n\nCreating custom, branded visualisation packages, for example an NHS-branded SPC chart\n\nLess appropriate for: When you want to be certain of the state of your data at each step of a process, for example when cleansing data"
+    "text": "When to use OOP\n\nWhen you want to easily re-use code, to avoid repetition and to extend functionality\nDiscrete Event Simulations for modelling queueing / capacity problems\nCreating custom, branded visualisation packages, for example an NHS-branded SPC chart\n\nCreating a package that can be used to import the latest data from a website without users having to understand API calls or the website’s structure\n\nWhen you want to model real-world entities\n\nDiscrete Event Simulations for modelling queueing / capacity problems\n\nWhen you want to make code modular and easy for others to work with\nWhen you want to simplify end-users’ interaction with Python, fostering a self-service approach to analytics\n\nCreating custom, branded visualisation packages, for example an NHS-branded SPC chart\n\nLess appropriate for: When you want to be certain of the state of your data at each step of a process, for example when cleansing data"
   },
   {
     "objectID": "sessions/09-object-oriented-programming/slides.html#resources",
@@ -590,6 +590,78 @@
     "title": "Python Onboarding",
     "section": "IDE",
     "text": "IDE\n\nAn IDE (Integrated Development Environment) is fully featured software that provides everything you need to write code as conveniently as possible.\nIt typically includes a code editor, debugger, build tools, and features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, Vim, Jupyter Notebooks/JupyterLab, and Positron.\nWe will use VS Code or Jupyter Notebooks (which is not exactly an IDE but is similar)."
+  },
+  {
+    "objectID": "sessions/10-streamlit/index.html",
+    "href": "sessions/10-streamlit/index.html",
+    "title": "Streamlit",
+    "section": "",
+    "text": "It is a Python library and a web platform that enables coders like you to create interactive, web-based dashboards and apps entirely1 using Python; no need to learn a language like Javascript.\nTo get an overview of its capabilities, you can visit the official website here.\nYou can see some examples of apps and dashboards created by the Streamlit community here, or you could catch up with the recording of the Code Club session recording when we showcased our own!\n\n\n\n\nTo view the dashboard in a separate browser tab, click here. The inspiration for this dashboard was a piece of work that required Providers to send data in Excel or .csv files to a team inbox for it to be processed, uploaded to the warehouse, imported back into Excel to be visualised, only for it to be sent back out to Providers. The demonstration dashboard illustrates how it would be possible to create a web-based app where Providers could upload their own data, explore and visualise it, and finally apply some kind of pre-built model to the data. In this case, we have applied a couple of forecasting models to the data: one traditional statistical model and one modern machine learning-based model. If you would like to pinch learn from the code we used to create our dashboard, you can find it here. The app.py script is the one that is run to pull all of the pages together (see more in the “How to get started” section). The “Pages” folder contains the scripts for the individual pages.\n\n\n\n\n\n\nDemo data\n\n\n\nIf you would like to make use of the data used in the demonstration, please contact your Code Club hosts via the Teams channel or write to the Specialist Analytics Team",
+    "crumbs": [
+      "Sessions",
+      "Exploration & Visualisation",
+      "10. Streamlit Dashboards"
+    ]
+  },
+  {
+    "objectID": "sessions/10-streamlit/index.html#what-is-streamlit",
+    "href": "sessions/10-streamlit/index.html#what-is-streamlit",
+    "title": "Streamlit",
+    "section": "",
+    "text": "It is a Python library and a web platform that enables coders like you to create interactive, web-based dashboards and apps entirely1 using Python; no need to learn a language like Javascript.\nTo get an overview of its capabilities, you can visit the official website here.\nYou can see some examples of apps and dashboards created by the Streamlit community here, or you could catch up with the recording of the Code Club session recording when we showcased our own!\n\n\n\n\nTo view the dashboard in a separate browser tab, click here. The inspiration for this dashboard was a piece of work that required Providers to send data in Excel or .csv files to a team inbox for it to be processed, uploaded to the warehouse, imported back into Excel to be visualised, only for it to be sent back out to Providers. The demonstration dashboard illustrates how it would be possible to create a web-based app where Providers could upload their own data, explore and visualise it, and finally apply some kind of pre-built model to the data. In this case, we have applied a couple of forecasting models to the data: one traditional statistical model and one modern machine learning-based model. If you would like to pinch learn from the code we used to create our dashboard, you can find it here. The app.py script is the one that is run to pull all of the pages together (see more in the “How to get started” section). The “Pages” folder contains the scripts for the individual pages.\n\n\n\n\n\n\nDemo data\n\n\n\nIf you would like to make use of the data used in the demonstration, please contact your Code Club hosts via the Teams channel or write to the Specialist Analytics Team",
+    "crumbs": [
+      "Sessions",
+      "Exploration & Visualisation",
+      "10. Streamlit Dashboards"
+    ]
+  },
+  {
+    "objectID": "sessions/10-streamlit/index.html#how-can-it-benefit-me-as-an-analyst",
+    "href": "sessions/10-streamlit/index.html#how-can-it-benefit-me-as-an-analyst",
+    "title": "Streamlit",
+    "section": "How can it benefit me as an analyst?",
+    "text": "How can it benefit me as an analyst?\n\nSince everything is built using Python scripts, it is easy to integrate data processing, modelling and visualisation into one app, rather than requiring separate applications to handle different elements.\nEnables the flexibility of making use of Python’s diverse range of libraries. They can be used to create finely customised visualisations and greater levels of interactivity. Streamlit itself gets updated all the time with new functionality that often just requires one line of code to implement!\nIt is an excellent way to practice your Python coding since it brings lots of elements together:\n\nProcessing data with dataframes.\nVisualisations.\nMore advanced control flow that takes user interactions into account.\nInteracting with GitHub (when you want to have your dashboard/app hosted online).\nWriting Python as complete scripts (as opposed to working cell by cell in Jupyter), which is much more like the reality of developing real-life applications.\n\nDeveloping an app or dashboard using pure code makes version control much easier than trying to do so using proprietary software. Such software can often be over-engineered with lots of things that you don’t really need, and active settings can often be hidden in layer upon layer of menus📎. It is much easier to keep on top of which settings have been applied when you have everything in front of you in a well-commented script.\nIt is free, open-source software, so you do not need to be assigned a potentially expensive licence before you can get started and start experimenting.\nStreamlit can be used as a way to bring complex analytical models to life:\n\nThe PenCHORD team at the University of Exeter, who run the Health Service Modelling Associates course, have produced a web app that allows users to interact with a Discrete Event Simulation model in order to learn how they work. You could build something similar to this to allow stakeholders to interact with your data modelling, enabling them to test different scenarios. For inspiration, you can find a list of real-life healthcare projects undertaken by HSMA alumni that have a Streamlit interface here.",
+    "crumbs": [
+      "Sessions",
+      "Exploration & Visualisation",
+      "10. Streamlit Dashboards"
+    ]
+  },
+  {
+    "objectID": "sessions/10-streamlit/index.html#how-to-get-started",
+    "href": "sessions/10-streamlit/index.html#how-to-get-started",
+    "title": "Streamlit",
+    "section": "How to get started",
+    "text": "How to get started\n\nInstallation\n\nStart a new project as outlined in the Project Setup section of the “Python Onboarding” materials.\nYou will need to install the Streamlit package with the Powershell command uv add streamlit. You will probably also want to install a package for handling dataframes such as pandas or polars, and a visualisation package such as seaborn or altair2.\n\n\n\nYour first app\nStreamlit apps are written in standard .py Python files. It is convention to use the alias “st” when importing the package, i.e. import streamlit as st.\nYour first app can be as simple as the examples in the animation on the Streamlit homepage. Streamlit contains a very handy method called .write(), which can be used to render all sorts of things, not just text. You can also use the .markdown() method to render text using markdown notation.\nIf you want to see a very simple example and have a play around, have a look at Streamlit’s Playground\nOnce you have written your script and want to run it locally in a browser window:\n\nActivate your Python environment by entering the following command in Powershell: ./.venv/Scripts/activate.ps1.\n\nYou many need to swap “venv” with the specific name of your virtual environment, if you have given it a name.\n\nLaunch the app by entering this command in Powershell: python -m streamlit run app.py, where “app.py” is the name of the Python file containing your script.\n\nYour app will be launched in a browser window on a localhost.\n\n\n\n\n\n\nBefore your very eyes…\n\n\n\nThe great thing about working with Streamlit is that you can see the effects of changes to your script more-or-less immediately. Save changes to your .py file and refresh the browser to render the changes.",
+    "crumbs": [
+      "Sessions",
+      "Exploration & Visualisation",
+      "10. Streamlit Dashboards"
+    ]
+  },
+  {
+    "objectID": "sessions/10-streamlit/index.html#deployment",
+    "href": "sessions/10-streamlit/index.html#deployment",
+    "title": "Streamlit",
+    "section": "Deployment",
+    "text": "Deployment\nIf you would like to have your app / dashboard hosted online, the recommended options are to get a free account on one of the following:\n\nStreamlit Community Cloud\nPosit Cloud\n\nNote that you will also need a free GitHub account. This is where you will upload your code and your environment requirements. Streamlit / Posit will use that information when rendering the app. You will need to set your repository to “Public” visibility.\nIf you need help pushing the necessary files to GitHub, please do feel free to contact your hosts at Code Club. If you want to get an idea of how your repository should look, have another look at the repository for the demonstration dashboard.\n\n\n\n\n\n\nIG Alert!\n\n\n\nIf you are going to be sharing your app / dashboard online, make sure that you are following all Information Governance requirements for sharing data publicly. Your masterpiece and its repository will be freely accessible to the public. It is advised that you stick to using data that has already been published, such as Fingertips data, or to create a proof-of-concept using dummy or synthetic data. If you are creating an app where end-users upload their own data, make sure that you include any test data in your .gitignore so that it does not get uploaded to GitHub.\n\n\n\n\n\n\n\n\nProduction servers\n\n\n\nPlease be aware that SCW does not currently have a production server licences, so if you have an idea for something that contains patient-level or commissioning data that you want to be able to share with customers, please contact the Specialist Analytics Team.",
+    "crumbs": [
+      "Sessions",
+      "Exploration & Visualisation",
+      "10. Streamlit Dashboards"
+    ]
+  },
+  {
+    "objectID": "sessions/10-streamlit/index.html#footnotes",
+    "href": "sessions/10-streamlit/index.html#footnotes",
+    "title": "Streamlit",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nWell, almost entirely. You may find you need to tweak the layout of the pages using some HTML, but snippets of code for this purpose are easy to come by. It is normally something like fixing the width of the sidebar. The important thing is that all of the elements that do something, i.e. process data, produce charts and enable interactivity, are programmed in Python.↩︎\nStreamlit has some methods that are designed specifcally for rendering outputs from certain packages, such as .altair_chart() for Altair charts and .pyplot() for rendering matplotlib.pyplot charts. They can often be used to tweak the default rendering: By default, rendering a Pandas dataframe will include the index. Using .dataframe() to render the dataframe allows you to hide the index, e.g. st.dataframe(df, hide_index= True).↩︎",
+    "crumbs": [
+      "Sessions",
+      "Exploration & Visualisation",
+      "10. Streamlit Dashboards"
+    ]
   },
   {
     "objectID": "sessions/01-onboarding/index.html",

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Jupyter Notebooks</title>
+<title>Streamlit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/01-onboarding/index.html">Onboarding</a></li><li class="breadcrumb-item"><a href="../../sessions/02-jupyter_notebooks/index.html">2. Jupyter Notebooks</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/10-streamlit/index.html">Exploration &amp; Visualisation</a></li><li class="breadcrumb-item"><a href="../../sessions/10-streamlit/index.html">10. Streamlit Dashboards</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -155,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../sessions/02-jupyter_notebooks/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../sessions/02-jupyter_notebooks/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2. Jupyter Notebooks</span></a>
   </div>
 </li>
@@ -236,7 +236,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../sessions/10-streamlit/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../sessions/10-streamlit/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">10. Streamlit Dashboards</span></a>
   </div>
 </li>
@@ -278,21 +278,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#session-slides" id="toc-session-slides" class="nav-link active" data-scroll-target="#session-slides">Session Slides</a></li>
-  <li><a href="#the-tools-you-will-need" id="toc-the-tools-you-will-need" class="nav-link" data-scroll-target="#the-tools-you-will-need">The Tools You Will Need</a></li>
-  <li><a href="#project-setup" id="toc-project-setup" class="nav-link" data-scroll-target="#project-setup">Project Setup</a>
+  <li><a href="#what-is-streamlit" id="toc-what-is-streamlit" class="nav-link active" data-scroll-target="#what-is-streamlit">What is Streamlit?</a>
   <ul class="collapse">
-  <li><a href="#opening-your-project-in-vs-code" id="toc-opening-your-project-in-vs-code" class="nav-link" data-scroll-target="#opening-your-project-in-vs-code">Opening your project in VS Code</a></li>
+  <li><a href="#code-clubs-demonstration-dashboard" id="toc-code-clubs-demonstration-dashboard" class="nav-link" data-scroll-target="#code-clubs-demonstration-dashboard">Code Club’s Demonstration Dashboard</a></li>
   </ul></li>
+  <li><a href="#how-can-it-benefit-me-as-an-analyst" id="toc-how-can-it-benefit-me-as-an-analyst" class="nav-link" data-scroll-target="#how-can-it-benefit-me-as-an-analyst">How can it benefit me as an analyst?</a></li>
+  <li><a href="#how-to-get-started" id="toc-how-to-get-started" class="nav-link" data-scroll-target="#how-to-get-started">How to get started</a>
+  <ul class="collapse">
+  <li><a href="#installation" id="toc-installation" class="nav-link" data-scroll-target="#installation">Installation</a></li>
+  <li><a href="#your-first-app" id="toc-your-first-app" class="nav-link" data-scroll-target="#your-first-app">Your first app</a></li>
+  </ul></li>
+  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/01-onboarding/index.html">Onboarding</a></li><li class="breadcrumb-item"><a href="../../sessions/02-jupyter_notebooks/index.html">2. Jupyter Notebooks</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/10-streamlit/index.html">Exploration &amp; Visualisation</a></li><li class="breadcrumb-item"><a href="../../sessions/10-streamlit/index.html">10. Streamlit Dashboards</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Jupyter Notebooks</h1>
+<h1 class="title">Streamlit</h1>
 </div>
 
 
@@ -309,79 +314,135 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This is the second session following Code Club’s relaunch. The focus is introducing jupyter notebooks and explaining to users how to get started with a new project and briefly introducing some key concepts.</p>
-<p>We are also planning some time for Q&amp;A following the first session.</p>
-<section id="session-slides" class="level2">
-<h2 class="anchored" data-anchor-id="session-slides">Session Slides</h2>
-<p>Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, <a href="slides.html" target="_blank">follow this link</a>.</p>
-<iframe src="slides.html" height="500" width="100%">
+<section id="what-is-streamlit" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-streamlit">What is Streamlit?</h2>
+<p>It is a Python library and a web platform that enables coders like you to create interactive, web-based dashboards and apps entirely<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> using Python; no need to learn a language like Javascript.</p>
+<p>To get an overview of its capabilities, you can visit the official website <a href="https://streamlit.io/">here</a>.</p>
+<p>You can see some examples of apps and dashboards created by the Streamlit community <a href="https://streamlit.io/gallery">here</a>, or you could catch up with the recording of the Code Club session recording when we showcased our own!</p>
+<section id="code-clubs-demonstration-dashboard" class="level3">
+<h3 class="anchored" data-anchor-id="code-clubs-demonstration-dashboard">Code Club’s Demonstration Dashboard</h3>
+<iframe src="https://01992998-9fde-aea8-00b5-0b8aa8649b64.share.connect.posit.cloud" height="500" width="100%">
 </iframe>
+<p>To view the dashboard in a separate browser tab, click <a href="https://01992998-9fde-aea8-00b5-0b8aa8649b64.share.connect.posit.cloud" target="_blank">here</a>. The inspiration for this dashboard was a piece of work that required Providers to send data in Excel or .csv files to a team inbox for it to be processed, uploaded to the warehouse, imported back into Excel to be visualised, only for it to be sent back out to Providers. The demonstration dashboard illustrates how it would be possible to create a web-based app where Providers could upload their own data, explore and visualise it, and finally apply some kind of pre-built model to the data. In this case, we have applied a couple of forecasting models to the data: one traditional statistical model and one modern machine learning-based model. If you would like to <del>pinch</del> learn from the code we used to create our dashboard, you can find it <a href="https://github.com/NHS-South-Central-and-West/streamlit-demo-for-code-club/tree/main">here</a>. The <code>app.py</code> script is the one that is run to pull all of the pages together (see more in the “How to get started” section). The “Pages” folder contains the scripts for the individual pages.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Demo data
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you would like to make use of the data used in the demonstration, please contact your Code Club hosts via the Teams channel or write to the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
+</div>
+</div>
 </section>
-<section id="the-tools-you-will-need" class="level2">
-<h2 class="anchored" data-anchor-id="the-tools-you-will-need">The Tools You Will Need</h2>
-<p>Though Jupyter notebooks can be used with a variety of coding languages and in different settings the key tools used in this session are:</p>
+</section>
+<section id="how-can-it-benefit-me-as-an-analyst" class="level2">
+<h2 class="anchored" data-anchor-id="how-can-it-benefit-me-as-an-analyst">How can it benefit me as an analyst?</h2>
 <ul>
-<li>Language: <a href="https://www.python.org/">Python</a></li>
-<li>Dependency Management &amp; Virtual Environments: <a href="https://docs.astral.sh/uv/">uv</a></li>
-<li>Version Control: <a href="https://git-scm.com/">Git</a>, <a href="https://github.com/apps/desktop">GitHub Desktop</a></li>
-<li>IDE: <a href="https://code.visualstudio.com/">VS Code</a>/<a href="https://jupyter.org/">Jupyter Notebooks</a> (or your preferred IDE)</li>
+<li>Since everything is built using Python scripts, it is easy to <strong>integrate</strong> data processing, modelling and visualisation into one app, rather than requiring separate applications to handle different elements.</li>
+<li>Enables the <strong>flexibility</strong> of making use of Python’s diverse range of libraries. They can be used to create finely customised visualisations and greater levels of interactivity. Streamlit itself gets updated all the time with new functionality that often just requires one line of code to implement!</li>
+<li>It is an excellent way to <strong>practice your Python coding</strong> since it brings lots of elements together:
+<ul>
+<li>Processing data with dataframes.</li>
+<li>Visualisations.</li>
+<li>More advanced control flow that takes user interactions into account.</li>
+<li>Interacting with GitHub (when you want to have your dashboard/app hosted online).</li>
+<li>Writing Python as complete scripts (as opposed to working cell by cell in Jupyter), which is much more like the reality of developing real-life applications.</li>
+</ul></li>
+<li>Developing an app or dashboard using pure code makes <strong>version control</strong> much easier than trying to do so using proprietary software. Such software can often be over-engineered with lots of things that you don’t really need, and active settings can often be hidden in layer upon layer of menus📎. It is much easier to keep on top of which settings have been applied when you have everything in front of you in a well-commented script.</li>
+<li>It is <strong>free, open-source software</strong>, so you do not need to be assigned a potentially expensive licence before you can get started and <em>start experimenting</em>.</li>
+<li>Streamlit can be used as a way to bring complex analytical models to life:
+<ul>
+<li>The PenCHORD team at the University of Exeter, who run the <a href="https://hsma.co.uk/">Health Service Modelling Associates</a> course, have produced a web app that allows users to interact with a <a href="https://hsma.co.uk/hsma_content/des_playground.html">Discrete Event Simulation model</a> in order to learn how they work. You could build something similar to this to allow stakeholders to interact with your data modelling, enabling them to test different scenarios. For inspiration, you can find a list of real-life healthcare projects undertaken by HSMA alumni that have a Streamlit interface <a href="https://hsma.co.uk/previous_projects/projects_by_methods.html#projects-with-a-streamlit-interface">here</a>.</li>
+</ul></li>
 </ul>
-<p>You can install all the tools you’ll need by running the following one-liner run in PowerShell:</p>
-<p><code>winget install astral-sh.uv Microsoft.VisualStudioCode github-desktop</code></p>
-<p>You can find more information on these topics in the <a href="../01-onboarding/">Python Onboarding session</a></p>
 </section>
-<section id="project-setup" class="level2">
-<h2 class="anchored" data-anchor-id="project-setup">Project Setup</h2>
-<p>Our project set-up will follow the same steps as used in the onboarding session, by using uv to set up a new project folder.</p>
-<p>To get started we will use PowerShell powershell to open a command prompt, it should open in your C drive (e.g., <code>C:\Users\user.name</code>). If it does not, run <code>cd ~</code>, and it should return to your home directory. We recommend the use of a single folder to hold your python projects while learning, because we will be using git version control we will call this “Git”. we can use the command <code>mkdir code_club</code> to make this folder and then use <code>cd code_club</code> to relocate to this folder<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.</p>
-<p>We will create a new uv project in this directory using the command <code>uv init</code>. The new project will contain everything we need, including a Python installation, a virtual environment, and the necessary project files for tracking and managing any packages installed in the virtual environment. To set up a new project called <code>test-project</code>, use the following command:</p>
-<p><code>uv init test_project</code></p>
-<p>Having created this new directory, navigate to it using <code>cd test_project</code>.</p>
-<p>For this session you will need to add 3 Python packages, <em>ipykernel</em><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, <em>pandas</em> and <em>seaborn</em> We can use the following command:</p>
-<p><code>uv add ipykernel pandas seaborn</code></p>
-<p>We are going to create a blank notebook in this file by running the command <code>new-item first_notebook.ipynb</code> if you now run <code>ls</code> you will note this file has been created</p>
-<p>Your Python project is now set up, and you are ready to start writing some code. You can open VS Code from your PowerShell window by running <code>code .</code>.</p>
-<section id="opening-your-project-in-vs-code" class="level3">
-<h3 class="anchored" data-anchor-id="opening-your-project-in-vs-code">Opening your project in VS Code</h3>
-<p>You could also do this from within VS Code as most IDEs include a terminal interface which will be demonstrated in session.</p>
-<p>For now launch VS Code and click <code>File &gt; Open Folder...</code>. You’ll want to make sure you select the <em>root</em> level of your project. Once you’ve opened the folder, the file navigation pane in VS Code should display the files that <code>uv</code> has created, as well as the notebook you created: <code>first_notebook.ipynb</code>. Click on this to open it.</p>
-<p>Once VS Code realises you’ve opened a folder with Python code and a virtual environment, it should do the following:</p>
-<ol type="1">
-<li>Suggest you install the Python <em>extension</em> (and, once you’ve created a Jupyter notebook, the Jupyter one) offered by Microsoft - go ahead and do this. If this doesn’t happen, you can install extensions manually from the <em>Extensions</em> pane on the left-hand side.</li>
-<li>Select the <code>uv</code>-created <code>.venv</code> as the python Environment we’re going to use to actually run our code. If this doesn’t happen, press <code>ctrl-shift-P</code>, type “python environment” to find the <code>Python - Create Environment...</code> option, hit enter, choose “Venv” and proceed to “Use Existing”.</li>
-</ol>
-<p>If VS Code has found the virtual environment, it may pick up the correct kernel. If not you may need to select this manually this can be done by clicking in the top right where you can see <code>Select Kernel</code> (see below)</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/img1_SelectKernel.png" class="img-fluid figure-img"></p>
-<figcaption>Click ‘Select Kernel’</figcaption>
-</figure>
+<section id="how-to-get-started" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-get-started">How to get started</h2>
+<section id="installation" class="level3">
+<h3 class="anchored" data-anchor-id="installation">Installation</h3>
+<ul>
+<li>Start a new project as outlined in the <a href="https://nhs-south-central-and-west.github.io/code-club/sessions/01-onboarding/#project-setup">Project Setup</a> section of the “Python Onboarding” materials.</li>
+<li>You will need to install the Streamlit package with the Powershell command <code>uv add streamlit</code>. You will probably also want to install a package for handling dataframes such as <code>pandas</code> or <code>polars</code>, and a visualisation package such as <code>seaborn</code> or <code>altair</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</li>
+</ul>
+</section>
+<section id="your-first-app" class="level3">
+<h3 class="anchored" data-anchor-id="your-first-app">Your first app</h3>
+<p>Streamlit apps are written in standard <code>.py</code> Python files. It is convention to use the alias “st” when importing the package, i.e.&nbsp;<code>import streamlit as st</code>.</p>
+<p>Your first app can be as simple as the examples in the animation on the <a href="https://streamlit.io/">Streamlit homepage</a>. Streamlit contains a very handy method called <code>.write()</code>, which can be used to render all sorts of things, not just text. You can also use the <code>.markdown()</code> method to render text using markdown notation.</p>
+<p>If you want to see a very simple example and have a play around, have a look at Streamlit’s <a href="https://streamlit.io/playground?example=hello">Playground</a></p>
+<p>Once you have written your script and want to run it locally in a browser window:</p>
+<ul>
+<li>Activate your Python environment by entering the following command in Powershell: <code>./.venv/Scripts/activate.ps1</code>.
+<ul>
+<li>You many need to swap “venv” with the specific name of your virtual environment, if you have given it a name.</li>
+</ul></li>
+<li>Launch the app by entering this command in Powershell: <code>python -m streamlit run app.py</code>, where “app.py” is the name of the Python file containing your script.</li>
+</ul>
+<p>Your app will be launched in a browser window on a localhost.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>We can then select the appropriate kernel from python environments and looking for</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/img2_PythonEnv.png" class="img-fluid figure-img"></p>
-<figcaption>click Python Environments</figcaption>
-</figure>
+<div class="callout-title-container flex-fill">
+Before your very eyes…
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/img3_RecVenv.png" class="img-fluid figure-img"></p>
-<figcaption>click venv - recommended</figcaption>
-</figure>
 </div>
-<p>Once the kernel is enabled you are ready to start adding cells to your notebook. these can either be <code>code</code> cells which is where you include your program elements or <code>markdown</code> which enable the addition of headings, analysis and commentary.</p>
+<div class="callout-body-container callout-body">
+<p>The great thing about working with Streamlit is that you can see the effects of changes to your script more-or-less immediately. Save changes to your <code>.py</code> file and refresh the browser to render the changes.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="deployment" class="level2">
+<h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
+<p>If you would like to have your app / dashboard hosted online, the recommended options are to get a free account on one of the following:</p>
+<ul>
+<li><a href="https://share.streamlit.io/?utm_source=streamlit&amp;utm_medium=referral&amp;utm_campaign=main&amp;utm_content=-ss-streamlit-io-topright">Streamlit Community Cloud</a></li>
+<li><a href="https://posit.cloud/">Posit Cloud</a></li>
+</ul>
+<p>Note that you will also need a free <a href="https://github.com/">GitHub</a> account. This is where you will upload your code and your environment requirements. Streamlit / Posit will use that information when rendering the app. <strong>You will need to set your repository to “Public” visibility.</strong></p>
+<p>If you need help pushing the necessary files to GitHub, please do feel free to contact your hosts at Code Club. If you want to get an idea of how your repository should look, have another look at the <a href="https://github.com/NHS-South-Central-and-West/streamlit-demo-for-code-club">repository for the demonstration dashboard</a>.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+IG Alert!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you are going to be sharing your app / dashboard online, make sure that you are following all Information Governance requirements for sharing data publicly. Your masterpiece and its repository will be freely accessible to the public. It is advised that you stick to using data that has already been published, such as <a href="https://fingertips.phe.org.uk/">Fingertips</a> data, or to create a proof-of-concept using dummy or synthetic data. If you are creating an app where end-users upload their own data, make sure that you include any test data in your <code>.gitignore</code> so that it does not get uploaded to GitHub.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Production servers
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Please be aware that SCW does not currently have a production server licences, so if you have an idea for something that contains patient-level or commissioning data that you want to be able to share with customers, please contact the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a>.</p>
+</div>
+</div>
 
 
-</section>
 </section>
 
 
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>We recommend using the C drive for all Python projects, especially if using version control. Storing projects like these on One Drive will create many unnecessary issues. It can be helpful to use a sub-directory to store projects but is not necessary and is not a requirement for code club<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Strictly speaking, we should install ipykernel as a development dependency (a dependency that is needed for any development but not when the project is put into production). In this case, we would add it by running <code>uv add --dev ipykernel.</code> However, in this case, it is simpler to just add it as a regular dependency, and it doesn’t harm.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Well, <em>almost</em> entirely. You may find you need to tweak the layout of the pages using some HTML, but snippets of code for this purpose are easy to come by. It is normally something like fixing the width of the sidebar. The important thing is that all of the elements that <em>do something</em>, i.e.&nbsp;process data, produce charts and enable interactivity, are programmed in Python.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Streamlit has some methods that are designed specifcally for rendering outputs from certain packages, such as <code>.altair_chart()</code> for Altair charts and <code>.pyplot()</code> for rendering <code>matplotlib.pyplot</code> charts. They can often be used to tweak the default rendering: By default, rendering a Pandas dataframe will include the index. Using <code>.dataframe()</code> to render the dataframe allows you to hide the index, e.g.&nbsp;<code>st.dataframe(df, hide_index= True)</code>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
