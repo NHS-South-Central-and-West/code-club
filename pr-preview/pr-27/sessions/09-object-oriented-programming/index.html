@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.34">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>An Introduction to Object-Oriented Programming</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-62166c23290866e2cf484713027a588d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../../sessions/schedule.html" aria-current="page"> 
+<span class="menu-text">Sessions</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../resources/glossary.html">
+ <span class="dropdown-text">Glossary</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/NHS-South-Central-and-West/code-club" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/06-data-types/index.html">Core Concepts</a></li><li class="breadcrumb-item"><a href="../../sessions/09-object-oriented-programming/index.html">9. Object-Oriented Programming</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Onboarding</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/01-onboarding/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Python Onboarding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/02-jupyter_notebooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Jupyter Notebooks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exploration &amp; Visualisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/03-eda-pandas/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. EDA with Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/04-seaborn-visualisation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Visualisations with Seaborn</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/05-eda-seaborn/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. EDA with Seaborn</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Core Concepts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/06-data-types/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Data Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/07-control-flow/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Control Flow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/08-functions/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Functions &amp; Functional Programming</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/09-object-oriented-programming/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">9. Object-Oriented Programming</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exploration &amp; Visualisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/10-streamlit/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Streamlit Dashboards</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">11. Comparing Samples</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">12. Analysing Relationships</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">13. Introduction to Linear Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">14. Implementing Linear Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">15. Beyond Linearity</span>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#session-slides" id="toc-session-slides" class="nav-link active" data-scroll-target="#session-slides">Session Slides</a></li>
+  <li><a href="#a-closer-look-at-some-of-the-basics" id="toc-a-closer-look-at-some-of-the-basics" class="nav-link" data-scroll-target="#a-closer-look-at-some-of-the-basics">A closer look at some of the basics</a>
+  <ul class="collapse">
+  <li><a href="#using-methods" id="toc-using-methods" class="nav-link" data-scroll-target="#using-methods">Using methods</a></li>
+  <li><a href="#accessing-attributes" id="toc-accessing-attributes" class="nav-link" data-scroll-target="#accessing-attributes">Accessing attributes</a></li>
+  </ul></li>
+  <li><a href="#the-anatomy-of-a-class" id="toc-the-anatomy-of-a-class" class="nav-link" data-scroll-target="#the-anatomy-of-a-class">The Anatomy of a Class</a>
+  <ul class="collapse">
+  <li><a href="#definition" id="toc-definition" class="nav-link" data-scroll-target="#definition">Definition</a></li>
+  <li><a href="#class-attribute" id="toc-class-attribute" class="nav-link" data-scroll-target="#class-attribute">Class attribute</a></li>
+  <li><a href="#constructor-method" id="toc-constructor-method" class="nav-link" data-scroll-target="#constructor-method">Constructor method</a></li>
+  <li><a href="#class-method" id="toc-class-method" class="nav-link" data-scroll-target="#class-method">Class method</a></li>
+  <li><a href="#our-class-in-action" id="toc-our-class-in-action" class="nav-link" data-scroll-target="#our-class-in-action">Our class in action</a></li>
+  </ul></li>
+  <li><a href="#inheritance" id="toc-inheritance" class="nav-link" data-scroll-target="#inheritance">Inheritance</a>
+  <ul class="collapse">
+  <li><a href="#child-class-definition" id="toc-child-class-definition" class="nav-link" data-scroll-target="#child-class-definition">Child class definition</a></li>
+  <li><a href="#child-class-constructor-method-and-child-attributes" id="toc-child-class-constructor-method-and-child-attributes" class="nav-link" data-scroll-target="#child-class-constructor-method-and-child-attributes">Child class constructor method and child attributes</a></li>
+  <li><a href="#the-super.-function" id="toc-the-super.-function" class="nav-link" data-scroll-target="#the-super.-function">The super(). function</a></li>
+  <li><a href="#child-specific-methods" id="toc-child-specific-methods" class="nav-link" data-scroll-target="#child-specific-methods">Child-specific methods</a></li>
+  <li><a href="#our-child-class-in-action" id="toc-our-child-class-in-action" class="nav-link" data-scroll-target="#our-child-class-in-action">Our child class in action</a></li>
+  <li><a href="#defining-a-second-child-class" id="toc-defining-a-second-child-class" class="nav-link" data-scroll-target="#defining-a-second-child-class">Defining a second child class</a></li>
+  <li><a href="#the-isinstance-function" id="toc-the-isinstance-function" class="nav-link" data-scroll-target="#the-isinstance-function">The isinstance() function</a></li>
+  </ul></li>
+  <li><a href="#a-practical-example" id="toc-a-practical-example" class="nav-link" data-scroll-target="#a-practical-example">A practical example</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  <li><a href="#bonus-challenge" id="toc-bonus-challenge" class="nav-link" data-scroll-target="#bonus-challenge">Bonus challenge</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/06-data-types/index.html">Core Concepts</a></li><li class="breadcrumb-item"><a href="../../sessions/09-object-oriented-programming/index.html">9. Object-Oriented Programming</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">An Introduction to Object-Oriented Programming</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This session is the last in our series on fundamental programming concepts. It is an introduction to the programming paradigm that underpins Python, making it flexible and comparatively accessible to people starting out with coding.</p>
+<p>While the concepts discussed can feel a little abstract at times, they will make ever more sense the more practical experience you have with Python. This will help you understand how the packages you use function and will hopefully lead you one day to create some sophisticated programs yourself!</p>
+<p>If you want to download the Jupyter notebook so that you can run the code yourself, modify it, and generally have a play, you can download it by clicking on the “Jupyter” link under “Other Formats” over on the right-hand side below the page contents.</p>
+<section id="session-slides" class="level2">
+<h2 class="anchored" data-anchor-id="session-slides">Session Slides</h2>
+<p>Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, <a href="slides.html" target="_blank">follow this link</a>.</p>
+<iframe src="slides.html" height="500" width="100%">
+</iframe>
+</section>
+<section id="a-closer-look-at-some-of-the-basics" class="level2">
+<h2 class="anchored" data-anchor-id="a-closer-look-at-some-of-the-basics">A closer look at some of the basics</h2>
+<p>Here is a simple demonstration of how everything, down to individual integers, is treated as an object. When we run the dir() function on an integer and print the results, we can see all of the object attributes and methods associated with it.</p>
+<div id="dir-demo" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_int <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">dir</span>(my_int))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__getstate__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_count', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'is_integer', 'numerator', 'real', 'to_bytes']</code></pre>
+</div>
+</div>
+<p>To see which are attributes and which are methods, you can run the following code. We won’t run it here, because it produces quite a long list!</p>
+<div id="meth-attr-demo" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name <span class="kw">in</span> <span class="bu">dir</span>(my_int):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    item <span class="op">=</span> <span class="bu">getattr</span>(my_int, name)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">callable</span>(item):  <span class="co"># if an item is callable, i.e. you can "do" something with it, it is a method</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> -&gt; method"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> -&gt; attribute"</span>) <span class="co"># otherwise, it is an attribute</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Methods and attributes that are surrounded by double underscores are ones that are used “behind the scenes” to help objects behave in a certain way (this exhibits the principle of Abstraction mentioned in the presentation). The ones without are the ones that you would call directly when working with the objects.</p>
+<section id="using-methods" class="level3">
+<h3 class="anchored" data-anchor-id="using-methods">Using methods</h3>
+<p>By now, you are likely to have come across operations that can be used to transform your data by tacking them onto the end of your variable name. These are <em>methods</em> belonging to that variable’s object.</p>
+<div id="list-demo" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we are calling the "append" method of the list class.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>icb_list <span class="op">=</span> [<span class="st">'QRL'</span>,<span class="st">'QNQ'</span>,<span class="st">'QU9'</span>,<span class="st">'QSL'</span>] <span class="co"># a list object</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>icb_list.append(<span class="st">'QNX'</span>) <span class="co"># calling the method and passing a parameter</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(icb_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['QRL', 'QNQ', 'QU9', 'QSL', 'QNX']</code></pre>
+</div>
+</div>
+<p>If we apply the function dir() to our variable <code>icb_list</code>, we can see that “append” is one of the methods belonging to the list class.</p>
+<div id="dir-list-demo" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">dir</span>(icb_list))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['__add__', '__class__', '__class_getitem__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getstate__', '__gt__', '__hash__', '__iadd__', '__imul__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__reversed__', '__rmul__', '__setattr__', '__setitem__', '__sizeof__', '__str__', '__subclasshook__', 'append', 'clear', 'copy', 'count', 'extend', 'index', 'insert', 'pop', 'remove', 'reverse', 'sort']</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remember
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Functions precede the variable <code>function(my_variable)</code>, whereas methods are the ones that come after the variable <code>my_variable.method()</code>.</p>
+</div>
+</div>
+<p>Functions are not tied to a particular object class (for example, <code>print()</code> can be applied to most things), while methods are bound up with particular object classes (for example, the method <code>pop</code> is associated with lists, but not with integers).</p>
+<p>The brackets that come after methods will often contain parameters that determine <em>how</em> the method is applied to the variable. This can be as simple as saying what we want to append to a list, as in the above example, or they can be as complex as the hyperparameters used to fine-tune a machine learning model.</p>
+</section>
+<section id="accessing-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="accessing-attributes">Accessing attributes</h3>
+<p>To access an <em>attribute</em>, you simply write <code>my_variable.attribute</code>. Below is an example of accessing the “numerator” and “denominator” attributes of an integer. In Python, integers have these to enable consistency when working with rational numbers, i.e.&nbsp;fractions.</p>
+<div id="attr-demo" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_int.numerator)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(my_int.denominator)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5
+1</code></pre>
+</div>
+</div>
+<p><span class="math inline">\(\frac{5}{1} = 5\)</span></p>
+<p>When you start working with machine learning models in Python, you will often want to access attributes such as <code>coef_</code> (regression) and <code>feature_importances_</code> (decision tree algorithms).</p>
+<p>Now let’s move onto how we create our own classes.</p>
+</section>
+</section>
+<section id="the-anatomy-of-a-class" class="level2">
+<h2 class="anchored" data-anchor-id="the-anatomy-of-a-class">The Anatomy of a Class</h2>
+<p>Let us first of all look at a simple class to see how it is structured as a whole. Then we will look at each element in turn.</p>
+<div id="create-class-demo" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HealthProfessional:</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  daily_capacity <span class="op">=</span> <span class="fl">7.5</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, assignment_number, division, department):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.assignment_number <span class="op">=</span> assignment_number                 </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.division <span class="op">=</span> division              </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.department <span class="op">=</span> department                              </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> treat_patient(<span class="va">self</span>,patient_name):</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Health professional </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss"> treated patient </span><span class="sc">{</span>patient_name<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="definition" class="level3">
+<h3 class="anchored" data-anchor-id="definition">Definition</h3>
+<p>The line begins the definition of the class. It starts with the <code>class</code> keyword, followed by the class name and a colon. By convention, classes in Python begin with a capital letter.</p>
+<div id="class-definition-demo" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HealthProfessional:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="class-attribute" class="level3">
+<h3 class="anchored" data-anchor-id="class-attribute">Class attribute</h3>
+<p>The next element is a <em>class attribute</em>, that is to say an attribute where the value will initially be the same for all objects created from that class. All of my health professionals have a default <code>daily_capacity</code> of 7.5 working hours per day. Class attributes sit just below the class name with one indent. Class attributes are <strong>optional</strong>.</p>
+<div id="class-attr-demo" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> HealthProfessional:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  daily_capacity <span class="op">=</span> <span class="fl">7.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="constructor-method" class="level3">
+<h3 class="anchored" data-anchor-id="constructor-method">Constructor method</h3>
+<p>Next comes the <em>constructor</em> method, which goes by the name of <code>__init__</code>. The double underscores (a so-called “dunder” method) indicate that it is a method that remains internal to the object i.e.&nbsp;it is not something that is accessed by the end user.</p>
+<p>The constructor method defines what happens when an object instance is created (instantiated). It determines which attributes require values to be passed to the object at instantiation and can also trigger some methods to be execute automatically.</p>
+<p>It is written much in the same way as defining a function, starting with the keyword <code>def</code>. The first argument of the function is <em>always</em> <code>self</code> and is followed by arguments representing each of the object attributes.</p>
+<p>Below that, each object attribute is bound to <code>self</code> with the <code>self.attribute</code> syntax and the <code>= attribute</code> syntax means that the corresponding value that gets passed to the object at instantiation will be assigned to that attribute.</p>
+<div id="constructor-demo" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, assignment_number, division, department):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.assignment_number <span class="op">=</span> assignment_number                 </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.division <span class="op">=</span> division              </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.department <span class="op">=</span> department    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="some-quick-notes-on-self" class="level4">
+<h4 class="anchored" data-anchor-id="some-quick-notes-on-self">Some quick notes on <code>self</code></h4>
+<ul>
+<li><code>self</code> stores the instance of each object within the computer’s memory.</li>
+<li>whenever we define a class method, we include <code>self</code> because we want to run this method <em>in relation to this instance</em> when we call it.</li>
+<li>whenever we define an object attribute, we include <code>self</code> because we want to be able access the attribute value that <em>belongs to this instance</em>.</li>
+</ul>
+</section>
+</section>
+<section id="class-method" class="level3">
+<h3 class="anchored" data-anchor-id="class-method">Class method</h3>
+<p>Now, returning to the definition of a class, we come to the <em>class method</em>.</p>
+<p>It is again defined just like a normal function, and this time we can give it whatever name we like. The first argument is <em>always</em> <code>self</code>, which is followed by any other arguments relevant to the method. In our example, we want to pass a <code>patient_name</code> to the HealthProfessional object so that it knows which patient it is being asked to treat.</p>
+<div id="method-demo" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> treat_patient(<span class="va">self</span>,patient_name):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Health professional </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss"> treated patient </span><span class="sc">{</span>patient_name<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="our-class-in-action" class="level3">
+<h3 class="anchored" data-anchor-id="our-class-in-action">Our class in action</h3>
+<p>Now we can have a look at our HealthProfessional class in action.</p>
+<p>First of all, we need to instantiate a HealthProfessional object. We need to assign it to a variable name so that we can easily refer to the object later on.</p>
+<div id="instantiation-demo" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>doctor_duggee <span class="op">=</span> HealthProfessional(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  assignment_number <span class="op">=</span> <span class="dv">12345</span>,          <span class="co"># writing out the argument names is optional</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  division <span class="op">=</span> <span class="st">"A"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  department<span class="op">=</span> <span class="st">"Surgery"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can use the <code>.treat_patient</code> method:</p>
+<div id="method-use-demo" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>doctor_duggee.treat_patient(<span class="st">"Betty"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Health professional 12345 treated patient Betty</code></pre>
+</div>
+</div>
+<p>We can access the object’s object attributes:</p>
+<div id="attr-use-demo" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Health Professional </span><span class="sc">{</span>doctor_duggee<span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss"> works in the </span><span class="sc">{</span>doctor_duggee<span class="sc">.</span>department<span class="sc">}</span><span class="ss"> department'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Health Professional 12345 works in the Surgery department</code></pre>
+</div>
+</div>
+<p>And we can access the class attribute:</p>
+<div id="cell-access-attr-demo" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>doctor_duggee.daily_capacity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="access-attr-demo" class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>7.5</code></pre>
+</div>
+</div>
+<p>It is also very easy to update an object’s attribute values. Compare this with updating the values in a <code>dict</code>, which can be quite <a href="https://www.geeksforgeeks.org/python-replace-dictionary-value-from-other-dictionary/">fiddly</a>.</p>
+<div id="update-attr-demo" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>doctor_duggee.department <span class="op">=</span> <span class="st">'Medicine for Older Persons'</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>doctor_duggee.division <span class="op">=</span> <span class="st">'C'</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Health Professional </span><span class="sc">{</span>doctor_duggee<span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss"> works in the </span><span class="sc">{</span>doctor_duggee<span class="sc">.</span>department<span class="sc">}</span><span class="ss"> department in Division </span><span class="sc">{</span>doctor_duggee<span class="sc">.</span>division<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Health Professional 12345 works in the Medicine for Older Persons department in Division C</code></pre>
+</div>
+</div>
+<p>Class attribute values can be updated at object level in the same way. This change won’t affect new objects created from the class. Think of class attributes as holding a common <em>default</em> value.</p>
+<div id="update-class-attr-demo" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>doctor_duggee.daily_capacity <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Duggee</span><span class="ch">\'</span><span class="ss">s daily capacity: </span><span class="sc">{</span>doctor_duggee<span class="sc">.</span>daily_capacity<span class="sc">}</span><span class="ss"> hours.'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Duggee's daily capacity: 8 hours.</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="inheritance" class="level2">
+<h2 class="anchored" data-anchor-id="inheritance">Inheritance</h2>
+<p>One of the main strengths of object-oriented programming is the ability to create <em>child</em> classes from other classes (the original, <em>parent</em> classes). This allows us to create classes that modify or extend the data (attributes) and behaviours (methods) of the parent class, without altering the parent class itself. Multiple child classes can be created which share the attributes and methods <em>consistently</em>, but extend or modify them in their own way.</p>
+<p>Let us have a look at how a child class gets created from the parent class. Again, we will start off with the child class written out in full so that you can see how it would look. Then we will go through it line by line.</p>
+<p>We are going to create “Doctor” and “Nurse” child classes of the <code>HealthProfessional</code> parent class. They will inherit the attributes and methods of the <code>HealthProfessional</code> class, but extend them in their own way.</p>
+<div id="create-child--demo" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Doctor(HealthProfessional):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,assignment_number,division,department,seniority):</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.seniority <span class="op">=</span> seniority</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(assignment_number,division,department)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> discharge_patient(<span class="va">self</span>,patient_name):</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Doctor </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss"> discharged patient </span><span class="sc">{</span>patient_name<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="child-class-definition" class="level3">
+<h3 class="anchored" data-anchor-id="child-class-definition">Child class definition</h3>
+<p>First of all, when defining a child class, we start off with the keyword <code>class</code> followed by the name of the child class, followed by the name of the parent class in brackets, ending with a colon.</p>
+<div id="child-definition-demo" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Doctor(HealthProfessional):</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="child-class-constructor-method-and-child-attributes" class="level3">
+<h3 class="anchored" data-anchor-id="child-class-constructor-method-and-child-attributes">Child class constructor method and child attributes</h3>
+<p>Then, with one indentation, we write the constructor method, just as we did with the parent class. Remember, we must always enter <code>self</code> as the first argument. Then we need to enter the names of the attributes that the child class will inherit from the parent, followed by any new object attributes. In the second line, the any new object attributes are bound to <code>self</code>.</p>
+<div id="child-constructor-demo" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,assignment_number,division,department,seniority):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.seniority <span class="op">=</span> seniority</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="the-super.-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-super.-function">The super(). function</h3>
+<p>Below any new attributes, we enter a line that draws down any methods and attributes from the parent class. <code>super()</code> is a function that calls the constructor function from the parent class.</p>
+<div id="super-demo" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(assignment_number,division,department)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Note that you do not need to refer to any methods or <em>class</em> attributes here. They automatically get replicated by the super() method. The only elements that you need to explicitly mention are the <em>object</em> attributes defined in the parent class.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Remember
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Class</strong> attributes are the ones that have “default” values that are common to all objects created from a class. In our <code>HealthProfessional</code> example, this was <code>daily_capacity</code>. They are written just under the class name and are not bound to <code>self</code>. <strong>Object</strong> attributes receive their values when an object is instantiated and are specific to that object. They are bound to <code>self</code>.</p>
+</div>
+</div>
+</section>
+<section id="child-specific-methods" class="level3">
+<h3 class="anchored" data-anchor-id="child-specific-methods">Child-specific methods</h3>
+<p>Last in our example is the definition of any new methods that are specific to the <em>child</em> class. <code>Doctor</code> objects will be able to treat patients with the inherited <code>.treat_patient()</code> method, but we are also going to give them the ability to discharge patients with the <code>.discharge_patient()</code> method.</p>
+<p>As with the <code>.treat_patient()</code> method in the parent class, we use the <code>def</code> keyword, followed by the name of the method for the child class, <code>self</code> as the first argument, and the name of any variable that we want to pass to the method, in this case the name of the patient we want to discharge.</p>
+<div id="child-method-demo" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> discharge_patient(<span class="va">self</span>,patient_name):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Doctor </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss"> discharged patient </span><span class="sc">{</span>patient_name<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="our-child-class-in-action" class="level3">
+<h3 class="anchored" data-anchor-id="our-child-class-in-action">Our child class in action</h3>
+<p>Let’s create an object instance of the <code>Doctor</code> class and try out the methods and attributes.</p>
+<div id="child-instantiation-demo" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>doctor_peppa <span class="op">=</span> Doctor(</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">999999</span>,</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"B"</span>,</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Ophthalmology"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Consultant"</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="child-attr-demo" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Assignment number: </span><span class="sc">{</span>doctor_peppa<span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Division: </span><span class="sc">{</span>doctor_peppa<span class="sc">.</span>division<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Department: </span><span class="sc">{</span>doctor_peppa<span class="sc">.</span>department<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Seniority: </span><span class="sc">{</span>doctor_peppa<span class="sc">.</span>seniority<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Assignment number: 999999
+Division: B
+Department: Ophthalmology
+Seniority: Consultant</code></pre>
+</div>
+</div>
+<p>Note that we can still retrieve the <code>daily_capacity</code> attribute, which was defined in the parent class <code>HealthProfessional</code></p>
+<div id="cell-child-class-attr-demo" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>doctor_peppa.daily_capacity</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="child-class-attr-demo" class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>7.5</code></pre>
+</div>
+</div>
+<p>However, we can prove that Doctor Peppa is a <code>Doctor</code> object and not a <code>HealthProfessional</code> object by using Python’s type() function</p>
+<div id="cell-type-demo" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(doctor_peppa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="type-demo" class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>__main__.Doctor</code></pre>
+</div>
+</div>
+<p>We can also test Doctor Peppa’s methods:</p>
+<div id="inherited-method-use-demo" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>doctor_peppa.treat_patient(<span class="st">"Suzy Sheep"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Health professional 999999 treated patient Suzy Sheep</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interesting…
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Did you notice how it said “Health professional”? This was actually unintentional, but it neatly demonstrates how the <code>.treat_patient()</code> method has been inherited from the parent class (because the text of the statement wasn’t amended when the child class was created).</p>
+</div>
+</div>
+<div id="child-method-use-demo" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>doctor_peppa.discharge_patient(<span class="st">"Suzy Sheep"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Doctor 999999 discharged patient Suzy Sheep</code></pre>
+</div>
+</div>
+<p>What happens if Doctor Duggee tries to discharge a patient? Try uncommenting the Python below and running the cell.</p>
+<div id="unavailable-method-demo" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># doctor_duggee.discharge_patient("Happy")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We get an error, because <code>doctor_duggee</code> is a <code>HealthProfessional</code> object, which does not contain the <code>.discharge_patient()</code> method.</p>
+<p>If you want to turn <code>doctor_duggee</code> into a <code>Doctor</code> object, you need to instantiate him as such.</p>
+<div id="cell-reinstantiate-demo" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>doctor_duggee <span class="op">=</span> Doctor(</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  assignment_number <span class="op">=</span> <span class="dv">12345</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  division <span class="op">=</span> <span class="st">"A"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  department<span class="op">=</span> <span class="st">"Surgery"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  seniority<span class="op">=</span><span class="st">"Resident"</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(doctor_duggee)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="reinstantiate-demo" class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>__main__.Doctor</code></pre>
+</div>
+</div>
+</section>
+<section id="defining-a-second-child-class" class="level3">
+<h3 class="anchored" data-anchor-id="defining-a-second-child-class">Defining a second child class</h3>
+<p>Let’s quickly define the <code>Nurse</code> child class of <code>HealthProfessional</code> to demonstrate how different child classes can share the same inherited characteristics, but still have their own.</p>
+<p>Instead of <code>seniority</code>, <code>Nurse</code> objects will have <code>band</code> and <code>role</code> attributes, and instead of <code>.discharge_patient()</code> the method <code>.take_readings()</code>.</p>
+<div id="second-child-demo" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Nurse(HealthProfessional):</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,assignment_number,division,department,band,role):</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.band <span class="op">=</span> band</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.role <span class="op">=</span> role</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(assignment_number,division,department)</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Adding a new method to the child class</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> take_readings(<span class="va">self</span>,patient_name):</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Nurse </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss"> took the vital signs readings of </span><span class="sc">{</span>patient_name<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="instantiate-second-child-demo" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>nurse_tag <span class="op">=</span> Nurse(</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  assignment_number <span class="op">=</span> <span class="dv">10101</span>,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  division <span class="op">=</span> <span class="st">"A"</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  department <span class="op">=</span> <span class="st">"Cancer Care"</span>,</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  band <span class="op">=</span> <span class="st">"5"</span>,</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  role <span class="op">=</span> <span class="st">"Staff Nurse"</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Assignment number:  </span><span class="sc">{</span>nurse_tag<span class="sc">.</span>assignment_number<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Division: </span><span class="sc">{</span>nurse_tag<span class="sc">.</span>division<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Department: </span><span class="sc">{</span>nurse_tag<span class="sc">.</span>department<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'AfC Band: </span><span class="sc">{</span>nurse_tag<span class="sc">.</span>band<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Role: </span><span class="sc">{</span>nurse_tag<span class="sc">.</span>role<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Daily Capacity: </span><span class="sc">{</span>nurse_tag<span class="sc">.</span>daily_capacity<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>nurse_tag.take_readings(<span class="st">"Roly"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Assignment number:  10101
+Division: A
+Department: Cancer Care
+AfC Band: 5
+Role: Staff Nurse
+Daily Capacity: 7.5
+Nurse 10101 took the vital signs readings of Roly</code></pre>
+</div>
+</div>
+</section>
+<section id="the-isinstance-function" class="level3">
+<h3 class="anchored" data-anchor-id="the-isinstance-function">The isinstance() function</h3>
+<p>There is also a function that can check whether an object belongs to a specified class. (This is particularly useful for checking data types when a specific type needs to be enforced, given that every variable is treated as an object belonging to a particular class. This data type enforcement doesn’t happen by default in Python since it is a dynamically-typed language. Leaving this up to Python could lead to a mismatch of data types, which could lead to errors further down the line).</p>
+<div id="cell-isinstance-demo" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="bu">isinstance</span>(nurse_tag,Nurse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="isinstance-demo" class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>True</code></pre>
+</div>
+</div>
+<div id="isinstance-check-demo" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Imagine we wanted to ensure that AfC bands always get stored as strings</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co"># for consistency since they can include alphanumeric values (e.g. "8a") as</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co"># well as purely numeric values (e.g. "6")</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>my_input <span class="op">=</span> <span class="dv">7</span> <span class="co"># this will be interpreted as an integer</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">isinstance</span>(my_input,<span class="bu">str</span>):</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Valid input'</span>)</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="st">'Invalid input: this field only accepts text strings'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Invalid input: this field only accepts text strings</code></pre>
+</div>
+</div>
+<p>Those are the fundamentals of how to create classes and objects. Let’s have a look at something a <em>bit</em> more advanced to give you an idea of something you might want to create for a team of analysts.</p>
+</section>
+</section>
+<section id="a-practical-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-practical-example">A practical example</h2>
+<p>Below is an example of how we might create an standard SCW chart template for different kinds of charts using a class. <strong>The string and Boolean values in the constructor method are default values that can be overwritten by any values passed to the object at instantiation.</strong></p>
+<div id="practical-example-demo" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SCWPlot:</span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, x_data, y_data, title<span class="op">=</span><span class="st">"SCW Plot"</span>, xlabel<span class="op">=</span><span class="st">"X-axis"</span>, ylabel<span class="op">=</span><span class="st">"Y-axis"</span>, grid<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.x_data <span class="op">=</span> x_data</span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.y_data <span class="op">=</span> y_data</span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.title <span class="op">=</span> title</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.xlabel <span class="op">=</span> xlabel</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.ylabel <span class="op">=</span> ylabel</span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.grid <span class="op">=</span> grid</span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Colour palette based on SCW colours</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.palette <span class="op">=</span> [<span class="st">'#1C355E'</span>,<span class="st">'#005EB8'</span>,<span class="st">'#00A9CE'</span>,<span class="st">'#330072'</span>,<span class="st">'#78BE20'</span>]</span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># This part is a method internal to the class. It is not accessed by users, but helps to standardise</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the methods relating to each type of chart. By convention, these internal methods begin with an underscore.</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> _setup_plot(<span class="va">self</span>):</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="va">self</span>.title)</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="va">self</span>.xlabel)</span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="va">self</span>.ylabel)</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>    plt.grid(visible<span class="op">=</span><span class="va">True</span>,which<span class="op">=</span><span class="st">'major'</span>,axis<span class="op">=</span><span class="st">'both'</span>)</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># The two methods below are each for a different kind of chart that the user can plot. They both make use of</span></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the ._setup_plot() to determine certain shared, consistent characteristics.</span></span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> plot_line(<span class="va">self</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, marker<span class="op">=</span><span class="st">'o'</span>):</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._setup_plot()            <span class="co"># use the common structure defined above</span></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>    plt.plot(                     <span class="co"># plot a line chart with the data passed to the object</span></span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.x_data, </span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.y_data, </span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="va">self</span>.palette[<span class="dv">0</span>],    <span class="co"># use the first value in the palette list</span></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>        linestyle<span class="op">=</span>linestyle, </span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>        marker<span class="op">=</span>marker</span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>    plt.show()                    <span class="co"># display the chart</span></span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> plot_bar(<span class="va">self</span>):</span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>._setup_plot()            <span class="co"># use the common structure defined above</span></span>
+<span id="cb52-39"><a href="#cb52-39" aria-hidden="true" tabindex="-1"></a>    plt.bar(                      <span class="co"># plot a bar chart with data passed to the object</span></span>
+<span id="cb52-40"><a href="#cb52-40" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.x_data, </span>
+<span id="cb52-41"><a href="#cb52-41" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.y_data, </span>
+<span id="cb52-42"><a href="#cb52-42" aria-hidden="true" tabindex="-1"></a>      color<span class="op">=</span><span class="va">self</span>.palette</span>
+<span id="cb52-43"><a href="#cb52-43" aria-hidden="true" tabindex="-1"></a>    ) </span>
+<span id="cb52-44"><a href="#cb52-44" aria-hidden="true" tabindex="-1"></a>    plt.show()                    <span class="co"># display the chart</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we will create a very simple dataset to use for testing the use of our class.</p>
+<div id="create-chart-data-demo" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> [<span class="st">'A'</span>, <span class="st">'B'</span>, <span class="st">'C'</span>, <span class="st">'D'</span>, <span class="st">'E'</span>]</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">3</span>, <span class="dv">8</span>, <span class="dv">6</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can instantiate an <code>SCWPlot</code> object and call the two chart type methods to produce charts.</p>
+<div id="cell-instantiate-chart-demo" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> SCWPlot(x, y, title<span class="op">=</span><span class="st">"SCW-Branded Plot"</span>, xlabel<span class="op">=</span><span class="st">"Category"</span>, ylabel<span class="op">=</span><span class="st">"Value"</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plot.plot_line()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/instantiate-chart-demo-output-1.png" id="instantiate-chart-demo" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-second-chart-demo" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>plot.plot_bar()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/second-chart-demo-output-1.png" id="second-chart-demo" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As you can see, it becomes easy for the user to switch between different kinds of plots while maintaining a standard colour scheme and chart size.</p>
+<p>In reality, you would not have all of the implementation code (i.e.&nbsp;the code written to create the class) in your script or notebook. This would stored in a separate Python file and the class would be imported into the script. In a future session we will talk about this and creating our own packages.</p>
+<section id="simple-maintenance-and-extensibility" class="level4">
+<h4 class="anchored" data-anchor-id="simple-maintenance-and-extensibility">Simple maintenance and extensibility</h4>
+<p>Creating standardised functions as methods of a class helps to simplify maintaining and extending functionality. In the example above, things like the colour palette and figure size are defined once and these get cascaded to the methods relating to individual chart types, so they only need to be edited once. Furthermore, it is easy for a colleague to add another chart type (e.g.&nbsp;horizontal bar) with four lines of code, without necessarily having to understand in detail how the rest of the class has been constructed. This example produces relatively simple charts, but there is the potential to create a class that consistently produces timeseries charts with a preferred x-axis layout (something that can be quite fiddly to perfect!).</p>
+<p>While this class can be extended by adding more chart type methods, can you think of a possible reason for creating a child class from it?</p>
+</section>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li>How do you check what class a variable is?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-class-type" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>my_variable <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(my_variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="class-type" class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>int</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>How would you check whether the value of the variable in the previous solution is an integer?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-check-type" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="bu">isinstance</span>(my_variable,<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="check-type" class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>True</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Which function can be used to display all of the methods and attributes belonging to an object?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-list-attr-meth" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dir</span>(my_variable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="list-attr-meth" class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>['__abs__',
+ '__add__',
+ '__and__',
+ '__bool__',
+ '__ceil__',
+ '__class__',
+ '__delattr__',
+ '__dir__',
+ '__divmod__',
+ '__doc__',
+ '__eq__',
+ '__float__',
+ '__floor__',
+ '__floordiv__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__getnewargs__',
+ '__getstate__',
+ '__gt__',
+ '__hash__',
+ '__index__',
+ '__init__',
+ '__init_subclass__',
+ '__int__',
+ '__invert__',
+ '__le__',
+ '__lshift__',
+ '__lt__',
+ '__mod__',
+ '__mul__',
+ '__ne__',
+ '__neg__',
+ '__new__',
+ '__or__',
+ '__pos__',
+ '__pow__',
+ '__radd__',
+ '__rand__',
+ '__rdivmod__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__rfloordiv__',
+ '__rlshift__',
+ '__rmod__',
+ '__rmul__',
+ '__ror__',
+ '__round__',
+ '__rpow__',
+ '__rrshift__',
+ '__rshift__',
+ '__rsub__',
+ '__rtruediv__',
+ '__rxor__',
+ '__setattr__',
+ '__sizeof__',
+ '__str__',
+ '__sub__',
+ '__subclasshook__',
+ '__truediv__',
+ '__trunc__',
+ '__xor__',
+ 'as_integer_ratio',
+ 'bit_count',
+ 'bit_length',
+ 'conjugate',
+ 'denominator',
+ 'from_bytes',
+ 'imag',
+ 'is_integer',
+ 'numerator',
+ 'real',
+ 'to_bytes']</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>How do you access an object’s attributes? What is the syntax?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>object.attribute</code></p>
+<div id="cell-access-attr" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>my_variable.numerator</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="access-attr" class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>5</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>How do you call an object’s methods? What is the syntax?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>object.method()</code></p>
+<div id="cell-access-meth" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>my_variable.is_integer()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="access-meth" class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>True</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Create a class called “Patient” with the characteristics below. You may wish to refer back to previous sessions on core programming concepts for guidance.</li>
+</ol>
+<ul>
+<li>A class attribute called “bed_space” and assign it the value 1</li>
+<li>Object attributes for “patient_number” and “diagnosis”, values for which will be assigned at instantiation, and “cured” which has the default value of <code>False</code> as well as “admitted” with the default value of <code>True</code></li>
+<li>A method called “get_well” which updates the “cured” attribute to <code>True</code> and prints a statement that returns the “patient_number” and the “diagnosis” that the patient has been cured of. (Hint: you will need to use an f-string with the attributes embedded in the statement).</li>
+<li>A method called “get_discharged” which checks whether the patient has been cured and if this is <code>True</code>, prints a statement to say that the patient has been discharged and sets “admitted” to <code>False</code>. Othwerwise, it prints a statement to say that the patient is not ready to be discharged.</li>
+</ul>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="create-class" class="cell" data-execution_count="43">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Patient:</span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  bed_space <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>,patient_number,diagnosis):</span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.patient_number <span class="op">=</span> patient_number</span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.diagnosis <span class="op">=</span> diagnosis</span>
+<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.cured <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.admitted <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> get_well(<span class="va">self</span>):</span>
+<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.cured <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Patient </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>patient_number<span class="sc">}</span><span class="ss"> has been cured of </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>diagnosis<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> get_discharged(<span class="va">self</span>):</span>
+<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">self</span>.cured <span class="op">==</span> <span class="va">True</span>:</span>
+<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="ss">f'Patient </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>patient_number<span class="sc">}</span><span class="ss"> has been discharged'</span>)</span>
+<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a>      <span class="va">self</span>.admitted <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="ss">f'Patient </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>patient_number<span class="sc">}</span><span class="ss"> is not ready to be discharged'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li>Instantiate a Patient object with a “patient_number” and “diagnosis”. Try discharging the patient before they have been cured, then call the <code>get_well</code> method and try discharging the patient again.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="test-class" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>my_patient <span class="op">=</span> Patient(patient_number<span class="op">=</span><span class="st">'12345'</span>,diagnosis<span class="op">=</span><span class="st">'acute tummy ache'</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>my_patient.get_discharged()</span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>my_patient.get_well()</span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>my_patient.get_discharged()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Patient 12345 is not ready to be discharged
+Patient 12345 has been cured of acute tummy ache
+Patient 12345 has been discharged</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="8" type="1">
+<li>With the Patient object you created, how would you access the “admitted” attribute to check whether they are still an inpatient?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-access-admit" class="cell" data-execution_count="45">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>my_patient.admitted</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="access-admit" class="cell-output cell-output-display" data-execution_count="36">
+<pre><code>False</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="9" type="1">
+<li>Create a child class called “SurgeryPatient” that inherits the methods and attributes from <code>Patient</code>. Add an attribute called “theatre” to store the name of the operating theatre that gets assigned when the object is created and a method that checks whether the patient has been cured or not. When <code>False</code>, the method prints a message requesting that the patient be transferred to the <code>theatre</code>, when <code>True</code> the method prints a message to say that the patient can proceed to discharge.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="create-child" class="cell" data-execution_count="46">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SurgeryPatient(Patient):</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, patient_number, diagnosis, theatre):</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">self</span>.theatre <span class="op">=</span> theatre</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">super</span>().<span class="fu">__init__</span>(patient_number, diagnosis)</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> theatre_call(<span class="va">self</span>):</span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="va">self</span>.cured <span class="op">==</span> <span class="va">False</span>:</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="ss">f'Please transfer patient </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>patient_number<span class="sc">}</span><span class="ss"> to theatre </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>theatre<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb71-9"><a href="#cb71-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb71-10"><a href="#cb71-10" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="ss">f'Patient </span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>patient_number<span class="sc">}</span><span class="ss"> is now ready for discharge'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="10" type="1">
+<li>Instantiate a <code>SurgeryPatient</code> object, test whether the attributes and methods have been inherited from the <code>Patient</code> class, and test the <code>.theatre_call()</code> method. Your solution doesn’t have to match exactly. Just be sure that you are able to test each element of the class.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="test-child" class="cell" data-execution_count="47">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>my_surgery_patient <span class="op">=</span> SurgeryPatient(patient_number<span class="op">=</span><span class="dv">54321</span>,diagnosis<span class="op">=</span><span class="st">'a broken leg'</span>,theatre<span class="op">=</span><span class="st">'11F'</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'This patient occupies </span><span class="sc">{</span>my_surgery_patient<span class="sc">.</span>bed_space<span class="sc">}</span><span class="ss"> bed'</span>)</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>my_surgery_patient.get_discharged()</span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a>my_surgery_patient.theatre_call()</span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a>my_surgery_patient.get_well()</span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a>my_surgery_patient.theatre_call()</span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a>my_surgery_patient.get_discharged()</span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Is this patient still on our inpatient ward? </span><span class="sc">{</span>my_surgery_patient<span class="sc">.</span>admitted<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>This patient occupies 1 bed
+Patient 54321 is not ready to be discharged
+Please transfer patient 54321 to theatre 11F
+Patient 54321 has been cured of a broken leg
+Patient 54321 is now ready for discharge
+Patient 54321 has been discharged
+Is this patient still on our inpatient ward? False</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="bonus-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="bonus-challenge">Bonus challenge</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>We haven’t provided a suggested solution for this one, but do feel free to discuss potential answers in the Code Club channels.</p>
+</div>
+</div>
+</div>
+<p>Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the <code>bed_space</code> class attribute values? Try using a loop.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Created and maintained by the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page was built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
