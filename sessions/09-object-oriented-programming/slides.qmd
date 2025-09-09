@@ -14,7 +14,7 @@ format: revealjs
 
 ## Object-Oriented Programming? What is this tech-geekery and why should I care?
 
-- Python is an object-oriented language. Every entity is treated as an object, even single integers are objects of the "int" class.
+- Python is an object-oriented language. Every entity is treated as an object; even single integers are objects of the "int" class.
 - An understanding of object-oriented programming will help give you a better understanding of how the packages you use function.
 - You can use this understanding to create your own programs that harness the strengths of objected-oriented programming:
     - Convenience
@@ -26,7 +26,7 @@ format: revealjs
 
 ## History
 
-::: {.column style="width:65%; font-size:30pt"}
+::: {.column style="width:65%; font-size:28pt"}
 - In the early days of programming, variables could only be the "primitive" data types containing a single value
   - <span style="font-size:21px;">Integer, Float, Boolean, Char</span>
 - Later came Structures ("Structs"), which can contain multiple values of different types.
@@ -47,6 +47,8 @@ format: revealjs
 --- 
 
 ## Classes and Objects
+
+::: {.column style="width:65%; font-size:30pt"}
 - Classes act as **templates** for objects
 - Objects are referred to as "instances" of classes
   - We talk of objects being "instantiated" from a class
@@ -55,8 +57,18 @@ format: revealjs
 - We can create lots of instances of an object with their own attribute values and call methods on them separately
 yet _consistently_
 - Objects are self-contained units that can interact with objects both of the same and of other classes
+:::
 
-![](images/cookie_cutter.jpg){fig-align="center" width="400" height="250"}
+::: {.column width="35%"}
+
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/cookie_cutter.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Consistency is the key.</figcaption>
+</figure>
+
+:::
+
+# The Anatomy of a Class{data-background-color="#425563"}
 
 ---
 
@@ -66,10 +78,21 @@ yet _consistently_
 
 ## Inheritance
 
+::: {.column style="width:65%; font-size:30pt"}
 - **Child classes inherit attributes and methods from parent classes**
 - Child classes can modify / override and add to what they have inherited
 - Reduces code duplication; increases re-usability
 - Improves extensibility: i.e. new classes with the same core behaviours, but new features, can be based on existing classes
+:::
+
+::: {.column width="35%"}
+
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/succession.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Inheritance is a much less contentious issue in Python.</figcaption>
+</figure>
+
+:::
 
 ---
 
@@ -108,14 +131,15 @@ then it's a duck."]
 
 ## When to use OOP
 - When you want to easily re-use code, to avoid repetition and to extend functionality
-- When you want to model real-world entities
-- When you want to make code modular and easy for others to work with
-- When you want to simplify end-users' interaction with Python, fostering a self-service approach to analytics
-- **Less appropriate for:** When you want to be certain of the state of your data at each step of a process, for example when cleansing data
-
 - Discrete Event Simulations for modelling queueing / capacity problems
 - Creating custom, branded visualisation packages, for example an NHS-branded SPC chart
-- Creating a package that can be used to import the latest data from a website without users having to understand API calls or the website's structure
+  - Creating a package that can be used to import the latest data from a website without users having to understand API calls or the website's structure
+- When you want to model real-world entities
+  - Discrete Event Simulations for modelling queueing / capacity problems
+- When you want to make code modular and easy for others to work with
+- When you want to simplify end-users' interaction with Python, fostering a self-service approach to analytics
+  - Creating custom, branded visualisation packages, for example an NHS-branded SPC chart
+- **Less appropriate for:** When you want to be certain of the state of your data at each step of a process, for example when cleansing data
 
 ## Resources
 
