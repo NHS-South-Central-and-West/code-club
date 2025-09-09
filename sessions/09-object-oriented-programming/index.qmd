@@ -273,7 +273,6 @@ class Doctor(HealthProfessional):
     def discharge_patient(self,patient_name):
         print(f'Doctor {self.assignment_number} discharged patient {patient_name}')
 
-
 ```
 
 ### Child class definition
@@ -385,6 +384,7 @@ We can also test Doctor Peppa's methods:
 doctor_peppa.treat_patient("Suzy Sheep")
 
 ```
+
 ::: {.callout-tip}
 ## Interesting...
 Did you notice how it said "Health professional"? This was actually unintentional, but it neatly demonstrates how the `.treat_patient()` method has been inherited from the parent class (because the text of the statement wasn't amended when the child class was created).
@@ -396,7 +396,6 @@ Did you notice how it said "Health professional"? This was actually unintentiona
 doctor_peppa.discharge_patient("Suzy Sheep")
 
 ```
-
 What happens if Doctor Duggee tries to discharge a patient? Try uncommenting the Python below and running the cell.
 
 ```{python}
@@ -494,7 +493,6 @@ else:
   print('Invalid input: this field only accepts text strings')
 
 ```
-
 
 Those are the fundamentals of how to create classes and objects. Let's have a look at something a _bit_ more advanced to give you an idea of something you might want to create for a team of analysts.
 
@@ -789,3 +787,4 @@ We haven't provided a suggested solution for this one, but do feel free to discu
 :::
 
 Instantiate a smallish number of Patient objects (no need to spend too much time on this, but you do need more than one!). Can you work out a way to total the amount of bed space occupied by your patients by summing together the `bed_space` class attribute values? Try using a loop.
+

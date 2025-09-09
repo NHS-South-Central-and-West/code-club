@@ -71,6 +71,7 @@ website:
         - section: Exploration & Visualisation
           contents:
             - text: 10. Streamlit Dashboards
+              file: sessions/10-streamlit/index.qmd
         - section: Data Science
           contents:
             - text: 11. Comparing Samples
