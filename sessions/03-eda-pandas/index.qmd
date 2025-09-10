@@ -29,11 +29,11 @@ Then, in your JuPyter notebook in VS Code, create a code cell and start by impor
 ```{python}
 #| label: setup
 
-# import packages
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import seaborn as sns
+# Importing packages. This won't work if we didn't add them to our project using uv earlier.
+import matplotlib.pyplot as plt # "plt" (and np, pd, etc below) are called aliases. These are just for convenience and aren't essential...
+import numpy as np              # ...but it's more convenient to type "np" or "pd". We can choose whatever alias we want...
+import pandas as pd             # ...but it's good to stick with common conventions like "pd" for pandas.
+import seaborn as sns           
 
 from skimpy import skim
 ```
@@ -41,8 +41,8 @@ from skimpy import skim
 ```{python}
 #| label: import-data
 
-# import the dataset
-df = pd.read_csv('data/weatherAUS.csv')
+# import the dataset using the read_csv function from pandas.
+df = pd.read_csv('data/weatherAUS.csv') # we're giving our dataframe the name df - we could have chosen whatever we liked.
 ```
 
 ## Setting the Scene
@@ -76,7 +76,7 @@ First, we should start with dataset-wide operations.
 - How do we get a quick overview of the data that can help us in our next steps?
 - We need to get a "feel" for the data before we can really make any decisions about how to analyse it. How do we get there with a new dataset?
 
-We can start by getting a quick glance at the data. The starting point when you have just imported a new dataset is usually the pandas function `pd.DataFrame.head()`, which shows the top $n$ rows of the dataset (by default it shows the top five rows).
+We can start by getting a quick glance at the data. The starting point when you have just imported a new dataset is usually the pandas function `.head(n)`, which shows the top $n$ rows of the dataset (by default, if we don't specify a number, it shows the top five rows).
 
 ```{python}
 #| label: inspect-data-head
@@ -85,7 +85,7 @@ We can start by getting a quick glance at the data. The starting point when you 
 df.head()
 ```
 
-You can also look at the bottom rows of the dataset, using `pd.DataFrame.tail()`. This might be useful if you are dealing with time-series data. Below, we specify that we want to look at the bottom ten rows.
+You can also look at the bottom rows of the dataset, using `.tail(n)`. This might be useful if you are dealing with time-series data. Below, we specify that we want to look at the bottom ten rows.
 
 ```{python}
 #| label: inspect-data-tail
