@@ -405,21 +405,22 @@ Please note!
 <p>Then, in your JuPyter notebook in VS Code, create a code cell and start by importing the packages we’ll need.</p>
 <div id="setup" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing packages. This won't work if we didn't add them to our project using uv earlier.</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt <span class="co"># "plt" (and np, pd, etc below) are called aliases. These are just for convenience and aren't essential...</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np              <span class="co"># ...but it's more convenient to type "np" or "pd". We can choose whatever alias we want...</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd             <span class="co"># ...but it's good to stick with common conventions like "pd" for pandas.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns           </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimpy <span class="im">import</span> skim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>The bits after <code>as</code> (<code>plt</code>, <code>np</code>, <code>pd</code>, etc.) - are called aliases. These are just for convenience and aren’t essential, but it’s easier to type <code>plt</code> every time rather than <code>matplotlib.pyplot</code>, for example. We can choose whatever alias we want but it’s good to stick with common conventions like <code>pd</code> for pandas.</p>
+<p>Next, we’re going to import the data using <code>read_csv</code> from <code>pandas</code>. We’re putting our data into a <em>dataframe</em> which we’re giving the name <code>df</code> - again, we could have chosen whatever name we liked.</p>
 <div id="import-data" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import the dataset using the read_csv function from pandas.</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/weatherAUS.csv'</span>) <span class="co"># we're giving our dataframe the name df - we could have chosen whatever we liked.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/weatherAUS.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="setting-the-scene" class="level2">
 <h2 class="anchored" data-anchor-id="setting-the-scene">Setting the Scene</h2>
-<p>Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions wwith any exploration, and any analysis that follows.</p>
+<p>Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions with any exploration, and any analysis that follows.</p>
 <p><strong>Questions:</strong></p>
 <ul>
 <li>What are we trying to achieve?</li>
@@ -451,7 +452,7 @@ Please note!
 <div id="cell-inspect-data-head" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view the top five rows</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="inspect-data-head" class="cell-output cell-output-display" data-execution_count="3">
+<div id="inspect-data-head" class="cell-output cell-output-display" data-execution_count="303">
 <div>
 
 
@@ -614,7 +615,7 @@ Please note!
 <div id="cell-inspect-data-tail" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view the bottom ten rows</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df.tail(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="inspect-data-tail" class="cell-output cell-output-display" data-execution_count="4">
+<div id="inspect-data-tail" class="cell-output cell-output-display" data-execution_count="304">
 <div>
 
 
@@ -897,7 +898,7 @@ Please note!
 <div id="cell-data-length" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the object length</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="data-length" class="cell-output cell-output-display" data-execution_count="5">
+<div id="data-length" class="cell-output cell-output-display" data-execution_count="305">
 <pre><code>145460</code></pre>
 </div>
 </div>
@@ -905,7 +906,7 @@ Please note!
 <div id="cell-data-shape" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the object shape (number of rows, number of columns)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="data-shape" class="cell-output cell-output-display" data-execution_count="6">
+<div id="data-shape" class="cell-output cell-output-display" data-execution_count="306">
 <pre><code>(145460, 23)</code></pre>
 </div>
 </div>
@@ -913,7 +914,7 @@ Please note!
 <div id="cell-col-names" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all column names</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="col-names" class="cell-output cell-output-display" data-execution_count="7">
+<div id="col-names" class="cell-output cell-output-display" data-execution_count="307">
 <pre><code>Index(['Date', 'Location', 'MinTemp', 'MaxTemp', 'Rainfall', 'Evaporation',
        'Sunshine', 'WindGustDir', 'WindGustSpeed', 'WindDir9am', 'WindDir3pm',
        'WindSpeed9am', 'WindSpeed3pm', 'Humidity9am', 'Humidity3pm',
@@ -963,7 +964,7 @@ memory usage: 25.5+ MB</code></pre>
 <div id="cell-null-values-percent" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the percentage of null values in each column</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()<span class="op">/</span><span class="bu">len</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="null-values-percent" class="cell-output cell-output-display" data-execution_count="9">
+<div id="null-values-percent" class="cell-output cell-output-display" data-execution_count="309">
 <pre><code>Date             0.000000
 Location         0.000000
 MinTemp          0.010209
@@ -994,7 +995,7 @@ dtype: float64</code></pre>
 <div id="cell-describe-data" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># quick summary of numeric variables</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="describe-data" class="cell-output cell-output-display" data-execution_count="10">
+<div id="describe-data" class="cell-output cell-output-display" data-execution_count="310">
 <div>
 
 
@@ -1253,7 +1254,7 @@ dtype: float64</code></pre>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative ways to select columns</span></span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># df.loc[:, 'Date']</span></span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># df.Date</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="select-col" class="cell-output cell-output-display" data-execution_count="12">
+<div id="select-col" class="cell-output cell-output-display" data-execution_count="312">
 <pre><code>0         2008-12-01
 1         2008-12-02
 2         2008-12-03
@@ -1268,12 +1269,12 @@ dtype: float64</code></pre>
 Name: Date, Length: 145460, dtype: object</code></pre>
 </div>
 </div>
-<p>If we want to select multiple columns, we can use double squared brackets (<code>[[ ]]</code>). This is the same process as before, but the inner brackets define a list, and the outer are the selection brackets.</p>
+<p>If we want to select multiple columns, we can use double squared brackets (<code>[[ ]]</code>). This is the same process as before, but the inner brackets define a list, and the outer are the selection brackets. Lists are an example of a data (variable) type - for more detail on data types, refer to session 6.</p>
 <div id="cell-select-multiple-cols" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selecting multiple columns (and all rows) by name</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'Date'</span>, <span class="st">'Location'</span>, <span class="st">'Rainfall'</span>]]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df.loc[:, ['Date', 'Location', 'Rainfall']]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="select-multiple-cols" class="cell-output cell-output-display" data-execution_count="13">
+<div id="select-multiple-cols" class="cell-output cell-output-display" data-execution_count="313">
 <div>
 
 
@@ -1365,7 +1366,7 @@ Name: Date, Length: 145460, dtype: object</code></pre>
 <div id="cell-subset-rows" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slicing by rows</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">10</span>:<span class="dv">16</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="subset-rows" class="cell-output cell-output-display" data-execution_count="14">
+<div id="subset-rows" class="cell-output cell-output-display" data-execution_count="314">
 <div>
 
 
@@ -1552,7 +1553,7 @@ Name: Date, Length: 145460, dtype: object</code></pre>
 <div id="cell-col-iloc" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using iloc with columns</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df.iloc[:, <span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="col-iloc" class="cell-output cell-output-display" data-execution_count="15">
+<div id="col-iloc" class="cell-output cell-output-display" data-execution_count="315">
 <pre><code>0         21.8
 1         24.3
 2         23.2
@@ -1571,7 +1572,7 @@ Name: Temp3pm, Length: 145460, dtype: float64</code></pre>
 <div id="cell-col-rows-iloc" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using iloc with rows and columns</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">10</span>:<span class="dv">16</span>, <span class="dv">20</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="col-rows-iloc" class="cell-output cell-output-display" data-execution_count="16">
+<div id="col-rows-iloc" class="cell-output cell-output-display" data-execution_count="316">
 <pre><code>10    28.8
 11    17.0
 12    15.8
@@ -1585,8 +1586,9 @@ Name: Temp3pm, dtype: float64</code></pre>
 <p>For example, we might want to look at a subset of the data based on location.</p>
 <div id="cell-filter-location" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select all observations in Perth</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">'Location'</span>] <span class="op">==</span> <span class="st">'Perth'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="filter-location" class="cell-output cell-output-display" data-execution_count="17">
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">'Location'</span>] <span class="op">==</span> <span class="st">'Perth'</span>] <span class="co"># we use double equals to compare the value in Location to the string Perth </span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="co"># (so the effect is to output the rows that match that condition.)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="filter-location" class="cell-output cell-output-display" data-execution_count="317">
 <div>
 
 
@@ -1892,7 +1894,7 @@ Name: Temp3pm, dtype: float64</code></pre>
 <p>We can also filter by multiple values, such as location and rainfall.</p>
 <div id="cell-filter-multiple-vals" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">'Rainfall'</span>] <span class="op">==</span> <span class="dv">0</span>) <span class="op">&amp;</span> (df[<span class="st">'Location'</span>] <span class="op">==</span> <span class="st">'Perth'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="filter-multiple-vals" class="cell-output cell-output-display" data-execution_count="18">
+<div id="filter-multiple-vals" class="cell-output cell-output-display" data-execution_count="318">
 <div>
 
 
@@ -2207,7 +2209,7 @@ Name: Temp3pm, dtype: float64</code></pre>
 <div id="cell-count-unique" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># count unique values</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Location'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="count-unique" class="cell-output cell-output-display" data-execution_count="19">
+<div id="count-unique" class="cell-output cell-output-display" data-execution_count="319">
 <pre><code>49</code></pre>
 </div>
 </div>
@@ -2215,7 +2217,7 @@ Name: Temp3pm, dtype: float64</code></pre>
 <div id="cell-unique-vals" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get unique values</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Location'</span>].unique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="unique-vals" class="cell-output cell-output-display" data-execution_count="20">
+<div id="unique-vals" class="cell-output cell-output-display" data-execution_count="320">
 <pre><code>array(['Albury', 'BadgerysCreek', 'Cobar', 'CoffsHarbour', 'Moree',
        'Newcastle', 'NorahHead', 'NorfolkIsland', 'Penrith', 'Richmond',
        'Sydney', 'SydneyAirport', 'WaggaWagga', 'Williamtown',
@@ -2232,7 +2234,7 @@ Name: Temp3pm, dtype: float64</code></pre>
 <div id="cell-simple-mean" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate variable mean</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sunshine'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="simple-mean" class="cell-output cell-output-display" data-execution_count="21">
+<div id="simple-mean" class="cell-output cell-output-display" data-execution_count="321">
 <pre><code>np.float64(7.6111775206611565)</code></pre>
 </div>
 </div>
@@ -2240,7 +2242,7 @@ Name: Temp3pm, dtype: float64</code></pre>
 <div id="cell-rounded-mean" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># round mean value</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sunshine'</span>].mean().<span class="bu">round</span>(<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="rounded-mean" class="cell-output cell-output-display" data-execution_count="22">
+<div id="rounded-mean" class="cell-output cell-output-display" data-execution_count="322">
 <pre><code>np.float64(7.61)</code></pre>
 </div>
 </div>
@@ -2264,7 +2266,7 @@ Name: Temp3pm, dtype: float64</code></pre>
 <div id="cell-sum" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate sum value and return an integer</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(df[<span class="st">'Sunshine'</span>].<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="sum" class="cell-output cell-output-display" data-execution_count="25">
+<div id="sum" class="cell-output cell-output-display" data-execution_count="325">
 <pre><code>575595</code></pre>
 </div>
 </div>
@@ -2280,7 +2282,7 @@ dtype: float64</code></pre>
 <p>And we can apply multiple functions, using <code>pd.DataFrame.agg()</code>.</p>
 <div id="cell-agg" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sunshine'</span>].agg([<span class="st">'mean'</span>, <span class="st">'median'</span>, <span class="st">'sum'</span>]).<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="agg" class="cell-output cell-output-display" data-execution_count="27">
+<div id="agg" class="cell-output cell-output-display" data-execution_count="327">
 <pre><code>mean           7.6
 median         8.4
 sum       575595.3
@@ -2291,7 +2293,7 @@ Name: Sunshine, dtype: float64</code></pre>
 <div id="cell-group-means" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate group means</span></span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>df.groupby(by<span class="op">=</span><span class="st">'Location'</span>)[<span class="st">'Sunshine'</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="group-means" class="cell-output cell-output-display" data-execution_count="28">
+<div id="group-means" class="cell-output cell-output-display" data-execution_count="328">
 <pre><code>Location
 Adelaide            7.7
 Albany              6.7
@@ -2351,7 +2353,7 @@ Name: Sunshine, dtype: float64</code></pre>
 <div id="cell-count-group-non-nulls" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group by location and count non-null sunshine values</span></span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Location'</span>)[<span class="st">'Sunshine'</span>].count()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="count-group-non-nulls" class="cell-output cell-output-display" data-execution_count="29">
+<div id="count-group-non-nulls" class="cell-output cell-output-display" data-execution_count="329">
 <pre><code>Location
 Adelaide            1769
 Albany              2520
@@ -2468,7 +2470,7 @@ dtype: object</code></pre>
 <div id="cell-filter-not-null" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter observations where sunshine is NA</span></span>
 <span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>df.dropna(subset<span class="op">=</span><span class="st">'Sunshine'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="filter-not-null" class="cell-output cell-output-display" data-execution_count="34">
+<div id="filter-not-null" class="cell-output cell-output-display" data-execution_count="334">
 <div>
 
 
@@ -2779,7 +2781,7 @@ dtype: object</code></pre>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>df_wide <span class="op">=</span> df2015.pivot(index<span class="op">=</span><span class="st">'Date'</span>, columns<span class="op">=</span><span class="st">'Location'</span>, values<span class="op">=</span><span class="st">'MaxTemp'</span>)</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>df_wide.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="pivot" class="cell-output cell-output-display" data-execution_count="35">
+<div id="pivot" class="cell-output cell-output-display" data-execution_count="335">
 <div>
 
 
@@ -2972,7 +2974,7 @@ dtype: object</code></pre>
 <span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>df_long.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="melt" class="cell-output cell-output-display" data-execution_count="36">
+<div id="melt" class="cell-output cell-output-display" data-execution_count="336">
 <div>
 
 
@@ -3108,7 +3110,7 @@ Solution
 <div id="cell-count-object-cols" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many of the dataframe's columns are of dtype 'object'?</span></span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">list</span>(df.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>])))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="count-object-cols" class="cell-output cell-output-display" data-execution_count="40">
+<div id="count-object-cols" class="cell-output cell-output-display" data-execution_count="340">
 <pre><code>7</code></pre>
 </div>
 </div>
@@ -3158,7 +3160,7 @@ Solution
 <div id="cell-subset-data" class="cell" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>new_df <span class="op">=</span> df[[<span class="st">'Date'</span>, <span class="st">'Location'</span>, <span class="st">'Sunshine'</span>, <span class="st">'Rainfall'</span>, <span class="st">'RainTomorrow'</span>]]</span>
 <span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>new_df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="subset-data" class="cell-output cell-output-display" data-execution_count="42">
+<div id="subset-data" class="cell-output cell-output-display" data-execution_count="342">
 <div>
 
 
@@ -3242,7 +3244,7 @@ Solution
 <div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df['Location'].astype('category').cat.codes</span></span>
 <span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df['RainTomorrow'].astype('category').cat.codes</span></span>
 <span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'RainTomorrow'</span>].<span class="bu">map</span>({<span class="st">'Yes'</span>: <span class="dv">1</span>, <span class="st">'No'</span>: <span class="dv">0</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="numeric-outcome" class="cell-output cell-output-display" data-execution_count="43">
+<div id="numeric-outcome" class="cell-output cell-output-display" data-execution_count="343">
 <pre><code>0         0.0
 1         0.0
 2         0.0
@@ -3278,7 +3280,7 @@ Solution
 <div id="cell-avg-rainfall-location" class="cell" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># average rainfall by location, sorted by value</span></span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Location'</span>)[<span class="st">'Rainfall'</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="avg-rainfall-location" class="cell-output cell-output-display" data-execution_count="44">
+<div id="avg-rainfall-location" class="cell-output cell-output-display" data-execution_count="344">
 <pre><code>Location
 Cairns              5.742035
 Darwin              5.092452
@@ -3353,7 +3355,7 @@ Solution
 <div id="cell-avg-rainfall-rain-tomorrow" class="cell" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># average rainfall depending on whether it will rain tomorrow or not</span></span>
 <span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'RainTomorrow'</span>)[<span class="st">'Rainfall'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="avg-rainfall-rain-tomorrow" class="cell-output cell-output-display" data-execution_count="45">
+<div id="avg-rainfall-rain-tomorrow" class="cell-output cell-output-display" data-execution_count="345">
 <pre><code>RainTomorrow
 No     1.270290
 Yes    6.142104
@@ -3382,7 +3384,7 @@ Solution
 <div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># average sunshine in Perth when it won't rain tomorrow</span></span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">'Location'</span>] <span class="op">==</span> <span class="st">'Perth'</span>) <span class="op">&amp;</span> (df[<span class="st">'RainTomorrow'</span>] <span class="op">==</span> <span class="st">'No'</span>), <span class="st">'Sunshine'</span>].mean()</span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df[(df['Location']=='Perth') &amp; (df['RainTomorrow']=='No')]['Sunshine'].mean()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="avg-sunshine-perth-no-rain" class="cell-output cell-output-display" data-execution_count="46">
+<div id="avg-sunshine-perth-no-rain" class="cell-output cell-output-display" data-execution_count="346">
 <pre><code>np.float64(9.705306603773584)</code></pre>
 </div>
 </div>
@@ -3422,14 +3424,14 @@ Solution
 <span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="co"># count unique years</span></span>
 <span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Year'</span>].nunique()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="unique-years" class="cell-output cell-output-display" data-execution_count="47">
+<div id="unique-years" class="cell-output cell-output-display" data-execution_count="347">
 <pre><code>11</code></pre>
 </div>
 </div>
 <div id="cell-sunshine-nulls-over-time" class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lambda function counting nulls by year</span></span>
 <span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Year'</span>)[<span class="st">'Sunshine'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.isna().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="sunshine-nulls-over-time" class="cell-output cell-output-display" data-execution_count="48">
+<div id="sunshine-nulls-over-time" class="cell-output cell-output-display" data-execution_count="348">
 <pre><code>Year
 2007        0
 2008      323
@@ -3448,7 +3450,7 @@ Name: Sunshine, dtype: int64</code></pre>
 <div id="cell-rainfall-sunshine-by-month" class="cell" data-execution_count="49">
 <div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rainfall and sunshine by month</span></span>
 <span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Month'</span>)[[<span class="st">'Rainfall'</span>, <span class="st">'Sunshine'</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="rainfall-sunshine-by-month" class="cell-output cell-output-display" data-execution_count="49">
+<div id="rainfall-sunshine-by-month" class="cell-output cell-output-display" data-execution_count="349">
 <div>
 
 
@@ -3535,7 +3537,7 @@ Name: Sunshine, dtype: int64</code></pre>
 <div id="cell-rainfall-sunshine-by-year" class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rainfall and sunshine by year</span></span>
 <span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Year'</span>)[[<span class="st">'Rainfall'</span>, <span class="st">'Sunshine'</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="rainfall-sunshine-by-year" class="cell-output cell-output-display" data-execution_count="50">
+<div id="rainfall-sunshine-by-year" class="cell-output cell-output-display" data-execution_count="350">
 <div>
 
 
