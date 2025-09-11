@@ -38,7 +38,7 @@ import seaborn as sns
 from skimpy import skim
 ```
 
-The bits after `as` (`plt`, `np`, `pd`, etc.) - are called aliases. These are just for convenience and aren't essential, but it's easier to type `plt` every time rather than `matplotlib.pyplot`, for example. We can choose whatever alias we want but it's good to stick with common conventions like `pd` for pandas - this is especially useful for colleagues who might need to read your code further down the line (and who will likely understand what `pd` is without having to look back to where you imported your packages).
+The bits after `as` (`plt`, `np`, `pd`, etc.) are called aliases. These are just for convenience and aren't essential, but it's easier to type `plt` every time rather than `matplotlib.pyplot`, for example. We can choose whatever alias we want but it's good to stick with common conventions like `pd` for pandas - this is especially useful for colleagues who might need to read your code further down the line (and who will likely understand what `pd` is without having to look back to where you imported your packages).
 
 Next, we're going to import the data using `read_csv` from `pandas`. We're putting our data into a *dataframe* which we're giving the name `df` - again, we could have chosen whatever name we liked.
 
