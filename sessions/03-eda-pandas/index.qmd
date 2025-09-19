@@ -9,13 +9,27 @@ This is the first of four sessions looking at how to explore data in Python. Thi
 
 We are using [Australian weather data](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package), taken from [Kaggle](https://kaggle.com). This dataset is used to build machine learning models that predict whether it will rain tomorrow, using data about the weather every day from 2007 to 2017. To download the data, click <a href="data/weatherAUS.csv" download>here</a>.
 
+::: {.callout-note}
+### Please note!
+We assume that you've created a `uv` project with packages `jupyter`, `pandas`, `numpy` and `seaborn`, and have created a blank notebook in this project and opened it in VS Code. If you're not sure how to do this, please refer back to sessions [1 (onboarding)](../01-onboarding/index.qmd) and [2 (jupyter)](../02-jupyter_notebooks/index.qmd).
+:::
+
+## Prep work
+
+Place the `weatherAUS.csv` file you downloaded in a folder called `data` within your project folder.
+
+There's also one more package we need, called `skimpy`. In your terminal (PowerShell), from within your project folder:
+
+```sh
+uv add skimpy
+```
+
+Then, in your JuPyter notebook in VS Code, create a code cell and start by importing the packages we'll need.
+
 ```{python}
 #| label: setup
 
-# install necessary packages
-# !uv add skimpy
-
-# import packages
+# Importing packages. This won't work if we didn't add them to our project using uv earlier.
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -24,16 +38,19 @@ import seaborn as sns
 from skimpy import skim
 ```
 
+The bits after `as` (`plt`, `np`, `pd`, etc.) are called aliases. These are just for convenience and aren't essential, but it's easier to type `plt` every time rather than `matplotlib.pyplot`, for example. We can choose whatever alias we want but it's good to stick with common conventions like `pd` for pandas - this is especially useful for colleagues who might need to read your code further down the line (and who will likely understand what `pd` is without having to look back to where you imported your packages).
+
+Next, we're going to import the data using `read_csv` from `pandas`. We're putting our data into a *dataframe* which we're giving the name `df` - again, we could have chosen whatever name we liked.
+
 ```{python}
 #| label: import-data
 
-# import the dataset
 df = pd.read_csv('data/weatherAUS.csv')
 ```
 
 ## Setting the Scene
 
-Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions wwith any exploration, and any analysis that follows.
+Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions with any exploration, and any analysis that follows.
 
 **Questions:**
 
@@ -62,7 +79,7 @@ First, we should start with dataset-wide operations.
 - How do we get a quick overview of the data that can help us in our next steps?
 - We need to get a "feel" for the data before we can really make any decisions about how to analyse it. How do we get there with a new dataset?
 
-We can start by getting a quick glance at the data. The starting point when you have just imported a new dataset is usually the pandas function `pd.DataFrame.head()`, which shows the top $n$ rows of the dataset (by default it shows the top five rows).
+We can start by getting a quick glance at the data. The starting point when you have just imported a new dataset is usually the pandas method `.head(n)`, which shows the top $n$ rows of the dataset (by default, if we don't specify a number, it shows the top five rows).
 
 ```{python}
 #| label: inspect-data-head
@@ -71,7 +88,7 @@ We can start by getting a quick glance at the data. The starting point when you 
 df.head()
 ```
 
-You can also look at the bottom rows of the dataset, using `pd.DataFrame.tail()`. This might be useful if you are dealing with time-series data. Below, we specify that we want to look at the bottom ten rows.
+You can also look at the bottom rows of the dataset, using `.tail(n)`. This might be useful if you are dealing with time-series data. Below, we specify that we want to look at the bottom ten rows.
 
 ```{python}
 #| label: inspect-data-tail
@@ -164,7 +181,7 @@ df['Date']
 # df.Date
 ```
 
-If we want to select multiple columns, we can use double squared brackets (`[[ ]]`). This is the same process as before, but the inner brackets define a list, and the outer are the selection brackets.
+If we want to select multiple columns, we can use double squared brackets (`[[ ]]`). This is the same process as before, but the inner brackets define a list, and the outer are the selection brackets. Lists are an example of a data (variable) type - for more detail on data types, refer to [session 6](../06-data-types/index.qmd).
 
 ```{python}
 #| label: select-multiple-cols
@@ -212,7 +229,8 @@ For example, we might want to look at a subset of the data based on location.
 #| label: filter-location
 
 # select all observations in Perth
-df.loc[df['Location'] == 'Perth']
+df.loc[df['Location'] == 'Perth'] # we use double equals to compare the value in Location to the string Perth 
+                                  # (so the effect is to output the rows that match that condition.)
 ```
 
 We can also filter by multiple values, such as location and rainfall.
