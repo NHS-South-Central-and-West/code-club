@@ -63,11 +63,15 @@ website:
             - text: 6. Data Types
               file: sessions/06-data-types/index.qmd
             - text: 7. Control Flow
+              file: sessions/07-control-flow/index.qmd
             - text: 8. Functions & Functional Programming
+              file: sessions/08-functions/index.qmd
             - text: 9. Object-Oriented Programming
+              file: sessions/09-object-oriented-programming/index.qmd
         - section: Exploration & Visualisation
           contents:
             - text: 10. Streamlit Dashboards
+              file: sessions/10-streamlit/index.qmd
         - section: Data Science
           contents:
             - text: 11. Comparing Samples
