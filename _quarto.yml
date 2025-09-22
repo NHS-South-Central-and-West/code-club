@@ -79,6 +79,10 @@ website:
             - text: 13. Introduction to Linear Regression
             - text: 14. Implementing Linear Regression
             - text: 15. Beyond Linearity
+        - section: Intermediate Python
+          contents:
+            - text: XX. Generators
+            - file: session/generators/index.qmd
 
 format:
   html:
