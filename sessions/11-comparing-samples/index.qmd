@@ -1,46 +1,46 @@
 ---
-title: "Comparison - Thief of Joy?"
+title: "Regression Fundamentals: Comparing Samples"
 format:
   html: default
   ipynb: default
 ---
 
-This notebook walks through the process of comparing samples, demonstrating **why** comparisons matter and how we go about them, applying these ideas using data on fatal car crashes in the U.S.
+This notebook is the first in a five-part series covering foundational statistics and the building blocks for regression modelling. This session walks through the process of comparing samples, demonstrating **why** comparisons matter and how we approach them, and applies these ideas using data on fatal car crashes in the U.S.
 
-**We'll cover:**
-- Why we compare groups in data analysis
-- How samples differ from populations
-- How to visualize and interpret group differences
-- How to assess whether a difference is meaningful (statistically)
+We will discuss why we compare groups in data analysis, the differences between population and sample data, how to visualise and interpret group differences, and how to assess whether differences are statistically meaningful.
+
+The goal of this session is for everyone to understand the role of comparison in statistics, as well as to recognise what comparisons between groups can tell us and what their limitations are.
 
 ## Why Compare?
 
-**Motivating example:**
-Imagine an online store tests two versions of its homepage: Version A and Version B. After a week, it finds Version B users spent more money on average.
-- Is that difference real, or just random chance?
-- Could we expect the same pattern next week?
+Comparison is fundamental to how we learn from data. When we observe something in data, whether it is a specific observation, a broader pattern across observations, or the outcome of a calculation, we need context to understand its meaning. Is this value high or low? Is it unusual? Should we pay more attention to it?
 
-**Takeaway:** Comparing samples helps us decide whether patterns in our data are **meaningful** or simply **random variation**. It’s a core building block before modelling relationships.
+Imagine an online store making changes to its website with the intention of boosting sales. After a week, the changes made generated £250k in sales. Is that good? We don't know because we don't have anything to compare against. The store could compare this figure to the sales from the previous week. Better yet, they could run the original version of the website concurrently alongside the new version, serving different versions of the website to users at random, to more directly compare sales. If the original version of the website generated only £230k in sales, we now have a meaningful comparison that suggests that the new version of the site may boost sales.
+
+Raw numbers rarely tell us complete stories. A patient's blood pressure is only meaningful because we know what a healthy range is, and we can use this for comparison. Without comparison, data is meaningless.
+
+### What does Comparison Really Tell Us?
+
+When we compare two groups in our data, what we _really_ want to know is whether those groups differ in the real world, not just whether they differ in the data. The comparison in the data serves as a proxy for understanding differences in the wild. The data is a "sample" of what the real world (the population) looks like. But suppose we see a difference between two groups in our data. How do we know if that reflects a difference that is occurring in the population, instead of being caused by random variation in the data?
+
+Separating real patterns, or signal, from the noise in data is a fundamental part of statistics and is the driving force behind everything in statistical inference. Good comparisons account for the possibility of random variation and consider the ways in which the comparisons we are making may be flawed or incomplete. If the online store compared the previous week's sales, this would still be useful, but what if the previous week included a holiday that led to a significant boost of sales, or the week the new site was launched was payday for a lot of customers? It is important to consider whether your comparison is really meaningful.
 
 **Questions:**
 
-- Can you think of any healthcare-related comparisons similar to the motivating example?
 - How do you currently decide whether the difference you observe in your data is real or occurred by chance?
 - Why is it important to know if differences observed in data occurred by chance?
 
 ### Population vs. Sample
 
+The population is every possible unit or observation relevant to what you are studying, while the sample is a subset of the population. If you wanted to estimate how income affects housing prices in UK cities, the population would be every city in the UK. A sample would be data covering a handful of (hopefully representative) cities.
+
 ![Source: [Martijn Wieling](https://www.let.rug.nl/wieling/Statistiek-I/HC2/)](images/popsample.png)
 
-**Key concepts:**
+If we had access to the entire population, comparisons would be straightforward. However, we usually don't, so we have to take a sample of the population and make inferences about the population based on our sample. That means dealing with uncertainty, variation, and potential bias.
 
-- **Population**: the full group we're interested in (e.g. all customers, all days from 1992–2016)
-- **Sample**: a subset we actually observe or focus on (e.g. one week's users, a set of 4/20 days)
+To compare groups responsibly, we need to consider how sampling affects what we observe and how it may limit our ability to make accurate comparisons. The sample is a small snapshot of the population, and there are several reasons why it might not be representative of the wider population.
 
-If we had access to the population, comparisons would be straightforward. But we usually don’t—so we have to take a sample of the population and make inferences about the population from our sample. That means dealing with uncertainty, variation, and potential bias.
-
-To compare groups responsibly, we need to consider how sampling affects what we observe, and how it may limit our comparisons. The sample is a small snapshot of the population, and there are lots of reasons why a sample might not be representative of the wider population.
-
+Below is an example illustrating the difference between the population and the sample, simulating drawing ten cards from a standard deck and calculating the average value of the cards drawn.
 
 ```{python}
 #| label: population-vs-sample
@@ -56,21 +56,19 @@ sample1 = random.sample(deck, 5)
 sample2 = random.sample(deck, 5)
 
 # compute sample means
-mean1 = np.mean(sample1)
-mean2 = np.mean(sample2)
+sample_mean1 = np.mean(sample1)
+sample_mean2 = np.mean(sample2)
 
 # compute population mean
 population_mean = np.mean(deck)
 
-print("Sample means:", mean1, mean2)
-print("Population mean:", population_mean)
+print(f"Sample means: {sample_mean1}, {sample_mean2}")
+print(f"Population mean: {population_mean}")
 ```
 
-**Question:** Why are the sample means different? And why are they different from the population mean?
+We have taken two samples from the population. Their mean values are `{python} f"{sample_mean1}"` and `{python} f"{sample_mean1}"`, which vary slightly from the population mean (`{python} f"{population_mean}"`). Why do the sample means differ from each other and the population mean?
 
-**Takeaway:** Even if the process is fair, individual samples vary. This is a core challenge of inference.
-
-We rely on well-designed comparisons to manage these uncertainties, using statistical tools that help us determine whether sample-level observations likely reflect real population-level differences.
+Sampling variability is inevitable. Each sample captures only a slice of the full population, and in small samples, this can lead to significant variances in the sample and population means. Perhaps the first ten cards drawn from the deck have a high number of face cards, or the second sample has lots of 2s, 3s, and 4s. Even if the process for drawing a sample is fair, individual samples will always vary. This is a core challenge of inference. We rely on well-designed comparisons to manage these uncertainties, using statistical tools that help us determine whether sample-level observations likely reflect real population-level differences.
 
 ## Comparing Car Crash Fatalities - High or Not?
 
@@ -79,7 +77,6 @@ Now we can apply this logic to a real-world dataset. We will use a dataset that 
 We are using a dataset, provided by [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-22/readme.md), which includes an indicator for April 20th (4/20). We will investigate whether 4/20 sees more crashes than expected.
 
 ### Import & Process Data
-
 
 ```{python}
 #| label: import-data
@@ -109,6 +106,7 @@ raw_420.isna().sum()
 raw_420[raw_420['e420'].isna()]
 ```
 
+We will transform the data to remove missing values, make the column names more meaningful, and select the columns we want to use in our analysis. 
 
 ```{python}
 #| label: transform-data
@@ -119,10 +117,8 @@ df = (
     .assign(is_420=raw_420['e420'].astype(bool))
     # drop missing values
     .dropna()
-    # create boolean where TRUE if date is 07/04
-    .assign(is_4th_july=(raw_420['date'].dt.month == 7) & (raw_420['date'].dt.day == 4))
     # select relevant columns
-    [['date', 'is_420', 'is_4th_july', 'fatalities_count']]
+    [['date', 'is_420', 'fatalities_count']]
 )
 ```
 
@@ -134,6 +130,8 @@ df.head()
 ```
 
 ### Visual Comparisons
+
+We can start by plotting our data to better understand how fatalities vary, and using visual comparisons between fatalities on 4/20 and other days.
 
 ```{python}
 #| label: group-means
@@ -219,7 +217,7 @@ plt.show()
 
 ```
 
-**Question:** What do you notice about the distribution (centre, spread, outliers, etc.)?
+What do you notice about the distribution (centre, spread, outliers, etc.)?
 
 ### Testing Comparisons
 
@@ -233,7 +231,7 @@ A *t*-test is a statistical test used to compare the means of two groups to dete
 - The variability (spread) of the data within each group.
 - The sample size (number of observations in each group).
 
-The *t*-test calculates a p-value, which is the probability of observing a difference as extreme or more extreme than the one found, assuming there is no true difference between the groups in the population (i.e., the null hypothesis is true). If the p-value is small enough (below a threshold like 0.05), you reject the null hypothesis and conclude that the difference between the groups is likely real and not due to random chance.
+The *t*-test calculates a p-value, which is the probability of observing a difference as extreme or more extreme than the one found, assuming there is no true difference between the groups in the population (i.e., the null hypothesis is true). If the p-value is small enough (below a threshold like 0.05), you reject the null hypothesis and conclude that the difference between the groups is likely real and not due to random chance. If we compute a correlation of 0.45 with a *p*-value of 0.01, that means we’d expect to see a correlation this strong less than 1% of the time by chance alone, assuming no true relationship.
 
 {{< video https://youtu.be/0oc49DyA3hU?si=0x24ncYVQKbJP2sY >}}
 
@@ -265,17 +263,27 @@ se_diff = np.sqrt(
 print(f"Mean difference = {mean_diff:.2f}")
 ```
 
-**Interpretation:**
-
-- If *p* < 0.05, we reject the null that there is no true difference between the groups in the population.
-- **Here**, the *p*-value is below 0.05 — suggesting that 4/20 days see **significantly less** fatal crashes than other days. The evidence supports a real difference.
+If *p* < 0.05, we reject the null that there is no true difference between the groups in the population. The *p*-value is below 0.05 — suggesting that 4/20 days see **significantly fewer** fatal crashes than other days. The evidence supports a real difference.
 
 {{< video https://youtu.be/vemZtEM63GY?si=8l3GMwdxxdUI2Rod >}}
+
+## Why Significance Is a Thorny Issue
+
+While *p*-values are widely used, they come with caveats:
+
+- Binary thinking - Treating *p* < 0.05 as “proof” and *p* > 0.05 as “nothing” is misleading. Evidence exists on a continuum.
+- Sample size matters - With huge samples, even tiny effects can be “significant.” With small samples, meaningful effects might not reach the threshold.
+- Misinterpretation - A *p*-value doesn’t tell us how big or important an effect is, nor the probability that the hypothesis is true.
+- Multiple testing - The more tests we run, the more likely we’ll find “significant” results by chance (false positives).
+
+The better approach is to treat *p*-values as one piece of evidence. Pair them with effect sizes, confidence intervals, visualizations, and context.
+
+<details>
+  <summary>Using Simulation for Comparisons (Click to Expand)</summary>
 
 #### Simulation-Based Tests
 
 Let’s briefly replicate the comparison using a simulation-based method. This avoids strong distributional assumptions.
-
 
 ```{python}
 #| label: simulation-function
@@ -323,21 +331,22 @@ plt.tight_layout()
 plt.show()
 ```
 
-**Takeaway:** Simulation confirms the result and emphasizes flexibility: even when assumptions are questionable, we can still test meaningfully. It also reinforces that inference is about what would happen if we repeated the experiment many times.
+Simulation confirms the result and emphasizes flexibility: even when assumptions are questionable, we can still test meaningfully. It also reinforces that inference is about what would happen if we repeated the experiment many times.
+
+</details>
 
 ## Limitations of Comparison
 
 Comparing samples of data can be very useful. There is descriptive value in just knowing that differences exist in the data, and this may point to a meaningful difference in the population. However, if you are trying to understand what _caused_ the differences between the two samples, comparison is not enough.
 
-**Questions:** What might be wrong with our comparison?
+Our analysis shows that there are fewer crashes on 4/20 than other days, but is the comparison we are making fair? Our comparison assumes that the only difference between the 4/20 and other days in the data is the date itself, and the cultural holiday that takes place on this date. We haven't accounted for other causes of variation in the number of crashes. We haven't accounted for other holidays, weather patterns, or daily differences in the number of people on the road.
+
+Comparisons only measure what we observe, not necessarily what we want to know. It is important to consider how your comparison might not answer the question you are actually asking. And it is important to consider ways that your comparison may be flawed, and what else may be going on in the data.
 
 ## Wrapping Up
 
-1. **Workflow recap:**
-   Start with a question → consider population vs. sample → visualize → compare → test → interpret.
-2. **Limits of this approach:**
-   Group comparisons are powerful, but rigid. They don’t account for multiple variables or continuous predictors. Context and sample size also matter.
-3. **Looking ahead:**
-   Next we will move from comparing means to **analysing relationships** between variables. That lets us ask new types of questions. We’ll explore how variables change **together**, detect trends, and lay the foundation for regression.
+We've walked the workflow for carrying out comparisons using statistical methods. With these methods we can make meaningful comparisons between samples in our data. This gives us a solid foundation for carrying out analysis. We can identify differences, quantify uncertainty, and make inferences from data. But these methods have limitations. They don’t account for multiple variables or continuous predictors. Context and sample size also matter.
 
-**Potential extension:** Pick another potentially "special" date—e.g., July 4, New Year’s Day—and apply the same steps. Are there elevated crash counts there too? You can also explore other factors, like day of week or holiday status, to dig deeper into what might influence crash rates.
+In future sessions we will take this a step further, analysing how variables relate to each other. That lets us ask new types of questions. We’ll explore how variables change together, detect trends, and lay the foundation for regression.
+
+**Potential extension:** Apply today's workflow to July 4th or New Year's Day. Do these dates show different crash patterns? What factors might explain any differences you find? This practice will deepen your intuition for when group comparisons work well and when more sophisticated approaches are needed.
