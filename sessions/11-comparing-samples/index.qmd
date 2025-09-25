@@ -52,8 +52,8 @@ import random
 deck = list(range(1, 14)) * 4
 
 # draw two random samples of ten cards
-sample1 = random.sample(deck, 5)
-sample2 = random.sample(deck, 5)
+sample1 = random.sample(deck, 10)
+sample2 = random.sample(deck, 10)
 
 # compute sample means
 sample_mean1 = np.mean(sample1)
