@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Analysing Penguins Relationships</title>
+<title>Regression Fundamentals: Analysing Penguins Relationships</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,6 +107,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -328,10 +357,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#why-analyse-relationships" id="toc-why-analyse-relationships" class="nav-link active" data-scroll-target="#why-analyse-relationships">Why Analyse Relationships?</a></li>
-  <li><a href="#from-categorical-to-continuous" id="toc-from-categorical-to-continuous" class="nav-link" data-scroll-target="#from-categorical-to-continuous">From Categorical to Continuous</a>
+  <li><a href="#why-analyse-relationships" id="toc-why-analyse-relationships" class="nav-link active" data-scroll-target="#why-analyse-relationships">Why Analyse Relationships?</a>
   <ul class="collapse">
-  <li><a href="#variable-types" id="toc-variable-types" class="nav-link" data-scroll-target="#variable-types">Variable Types</a></li>
+  <li><a href="#from-categorical-to-continuous" id="toc-from-categorical-to-continuous" class="nav-link" data-scroll-target="#from-categorical-to-continuous">From Categorical to Continuous</a></li>
+  <li><a href="#from-comparing-groups-to-estimating-associations" id="toc-from-comparing-groups-to-estimating-associations" class="nav-link" data-scroll-target="#from-comparing-groups-to-estimating-associations">From Comparing Groups to Estimating Associations</a></li>
   </ul></li>
   <li><a href="#penguins-with-long-characteristics" id="toc-penguins-with-long-characteristics" class="nav-link" data-scroll-target="#penguins-with-long-characteristics">Penguins with Long Characteristics</a>
   <ul class="collapse">
@@ -339,8 +368,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#visualing-relationships" id="toc-visualing-relationships" class="nav-link" data-scroll-target="#visualing-relationships">Visualing Relationships</a></li>
   <li><a href="#computing-correlations" id="toc-computing-correlations" class="nav-link" data-scroll-target="#computing-correlations">Computing Correlations</a></li>
   <li><a href="#correlations-limitations" id="toc-correlations-limitations" class="nav-link" data-scroll-target="#correlations-limitations">Correlation’s Limitations</a></li>
-  <li><a href="#visualising-linear-regressions" id="toc-visualising-linear-regressions" class="nav-link" data-scroll-target="#visualising-linear-regressions">Visualising Linear Regressions</a></li>
-  <li><a href="#visualisation-limitations" id="toc-visualisation-limitations" class="nav-link" data-scroll-target="#visualisation-limitations">Visualisation Limitations</a></li>
   </ul></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
@@ -351,7 +378,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/11-comparing-samples/index.html">Data Science</a></li><li class="breadcrumb-item"><a href="../../sessions/12-analysing-relationships/index.html">12. Analysing Relationships</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Analysing <del>Penguins</del> Relationships</h1>
+<h1 class="title">Regression Fundamentals: Analysing <del>Penguins</del> Relationships</h1>
 </div>
 
 
@@ -373,16 +400,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We will use the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md"><strong>Palmer Penguins</strong></a> dataset throughout this session, taken from the <a href="https://github.com/rfordatascience/tidytuesday/">TidyTuesday</a> GitHub repository (originally from the <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a> R package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>). We will import the data directly from GitHub, but if you would prefer to download it instead, click <a href="https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv" download="">here</a>.</p>
 <section id="why-analyse-relationships" class="level2">
 <h2 class="anchored" data-anchor-id="why-analyse-relationships">Why Analyse Relationships?</h2>
-<p>In the <a href="../../sessions/11-comparing-samples">first session</a> in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. The problem with comparing samples is that you can only really conclude that the samples are probably drawn from the same distribution or not. If they are not drawn from the same population distribution, what does this really tell us? It is possible to structure our analysis such that this could be quite meaningful, but in many cases it won’t be.</p>
-<p>This is why we need to take the next step, to analysing relationships. How do two variables move together? Strictly speaking, what we will be analysing today is less “relationships”, which implies causality, and more “associations”. We are unable to make claims about causality with the methods we are using, because we are only considering how variables vary together, and not directly estimating how one variable causes changes in another. Still, the methods we will discuss here get us one step closer to being able to measure effects and infer causality.</p>
-<p>In this session, we’ll explore the penguins dataset to see how body mass relates to flipper length, how bill length relates to bill depth, and how to identify relationships between continuous traits.</p>
-</section>
-<section id="from-categorical-to-continuous" class="level2">
-<h2 class="anchored" data-anchor-id="from-categorical-to-continuous">From Categorical to Continuous</h2>
-<p>In our previous session, comparing samples, we were comparing the average value of a continuous variable by groups (categorical variables). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
+<p>In the <a href="../../sessions/11-comparing-samples">first session</a> in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. We compared fatalities from car crashes between 4/20 and other days. But what if we wanted to examine how the number of fatalities changes as temperature increases or decreases? Or maybe we want to account for the number of cars on the road at different times of year? These questions require different tools.</p>
+<section id="from-categorical-to-continuous" class="level3">
+<h3 class="anchored" data-anchor-id="from-categorical-to-continuous">From Categorical to Continuous</h3>
+<p>The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the avearage number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
 <p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
-<section id="variable-types" class="level3">
-<h3 class="anchored" data-anchor-id="variable-types">Variable Types</h3>
+<section id="variable-types" class="level4">
+<h4 class="anchored" data-anchor-id="variable-types">Variable Types</h4>
 <p>At this point, it might be necessary to walk through variable types and what continuous and categorical variables really mean.</p>
 <table class="caption-top table">
 <colgroup>
@@ -438,8 +462,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A nominal category has no natural order, while ordinal categories do.</p>
 </section>
 </section>
+<section id="from-comparing-groups-to-estimating-associations" class="level3">
+<h3 class="anchored" data-anchor-id="from-comparing-groups-to-estimating-associations">From Comparing Groups to Estimating Associations</h3>
+<p>Group comparison tells us whether Group A’s sample mean is meaningfully different from Group B’s, but this comparison doesn’t really tell us the size of the difference or the pattern in which the differences occur. If two samples are not drawn from the same population distribution, what does this really tell us? It is possible to structure our analysis such that this could be quite meaningful, but in many cases it won’t be.</p>
+<p>This is why we need to take the next step, to analysing relationships. How do two variables move together? Strictly speaking, what we will be analysing today is less “relationships”, which implies causality, and more “associations”. We are unable to make claims about causality with the methods we are using, because we are only considering how variables vary together, and not directly estimating how one variable causes changes in another. Still, the methods we will discuss here get us one step closer to being able to measure effects and infer causality.</p>
+<p>In this session, we’ll explore the penguins dataset to see how body mass relates to flipper length, how bill length relates to bill depth, and how to identify relationships between continuous traits.</p>
+</section>
+</section>
 <section id="penguins-with-long-characteristics" class="level2">
 <h2 class="anchored" data-anchor-id="penguins-with-long-characteristics">Penguins with Long Characteristics</h2>
+<p>We will use the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md"><strong>Palmer Penguins</strong></a> dataset to analyse how the length of penguins’ body mass changes with flipper length and how penguin bill length is associated with bill depth. We can’t draw conclusions about causality from our data, but we are able to move from identifying differences to quantifying those differences. This takes us one step closer to making meaningful inferences.</p>
 <section id="import-process-data" class="level3">
 <h3 class="anchored" data-anchor-id="import-process-data">Import &amp; Process Data</h3>
 <div id="cell-import-data" class="cell" data-execution_count="1">
@@ -541,42 +573,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="visualing-relationships" class="level3">
 <h3 class="anchored" data-anchor-id="visualing-relationships">Visualing Relationships</h3>
+<p>Lets start by visualising how body mass varies by flipper length. We will split the data by species as well, in order to identify whether penguin species is a confounding factor.</p>
 <div id="cell-fig-flipper-mass-scatter-plot" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter of flipper length vs. body mass</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'flipper_len'</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'body_mass'</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'species'</span>,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'The Relationship Between Flipper Length &amp; Body Mass'</span>)</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Flipper Length (mm)'</span>)</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Body Mass (g)'</span>)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> [<span class="dv">8</span>,<span class="dv">6</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter of flipper length vs. body mass</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'flipper_len'</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'body_mass'</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'species'</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Flipper Length (mm)'</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Body Mass (g)'</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-flipper-mass-scatter-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flipper-mass-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-flipper-mass-scatter-plot-output-1.png" id="fig-flipper-mass-scatter-plot" class="img-fluid figure-img">
+<img src="index_files/figure-html/fig-flipper-mass-scatter-plot-output-1.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-flipper-mass-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flipper-mass-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The Relationship Between Flipper Length &amp; Body Mass
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>What pattern do you see in <a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a>?</li>
-<li>How does body mass change when flipper length increases, according to this plot?</li>
-<li>Are there differences by species?</li>
-</ul>
+<p>What patterns do you see in <a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a>? How does body mass change when flipper length increases? And how does species moderate the association between flipper length and body mass?</p>
+<p><a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a> shows that, when flipper length increases, body mass appears to increase. There is a clear pattern in the data, and though there are differences in the average value of flipper length and body mass when split by species, the species doesn’t appear to have a significant impact on the relationship between flipper length and body mass.</p>
+<p>We can use the same plot to visualise the association between bill length and bill depth.</p>
 <div id="cell-fig-bill-scatter-plot" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter of bill length vs. bill depth</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
@@ -587,7 +618,7 @@ Figure&nbsp;1
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'species'</span>,</span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'The Relationship Between Bill Length &amp; Bill Depth'</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -595,41 +626,65 @@ Figure&nbsp;1
 <div id="fig-bill-scatter-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-bill-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-bill-scatter-plot-output-1.png" id="fig-bill-scatter-plot" class="img-fluid figure-img">
+<img src="index_files/figure-html/fig-bill-scatter-plot-output-1.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-bill-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bill-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The Relationship Between Bill Length &amp; Bill Depth
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>Questions:</strong></p>
-<ul>
-<li>What pattern do you see in <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a>?</li>
-<li>How does bill depth change when bill length increases, according to this plot?</li>
-<li>Are there differences by species?</li>
-</ul>
+<p>How does the pattern in <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a> differ from <a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a>? What happens to bill depth when bill length changes, and how does species impact these changes?</p>
+<p>When you look at all the data in <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a> without accounting for species, the relationship appears to be very noisy. However, when factoring in species differences, the association looks positive.</p>
+<p>We can also fit a regression line to our data, shown below in <a href="#fig-bill-regression-plot" class="quarto-xref">Figure&nbsp;3</a>, which will show us the “line of best fit” through bill length and bill depth.</p>
+<div id="cell-fig-bill-regression-plot" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add linear fit line</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sns.regplot(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'bill_len'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'bill_dep'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    scatter<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ci<span class="op">=</span><span class="dv">95</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-bill-regression-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-bill-regression-plot-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: The Line of Best Fit Between Bill Length &amp; Bill Depth
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>It is clear that any relationship between bill length and bill depth is more complicated than the relationship between flipper length and body mass. Not only does ignoring species make the association between these variables appear a lot more noisy, it also suggests that bill length is negatively associated with bill depth, which is the opposite conclusion to the conclusion we draw from <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a>.</p>
 </section>
 <section id="computing-correlations" class="level3">
 <h3 class="anchored" data-anchor-id="computing-correlations">Computing Correlations</h3>
+<p>Visualising continuous variables using scatterplots can give us an indication of how two variables change together, but we are unable to quantify this association between two variables only using visualisations. We can put a number to what we are seeing in the plots by calculating the correlation between variables.</p>
 <section id="pairwise-correlation" class="level4">
 <h4 class="anchored" data-anchor-id="pairwise-correlation">Pairwise Correlation</h4>
 <p>We can compute the correlation between two variables, using <code>scipy.stats</code>.</p>
-<div id="flipper-mass-correlation" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'flipper_len'</span>], df[<span class="st">'body_mass'</span>])</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="flipper-mass-correlation" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'flipper_len'</span>], df[<span class="st">'body_mass'</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Correlation (r) = 0.87</code></pre>
 </div>
 </div>
 <p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 <p>When we visualised the relationship between bill length and bill depth, there appeared to be a grouping structure going on that complicated things, and the overall relationship appeared pretty noisy.</p>
-<div id="bill-correlation" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'bill_len'</span>], df[<span class="st">'bill_dep'</span>])</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="bill-correlation" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'bill_len'</span>], df[<span class="st">'bill_dep'</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Correlation (r) = -0.23</code></pre>
 </div>
@@ -644,14 +699,14 @@ Figure&nbsp;2
 <section id="correlation-matrix" class="level4">
 <h4 class="anchored" data-anchor-id="correlation-matrix">Correlation Matrix</h4>
 <p>We may be interested in the pairwise correlation between multiple variables. If so, computing each correlation between pairs of variables is very cumbersome. Instead, we can compute a correlation matrix.</p>
-<div id="cell-correlation-matrix" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute correlation matrix</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .corr()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="correlation-matrix" class="cell-output cell-output-display" data-execution_count="7">
+<div id="cell-correlation-matrix" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute correlation matrix</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    .corr()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="correlation-matrix" class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
 
@@ -713,38 +768,38 @@ Figure&nbsp;2
 </div>
 </div>
 </div>
-<p>We can also visualise a correlation matrix, shown below in <a href="#fig-correlation-matrix-plot" class="quarto-xref">Figure&nbsp;3</a>.</p>
-<div id="cell-fig-correlation-matrix-plot" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add correlation matrix to summarise relationships</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>).corr()</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot heatmap</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Correlation Matrix"</span>)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can also visualise a correlation matrix, shown below in <a href="#fig-correlation-matrix-plot" class="quarto-xref">Figure&nbsp;4</a>.</p>
+<div id="cell-fig-correlation-matrix-plot" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add correlation matrix to summarise relationships</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>).corr()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># plot heatmap</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-correlation-matrix-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-correlation-matrix-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-correlation-matrix-plot-output-1.png" id="fig-correlation-matrix-plot" class="img-fluid figure-img">
+<img src="index_files/figure-html/fig-correlation-matrix-plot-output-1.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-correlation-matrix-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-matrix-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Correlation Matrix
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>If you are concerned with a certain outcome and you want to quickly look at the correlation between all other continuous variables and the outcome, you can also compute this.</p>
-<div id="cell-body-mass-correlations" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlations of all numeric variables with body mass</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    .corr()[<span class="st">'body_mass'</span>]</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    .drop(<span class="st">'body_mass'</span>)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="body-mass-correlations" class="cell-output cell-output-display" data-execution_count="9">
+<div id="cell-body-mass-correlations" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlations of all numeric variables with body mass</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    .corr()[<span class="st">'body_mass'</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    .drop(<span class="st">'body_mass'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="body-mass-correlations" class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>bill_len       0.59
 bill_dep      -0.47
 flipper_len    0.87
@@ -756,133 +811,88 @@ Name: body_mass, dtype: float64</code></pre>
 </section>
 <section id="correlations-limitations" class="level3">
 <h3 class="anchored" data-anchor-id="correlations-limitations">Correlation’s Limitations</h3>
-<p>Computing correlation can be very informative, but there are a lot of ways it is limited. Correlation (at least the most common method for calculating correlation, Pearson’s <em>r</em><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>) does not handle non-linearity well.</p>
-<div id="cell-fig-non-linear-relationships" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate a u‑shaped relationship example</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>x_sim <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">200</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>y_sim <span class="op">=</span> x_sim<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: x_sim, <span class="st">'y'</span>: y_sim})</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>sim, x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'u-shaped pattern'</span>)</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="fig-non-linear-relationships" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-non-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-non-linear-relationships-output-1.png" id="fig-non-linear-relationships" class="img-fluid figure-img">
+<p>Computing correlation can be very informative, but there are a lot of ways it is limited. The most common method for calculating correlation, Pearson’s <span class="math inline">\(r\)</span>, assumes a linear pairwise relationship between variables. This means it is unable to capture certain relationships that do not meet these assumptions.</p>
+<section id="non-linearity" class="level4">
+<h4 class="anchored" data-anchor-id="non-linearity">Non-Linearity</h4>
+<p>A correlation coefficient will miss strong non-linear relationships in data. We can demonstrate this by simulating a parabolic relationship (a u-shaped curve) between two variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, where <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span>.</p>
+<div id="simulate-non-linear-relationship" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate a u‑shaped relationship example</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>x_sim <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">200</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>y_sim <span class="op">=</span> x_sim<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sim_data <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: x_sim, <span class="st">'y'</span>: y_sim})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-non-linear-relationships-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<div id="non-linear-correlation" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim[<span class="st">'x'</span>], sim[<span class="st">'y'</span>])</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We know that the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is meaningful because we generated <span class="math inline">\(y\)</span> from <span class="math inline">\(x\)</span>. However, when we calculate their correlation, it is tiny.</p>
+<div id="non-linear-correlation" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim_data[<span class="st">'x'</span>], sim_data[<span class="st">'y'</span>])</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correlation (r) = -0.01</code></pre>
+<pre><code>Correlation (r) = -0.03</code></pre>
 </div>
 </div>
-<p><strong>Takeaway:</strong> Pearson’s <em>r</em> misses non-linear relationships</p>
-</section>
-<section id="visualising-linear-regressions" class="level3">
-<h3 class="anchored" data-anchor-id="visualising-linear-regressions">Visualising Linear Regressions</h3>
-<div id="cell-fig-flipper-mass-regression-plot" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add linear fit line</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sns.regplot(</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'flipper_len'</span>,</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'body_mass'</span>,</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    scatter<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    ci<span class="op">=</span><span class="dv">95</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Adding a Regression Line'</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Flipper Length (mm)'</span>)</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Body Mass (g)'</span>)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="#fig-non-linear-relationship" class="quarto-xref">Figure&nbsp;5</a> visualises the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, demonstrating that there is clearly a relationship between the two variables.</p>
+<div id="cell-fig-non-linear-relationship" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>sim_data, x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div id="fig-flipper-mass-regression-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<div id="fig-non-linear-relationship" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-flipper-mass-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-flipper-mass-regression-plot-output-1.png" id="fig-flipper-mass-regression-plot" class="img-fluid figure-img">
+<div aria-describedby="fig-non-linear-relationship-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-non-linear-relationship-output-1.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-flipper-mass-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-linear-relationship-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: A Non-Linear Relationship
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-fig-bill-regression-plot" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add linear fit line</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sns.regplot(</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'bill_len'</span>,</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'bill_dep'</span>,</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    scatter<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    ci<span class="op">=</span><span class="dv">95</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Adding a Regression Line'</span>)</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div id="fig-bill-regression-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-bill-regression-plot-output-1.png" id="fig-bill-regression-plot" class="img-fluid figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
+<p>While there are correlation measures that handle non-linearity (such as Spearman’s rank correlation and Kendall’s tau (<span class="math inline">\(\tau\)</span>)), they are much less common than Pearson’s <span class="math inline">\(r\)</span>.</p>
 </section>
-<section id="visualisation-limitations" class="level3">
-<h3 class="anchored" data-anchor-id="visualisation-limitations">Visualisation Limitations</h3>
-<p>Visualising relationships has many of the same issues that computing correlation does, but fundamentally the biggest issue is that it is pairwise, and few relationships are strictly pairwise in the real world.</p>
-<p><a href="#fig-bill-regression-plot" class="quarto-xref">Figure&nbsp;6</a> points to another limitation with Pearson’s <em>r</em> that also applies to regression plots. Grouping structures!</p>
+<section id="complexity" class="level4">
+<h4 class="anchored" data-anchor-id="complexity">Complexity</h4>
+<p>While the linearity assumption can cause Pearson’s <span class="math inline">\(r\)</span> to miss strong non-linear relationships between variables, the biggest limiting factor with measuring correlations is the pairwise assumption. Correlation compares pairs of variables, which means treating the relationship between those pairs as independent, ignoring potential interactions with other variables. Very few relationships in the real world are strictly pairwise.</p>
+<p>We saw an example of this earlier with correlation missing the relationship between bill length and bill depth because it couldn’t account for the group-level species effect.</p>
+<p>We can account for grouping structures in our data visually, by plotting regression lines for each group. <a href="#fig-grouping-structures" class="quarto-xref">Figure&nbsp;6</a> identifies the real story that correlation missed.</p>
 <div id="cell-fig-grouping-structures" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"bill_len"</span>, y<span class="op">=</span><span class="st">"bill_dep"</span>, hue<span class="op">=</span><span class="st">"species"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"bill_len"</span>, y<span class="op">=</span><span class="st">"bill_dep"</span>, hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">6</span>, aspect<span class="op">=</span><span class="fl">1.2</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Accounting for groups'</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="fig-grouping-structures" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-grouping-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="index_files/figure-html/fig-grouping-structures-output-1.png" id="fig-grouping-structures" class="img-fluid figure-img">
+<img src="index_files/figure-html/fig-grouping-structures-output-1.png" class="img-fluid figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-grouping-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grouping-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Accounting for Grouping Structures
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p><a href="#fig-grouping-structures" class="quarto-xref">Figure&nbsp;7</a> shows how pairwise examination of relationships can miss so much.</p>
-<p>Drawing a straight line through data is strictly linear, but unlike correlation coefficients, you will be able to <em>see</em> when this is inappropriate. A linear regression plot will not handle the non-linear pattern above any better than a correlation coefficient, but you will be able to see the problem for yourself.</p>
-<p>Visualising data helps you to get a sense of how two variables are related, but where you are seeking to understand the relationship between variables, or even explain what causes a certain outcome, you have to go further.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This also demonstrates why it is important to approach exploratory data analysis in a few different ways. While a correlation coefficient would have missed the relationship between bill length and bill depth, <a href="#fig-bill-regression-plot" class="quarto-xref">Figure&nbsp;3</a> also would have suggested a negative relationship between two variables that are actually positively associated (though it is unclear if the relationship is causal). Meanwhile, <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a> suggested that species has a moderating effect on the relationship between the length of a penguin’s bill and its depth, and <a href="#fig-grouping-structures" class="quarto-xref">Figure&nbsp;6</a> confirms the suspicions.</p>
+</div>
+</div>
+</div>
+<p>Correlation will not account for grouping structures, but it will also miss any other way that other variables can complicate the relationship between a pair of variables. Outcomes in the real world are rarely as simple as a pairwise relationship. We need different tools to capture this complexity.</p>
+</section>
 </section>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<ul>
-<li>Visualising data can help intuit how variables are related.</li>
-<li>Correlations can tell us a lot, but typical methods for calculating correlation will miss non-linearity.</li>
-<li>Correlation does not imply causation (but does not <em>not</em> imply causation, either).</li>
-<li>Both of these approaches are generally only able to handle pairwise relationships.</li>
-</ul>
+<p>Visualising continuous variables and calculating their correlations can tell us a lot. These methods let us move beyond simple group comparisons to examine continuous associations. However, both approaches have important limitations: they struggle with non-linear patterns, they struggle with complexity, and most importantly, they cannot tell us whether the relationship between variables is causal.</p>
+<p>Real-world relationships rarely exist in isolation, so we need methods that can handle the complexity that occurs in the wild. This is where we turn to regression. Regression can handle multiple variables, account for confounding factors, and provide a more complete picture of how variables relate to each other in complex systems.</p>
 
 
 </section>
@@ -893,7 +903,6 @@ Figure&nbsp;7
 <ol>
 <li id="fn1"><p>And now a part of the Base R datasets package included as default in R installations (R &gt;= 4.5.0).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>There are a number of other ways of calculating correlation, including methods that account for non-linearity, but more often than not you will encounter Pearson’s <em>r</em>. Any time correlation is mentioned without specifying the way it was calculated, you should assume it is using Pearson’s <em>r</em>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
