@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 2
 requires-python = ">=3.12"
 resolution-markers = [
     "python_full_version >= '3.14'",
@@ -393,6 +393,7 @@ dependencies = [
     { name = "quarto" },
     { name = "rsconnect-python" },
     { name = "scikit-learn" },
+    { name = "scipy" },
     { name = "seaborn" },
     { name = "skimpy" },
     { name = "statsmodels" },
@@ -415,6 +416,7 @@ requires-dist = [
     { name = "quarto", specifier = ">=0.1.0" },
     { name = "rsconnect-python", specifier = ">=1.25.2" },
     { name = "scikit-learn", specifier = ">=1.7.1" },
+    { name = "scipy", specifier = ">=1.16.1" },
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "skimpy", specifier = ">=0.0.18" },
     { name = "statsmodels", specifier = ">=0.14.5" },
