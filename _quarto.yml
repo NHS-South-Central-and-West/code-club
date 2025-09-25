@@ -75,6 +75,7 @@ website:
         - section: Data Science
           contents:
             - text: 11. Comparing Samples
+              file: sessions/11-comparing-samples/index.qmd
             - text: 12. Analysing Relationships
             - text: 13. Introduction to Linear Regression
             - text: 14. Implementing Linear Regression
