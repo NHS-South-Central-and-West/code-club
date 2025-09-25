@@ -192,8 +192,6 @@ plt.show()
 
 The imbalance between 4/20 and other days in the year makes it impossible to really see what is going on in our histogram. We can normalise the two distributions such that the total area of both equals one. This preserves their shape but accounts for the count imbalance between the two.
 
-See the Seaborn documentation for more information: https://seaborn.pydata.org/generated/seaborn.histplot.html
-
 We can also replace the boxplot with a violin plot, which will give us a little more intuition for the shape of the two groups.
 
 ```{python}
@@ -267,7 +265,9 @@ If *p* < 0.05, we reject the null that there is no true difference between the g
 
 {{< video https://youtu.be/vemZtEM63GY?si=8l3GMwdxxdUI2Rod >}}
 
-## Why Significance Is a Thorny Issue
+::: {.callout-note}
+
+#### Why Significance Is a Thorny Issue
 
 While *p*-values are widely used, they come with caveats:
 
@@ -277,6 +277,8 @@ While *p*-values are widely used, they come with caveats:
 - Multiple testing - The more tests we run, the more likely we’ll find “significant” results by chance (false positives).
 
 The better approach is to treat *p*-values as one piece of evidence. Pair them with effect sizes, confidence intervals, visualizations, and context.
+
+::: 
 
 <details>
   <summary>Using Simulation for Comparisons (Click to Expand)</summary>
