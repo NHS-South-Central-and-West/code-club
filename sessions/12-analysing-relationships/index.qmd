@@ -1,5 +1,5 @@
 ---
-title: "Analysing ~~Penguins~~ Relationships"
+title: "Regression Fundamentals: Analysing ~~Penguins~~ Relationships"
 format:
   html: default
   ipynb: default
@@ -17,19 +17,15 @@ And now a part of the Base R datasets package included as default in R installat
 
 ## Why Analyse Relationships?
 
-In the [first session](/sessions/11-comparing-samples) in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. The problem with comparing samples is that you can only really conclude that the samples are probably drawn from the same distribution or not. If they are not drawn from the same population distribution, what does this really tell us? It is possible to structure our analysis such that this could be quite meaningful, but in many cases it won't be.
+In the [first session](/sessions/11-comparing-samples) in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. We compared fatalities from car crashes between 4/20 and other days. But what if we wanted to examine how the number of fatalities changes as temperature increases or decreases? Or maybe we want to account for the number of cars on the road at different times of year? These questions require different tools.
 
-This is why we need to take the next step, to analysing relationships. How do two variables move together? Strictly speaking, what we will be analysing today is less "relationships", which implies causality, and more "associations". We are unable to make claims about causality with the methods we are using, because we are only considering how variables vary together, and not directly estimating how one variable causes changes in another. Still, the methods we will discuss here get us one step closer to being able to measure effects and infer causality.
+### From Categorical to Continuous
 
-In this session, we’ll explore the penguins dataset to see how body mass relates to flipper length, how bill length relates to bill depth, and how to identify relationships between continuous traits.
-
-## From Categorical to Continuous
-
-In our previous session, comparing samples, we were comparing the average value of a continuous variable by groups (categorical variables). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).
+The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the avearage number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).
 
 There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can't reduce either to their average, and are instead making statements about the way they vary together.
 
-### Variable Types
+#### Variable Types
 
 At this point, it might be necessary to walk through variable types and what continuous and categorical variables really mean.
 
@@ -46,7 +42,17 @@ At this point, it might be necessary to walk through variable types and what con
 
 A nominal category has no natural order, while ordinal categories do.
 
+### From Comparing Groups to Estimating Associations
+
+Group comparison tells us whether Group A's sample mean is meaningfully different from Group B's, but this comparison doesn't really tell us the size of the difference or the pattern in which the differences occur. If two samples are not drawn from the same population distribution, what does this really tell us? It is possible to structure our analysis such that this could be quite meaningful, but in many cases it won't be.
+
+This is why we need to take the next step, to analysing relationships. How do two variables move together? Strictly speaking, what we will be analysing today is less "relationships", which implies causality, and more "associations". We are unable to make claims about causality with the methods we are using, because we are only considering how variables vary together, and not directly estimating how one variable causes changes in another. Still, the methods we will discuss here get us one step closer to being able to measure effects and infer causality.
+
+In this session, we’ll explore the penguins dataset to see how body mass relates to flipper length, how bill length relates to bill depth, and how to identify relationships between continuous traits.
+
 ## Penguins with Long Characteristics
+
+We will use the [**Palmer Penguins**](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md) dataset to analyse how the length of penguins' body mass changes with flipper length and how penguin bill length is associated with bill depth. We can't draw conclusions about causality from our data, but we are able to move from identifying differences to quantifying those differences. This takes us one step closer to making meaningful inferences.
 
 ### Import & Process Data
 
@@ -73,14 +79,18 @@ df.shape
 
 ### Visualing Relationships
 
+Lets start by visualising how body mass varies by flipper length. We will split the data by species as well, in order to identify whether penguin species is a confounding factor.
+
 ```{python}
 #| label: fig-flipper-mass-scatter-plot
+#| fig-cap: The Relationship Between Flipper Length & Body Mass
 
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+plt.rcParams['figure.figsize'] = [8,6]
+
 # scatter of flipper length vs. body mass
-plt.figure(figsize=(8, 6))
 sns.scatterplot(
     data=df,
     x='flipper_len',
@@ -88,20 +98,21 @@ sns.scatterplot(
     hue='species',
     alpha=0.7
 )
-plt.title('The Relationship Between Flipper Length & Body Mass')
+
 plt.xlabel('Flipper Length (mm)')
 plt.ylabel('Body Mass (g)')
 plt.show()
 ```
 
-**Questions:**
+What patterns do you see in @fig-flipper-mass-scatter-plot? How does body mass change when flipper length increases? And how does species moderate the association between flipper length and body mass?
 
-- What pattern do you see in @fig-flipper-mass-scatter-plot?
-- How does body mass change when flipper length increases, according to this plot?
-- Are there differences by species?
+@fig-flipper-mass-scatter-plot shows that, when flipper length increases, body mass appears to increase. There is a clear pattern in the data, and though there are differences in the average value of flipper length and body mass when split by species, the species doesn't appear to have a significant impact on the relationship between flipper length and body mass.
+
+We can use the same plot to visualise the association between bill length and bill depth.
 
 ```{python}
 #| label: fig-bill-scatter-plot
+#| fig-cap: The Relationship Between Bill Length & Bill Depth
 
 # scatter of bill length vs. bill depth
 plt.figure(figsize=(8, 6))
@@ -112,19 +123,40 @@ sns.scatterplot(
     hue='species',
     alpha=0.7
 )
-plt.title('The Relationship Between Bill Length & Bill Depth')
+
 plt.xlabel('Bill Length (mm)')
 plt.ylabel('Bill Depth (mm)')
 plt.show()
 ```
 
-**Questions:**
+How does the pattern in @fig-bill-scatter-plot differ from @fig-flipper-mass-scatter-plot? What happens to bill depth when bill length changes, and how does species impact these changes?
 
-- What pattern do you see in @fig-bill-scatter-plot?
-- How does bill depth change when bill length increases, according to this plot?
-- Are there differences by species?
+When you look at all the data in @fig-bill-scatter-plot without accounting for species, the relationship appears to be very noisy. However, when factoring in species differences, the association looks positive. 
+
+We can also fit a regression line to our data, shown below in @fig-bill-regression-plot, which will show us the "line of best fit" through bill length and bill depth. 
+
+```{python}
+#| label: fig-bill-regression-plot
+#| fig-cap: The Line of Best Fit Between Bill Length & Bill Depth
+
+# add linear fit line
+sns.regplot(
+    data=df,
+    x='bill_len',
+    y='bill_dep',
+    scatter=True,
+    ci=95
+)
+plt.xlabel('Bill Length (mm)')
+plt.ylabel('Bill Depth (mm)')
+plt.show()
+```
+
+It is clear that any relationship between bill length and bill depth is more complicated than the relationship between flipper length and body mass. Not only does ignoring species make the association between these variables appear a lot more noisy, it also suggests that bill length is negatively associated with bill depth, which is the opposite conclusion to the conclusion we draw from @fig-bill-scatter-plot.
 
 ### Computing Correlations
+
+Visualising continuous variables using scatterplots can give us an indication of how two variables change together, but we are unable to quantify this association between two variables only using visualisations. We can put a number to what we are seeing in the plots by calculating the correlation between variables.
 
 #### Pairwise Correlation
 
@@ -180,13 +212,14 @@ We can also visualise a correlation matrix, shown below in @fig-correlation-matr
 
 ```{python}
 #| label: fig-correlation-matrix-plot
+#| fig-cap: Correlation Matrix
 
 # add correlation matrix to summarise relationships
 corr_matrix = df.select_dtypes(include='number').corr()
 # plot heatmap
 plt.figure(figsize=(8, 6))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
-plt.title("Correlation Matrix")
+
 plt.show()
 ```
 
@@ -206,99 +239,73 @@ If you are concerned with a certain outcome and you want to quickly look at the 
 
 ### Correlation's Limitations
 
-Computing correlation can be very informative, but there are a lot of ways it is limited. Correlation (at least the most common method for calculating correlation, Pearson's _r_[^R]) does not handle non-linearity well.
+Computing correlation can be very informative, but there are a lot of ways it is limited. The most common method for calculating correlation, Pearson's $r$, assumes a linear pairwise relationship between variables. This means it is unable to capture certain relationships that do not meet these assumptions.
+
+#### Non-Linearity
+
+A correlation coefficient will miss strong non-linear relationships in data. We can demonstrate this by simulating a parabolic relationship (a u-shaped curve) between two variables, $x$ and $y$, where $y$ is a function of $x$. 
 
 ```{python}
-#| label: fig-non-linear-relationships
+#| label: simulate-non-linear-relationship
 
 import numpy as np
 
 # simulate a u‑shaped relationship example
 x_sim = np.linspace(-3, 3, 200)
 y_sim = x_sim**2 + np.random.normal(0, 1, 200)
-sim = pd.DataFrame({'x': x_sim, 'y': y_sim})
-
-plt.figure(figsize=(6, 4))
-sns.scatterplot(data=sim, x='x', y='y')
-plt.title('u-shaped pattern')
-plt.show()
+sim_data = pd.DataFrame({'x': x_sim, 'y': y_sim})
 ```
+
+We know that the relationship between $x$ and $y$ is meaningful because we generated $y$ from $x$. However, when we calculate their correlation, it is tiny.
 
 ```{python}
 #| label: non-linear-correlation
 
-r, p = pearsonr(sim['x'], sim['y'])
+r, p = pearsonr(sim_data['x'], sim_data['y'])
 print(f"Correlation (r) = {r:.2f}")
 ```
 
-**Takeaway:** Pearson’s _r_ misses non-linear relationships
-
-[^R]:
-
-There are a number of other ways of calculating correlation, including methods that account for non-linearity, but more often than not you will encounter Pearson's _r_. Any time correlation is mentioned without specifying the way it was calculated, you should assume it is using Pearson's _r_.
-
-### Visualising Linear Regressions
+@fig-non-linear-relationship visualises the relationship between $x$ and $y$, demonstrating that there is clearly a relationship between the two variables.
 
 ```{python}
-#| label: fig-flipper-mass-regression-plot
+#| label: fig-non-linear-relationship
+#| fig-cap: A Non-Linear Relationship
 
-# add linear fit line
-sns.regplot(
-    data=df,
-    x='flipper_len',
-    y='body_mass',
-    scatter=True,
-    ci=95
-)
-plt.title('Adding a Regression Line')
-plt.xlabel('Flipper Length (mm)')
-plt.ylabel('Body Mass (g)')
+sns.scatterplot(data=sim_data, x='x', y='y')
+
 plt.show()
 ```
 
-```{python}
-#| label: fig-bill-regression-plot
+While there are correlation measures that handle non-linearity (such as Spearman's rank correlation and Kendall's tau ($\tau$)), they are much less common than Pearson's $r$.
 
-# add linear fit line
-sns.regplot(
-    data=df,
-    x='bill_len',
-    y='bill_dep',
-    scatter=True,
-    ci=95
-)
-plt.title('Adding a Regression Line')
-plt.xlabel('Bill Length (mm)')
-plt.ylabel('Bill Depth (mm)')
-plt.show()
-```
+#### Complexity
 
-### Visualisation Limitations
+While the linearity assumption can cause Pearson's $r$ to miss strong non-linear relationships between variables, the biggest limiting factor with measuring correlations is the pairwise assumption. Correlation compares pairs of variables, which means treating the relationship between those pairs as independent, ignoring potential interactions with other variables. Very few relationships in the real world are strictly pairwise.
 
-Visualising relationships has many of the same issues that computing correlation does, but fundamentally the biggest issue is that it is pairwise, and few relationships are strictly pairwise in the real world.
+We saw an example of this earlier with correlation missing the relationship between bill length and bill depth because it couldn't account for the group-level species effect.
 
-@fig-bill-regression-plot points to another limitation with Pearson's *r* that also applies to regression plots. Grouping structures!
+We can account for grouping structures in our data visually, by plotting regression lines for each group. @fig-grouping-structures identifies the real story that correlation missed.
 
 ```{python}
 #| label: fig-grouping-structures
+#| fig-cap: Accounting for Grouping Structures
 
-sns.lmplot(data=df, x="bill_len", y="bill_dep", hue="species")
+sns.lmplot(data=df, x="bill_len", y="bill_dep", hue="species", height=6, aspect=1.2)
 
-plt.title('Accounting for groups')
 plt.xlabel('Bill Length (mm)')
 plt.ylabel('Bill Depth (mm)')
 plt.show()
 ```
 
-@fig-grouping-structures shows how pairwise examination of relationships can miss so much.
+::: {.callout-note}
+This also demonstrates why it is important to approach exploratory data analysis in a few different ways. While a correlation coefficient would have missed the relationship between bill length and bill depth, @fig-bill-regression-plot also would have suggested a negative relationship between two variables that are actually positively associated (though it is unclear if the relationship is causal). Meanwhile, @fig-bill-scatter-plot suggested that species has a moderating effect on the relationship between the length of a penguin's bill and its depth, and @fig-grouping-structures confirms the suspicions. 
 
-Drawing a straight line through data is strictly linear, but unlike correlation coefficients, you will be able to _see_ when this is inappropriate. A linear regression plot will not handle the non-linear pattern above any better than a correlation coefficient, but you will be able to see the problem for yourself.
+:::
 
-Visualising data helps you to get a sense of how two variables are related, but where you are seeking to understand the relationship between variables, or even explain what causes a certain outcome, you have to go further.
+Correlation will not account for grouping structures, but it will also miss any other way that other variables can complicate the relationship between a pair of variables. Outcomes in the real world are rarely as simple as a pairwise relationship. We need different tools to capture this complexity.
 
 ## Summary
 
-- Visualising data can help intuit how variables are related.
-- Correlations can tell us a lot, but typical methods for calculating correlation will miss non-linearity.
-- Correlation does not imply causation (but does not _not_ imply causation, either).
-- Both of these approaches are generally only able to handle pairwise relationships.
+Visualising continuous variables and calculating their correlations can tell us a lot. These methods let us move beyond simple group comparisons to examine continuous associations. However, both approaches have important limitations: they struggle with non-linear patterns, they struggle with complexity, and most importantly, they cannot tell us whether the relationship between variables is causal.
+
+Real-world relationships rarely exist in isolation, so we need methods that can handle the complexity that occurs in the wild. This is where we turn to regression. Regression can handle multiple variables, account for confounding factors, and provide a more complete picture of how variables relate to each other in complex systems.
