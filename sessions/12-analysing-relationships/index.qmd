@@ -1,5 +1,5 @@
 ---
-title: "Regression Fundamentals: Analysing ~~Penguins~~ Relationships"
+title: "Regression Fundamentals: Analysing Relationships"
 format:
   html: default
   ipynb: default
@@ -101,6 +101,8 @@ sns.scatterplot(
 
 plt.xlabel('Flipper Length (mm)')
 plt.ylabel('Body Mass (g)')
+
+plt.tight_layout()
 plt.show()
 ```
 
@@ -115,7 +117,6 @@ We can use the same plot to visualise the association between bill length and bi
 #| fig-cap: The Relationship Between Bill Length & Bill Depth
 
 # scatter of bill length vs. bill depth
-plt.figure(figsize=(8, 6))
 sns.scatterplot(
     data=df,
     x='bill_len',
@@ -126,6 +127,8 @@ sns.scatterplot(
 
 plt.xlabel('Bill Length (mm)')
 plt.ylabel('Bill Depth (mm)')
+
+plt.tight_layout()
 plt.show()
 ```
 
@@ -149,6 +152,8 @@ sns.regplot(
 )
 plt.xlabel('Bill Length (mm)')
 plt.ylabel('Bill Depth (mm)')
+
+plt.tight_layout()
 plt.show()
 ```
 
@@ -216,8 +221,8 @@ We can also visualise a correlation matrix, shown below in @fig-correlation-matr
 
 # add correlation matrix to summarise relationships
 corr_matrix = df.select_dtypes(include='number').corr()
+
 # plot heatmap
-plt.figure(figsize=(8, 6))
 sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
 
 plt.show()
@@ -273,6 +278,7 @@ print(f"Correlation (r) = {r:.2f}")
 
 sns.scatterplot(data=sim_data, x='x', y='y')
 
+plt.tight_layout()
 plt.show()
 ```
 
@@ -294,6 +300,8 @@ sns.lmplot(data=df, x="bill_len", y="bill_dep", hue="species", height=6, aspect=
 
 plt.xlabel('Bill Length (mm)')
 plt.ylabel('Bill Depth (mm)')
+
+plt.tight_layout()
 plt.show()
 ```
 
