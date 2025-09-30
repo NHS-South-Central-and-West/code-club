@@ -21,9 +21,17 @@ In the [first session](/sessions/11-comparing-samples) in the regression foundat
 
 ### From Categorical to Continuous
 
-The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the avearage number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).
+The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the average number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).
 
-There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can't reduce either to their average, and are instead making statements about the way they vary together.
+There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the central tendency[^Central_Tendency] and dispersion[^Dispersion] for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can't reduce either to their average, and are instead making statements about the way they vary together.
+
+[^Central-Tendency]:
+
+The central tendency describes the "typical" or "midpoint" value of your data. There are many ways to measure central tendency, but the most common are the mean (average value), median (middle value), and the mode (most common value).
+
+[^Dispersion]:
+
+Dispersion describes how much your data varies. Low dispersion means values are clustered tightly around the midpoint value, while high dispersion means your data can take a wide range of values, some much higher or lower than the midpoint. The most common measure of dispersion is standard deviation, which effectively measures the average distance that values fall from the mean.
 
 #### Variable Types
 
