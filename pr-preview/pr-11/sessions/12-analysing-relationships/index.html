@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Regression Fundamentals: Analysing Penguins Relationships</title>
+<title>Regression Fundamentals: Analysing Relationships</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -378,7 +378,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/11-comparing-samples/index.html">Data Science</a></li><li class="breadcrumb-item"><a href="../../sessions/12-analysing-relationships/index.html">12. Analysing Relationships</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Regression Fundamentals: Analysing <del>Penguins</del> Relationships</h1>
+<h1 class="title">Regression Fundamentals: Analysing Relationships</h1>
 </div>
 
 
@@ -403,8 +403,8 @@ window.Quarto = {
 <p>In the <a href="../../sessions/11-comparing-samples">first session</a> in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. We compared fatalities from car crashes between 4/20 and other days. But what if we wanted to examine how the number of fatalities changes as temperature increases or decreases? Or maybe we want to account for the number of cars on the road at different times of year? These questions require different tools.</p>
 <section id="from-categorical-to-continuous" class="level3">
 <h3 class="anchored" data-anchor-id="from-categorical-to-continuous">From Categorical to Continuous</h3>
-<p>The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the avearage number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
-<p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the average value and dispersion for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
+<p>The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the average number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
+<p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the central tendency[^Central_Tendency] and dispersion<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
 <section id="variable-types" class="level4">
 <h4 class="anchored" data-anchor-id="variable-types">Variable Types</h4>
 <p>At this point, it might be necessary to walk through variable types and what continuous and categorical variables really mean.</p>
@@ -685,7 +685,7 @@ Figure&nbsp;3: The Line of Best Fit Between Bill Length &amp; Bill Depth
 <pre><code>Correlation (r) = 0.87</code></pre>
 </div>
 </div>
-<p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
+<p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
 <p>When we visualised the relationship between bill length and bill depth, there appeared to be a grouping structure going on that complicated things, and the overall relationship appeared pretty noisy.</p>
 <div id="bill-correlation" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'bill_len'</span>], df[<span class="st">'bill_dep'</span>])</span>
@@ -833,7 +833,7 @@ Name: body_mass, dtype: float64</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim_data[<span class="st">'x'</span>], sim_data[<span class="st">'y'</span>])</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correlation (r) = -0.02</code></pre>
+<pre><code>Correlation (r) = -0.03</code></pre>
 </div>
 </div>
 <p><a href="#fig-non-linear-relationship" class="quarto-xref">Figure&nbsp;5</a> visualises the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, demonstrating that there is clearly a relationship between the two variables.</p>
@@ -910,7 +910,8 @@ Figure&nbsp;6: Accounting for Grouping Structures
 
 <ol>
 <li id="fn1"><p>And now a part of the Base R datasets package included as default in R installations (R &gt;= 4.5.0).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Dispersion describes how much your data varies. Low dispersion means values are clustered tightly around the midpoint value, while high dispersion means your data can take a wide range of values, some much higher or lower than the midpoint. The most common measure of dispersion is standard deviation, which effectively measures the average distance that values fall from the mean.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
