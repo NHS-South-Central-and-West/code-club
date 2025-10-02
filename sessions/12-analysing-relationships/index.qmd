@@ -25,7 +25,7 @@ The type of variables you are dealing with dictates what you can do to make infe
 
 There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the central tendency[^Central_Tendency] and dispersion[^Dispersion] for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can't reduce either to their average, and are instead making statements about the way they vary together.
 
-[^Central-Tendency]:
+[^Central_Tendency]:
 
 The central tendency describes the "typical" or "midpoint" value of your data. There are many ways to measure central tendency, but the most common are the mean (average value), median (middle value), and the mode (most common value).
 
@@ -85,9 +85,9 @@ df = penguins_raw.dropna()
 df.shape
 ```
 
-### Visualing Relationships
+### Visualising Relationships
 
-Lets start by visualising how body mass varies by flipper length. We will split the data by species as well, in order to identify whether penguin species is a confounding factor.
+Let's start by visualising how body mass varies by flipper length. We will split the data by species as well, in order to identify whether penguin species is a confounding factor[^Confounding].
 
 ```{python}
 #| label: fig-flipper-mass-scatter-plot
@@ -167,13 +167,19 @@ plt.show()
 
 It is clear that any relationship between bill length and bill depth is more complicated than the relationship between flipper length and body mass. Not only does ignoring species make the association between these variables appear a lot more noisy, it also suggests that bill length is negatively associated with bill depth, which is the opposite conclusion to the conclusion we draw from @fig-bill-scatter-plot.
 
+[^Confounding]:
+
+Confounding is when a third, unspecified variable influences the relationship between the explanatory variable(s) and the outcome. For example, ice cream sales is correlated with deaths by drowning, but temperature is the confounder (hot weather causes increases in both). A confounding factor creates the false impression that two variables are related or hides/distorts the real relationship.
+
 ### Computing Correlations
 
 Visualising continuous variables using scatterplots can give us an indication of how two variables change together, but we are unable to quantify this association between two variables only using visualisations. We can put a number to what we are seeing in the plots by calculating the correlation between variables.
 
 #### Pairwise Correlation
 
-We can compute the correlation between two variables, using `scipy.stats`.
+Measuring the correlation between variablse can be very useful as a way to explore data and gain quick insight into potential relationships between variables in your dataset. It is simple and intuitive, and serves as a good starting point for analysing data.
+
+We can compute the correlation between two variables, using `scipy.stats` to calculate a specific measure of correlation, Pearson's $r$[^R].
 
 ```{python}
 #| label: flipper-mass-correlation
@@ -201,6 +207,10 @@ As a result, the correlation score is much lower. A correlation of -0.23 tells u
 - The weaker correlation suggests that this decrease is a lot noisier, and it is much harder to estimate a penguin's bill depth using their bill length.
 
 A correlation of +/- ~0.2 doesn't necessarily mean there is no relationship. There are lots of ways correlation can mislead, because it is a limited measure. Visualising the relationship between bill length and bill depth showed us that species is highly relevant, and not factoring this in limits what we can say about this relationship.
+
+[^R]:
+
+For more information about Pearson's $r$, check out this [blog post] by Hoda Osama.
 
 [^Correlation]:
 
