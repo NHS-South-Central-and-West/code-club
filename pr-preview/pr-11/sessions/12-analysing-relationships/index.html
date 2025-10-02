@@ -365,7 +365,7 @@ window.Quarto = {
   <li><a href="#penguins-with-long-characteristics" id="toc-penguins-with-long-characteristics" class="nav-link" data-scroll-target="#penguins-with-long-characteristics">Penguins with Long Characteristics</a>
   <ul class="collapse">
   <li><a href="#import-process-data" id="toc-import-process-data" class="nav-link" data-scroll-target="#import-process-data">Import &amp; Process Data</a></li>
-  <li><a href="#visualing-relationships" id="toc-visualing-relationships" class="nav-link" data-scroll-target="#visualing-relationships">Visualing Relationships</a></li>
+  <li><a href="#visualising-relationships" id="toc-visualising-relationships" class="nav-link" data-scroll-target="#visualising-relationships">Visualising Relationships</a></li>
   <li><a href="#computing-correlations" id="toc-computing-correlations" class="nav-link" data-scroll-target="#computing-correlations">Computing Correlations</a></li>
   <li><a href="#correlations-limitations" id="toc-correlations-limitations" class="nav-link" data-scroll-target="#correlations-limitations">Correlation’s Limitations</a></li>
   </ul></li>
@@ -404,7 +404,7 @@ window.Quarto = {
 <section id="from-categorical-to-continuous" class="level3">
 <h3 class="anchored" data-anchor-id="from-categorical-to-continuous">From Categorical to Continuous</h3>
 <p>The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the average number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
-<p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the central tendency[^Central_Tendency] and dispersion<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
+<p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the central tendency<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and dispersion<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
 <section id="variable-types" class="level4">
 <h4 class="anchored" data-anchor-id="variable-types">Variable Types</h4>
 <p>At this point, it might be necessary to walk through variable types and what continuous and categorical variables really mean.</p>
@@ -571,9 +571,9 @@ window.Quarto = {
 </div>
 </div>
 </section>
-<section id="visualing-relationships" class="level3">
-<h3 class="anchored" data-anchor-id="visualing-relationships">Visualing Relationships</h3>
-<p>Lets start by visualising how body mass varies by flipper length. We will split the data by species as well, in order to identify whether penguin species is a confounding factor.</p>
+<section id="visualising-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-relationships">Visualising Relationships</h3>
+<p>Let’s start by visualising how body mass varies by flipper length. We will split the data by species as well, in order to identify whether penguin species is a confounding factor<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
 <div id="cell-fig-flipper-mass-scatter-plot" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -675,7 +675,8 @@ Figure&nbsp;3: The Line of Best Fit Between Bill Length &amp; Bill Depth
 <p>Visualising continuous variables using scatterplots can give us an indication of how two variables change together, but we are unable to quantify this association between two variables only using visualisations. We can put a number to what we are seeing in the plots by calculating the correlation between variables.</p>
 <section id="pairwise-correlation" class="level4">
 <h4 class="anchored" data-anchor-id="pairwise-correlation">Pairwise Correlation</h4>
-<p>We can compute the correlation between two variables, using <code>scipy.stats</code>.</p>
+<p>Measuring the correlation between variablse can be very useful as a way to explore data and gain quick insight into potential relationships between variables in your dataset. It is simple and intuitive, and serves as a good starting point for analysing data.</p>
+<p>We can compute the correlation between two variables, using <code>scipy.stats</code> to calculate a specific measure of correlation, Pearson’s <span class="math inline">\(r\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
 <div id="flipper-mass-correlation" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -685,7 +686,7 @@ Figure&nbsp;3: The Line of Best Fit Between Bill Length &amp; Bill Depth
 <pre><code>Correlation (r) = 0.87</code></pre>
 </div>
 </div>
-<p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
+<p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
 <p>When we visualised the relationship between bill length and bill depth, there appeared to be a grouping structure going on that complicated things, and the overall relationship appeared pretty noisy.</p>
 <div id="bill-correlation" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'bill_len'</span>], df[<span class="st">'bill_dep'</span>])</span>
@@ -833,7 +834,7 @@ Name: body_mass, dtype: float64</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim_data[<span class="st">'x'</span>], sim_data[<span class="st">'y'</span>])</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correlation (r) = -0.03</code></pre>
+<pre><code>Correlation (r) = 0.02</code></pre>
 </div>
 </div>
 <p><a href="#fig-non-linear-relationship" class="quarto-xref">Figure&nbsp;5</a> visualises the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, demonstrating that there is clearly a relationship between the two variables.</p>
@@ -910,8 +911,11 @@ Figure&nbsp;6: Accounting for Grouping Structures
 
 <ol>
 <li id="fn1"><p>And now a part of the Base R datasets package included as default in R installations (R &gt;= 4.5.0).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Dispersion describes how much your data varies. Low dispersion means values are clustered tightly around the midpoint value, while high dispersion means your data can take a wide range of values, some much higher or lower than the midpoint. The most common measure of dispersion is standard deviation, which effectively measures the average distance that values fall from the mean.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The central tendency describes the “typical” or “midpoint” value of your data. There are many ways to measure central tendency, but the most common are the mean (average value), median (middle value), and the mode (most common value).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Dispersion describes how much your data varies. Low dispersion means values are clustered tightly around the midpoint value, while high dispersion means your data can take a wide range of values, some much higher or lower than the midpoint. The most common measure of dispersion is standard deviation, which effectively measures the average distance that values fall from the mean.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Confounding is when a third, unspecified variable influences the relationship between the explanatory variable(s) and the outcome. For example, ice cream sales is correlated with deaths by drowning, but temperature is the confounder (hot weather causes increases in both). A confounding factor creates the false impression that two variables are related or hides/distorts the real relationship.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For more information about Pearson’s <span class="math inline">\(r\)</span>, check out this [blog post] by Hoda Osama.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
