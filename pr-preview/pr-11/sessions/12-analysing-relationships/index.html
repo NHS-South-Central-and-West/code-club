@@ -834,7 +834,7 @@ Name: body_mass, dtype: float64</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim_data[<span class="st">'x'</span>], sim_data[<span class="st">'y'</span>])</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Correlation (r) = 0.02</code></pre>
+<pre><code>Correlation (r) = 0.01</code></pre>
 </div>
 </div>
 <p><a href="#fig-non-linear-relationship" class="quarto-xref">Figure&nbsp;5</a> visualises the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, demonstrating that there is clearly a relationship between the two variables.</p>
@@ -914,7 +914,7 @@ Figure&nbsp;6: Accounting for Grouping Structures
 <li id="fn2"><p>The central tendency describes the “typical” or “midpoint” value of your data. There are many ways to measure central tendency, but the most common are the mean (average value), median (middle value), and the mode (most common value).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Dispersion describes how much your data varies. Low dispersion means values are clustered tightly around the midpoint value, while high dispersion means your data can take a wide range of values, some much higher or lower than the midpoint. The most common measure of dispersion is standard deviation, which effectively measures the average distance that values fall from the mean.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4"><p>Confounding is when a third, unspecified variable influences the relationship between the explanatory variable(s) and the outcome. For example, ice cream sales is correlated with deaths by drowning, but temperature is the confounder (hot weather causes increases in both). A confounding factor creates the false impression that two variables are related or hides/distorts the real relationship.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5"><p>For more information about Pearson’s <span class="math inline">\(r\)</span>, check out this [blog post] by Hoda Osama.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For more information about Pearson’s <span class="math inline">\(r\)</span>, check out this <a href="https://hodausama.github.io/posts/PearsonsR/">blog post</a> by Hoda Osama.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn6"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
