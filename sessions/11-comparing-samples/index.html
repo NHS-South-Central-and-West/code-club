@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -107,6 +107,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -302,8 +331,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">12. Analysing Relationships</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/12-analysing-relationships/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Analysing Relationships</span></a>
+  </div>
+</li>
           <li class="sidebar-item">
  <span class="menu-text">13. Introduction to Linear Regression</span>
   </li>
@@ -414,7 +446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Sample means: </span><span class="sc">{</span>sample_mean1<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>sample_mean2<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Population mean: </span><span class="sc">{</span>population_mean<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Sample means: 7.1, 6.7
+<pre><code>Sample means: 7.1, 8.4
 Population mean: 7.0</code></pre>
 </div>
 </div>
@@ -424,8 +456,8 @@ Population mean: 7.0</code></pre>
 </section>
 <section id="comparing-car-crash-fatalities---high-or-not" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-car-crash-fatalities---high-or-not">Comparing Car Crash Fatalities - High or Not?</h2>
-<p>Now we can apply this logic to a real-world dataset. We will use a dataset that records the daily count of fatal U.S. car crashes from 1992–2016, taken from a <a href="https://injuryprevention.bmj.com/content/25/5/433">study into the effects of the annual cannabis holiday, 4/20, on fatal car accidents</a>. Previous research has concluded that fatalities are higher on 4/20, suggesting that the holiday is the cause of the increase.</p>
-<p>We are using a dataset, provided by <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-22/readme.md">Tidy Tuesday</a>, which includes an indicator for April 20th (4/20). We will investigate whether 4/20 sees more crashes than expected.</p>
+<p>Now we can apply this logic to a real-world dataset. We will use a <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-22/readme.md">Tidy Tuesday</a> dataset that records the daily count of fatal U.S. car crashes from 1992–2016, originally from a <a href="https://injuryprevention.bmj.com/content/25/5/433">study into the effects of the annual cannabis holiday (4:20pm to 11:59pm on April 20th), 4/20, on fatal car accidents</a>.</p>
+<p>While previous research has concluded that fatalities are higher on 4/20, suggesting that the holiday is the cause of the increase, Harper and Palayew find no evidence for an increase in fatalities on 4/20, but they do find an increase for other holidays like July 4th. We will investigate whether we can see a spike in fatalities on 4/20 by comparing 4/20 with other days of the year.</p>
 <section id="import-process-data" class="level3">
 <h3 class="anchored" data-anchor-id="import-process-data">Import &amp; Process Data</h3>
 <div id="cell-import-data" class="cell" data-execution_count="2">
@@ -486,6 +518,7 @@ Population mean: 7.0</code></pre>
 </div>
 </div>
 </div>
+<p>As always, we need to do some checks to inspect data quality and identify any potential issues.</p>
 <div id="cell-count-missing-values" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># count missing values</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>raw_420.isna().<span class="bu">sum</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -498,7 +531,7 @@ dtype: int64</code></pre>
 </div>
 <div id="cell-inspect-missing-values" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect missing values</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>raw_420[raw_420[<span class="st">'e420'</span>].isna()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>raw_420.loc[raw_420[<span class="st">'e420'</span>].isna()]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="inspect-missing-values" class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
@@ -597,21 +630,10 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<p>We will transform the data to remove missing values, make the column names more meaningful, and select the columns we want to use in our analysis.</p>
-<div id="transform-data" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    raw_420</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># convert e420 to boolean and rename</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    .assign(is_420<span class="op">=</span>raw_420[<span class="st">'e420'</span>].astype(<span class="bu">bool</span>))</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># drop missing values</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    .dropna()</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># select relevant columns</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    [[<span class="st">'date'</span>, <span class="st">'is_420'</span>, <span class="st">'fatalities_count'</span>]]</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="cell-check-data" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="check-data" class="cell-output cell-output-display" data-execution_count="6">
+<div id="cell-inspect-420" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect 04/20 values</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>raw_420.loc[raw_420[<span class="st">'date'</span>] <span class="op">==</span> <span class="st">'1994-04-20'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="inspect-420" class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -620,40 +642,28 @@ dtype: int64</code></pre>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">date</th>
-<th data-quarto-table-cell-role="th">is_420</th>
+<th data-quarto-table-cell-role="th">e420</th>
 <th data-quarto-table-cell-role="th">fatalities_count</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>1992-01-01</td>
-<td>False</td>
-<td>144</td>
+<th data-quarto-table-cell-role="th">951</th>
+<td>1994-04-20</td>
+<td>True</td>
+<td>47</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>1992-01-02</td>
+<th data-quarto-table-cell-role="th">1098</th>
+<td>1994-04-20</td>
 <td>False</td>
-<td>111</td>
+<td>63</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>1992-01-07</td>
-<td>False</td>
-<td>85</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1992-01-12</td>
-<td>False</td>
-<td>127</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>1992-01-03</td>
-<td>False</td>
-<td>182</td>
+<th data-quarto-table-cell-role="th">1099</th>
+<td>1994-04-20</td>
+<td>NaN</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
@@ -661,147 +671,293 @@ dtype: int64</code></pre>
 </div>
 </div>
 </div>
-</section>
-<section id="visual-comparisons" class="level3">
-<h3 class="anchored" data-anchor-id="visual-comparisons">Visual Comparisons</h3>
-<p>We can start by plotting our data to better understand how fatalities vary, and using visual comparisons between fatalities on 4/20 and other days.</p>
-<div id="cell-group-means" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'is_420'</span>)[<span class="st">'fatalities_count'</span>].mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="group-means" class="cell-output cell-output-display" data-execution_count="7">
+<p>There are several observations where values for <code>e420</code> are missing. All of the missing values are on 4/20, but closer inspection shows that there are multiple observations for these days. This appears to be because <code>e420 == True</code> only for the time period covering the holiday (which isn’t the entire day), and the NAs are likely to be crashes where the exact time was undetermined and may or may not fall in the 4/20 window.</p>
+<p>We will transform the data to take the sum value of all 4/20 fatalities, for simplicity<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, and select the columns we want to use in our analysis.</p>
+<div id="transform-data" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    raw_420</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># group by date, sum fatalities</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    .groupby([<span class="st">'date'</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'fatalities_count'</span>].<span class="bu">sum</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add 4/20 and 7/4 indicators</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        is_420<span class="op">=</span><span class="kw">lambda</span> d: pd.to_datetime(d[<span class="st">'date'</span>]).dt.strftime(<span class="st">'%m-</span><span class="sc">%d</span><span class="st">'</span>).eq(<span class="st">'04-20'</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        is_july4<span class="op">=</span><span class="kw">lambda</span> d: pd.to_datetime(d[<span class="st">'date'</span>]).dt.strftime(<span class="st">'%m-</span><span class="sc">%d</span><span class="st">'</span>).eq(<span class="st">'07-04'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-check-data" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="check-data" class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">fatalities_count</th>
+<th data-quarto-table-cell-role="th">is_420</th>
+<th data-quarto-table-cell-role="th">is_july4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>1992-01-01</td>
+<td>144</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1992-01-02</td>
+<td>111</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>1992-01-03</td>
+<td>182</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>1992-01-04</td>
+<td>152</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>1992-01-05</td>
+<td>99</td>
+<td>False</td>
+<td>False</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>First, lets calculate the mean value of fatalities on 4/20 and all other days, to see whether there is an obvious spike.</p>
+<div id="cell-group-means" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    df</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">'is_420'</span>)[<span class="st">'fatalities_count'</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="group-means" class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>is_420
-False    144.92477
-True      54.60000
+False    145.09
+True     139.32
 Name: fatalities_count, dtype: float64</code></pre>
 </div>
 </div>
-<div id="cell-time-series" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">8</span>))</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># line plot of daily fatalities</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'date'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>, color<span class="op">=</span><span class="st">"#0081a7"</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot for 4/20 days, filter using .loc to avoid NA issues</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df.loc[df[<span class="st">'is_420'</span>] <span class="op">==</span> <span class="va">True</span>],</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'date'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>,</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'#ef233c'</span>, label<span class="op">=</span><span class="st">'4/20'</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Daily Fatalities (1992-2016)'</span>)</span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
+<p>Instead, the average number of fatalities is slightly lower than the average across the rest of the year.</p>
+<p>We can also add July 4th to our comparison, to see if other holidays cause a spike in the average number of fatalities.</p>
+<div id="cell-group-means-with-july4" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    df.groupby([<span class="st">'is_420'</span>, <span class="st">'is_july4'</span>], as_index<span class="op">=</span><span class="va">False</span>)[<span class="st">'fatalities_count'</span>]</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    .mean()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="group-means-with-july4" class="cell-output cell-output-display" data-execution_count="9">
 <div>
-<figure class="figure">
-<p><img src="index_files/figure-html/time-series-output-1.png" id="time-series" class="img-fluid figure-img"></p>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">is_420</th>
+<th data-quarto-table-cell-role="th">is_july4</th>
+<th data-quarto-table-cell-role="th">fatalities_count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>False</td>
+<td>False</td>
+<td>145.01</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>False</td>
+<td>True</td>
+<td>176.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>True</td>
+<td>False</td>
+<td>139.32</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>There are a lot more fatalities from car crashes on July 4th than the rest of the year (including 4/20). This gives us a good starting point to start digging further into the data.</p>
+</section>
+<section id="visual-comparisons" class="level3">
+<h3 class="anchored" data-anchor-id="visual-comparisons">Visual Comparisons</h3>
+<p>We can make comparisons in a variety of ways, from describing the difference between samples using descriptive measures (such as the mean value) to carrying out statistical tests that estimate the likelihood that observed differences between samples occur in the population. Visualising data is an effective way to make quick comparisons between samples. We can identify visual patterns much faster than we can using descriptive measures.</p>
+<p>We can start by plotting our data to better understand how fatalities vary over time and how the number of car crash fatalities on 4/20 and July 4th compare to the rest of the year.</p>
+<div id="cell-fig-time-series" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">8</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># line plot of daily fatalities</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>sns.lineplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'date'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>, color<span class="op">=</span><span class="st">"#0081a7"</span>, linewidth<span class="op">=</span><span class="fl">0.25</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot for 4/20</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df.loc[df[<span class="st">'is_420'</span>]],</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'date'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'#ef233c'</span>, label<span class="op">=</span><span class="st">'4/20'</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    s<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot for 7/4</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df.loc[df[<span class="st">'is_july4'</span>]],</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'date'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'#ffb703'</span>, label<span class="op">=</span><span class="st">'7/4'</span>,</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    s<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Date'</span>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Car Crash Fatalities'</span>)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-time-series" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-time-series-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-time-series-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-time-series-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Daily Fatalities (1992-2016)
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-raw-distributions" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define colour palette</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>custom_palette <span class="op">=</span> {<span class="va">False</span>: <span class="st">'#0081a7'</span>, <span class="va">True</span>: <span class="st">'#ef233c'</span>}</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># histogram</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'fatalities_count'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, kde<span class="op">=</span><span class="va">True</span>, palette<span class="op">=</span>custom_palette)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Histogram'</span>)</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># boxplot</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'is_420'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, palette<span class="op">=</span>custom_palette, legend<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Other days'</span>, <span class="st">'4/20'</span>])</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Boxplot'</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co"># figure title</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Distribution of Fatalities'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="#fig-time-series" class="quarto-xref">Figure&nbsp;1</a> shows that there is clearly a seasonal trend in daily car crash fatalities, and there is significant variance in fatalities on both 4/20 and July 4th. While this plot does tell us a lot about the data, it hasn’t made comparison easier.</p>
+<p>We can visualise the distribution of samples as a way to make comparisons. This can help us identify differences in the shape of the samples, which tells us a lot. <a href="#fig-raw-distributions" class="quarto-xref">Figure&nbsp;2</a> below compares 4/20 and all other days.</p>
+<div id="cell-fig-raw-distributions" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> [<span class="dv">12</span>,<span class="dv">6</span>]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># define colour palette</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>custom_palette <span class="op">=</span> {<span class="va">False</span>: <span class="st">'#0081a7'</span>, <span class="va">True</span>: <span class="st">'#ef233c'</span>}</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># histogram</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'fatalities_count'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, kde<span class="op">=</span><span class="va">True</span>, palette<span class="op">=</span>custom_palette)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Histogram'</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># boxplot</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>sns.boxplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'is_420'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, palette<span class="op">=</span>custom_palette, legend<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Other Days'</span>, <span class="st">'4/20'</span>])</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Boxplot'</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/raw-distributions-output-1.png" id="raw-distributions" class="img-fluid figure-img"></p>
+<div id="fig-raw-distributions" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-raw-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-raw-distributions-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-raw-distributions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Distribution of Fatalities on 4/20 &amp; Other Days
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>The imbalance between 4/20 and other days in the year makes it impossible to really see what is going on in our histogram. We can normalise the two distributions such that the total area of both equals one. This preserves their shape but accounts for the count imbalance between the two.</p>
-<p>We can also replace the boxplot with a violin plot, which will give us a little more intuition for the shape of the two groups.</p>
-<div id="cell-normalised-distributions" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'fatalities_count'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, palette<span class="op">=</span>custom_palette, kde<span class="op">=</span><span class="va">True</span>, stat<span class="op">=</span><span class="st">'density'</span>, common_norm<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Density-Normalised Histogram'</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'is_420'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>, inner<span class="op">=</span><span class="st">'quart'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, palette<span class="op">=</span>custom_palette, legend<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Other days'</span>, <span class="st">'4/20'</span>])</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Violin Plot'</span>)</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="st">'Distribution of Fatalities'</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The imbalance between 4/20 and other days in the year makes it impossible to really see what is going on in our histogram.</p>
+<p>We can normalise the two distributions such that the total area of both equals one. This preserves their shape but accounts for the count imbalance between the two. We can also replace the boxplot with a violin plot, which will give us a little more intuition for the shape of the two groups.</p>
+<div id="cell-fig-normalised-420" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'fatalities_count'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, palette<span class="op">=</span>custom_palette, kde<span class="op">=</span><span class="va">True</span>, stat<span class="op">=</span><span class="st">'density'</span>, common_norm<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Density-Normalised Histogram'</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'is_420'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>, inner<span class="op">=</span><span class="st">'quart'</span>, hue<span class="op">=</span><span class="st">'is_420'</span>, palette<span class="op">=</span>custom_palette, legend<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Other Days'</span>, <span class="st">'4/20'</span>])</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Violin Plot'</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/normalised-distributions-output-1.png" id="normalised-distributions" class="img-fluid figure-img"></p>
+<div id="fig-normalised-420" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-normalised-420-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-normalised-420-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normalised-420-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: (Normalised) Distribution of Fatalities on 4/20 &amp; Other Days
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>What do you notice about the distribution (centre, spread, outliers, etc.)?</p>
+<p>There is minimal difference between the two distributions in <a href="#fig-normalised-420" class="quarto-xref">Figure&nbsp;3</a>, though the peak of the 4/20 distribution does appear to be slightly lower than the other days.</p>
+<p>We can also visualise the distribution of fatalities on July 4th, for comparison.</p>
+<div id="cell-fig-normalised-july4" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>custom_palette <span class="op">=</span> {<span class="va">False</span>: <span class="st">'#0081a7'</span>, <span class="va">True</span>: <span class="st">'#ffb703'</span>}</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>sns.histplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'fatalities_count'</span>, hue<span class="op">=</span><span class="st">'is_july4'</span>, palette<span class="op">=</span>custom_palette, kde<span class="op">=</span><span class="va">True</span>, stat<span class="op">=</span><span class="st">'density'</span>, common_norm<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Density-Normalised Histogram'</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>sns.violinplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">'is_july4'</span>, y<span class="op">=</span><span class="st">'fatalities_count'</span>, inner<span class="op">=</span><span class="st">'quart'</span>, hue<span class="op">=</span><span class="st">'is_july4'</span>, palette<span class="op">=</span>custom_palette, legend<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>plt.xticks([<span class="dv">0</span>, <span class="dv">1</span>], [<span class="st">'Other Days'</span>, <span class="st">'7/4'</span>])</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Violin Plot'</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-normalised-july4" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-normalised-july4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-normalised-july4-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-normalised-july4-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: (Normalised) Distribution of Fatalities on July 4th &amp; Other Days
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The differences between the two distributions in <a href="#fig-normalised-july4" class="quarto-xref">Figure&nbsp;4</a> are a lot clearer. While there is some overlap, the July 4th distribution shows that there are generally more deaths on July 4th than on other days.</p>
+<p>There are many ways to make comparisons visually, and the plots above are just an example of some of the approaches you can use to compare samples. It’s always worth looking at the data in a variety of ways and finding the most appropriate ways to make comparisons. The right way to compare your samples depends on the question you are asking, so it’s important to think carefully about your approach and what it is telling you.</p>
 </section>
 <section id="testing-comparisons" class="level3">
 <h3 class="anchored" data-anchor-id="testing-comparisons">Testing Comparisons</h3>
 <p>Visual and descriptive comparisons are limited because they only tell us whether there is a difference. They don’t help us infer whether those difference occurred due to random variation or if there is something real going on. Visual comparisons cannot tell us whether we should expect to observe the differences we see in our samples in the population.</p>
-<p>That’s where statistical tests come in! Once we’ve visualized potential differences, we can test whether they’re statistically significant, using a two-sample <em>t</em>-test.</p>
-<p>A <em>t</em>-test is a statistical test used to compare the means of two groups to determine if the difference between them is statistically significant. It takes into account:</p>
+<p>That’s where statistical tests come in! Once we’ve visualized potential differences, we can test whether those differences are likely to occur in the population, using a two-sample <span class="math inline">\(t\)</span>-test.</p>
+<p>A <span class="math inline">\(t\)</span>-test is a statistical test used to compare the means of two groups to determine if the difference between them is statistically significant. It takes into account:</p>
 <ul>
 <li>The size of the difference between the two group means.</li>
 <li>The variability (spread) of the data within each group.</li>
 <li>The sample size (number of observations in each group).</li>
 </ul>
-<p>The <em>t</em>-test calculates a p-value, which is the probability of observing a difference as extreme or more extreme than the one found, assuming there is no true difference between the groups in the population (i.e., the null hypothesis is true). If the p-value is small enough (below a threshold like 0.05), you reject the null hypothesis and conclude that the difference between the groups is likely real and not due to random chance. If we compute a correlation of 0.45 with a <em>p</em>-value of 0.01, that means we’d expect to see a correlation this strong less than 1% of the time by chance alone, assuming no true relationship.</p>
+<p>The <span class="math inline">\(t\)</span>-test calculates a p-value, which is the probability of observing a difference as extreme or more extreme than the one found, assuming there is no true difference between the groups in the population (i.e., the null hypothesis is true). The Null Hypothesis Significance Testing (NHST) framework sets a threshold (typically 0.05) where, if the <span class="math inline">\(p\)</span>-value is below that threshold, you reject the null hypothesis and conclude that the difference between the groups is likely real and not due to random chance (referred to as statistically significant).</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/0oc49DyA3hU?si=0x24ncYVQKbJP2sY" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<div id="t-test" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create our samples for comparison</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>group_420 <span class="op">=</span> df.loc[df.is_420, <span class="st">'fatalities_count'</span>]</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>group_other <span class="op">=</span> df.loc[<span class="op">~</span>df.is_420, <span class="st">'fatalities_count'</span>]</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate t-statistic and p-value</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>t_stat, p_val <span class="op">=</span> ttest_ind(group_420, group_other, equal_var<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic = </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, p-value = </span><span class="sc">{</span>p_val<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean difference</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>mean_diff <span class="op">=</span> group_420.mean() <span class="op">-</span> group_other.mean()</span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate standard errors</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>se_diff <span class="op">=</span> np.sqrt(</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    group_420.var(ddof<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="bu">len</span>(group_420)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> group_other.var(ddof<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span><span class="bu">len</span>(group_other)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ci_lower = mean_diff - 1.96 * se_diff</span></span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ci_upper = mean_diff + 1.96 * se_diff</span></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co"># print(f"Mean difference = {mean_diff:.2f} (95% CI: {ci_lower:.2f}, {ci_upper:.2f})")</span></span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean difference = </span><span class="sc">{</span>mean_diff<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>t-statistic = -29.369, p-value = 0.000
-Mean difference = -90.32</code></pre>
-</div>
-</div>
-<p>If <em>p</em> &lt; 0.05, we reject the null that there is no true difference between the groups in the population. The <em>p</em>-value is below 0.05 — suggesting that 4/20 days see <strong>significantly fewer</strong> fatal crashes than other days. The evidence supports a real difference.</p>
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/vemZtEM63GY?si=8l3GMwdxxdUI2Rod" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>However, statistical significance and the NHST are thorny issues. Instead, it is better to think of <span class="math inline">\(p\)</span>-values as continuous instead of treating them as binary. If we compute a difference (or effect size) of 0.45 with a <span class="math inline">\(p\)</span>-value of 0.01, that means we’d expect to see an effect size this large less than 1% of the time by chance alone, assuming no true relationship. Whether a difference of 0.45, with a 1% chance of this occuring by chance, is enough for us to conclude this is substantively important is dependent on context.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -812,70 +968,153 @@ Mean difference = -90.32</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>While <em>p</em>-values are widely used, they come with caveats:</p>
+<p>While <span class="math inline">\(p\)</span>-values are widely used, they come with caveats:</p>
 <ul>
-<li>Binary thinking - Treating <em>p</em> &lt; 0.05 as “proof” and <em>p</em> &gt; 0.05 as “nothing” is misleading. Evidence exists on a continuum.</li>
-<li>Sample size matters - With huge samples, even tiny effects can be “significant.” With small samples, meaningful effects might not reach the threshold.</li>
-<li>Misinterpretation - A <em>p</em>-value doesn’t tell us how big or important an effect is, nor the probability that the hypothesis is true.</li>
+<li>Binary thinking - Treating <span class="math inline">\(p\)</span> &lt; 0.05 as “proof” of an effect and rejecting <span class="math inline">\(p\)</span> &gt; 0.05 as no effect is misleading. Evidence exists on a continuum.</li>
+<li>Sample size matters - With huge samples, even tiny effects can be “significant”. With small samples, meaningful effects might not reach the threshold.</li>
+<li>Misinterpretation - A <span class="math inline">\(p\)</span>-value doesn’t tell us how big or important an effect is, nor the probability that the hypothesis is true.</li>
 <li>Multiple testing - The more tests we run, the more likely we’ll find “significant” results by chance (false positives).</li>
 </ul>
-<p>The better approach is to treat <em>p</em>-values as one piece of evidence. Pair them with effect sizes, confidence intervals, visualizations, and context.</p>
+<p>The better approach is to treat <span class="math inline">\(p\)</span>-values as one piece of evidence. Pair them with effect sizes, confidence intervals, visualizations, and context.</p>
 </div>
 </div>
+<p>Let’s first carry out a <span class="math inline">\(t\)</span>-test to compare fatalities on 4/20 and all other days.</p>
+<div id="t-test-420" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create our samples for comparison</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>group_420 <span class="op">=</span> df.loc[df.is_420, <span class="st">'fatalities_count'</span>]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>group_other <span class="op">=</span> df.loc[<span class="op">~</span>df.is_420, <span class="st">'fatalities_count'</span>]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate t-statistic and p-value</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>t_stat, p_val <span class="op">=</span> ttest_ind(group_420, group_other, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic = </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, p-value = </span><span class="sc">{</span>p_val<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean difference</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>mean_diff <span class="op">=</span> group_420.mean() <span class="op">-</span> group_other.mean()</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean difference = </span><span class="sc">{</span>mean_diff<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-statistic = -0.863, p-value = 0.397
+Mean difference = -5.77</code></pre>
+</div>
+</div>
+<p>There is a difference in the means of the two samples of almost 6 fatalities, but the <span class="math inline">\(p\)</span>-value is almost 0.4, which suggests we are very uncertain about whether this is a meaningful effect or just the product of random variation. A high <span class="math inline">\(p\)</span> suggests we probably need more data, or a more precise approach to estimating 4/20s effect, before we can draw any conclusions.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/vemZtEM63GY?si=8l3GMwdxxdUI2Rod" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p>While our <span class="math inline">\(t\)</span>-test found minimal evidence that there is a meaningful difference in the number of fatalities by car crash on 4/20, perhaps the bigger mean difference we saw on July 4th will be sufficient to draw some conclusions.</p>
+<div id="t-test-july4" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> ttest_ind</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create our samples for comparison</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>group_july4 <span class="op">=</span> df.loc[df.is_july4, <span class="st">'fatalities_count'</span>]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>group_other <span class="op">=</span> df.loc[<span class="op">~</span>df.is_july4, <span class="st">'fatalities_count'</span>]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate t-statistic and p-value</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>t_stat, p_val <span class="op">=</span> ttest_ind(group_july4, group_other, equal_var<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t-statistic = </span><span class="sc">{</span>t_stat<span class="sc">:.3f}</span><span class="ss">, p-value = </span><span class="sc">{</span>p_val<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate mean difference</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>mean_diff <span class="op">=</span> group_july4.mean() <span class="op">-</span> group_other.mean()</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean difference = </span><span class="sc">{</span>mean_diff<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>t-statistic = 6.381, p-value = 0.000
+Mean difference = 31.01</code></pre>
+</div>
+</div>
+<p>There are, on average, 31 more fatalities on July 4th than the rest of the year, and the <span class="math inline">\(p\)</span>-value is so small that it rounds to zero. This indicates that it is highly likely that this is a real effect that we should expect to observe in the population.</p>
+<p>However, it is important to note that this does not confirm our theory that the cause of this spike in fatalities is July 4th (the holiday). We are only able to conclude that this difference is not caused by random variation, but our test does not prove what has caused it.</p>
 <details>
 <summary>
 Using Simulation for Comparisons (Click to Expand)
 </summary>
 <section id="simulation-based-tests" class="level4">
 <h4 class="anchored" data-anchor-id="simulation-based-tests">Simulation-Based Tests</h4>
-<p>Let’s briefly replicate the comparison using a simulation-based method. This avoids strong distributional assumptions.</p>
-<div id="simulation-function" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_two_groups(data1, data2):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    n, m <span class="op">=</span> <span class="bu">len</span>(data1), <span class="bu">len</span>(data2)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.append(data1, data2)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    np.random.shuffle(data)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    group1 <span class="op">=</span> data[:n]</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    group2 <span class="op">=</span> data[n:]</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group1.mean() <span class="op">-</span> group2.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For anyone that struggles to remember all the different types of statistical tests you can use to compare samples and when a particular test is appropriate, I would highly recommend learning the <a href="https://allendowney.blogspot.com/2016/06/there-is-still-only-one-test.html">Simulation-Based Testing framework</a>, which uses simulation methods to approximate the process that statistical tests carry out when comparing samples.</p>
+<p>A detailed explanation of how this approach to testing works is out of the scope of this session, but below is a replication of our tests using a simulation-based method.</p>
+<div id="simulation-function" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_two_groups(data1, data2):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    n, m <span class="op">=</span> <span class="bu">len</span>(data1), <span class="bu">len</span>(data2)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.append(data1, data2)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    np.random.shuffle(data)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    group1 <span class="op">=</span> data[:n]</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    group2 <span class="op">=</span> data[n:]</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group1.mean() <span class="op">-</span> group2.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-simulation-test" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run 5000 simulations to test null</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>simulated_diffs <span class="op">=</span> [simulate_two_groups(group_420, group_other) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5000</span>)]</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># observed mean difference</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> group_420.mean() <span class="op">-</span> group_other.mean()</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate p-value</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>diffs <span class="op">=</span> np.array(simulated_diffs)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>p_sim <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(diffs) <span class="op">&gt;=</span> np.<span class="bu">abs</span>(observed_diff))</span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution of simulated differences with p-value</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>sns.histplot(diffs, kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'#0081a7'</span>)</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>plt.axvline(observed_diff, color<span class="op">=</span><span class="st">'#ef233c'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">'Observed Mean Difference'</span>)</span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Simulated Mean Differences (Permutation Test)'</span>)</span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="co"># annotate p-value on the plot</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>plt.text(</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>observed_diff<span class="op">+</span><span class="dv">5</span>,</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>plt.gca().get_ylim()[<span class="dv">1</span>]<span class="op">*</span><span class="fl">0.9</span>,</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    s<span class="op">=</span><span class="ss">f'p-value = </span><span class="sc">{</span>p_sim<span class="sc">:.4f}</span><span class="ss">'</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-simulation-test-420" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run 10000 simulations to test null</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>simulated_diffs <span class="op">=</span> [simulate_two_groups(group_420, group_other) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>)]</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># observed mean difference</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> group_420.mean() <span class="op">-</span> group_other.mean()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate p-value</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>diffs <span class="op">=</span> np.array(simulated_diffs)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>p_sim <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(diffs) <span class="op">&gt;=</span> np.<span class="bu">abs</span>(observed_diff))</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution of simulated differences with p-value</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>sns.histplot(diffs, kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'#0081a7'</span>)</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>plt.axvline(observed_diff, color<span class="op">=</span><span class="st">'#ef233c'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">'Observed Mean Difference'</span>)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co"># annotate p-value on the plot</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>plt.text(</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>observed_diff<span class="op">+</span><span class="dv">8</span>,</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>plt.gca().get_ylim()[<span class="dv">1</span>]<span class="op">*</span><span class="fl">0.9</span>,</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    s<span class="op">=</span><span class="ss">f'p-value = </span><span class="sc">{</span>p_sim<span class="sc">:.4f}</span><span class="ss">'</span></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div>
+<div id="simulation-test-420" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="index_files/figure-html/simulation-test-output-1.png" id="simulation-test" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/simulation-test-420-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Permutation Test (4/20 Vs Other Days)</figcaption>
 </figure>
 </div>
 </div>
 </div>
 <p>Simulation confirms the result and emphasizes flexibility: even when assumptions are questionable, we can still test meaningfully. It also reinforces that inference is about what would happen if we repeated the experiment many times.</p>
+<div id="cell-simulation-test-july4" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># run 10000 simulations to test null</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>simulated_diffs <span class="op">=</span> [simulate_two_groups(group_july4, group_other) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>)]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># observed mean difference</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> group_july4.mean() <span class="op">-</span> group_other.mean()</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate p-value</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>diffs <span class="op">=</span> np.array(simulated_diffs)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>p_sim <span class="op">=</span> np.mean(np.<span class="bu">abs</span>(diffs) <span class="op">&gt;=</span> np.<span class="bu">abs</span>(observed_diff))</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># plot distribution of simulated differences with p-value</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>sns.histplot(diffs, kde<span class="op">=</span><span class="va">True</span>, color<span class="op">=</span><span class="st">'#0081a7'</span>)</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>plt.axvline(observed_diff, color<span class="op">=</span><span class="st">'#ef233c'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, label<span class="op">=</span><span class="st">'Observed Mean Difference'</span>)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">''</span>)</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a><span class="co"># annotate p-value on the plot</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>plt.text(</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>observed_diff<span class="op">-</span><span class="dv">20</span>,</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>plt.gca().get_ylim()[<span class="dv">1</span>]<span class="op">*</span><span class="fl">0.9</span>,</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    s<span class="op">=</span><span class="ss">f'p-value = </span><span class="sc">{</span>p_sim<span class="sc">:.4f}</span><span class="ss">'</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="simulation-test-july4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/simulation-test-july4-output-1.png" class="img-fluid figure-img"></p>
+<figcaption>Permutation Test (7th July Vs Other Days)</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section></details>
 </section>
 </section>
@@ -883,19 +1122,24 @@ Using Simulation for Comparisons (Click to Expand)
 <section id="limitations-of-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="limitations-of-comparison">Limitations of Comparison</h2>
 <p>Comparing samples of data can be very useful. There is descriptive value in just knowing that differences exist in the data, and this may point to a meaningful difference in the population. However, if you are trying to understand what <em>caused</em> the differences between the two samples, comparison is not enough.</p>
-<p>Our analysis shows that there are fewer crashes on 4/20 than other days, but is the comparison we are making fair? Our comparison assumes that the only difference between the 4/20 and other days in the data is the date itself, and the cultural holiday that takes place on this date. We haven’t accounted for other causes of variation in the number of crashes. We haven’t accounted for other holidays, weather patterns, or daily differences in the number of people on the road.</p>
+<p>Our analysis shows that there are fewer crashes on 4/20 than other days, but there was considerable uncertainty about this comparison, and the approach had significant flaws. Our comparison assumes that the only difference between 4/20 and other days in the data is the date itself, and the cultural holiday that takes place on this date. We haven’t accounted for other causes of variation in the number of crashes. We haven’t accounted for other holidays, weather patterns, or daily differences in the number of people on the road.</p>
 <p>Comparisons only measure what we observe, not necessarily what we want to know. It is important to consider how your comparison might not answer the question you are actually asking. And it is important to consider ways that your comparison may be flawed, and what else may be going on in the data.</p>
 </section>
 <section id="wrapping-up" class="level2">
 <h2 class="anchored" data-anchor-id="wrapping-up">Wrapping Up</h2>
 <p>We’ve walked the workflow for carrying out comparisons using statistical methods. With these methods we can make meaningful comparisons between samples in our data. This gives us a solid foundation for carrying out analysis. We can identify differences, quantify uncertainty, and make inferences from data. But these methods have limitations. They don’t account for multiple variables or continuous predictors. Context and sample size also matter.</p>
 <p>In future sessions we will take this a step further, analysing how variables relate to each other. That lets us ask new types of questions. We’ll explore how variables change together, detect trends, and lay the foundation for regression.</p>
-<p><strong>Potential extension:</strong> Apply today’s workflow to July 4th or New Year’s Day. Do these dates show different crash patterns? What factors might explain any differences you find? This practice will deepen your intuition for when group comparisons work well and when more sophisticated approaches are needed.</p>
 
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>This is definitely not an appropriate way to deal with this problem if we were being precise, but in order to save on time this approach makes sense. For a more complete analysis, check out the <a href="https://injuryprevention.bmj.com/content/25/5/433">Harper &amp; Palayew</a> paper this data is taken from.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
