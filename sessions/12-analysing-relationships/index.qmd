@@ -210,7 +210,7 @@ A correlation of +/- ~0.2 doesn't necessarily mean there is no relationship. The
 
 [^R]:
 
-For more information about Pearson's $r$, check out this [blog post] by Hoda Osama.
+For more information about Pearson's $r$, check out this [blog post](https://hodausama.github.io/posts/PearsonsR/) by Hoda Osama.
 
 [^Correlation]:
 
