@@ -77,6 +77,7 @@ website:
             - text: 11. Comparing Samples
               file: sessions/11-comparing-samples/index.qmd
             - text: 12. Analysing Relationships
+              file: sessions/12-analysing-relationships/index.qmd
             - text: 13. Introduction to Linear Regression
             - text: 14. Implementing Linear Regression
             - text: 15. Beyond Linearity
