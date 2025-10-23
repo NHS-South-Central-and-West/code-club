@@ -264,6 +264,102 @@
     ]
   },
   {
+    "objectID": "sessions/13-intro-linear-regression/index.html",
+    "href": "sessions/13-intro-linear-regression/index.html",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "",
+    "text": "This is the third session in our regression foundations series. Previous sessions discussed how to evaluate the differences between samples and the relationships between pairs of variables. This session will focus on bringing all of that together in order to make more precise inferences and predictions using data.\nWe’ll continue using the Palmer Penguins dataset to build intuition for regression concepts, then apply these methods to understand what drives penguin body mass and how we can predict it from other physical characteristics.",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/index.html#what-is-regression",
+    "href": "sessions/13-intro-linear-regression/index.html#what-is-regression",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "What is Regression?",
+    "text": "What is Regression?\nRegression is a method for modelling the relationship between one or more explanatory variables (or predictors) and an outcome of interest. The goal of regression is to find a function that predicts the outcome from the predictors.\nRegression is incredibly flexible in both approach and application. It can fit to all kinds of data problem and can be used for descriptive, explanatory, and predictive analysis. For this reason, it is a foundational tool in statistics and data science.",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/index.html#why-build-models",
+    "href": "sessions/13-intro-linear-regression/index.html#why-build-models",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "Why Build Models?",
+    "text": "Why Build Models?\nIn our previous sessions, we compared groups (4/20 vs other days) and examined relationships (penguin flipper length vs body mass). But both approaches had limitations: group comparisons can’t handle continuous predictors, and correlation only measures linear association between two variables at a time.\nRegression bridges these gaps. It lets us:\n\nQuantify how much \\(Y\\) changes when \\(X\\) increases by one unit.\nInclude multiple predictors simultaneously.\nMake predictions for new observations.\nTest specific hypotheses about relationships.\nAccount for confounding variables.\n\nInstead of just knowing flipper length and body mass are correlated, we can say that each additional millimeter increase in flipper length predicts an \\(X\\) increase in body mass. And we can go much further than this, controlling for environment, treating species as a grouping structure in the data, or facotoring in non-linearity. With regression, the possibilities are practically endless.\n\nFrom Association to Inference & Prediction\nCorrelation tells us variables move together. Regression tells us by how much and in what direction, and gives us the tools to make inferences and predictions.\nConsider these questions that regression can answer but correlation cannot:\n\nIf a penguin’s flipper is 200mm, what body mass do we predict?\nHow does the flipper-mass relationship differ between species?\nWhat’s our uncertainty around these predictions?\nWhich variables matter most for predicting body mass?",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/index.html#the-linear-regression-model",
+    "href": "sessions/13-intro-linear-regression/index.html#the-linear-regression-model",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "The Linear Regression Model",
+    "text": "The Linear Regression Model\nThe most common type of regression model, and the foundation from which so many other types of regression model are built, is linear regression. Linear regression assumes the relationship between the predictors and the outcome are linear, meaning that when predictors change in value the outcome changes by a constant amount. Visually, this just means fitting a straight line through data. For example, if you are paid £10 an hour, your pay increases by exactly £10 for each additional hour worked. This is a linear relationship.\nIf you have a predictor \\(X\\) and an outcome \\(Y\\), linear regression finds the path through the data that best fits these points, otherwise known as the “line of best fit”. This works by finding a line that passes through the data with the minimum amount of prediction error, which is the observed value minus the predicted value for each data pint (and is oftn referred to as the residual). The most common way for calculating the line of best fit is called Ordinary Least Squares (OLS)[^OLS].\n\n\nCalculating the Line of Best fit Using OLS (Click to Expand)\n\n\nOrdinary Least Squares Estimation\nWe won’t spend too much time on OLS in this session, but the method it uses for calculating the line of best fit is as follows:\n\nCalculate the residual for each observation (the actual value minus the predicted value).\nSquare the residuals (so that positive and negative errors do not cancel each other out).\nSum the squared residuals, sometimes called the Residual Sum of Squares (RSS).\nFind the line that produces the smallest RSS.\n\n\nThe formula for a simple linear regression model, predicting \\(Y\\) with one predictor \\(X\\):\n\\[\nY =\n\\underbrace{\\vphantom{\\beta_0} \\overset{\\color{#41B6E6}{\\text{Intercept}}}{\\color{#41B6E6}{\\beta_0}} +\n\\overset{\\color{#005EB8}{\\text{Slope}}}{\\color{#005EB8}{\\beta_1}}X \\space \\space}_{\\text{Explained Variance}} +\n\\overset{\\mathstrut \\color{#ED8B00}{\\text{Error}}}{\\underset{\\text{Unexplained}}{\\color{#ED8B00}{\\epsilon}}}\n\\]\nThis breaks the problem down into three components, and estimates two parameters:\n\n\\(\\beta_1\\) - The slope, estimating the effect that \\(X\\) has on the outcome, \\(Y\\).\n\\(\\beta_0\\) - The intercept, estimating the average value of \\(Y\\) when \\(X = 0\\).\n\\(\\epsilon\\) - The error term, capturing the remaining variance in the outcome \\(Y\\) that is not explained by the rest of the model.\n\n\n\n\n\n\n\nDon’t worry if this is intimidating at first. The main thing you need to remember is that this equation is just fitting a straight line through the data.\n\n\n\nThe regression line represents our best guess of the true relationship, and the scatter around the line represents uncertainty.",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/index.html#building-our-first-model",
+    "href": "sessions/13-intro-linear-regression/index.html#building-our-first-model",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "Building Our First Model",
+    "text": "Building Our First Model\n\nImport & Prepare Data\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom scipy import stats\nimport statsmodels.api as sm\nfrom sklearn.linear_model import LinearRegression\nfrom sklearn.metrics import r2_score\n\n# load penguins data\nurl = 'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv'\npenguins_raw = pd.read_csv(url)\n\n# clean data\ndf = penguins_raw.dropna()\ndf.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_len\nbill_dep\nflipper_len\nbody_mass\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007\n\n\n5\nAdelie\nTorgersen\n39.3\n20.6\n190.0\n3650.0\nmale\n2007\n\n\n\n\n\n\n\n\n\nVisualising the Relationship\n\nplt.figure(figsize=(10, 6))\nsns.scatterplot(data=df, x='flipper_len', y='body_mass', alpha=0.7)\nplt.title('Flipper Length vs Body Mass')\nplt.xlabel('Flipper Length (mm)')\nplt.ylabel('Body Mass (g)')\nplt.show()\n\n\n\n\n\n\n\n\nThe relationship looks strongly linear and positive. This is a good candidate for linear regression.\n\n\nFitting the Model\n\n# fit simple linear regression\nX = df[['flipper_len']]  # predictor\ny = df['body_mass']      # outcome\n\nmodel = LinearRegression()\nmodel.fit(X, y)\n\n# extract coefficients\nintercept = model.intercept_\nslope = model.coef_[0]\n\nThe intercept (\\(\\beta_0\\)) = -5872.1g. The intercept tells us the predicted body mass when flipper length is 0mm. This intercept value is not meaningful because a flipper length of zero is implausible and ultimately nonsensical (if they have flippers, they must be longer than 0mm)1, but we need the intercept to fit the model.\nThe slope (\\(\\beta_1\\)) = 50.2g/mm. The slope tells us that each additional mm increase in flipper length predicts ~50g increase in body mass.\n\n\nVisualising the Fitted Line\nWe can add the fitted line to our scatterplot and use this to make predictions by tracing the flipper length from which we want to predict body mass and then finding the body mass at that value.\n\nplt.figure(figsize=(10, 6))\nsns.scatterplot(data=df, x='flipper_len', y='body_mass', alpha=0.7)\n\n# add regression line\nx_range = np.linspace(df['flipper_len'].min(), df['flipper_len'].max(), 100)\ny_pred = intercept + slope * x_range\nplt.plot(x_range, y_pred, color='red', linewidth=2, label=f'y = {intercept:.0f} + {slope:.1f}x')\n\nplt.title('Linear Regression: Flipper Length Predicting Body Mass')\nplt.xlabel('Flipper Length (mm)')\nplt.ylabel('Body Mass (g)')\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\nMaking Predictions\nUsing a fitted line to make predictions is imprecise. Instead, we can use the linear regression formula detailed earlier to predict penguin body mass from flipper length. We just have to plug in the intercept and slope into the formula, along with the flipper length we want to predict from, and this will give us the predicted body mass.\nThe applied formula looks like this:\n\\[\n\\text{Body Mass} = -5872.1 + 50.2 \\times \\text{Flipper Length}\n\\]\nOr we can generate predictions using code:\n\n# predict body mass for different flipper lengths\nnew_flipper_lengths = np.array([[190], [200], [210], [220]])\npredictions = model.predict(new_flipper_lengths)\n\nprediction_df = pd.DataFrame({\n    'Flipper Length (mm)': new_flipper_lengths.flatten(),\n    'Predicted Body Mass (g)': predictions.round(0)\n})\n\nprint(\"Predictions for new observations:\")\nprint(prediction_df)\n\nPredictions for new observations:\n   Flipper Length (mm)  Predicted Body Mass (g)\n0                  190                   3657.0\n1                  200                   4159.0\n2                  210                   4660.0\n3                  220                   5162.0",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/index.html#statistical-inference",
+    "href": "sessions/13-intro-linear-regression/index.html#statistical-inference",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "Statistical Inference",
+    "text": "Statistical Inference\nSo far we’ve focused on prediction. But regression also lets us make inferences about the relationship between variables.\n\n# use statsmodels for explanatory models\nX_sm = sm.add_constant(df['flipper_len'])  # add intercept column\nmodel_sm = sm.OLS(df['body_mass'], X_sm).fit()\n\nprint(model_sm.summary().tables[1])\n\n===============================================================================\n                  coef    std err          t      P&gt;|t|      [0.025      0.975]\n-------------------------------------------------------------------------------\nconst       -5872.0927    310.285    -18.925      0.000   -6482.472   -5261.713\nflipper_len    50.1533      1.540     32.562      0.000      47.123      53.183\n===============================================================================\n\n\nWhen we are interested in explaining rather than predicting, the coefficient (coef) is what matters most. This is the intercept and slope values we calculated earlier. The coefficients tell us the size of the effect observed in the data. If you want to explain the relationship between variables, the effect size is the most important part of the model.\nThe other outputs are useful for understanding how well your model fits to the data and how certain the model is about the estimates. The standard error (std error) tells us how much the actual values vary around the fitted line, quantifying uncertainty. The 95% confidence intervals ([0.025 & 0.975]) are another way of expressing this idea. They effectively show a range of plausible coefficient values.\nFinally, the t-statistic (t) is a test statistic2 and the p-value (P&gt;|t|) is the probability of observing an effect as large (or larger) as observed in the data if there was actually no relationship between flipper length and body mass (and if the assumptions of the model are valid). You can think of the p-value as an expression of how surprising it would be to see a coefficient as large as the one we found if there wasn’t actually a relationship between flipper length and body mass.",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/index.html#summary",
+    "href": "sessions/13-intro-linear-regression/index.html#summary",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "Summary",
+    "text": "Summary\nLinear regression transforms correlation into a predictive and explanatory tool. We can quantify relationships and make predictions. Our penguin model shows that flipper length strongly predicts body mass, with each additional mm corresponding to ~50g increase in weight.\nThe key insights from regression go beyond simple correlation: we can make specific predictions, quantify uncertainty, and begin to understand the mechanisms behind relationships. However, real-world relationships are often more complex than simple linear models can capture.\nIn the next session, we will go into greater detail about the implementation of linear regression, looking at how we fit models, their assumptions, and how we interpret, present, and communicate our outputs.",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/index.html#footnotes",
+    "href": "sessions/13-intro-linear-regression/index.html#footnotes",
+    "title": "Regression Fundamentals: Introduction to Linear Regression",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nFor explanatory models, it is generally best-practice to transform the data so that the intercept is meaningful. For example, subtracting the mean flipper length from each observation (otherwise known as centering) so that the zero value represents the average flipper length and the intercept represents the average body mass for the average flipper length.↩︎\nWe will not discuss test statistics in detail here, but they are standardised measures of how unusual your results are. It is used to calculate the p-value. The t-statistic is the coefficient divided by its standard error.↩︎",
+    "crumbs": [
+      "Sessions",
+      "Data Science",
+      "13. Introduction to Linear Regression"
+    ]
+  },
+  {
     "objectID": "sessions/02-jupyter_notebooks/index.html",
     "href": "sessions/02-jupyter_notebooks/index.html",
     "title": "Jupyter Notebooks",
@@ -1024,6 +1120,167 @@
     "title": "Jupyter Notebooks",
     "section": "Resources",
     "text": "Resources\n\nCheck out the History of iPython\nYou can find out more about Project Jupyter\nThe demonstration makes use of this markdown cheatsheet\nLikewise this is the Jupyter shortcuts Cheat Sheet"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#scatterplots-show-patterns",
+    "href": "sessions/13-intro-linear-regression/slides.html#scatterplots-show-patterns",
+    "title": "An Introduction to Linear Regression",
+    "section": "Scatterplots Show Patterns",
+    "text": "Scatterplots Show Patterns"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#fitted-lines-show-associations",
+    "href": "sessions/13-intro-linear-regression/slides.html#fitted-lines-show-associations",
+    "title": "An Introduction to Linear Regression",
+    "section": "Fitted Lines Show Associations",
+    "text": "Fitted Lines Show Associations"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#regression-is-just-fitting-lines-to-data",
+    "href": "sessions/13-intro-linear-regression/slides.html#regression-is-just-fitting-lines-to-data",
+    "title": "An Introduction to Linear Regression",
+    "section": "Regression is Just Fitting Lines to Data",
+    "text": "Regression is Just Fitting Lines to Data\n\nRegression finds the line that passes through the data in the way that minimises the distance between the line and all observations.\nThis is often referred to as the “line of best fit”.\nThe line of best fit is the best representation of the relationship between two variables given the data."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#regression-estimates-effects",
+    "href": "sessions/13-intro-linear-regression/slides.html#regression-estimates-effects",
+    "title": "An Introduction to Linear Regression",
+    "section": "Regression Estimates Effects",
+    "text": "Regression Estimates Effects\n\nRegression quantifies the relationship between one or more explanatory variables (or predictors) and the outcome (the variable we want to analyse).\nCorrelation indicates whether two variables are related. Regression tells us by how much.\nFor example, if flipper length increases by 10mm, body mass increases by ~500g.\nThis precision opens up a world of possibilities for analysis."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#why-description-is-not-enough",
+    "href": "sessions/13-intro-linear-regression/slides.html#why-description-is-not-enough",
+    "title": "An Introduction to Linear Regression",
+    "section": "Why Description is Not Enough",
+    "text": "Why Description is Not Enough\n\nDescribing the pattern is useful, but we often want more.\n\nWill a penguin with a 205mm flipper be heavier than one with 195mm?\nIf we measure flipper length, can we estimate body mass?\nDoes this relationship hold for new penguins we haven’t seen?\n\nRegression lets us make predictions, test hypotheses, and make inferences."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#linear-regression-fits-a-straight-line",
+    "href": "sessions/13-intro-linear-regression/slides.html#linear-regression-fits-a-straight-line",
+    "title": "An Introduction to Linear Regression",
+    "section": "Linear Regression Fits a Straight Line",
+    "text": "Linear Regression Fits a Straight Line\n\nThe most simple regression model is one that fits a straight line through two variables, \\(X\\) (the predictor) and \\(Y\\) (the outcome).\n\nThe straight line indicates that the relationship between \\(X\\) and \\(Y\\) is constant.\nChanges in the value of \\(X\\) have the same effect on \\(Y\\) across the entire range of \\(X\\).\n\nThis is linear regression. It is the most common type of regression, and the foundation for so much more."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#regression-minimises-prediction-error",
+    "href": "sessions/13-intro-linear-regression/slides.html#regression-minimises-prediction-error",
+    "title": "An Introduction to Linear Regression",
+    "section": "Regression Minimises Prediction Error",
+    "text": "Regression Minimises Prediction Error\n\nThe line of best fit minimises the distance between the line (the predicted value) and observations.\nLinear regression uses the following method to do this:\n\nCalculate the error (residual) for each point.\nSquare each error (so they’re all positive).\nSum all squared errors, called the Residual Sum of Squares (RSS).\nFind the line that minimises the RSS.\n\nThis is called Ordinary Least Squares (OLS) estimation."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#finding-the-line-of-best-fit",
+    "href": "sessions/13-intro-linear-regression/slides.html#finding-the-line-of-best-fit",
+    "title": "An Introduction to Linear Regression",
+    "section": "Finding the Line of Best Fit",
+    "text": "Finding the Line of Best Fit"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#finding-the-line-of-best-fit-1",
+    "href": "sessions/13-intro-linear-regression/slides.html#finding-the-line-of-best-fit-1",
+    "title": "An Introduction to Linear Regression",
+    "section": "Finding the Line of Best Fit",
+    "text": "Finding the Line of Best Fit"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#finding-the-line-of-best-fit-2",
+    "href": "sessions/13-intro-linear-regression/slides.html#finding-the-line-of-best-fit-2",
+    "title": "An Introduction to Linear Regression",
+    "section": "Finding the Line of Best Fit",
+    "text": "Finding the Line of Best Fit"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#comparing-different-lines",
+    "href": "sessions/13-intro-linear-regression/slides.html#comparing-different-lines",
+    "title": "An Introduction to Linear Regression",
+    "section": "Comparing Different Lines",
+    "text": "Comparing Different Lines"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#predictions-come-from-the-fitted-line",
+    "href": "sessions/13-intro-linear-regression/slides.html#predictions-come-from-the-fitted-line",
+    "title": "An Introduction to Linear Regression",
+    "section": "Predictions Come From the Fitted Line",
+    "text": "Predictions Come From the Fitted Line\n\nOnce you have a line fitted to the data, you can make predictions (and with a little more work, inferences).\n\nThe predicted outcome for a given value of \\(X\\) is just the \\(Y\\) value of the line at \\(X\\).\nIn regression, predictions are sometimes referred to as fitted values.\nThe difference between the predicted value from the line and the actual value is the prediction error, or the residual.\n\nInferences (statements about the effect of \\(X\\) on \\(Y\\)) are derived from the calculation of the slope of the line.\n\nThe slope of the fitted line suggests that 10mm increases in flipper length result in 500g increases in body mass.\nIn regression, these values are referred to as coefficients."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#reading-fitted-values-residuals",
+    "href": "sessions/13-intro-linear-regression/slides.html#reading-fitted-values-residuals",
+    "title": "An Introduction to Linear Regression",
+    "section": "Reading Fitted Values & Residuals",
+    "text": "Reading Fitted Values & Residuals\n\n\n Flipper Length  Body Mass  Fitted  Residual\n          178.0     3250.0  3055.2     194.8\n          196.0     3675.0  3957.9    -282.9\n          195.0     4000.0  3907.8      92.2\n          210.0     4850.0  4660.1     189.9\n          192.0     4050.0  3757.3     292.7\n          201.0     4300.0  4208.7      91.3\n          197.0     3300.0  4008.1    -708.1\n          220.0     5400.0  5161.6     238.4\n          229.0     5800.0  5613.0     187.0\n          210.0     4400.0  4660.1    -260.1"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#dispersion-around-the-line-is-unexplained-variance",
+    "href": "sessions/13-intro-linear-regression/slides.html#dispersion-around-the-line-is-unexplained-variance",
+    "title": "An Introduction to Linear Regression",
+    "section": "Dispersion Around the Line is Unexplained Variance",
+    "text": "Dispersion Around the Line is Unexplained Variance"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#the-regression-formula",
+    "href": "sessions/13-intro-linear-regression/slides.html#the-regression-formula",
+    "title": "An Introduction to Linear Regression",
+    "section": "The Regression Formula",
+    "text": "The Regression Formula\n\nThe formula for a simple linear regression model, predicting \\(Y\\) with one predictor \\(X\\):\n\n\\[\nY =\n\\underbrace{\\vphantom{\\beta_0} \\overset{\\color{#41B6E6}{\\text{Intercept}}}{\\color{#41B6E6}{\\beta_0}} +\n\\overset{\\color{#005EB8}{\\text{Slope}}}{\\color{#005EB8}{\\beta_1}}X \\space \\space}_{\\text{Explained Variance}} +\n\\overset{\\mathstrut \\color{#ED8B00}{\\text{Error}}}{\\underset{\\text{Unexplained}}{\\color{#ED8B00}{\\epsilon}}}\n\\]\n\nThis breaks the problem down into three components, and estimates two parameters:\n\n\\(\\beta_0\\) - The intercept, estimating the average value of \\(Y\\) when \\(X = 0\\).\n\\(\\beta_1\\) - The slope, estimating the effect that \\(X\\) has on the outcome, \\(Y\\).\n\\(\\epsilon\\) - The error term, capturing the remaining variance in the outcome \\(Y\\) that is not explained by the rest of the model."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#applying-the-formula",
+    "href": "sessions/13-intro-linear-regression/slides.html#applying-the-formula",
+    "title": "An Introduction to Linear Regression",
+    "section": "Applying the Formula",
+    "text": "Applying the Formula\n\nThe regression formula for predicting or explaining body mass from flipper length:\n\n\\[\n\\text{Body Mass} = \\beta_0 + \\beta_1 \\times \\text{Flipper Length}\n\\]\n\nIntercept (\\(\\beta_0\\)) = -5872.1g\n\nAverage body mass when flipper length equals zero (not meaningful here, but necessary for the line).\n\nSlope (\\(\\beta_1\\)) = 50.2g\n\nHow much mass changes per mm increase in flipper length."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#regression-can-handle-multiple-variables",
+    "href": "sessions/13-intro-linear-regression/slides.html#regression-can-handle-multiple-variables",
+    "title": "An Introduction to Linear Regression",
+    "section": "Regression Can Handle Multiple Variables",
+    "text": "Regression Can Handle Multiple Variables\n\nUnlike correlation and a lot of data visualisation, regression is not pairwise.\nRegression can include many predictors.\nYou can add as many variables to a regression model as you want.\n\nThough you should only add those that matter (and even then less is often more).\n\nWe know that flipper length influences body mass, but perhaps bill length and/or bill depth also matter?"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#from-linear-to-generalised-linear-models",
+    "href": "sessions/13-intro-linear-regression/slides.html#from-linear-to-generalised-linear-models",
+    "title": "An Introduction to Linear Regression",
+    "section": "From Linear to Generalised Linear Models",
+    "text": "From Linear to Generalised Linear Models\n\nLinear regression assumes your outcome is continuous and normally distributed, but this is often not the case.\nGeneralised linear models extend this idea to other types of outcome using a “link function”.\nThe link function transforms your outcome so linear regression can work on it. It bends the scale so a straight line fits the data.\n\nLogistic regression (logit link function) - Binary outcomes (survival vs death, electoral victory vs loss).\nPoisson regression (log link function) - Count outcomes (number of attendances).\n\nGeneralised linear models use the same core idea, but with a transformation step before fitting the line."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#dealing-with-grouping-structures",
+    "href": "sessions/13-intro-linear-regression/slides.html#dealing-with-grouping-structures",
+    "title": "An Introduction to Linear Regression",
+    "section": "Dealing with Grouping Structures",
+    "text": "Dealing with Grouping Structures\n\nLinear regression assumes all observations are independent.\nSometimes (often) there are higher-level grouping structures that moderate the effect of \\(X\\) on \\(Y\\).\n\nStudents in different classes (or schools).\nPatients attending different hospitals.\nDifferent species of penguin.\n\nMultilevel models account for grouping structure by fitting lines to each group without treating each group as completely distinct.\n\nGroups can share information while still differing.\n\nSame linear framework, just allowing for hierarchy and grouping structure."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#the-possibilities-are-endless",
+    "href": "sessions/13-intro-linear-regression/slides.html#the-possibilities-are-endless",
+    "title": "An Introduction to Linear Regression",
+    "section": "The Possibilities are Endless",
+    "text": "The Possibilities are Endless\n\nThese are just three examples of the ways that the simple linear model can be adapted to fit different needs.\nThe real power of linear regression is that it combines simplicity with flexibility.\nIt works, and it can work in so many different situations."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#key-takeaways",
+    "href": "sessions/13-intro-linear-regression/slides.html#key-takeaways",
+    "title": "An Introduction to Linear Regression",
+    "section": "Key Takeaways",
+    "text": "Key Takeaways\n\nIf things vary together, we can measure that and use it to understand the relationship between them.\nRegression quantifies those relationships. It asks not just whether variables are related, but by how much.\nRegression is just fitting lines to data.\n\nWhen we minimise the error in the line of best fit, we get a line that describes how variables are related in the data.\nThis allows us to make predictions about unseen data and inferences about the relationship between variables.\n\nThe linear model is incredibly powerful, but also incredibly flexible.\n\nOnce you’ve figured out linear regression, you have an entire toolbox at your disposal."
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#further-learning",
+    "href": "sessions/13-intro-linear-regression/slides.html#further-learning",
+    "title": "An Introduction to Linear Regression",
+    "section": "Further Learning",
+    "text": "Further Learning\n\nMLU-Explain - Linear Regression\nStatQuest (Josh Starmer) - Linear Regression\njbstatistics (Jeremy Balka) - Simple Linear Regression\nAndrew Gelman et al. - Regression & Other Stories"
+  },
+  {
+    "objectID": "sessions/13-intro-linear-regression/slides.html#thank-you",
+    "href": "sessions/13-intro-linear-regression/slides.html#thank-you",
+    "title": "An Introduction to Linear Regression",
+    "section": "Thank You!",
+    "text": "Thank You!\nContact:\n scwcsu.analytics.specialist at nhs dot net\nCode & Slides:\n /NHS-South-Central-and-West/code-club\n… And don’t forget to give us your feedback."
   },
   {
     "objectID": "sessions/01-onboarding/slides.html#what-to-expect",
