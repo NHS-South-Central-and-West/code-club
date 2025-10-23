@@ -35,7 +35,7 @@ The First Building Block in a Regression
 ```{python}
 #| label: initial-scatter
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 sns.scatterplot(data=df, x='flipper_len', y='body_mass', 
                 facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, ax=ax)
 
@@ -56,7 +56,7 @@ y = df['body_mass']
 model = LinearRegression()
 model.fit(X, y)
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 sns.scatterplot(data=df, x='flipper_len', y='body_mass', 
                 facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, ax=ax)
 sns.lineplot(x=df['flipper_len'].sort_values(), 
@@ -137,7 +137,7 @@ ymin, ymax = np.min(df['body_mass']) - 150, np.max(df['body_mass']) + 150
 ```{python}
 #| label: fit-under
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 # plot residuals
 for _, row in df.iterrows():
     ax.plot([row['flipper_len'], row['flipper_len']], 
@@ -162,7 +162,7 @@ plt.show()
 ```{python}
 #| label: fit-over
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 # plot residuals
 for _, row in df.iterrows():
     ax.plot([row['flipper_len'], row['flipper_len']], 
@@ -187,7 +187,7 @@ plt.show()
 ```{python}
 #| label: fit-correct
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 # plot residuals
 for _, row in df.iterrows():
     ax.plot([row['flipper_len'], row['flipper_len']], 
@@ -271,7 +271,7 @@ print(sample_table.to_string(index=False))
 
 r2 = r2_score(y, model.predict(X))
 
-fig, ax = plt.subplots(figsize=(10, 6))
+fig, ax = plt.subplots(figsize=(12, 8))
 sns.scatterplot(data=df, x='flipper_len', y='body_mass',
                 facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, ax=ax)
 sns.lineplot(x=df['flipper_len'].sort_values(), 
