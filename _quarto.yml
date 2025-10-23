@@ -79,6 +79,7 @@ website:
             - text: 12. Analysing Relationships
               file: sessions/12-analysing-relationships/index.qmd
             - text: 13. Introduction to Linear Regression
+              file: sessions/13-intro-linear-regression/index.qmd
             - text: 14. Implementing Linear Regression
             - text: 15. Beyond Linearity
 
