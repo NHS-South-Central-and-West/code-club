@@ -1,0 +1,388 @@
+---
+title: "An Introduction to Linear Regression"
+subtitle: "The Model That Explains (Almost) Everything"
+footer: '**SAT //** Intro to Linear Regression **//** October, 2025'
+format: revealjs
+execute: 
+    echo: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+# set seaborn style
+sns.set_theme(style="whitegrid")
+
+# load palmer penguins data
+df = pd.read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv')
+df = df.dropna()
+```
+
+# Fitting a Line to Data {data-background-color="#425563"}
+
+The First Building Block in a Regression
+
+## Scatterplots Show Patterns {.center}
+
+```{python}
+#| label: initial-scatter
+
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.scatterplot(data=df, x='flipper_len', y='body_mass', 
+                facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, ax=ax)
+
+ax.set_xlabel('Flipper Length (mm)')
+ax.set_ylabel('Body Mass (g)')
+ax.set_title('Palmer Penguins: Flipper Length vs Body Mass')
+plt.show()
+```
+
+## Fitted Lines Show Associations {.center}
+
+```{python}
+#| label: fitted-line
+
+# fit model
+X = df[['flipper_len']]
+y = df['body_mass']
+model = LinearRegression()
+model.fit(X, y)
+
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.scatterplot(data=df, x='flipper_len', y='body_mass', 
+                facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, ax=ax)
+sns.lineplot(x=df['flipper_len'].sort_values(), 
+             y=model.predict(df[['flipper_len']].loc[df['flipper_len'].sort_values().index]), 
+             color='#005EB8', linewidth=2, ax=ax)
+ax.set_xlabel('Flipper Length (mm)')
+ax.set_ylabel('Body Mass (g)')
+ax.set_title('Palmer Penguins: Flipper Length vs Body Mass')
+ax.legend()
+plt.show()
+```
+
+## Regression is Just Fitting Lines to Data {.center}
+
+- Regression finds the line that passes through the data in the way that minimises the distance between the line and all observations.
+- This is often referred to as the "line of best fit".
+- The line of best fit is the best representation of the relationship between two variables given the data.
+
+# Regression Foundations {data-background-color="#425563"}
+
+A Conceptual Introduction 
+
+## Regression Estimates Effects {.center}
+
+- Regression quantifies the relationship between one or more explanatory variables (or predictors) and the outcome (the variable we want to analyse).
+- Correlation indicates whether two variables are related. Regression tells us by how much.
+- For example, if flipper length increases by 10mm, body mass increases by ~500g.
+- This precision opens up a world of possibilities for analysis.
+
+## Why Description is Not Enough {.center}
+
+- Describing the pattern is useful, but we often want more.
+    - Will a penguin with a 205mm flipper be heavier than one with 195mm?
+    - If we measure flipper length, can we estimate body mass?
+    - Does this relationship hold for new penguins we haven't seen?
+- Regression lets us make predictions, test hypotheses, and make inferences.
+
+## Linear Regression Fits a Straight Line {.center}
+
+- The most simple regression model is one that fits a straight line through two variables, $X$ (the predictor) and $Y$ (the outcome).
+    - The straight line indicates that the relationship between $X$ and $Y$ is constant. 
+    - Changes in the value of $X$ have the same effect on $Y$ across the entire range of $X$.
+- This is linear regression. It is the most common type of regression, and the foundation for so much more.
+
+## Regression Minimises Prediction Error {.center}
+
+- The line of best fit minimises the distance between the line (the predicted value) and observations. 
+- Linear regression uses the following method to do this:
+    1. Calculate the error (residual) for each point.
+    2. Square each error (so they're all positive).
+    3. Sum all squared errors, called the Residual Sum of Squares (RSS).
+    4. Find the line that minimises the RSS.
+- This is called Ordinary Least Squares (OLS) estimation.
+
+## Finding the Line of Best Fit {.center}
+
+```{python}
+#| label: fit-setup
+
+coef_intercept = model.intercept_
+coef_slope = model.coef_[0]
+
+# centre point for rotation
+mean_flipper = df['flipper_len'].mean()
+mean_mass = df['body_mass'].mean()
+
+# create lines with different slopes, pivoting around the mean point
+slope_under = coef_slope * 0.25
+slope_over = coef_slope * 2
+
+df['fitted_under'] = mean_mass + slope_under * (df['flipper_len'] - mean_flipper)
+df['fitted_over'] = mean_mass + slope_over * (df['flipper_len'] - mean_flipper)
+df['fitted'] = model.predict(df[['flipper_len']])
+
+ymin, ymax = np.min(df['body_mass']) - 150, np.max(df['body_mass']) + 150
+```
+
+```{python}
+#| label: fit-under
+
+fig, ax = plt.subplots(figsize=(12, 8))
+# plot residuals
+for _, row in df.iterrows():
+    ax.plot([row['flipper_len'], row['flipper_len']], 
+            [row['fitted_under'], row['body_mass']], 
+            color='#ED8B00', linewidth=1, alpha=0.3)
+# plot points
+sns.scatterplot(data=df, x='flipper_len', y='body_mass',
+                facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, zorder=3, ax=ax)
+# plot line
+sns.lineplot(x=df['flipper_len'].sort_values(), 
+             y=df.loc[df['flipper_len'].sort_values().index, 'fitted_under'], 
+             color='#005EB8', linewidth=2, ax=ax)
+ax.set_ylim(ymin, ymax)
+ax.set_xlabel('Flipper Length (mm)')
+ax.set_ylabel('Body Mass (g)')
+ax.set_title('Too Flat: Large Errors')
+plt.show()
+```
+
+## Finding the Line of Best Fit {.center}
+
+```{python}
+#| label: fit-over
+
+fig, ax = plt.subplots(figsize=(12, 8))
+# plot residuals
+for _, row in df.iterrows():
+    ax.plot([row['flipper_len'], row['flipper_len']], 
+            [row['fitted_over'], row['body_mass']], 
+            color='#ED8B00', linewidth=1, alpha=0.3)
+# plot points
+sns.scatterplot(data=df, x='flipper_len', y='body_mass',
+                facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, zorder=3, ax=ax)
+# plot line
+sns.lineplot(x=df['flipper_len'].sort_values(), 
+             y=df.loc[df['flipper_len'].sort_values().index, 'fitted_over'], 
+             color='#005EB8', linewidth=2, ax=ax)
+ax.set_ylim(ymin, ymax)
+ax.set_xlabel('Flipper Length (mm)')
+ax.set_ylabel('Body Mass (g)')
+ax.set_title('Too Steep: Large Errors')
+plt.show()
+```
+
+## Finding the Line of Best Fit {.center}
+
+```{python}
+#| label: fit-correct
+
+fig, ax = plt.subplots(figsize=(12, 8))
+# plot residuals
+for _, row in df.iterrows():
+    ax.plot([row['flipper_len'], row['flipper_len']], 
+            [row['fitted'], row['body_mass']], 
+            color='#ED8B00', linewidth=1, alpha=0.3)
+# plot points
+sns.scatterplot(data=df, x='flipper_len', y='body_mass',
+                facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, zorder=3, ax=ax)
+# plot line
+sns.lineplot(x=df['flipper_len'].sort_values(), 
+             y=df.loc[df['flipper_len'].sort_values().index, 'fitted'], 
+             color='#005EB8', linewidth=2, ax=ax)
+ax.set_ylim(ymin, ymax)
+ax.set_xlabel('Flipper Length (mm)')
+ax.set_ylabel('Body Mass (g)')
+ax.set_title('Just Right: Minimised Errors')
+plt.show()
+```
+
+## Comparing Different Lines {.center}
+
+```{python}
+#| label: comparing-rss
+
+# calculate rss for each line
+rss_under = np.sum((df['body_mass'] - df['fitted_under'])**2)
+rss_correct = np.sum((df['body_mass'] - df['fitted'])**2)
+rss_over = np.sum((df['body_mass'] - df['fitted_over'])**2)
+
+fig, axes = plt.subplots(1, 3, figsize=(15, 8))
+
+lines = [
+    ('fitted_under', rss_under, 'Too Flat'),
+    ('fitted', rss_correct, 'Best Fit'),
+    ('fitted_over', rss_over, 'Too Steep')
+]
+
+for ax, (col, rss, title) in zip(axes, lines):
+    sns.scatterplot(data=df, x='flipper_len', y='body_mass',
+                    facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, ax=ax)
+    sns.lineplot(x=df['flipper_len'].sort_values(), 
+                 y=df.loc[df['flipper_len'].sort_values().index, col], 
+                 color='#005EB8', linewidth=2, ax=ax)
+
+    ax.set_ylim(ymin, ymax)
+    ax.set_xlabel('Flipper Length (mm)')
+    ax.set_ylabel('Body Mass (g)')
+    ax.set_title(f'{title}\nRSS = {rss:,.0f}')
+
+plt.tight_layout()
+plt.show()
+```
+
+## Predictions Come From the Fitted Line {.center}
+
+- Once you have a line fitted to the data, you can make predictions (and with a little more work, inferences). 
+    - The predicted outcome for a given value of $X$ is just the $Y$ value of the line at $X$.
+    - In regression, predictions are sometimes referred to as fitted values.
+    - The difference between the predicted value from the line and the actual value is the prediction error, or the residual.
+- Inferences (statements about the effect of $X$ on $Y$) are derived from the calculation of the slope of the line.
+    - The slope of the fitted line suggests that 10mm increases in flipper length result in 500g increases in body mass.
+    - In regression, these values are referred to as coefficients.
+
+## Reading Fitted Values & Residuals {.center}
+
+```{python}
+#| label: fitted-table
+
+sample_table = df[['flipper_len', 'body_mass', 'fitted']].sample(n=10, random_state=42)
+sample_table['residual'] = sample_table['body_mass'] - sample_table['fitted']
+sample_table = sample_table.round(1)
+sample_table.columns = ['Flipper Length', 'Body Mass', 'Fitted', 'Residual']
+
+print(sample_table.to_string(index=False))
+```
+
+## Dispersion Around the Line is Unexplained Variance {.center}
+
+```{python}
+#| label: r-squared
+
+r2 = r2_score(y, model.predict(X))
+
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.scatterplot(data=df, x='flipper_len', y='body_mass',
+                facecolors='white', edgecolors='black', s=40, linewidths=1, alpha=0.7, ax=ax)
+sns.lineplot(x=df['flipper_len'].sort_values(), 
+             y=model.predict(df[['flipper_len']].loc[df['flipper_len'].sort_values().index]), 
+             color='#005EB8', linewidth=2, ax=ax)
+ax.set_xlabel('Flipper Length (mm)')
+ax.set_ylabel('Body Mass (g)')
+ax.set_title(f'R² = {r2:.3f}: Flipper length explains {r2*100:.1f}% of body mass variation')
+plt.show()
+```
+
+# A (Brief) Look Under the Hood {data-background-color="#425563"}
+
+The Component Pieces of Linear Regression
+
+## The Regression Formula {.center}
+
+- The formula for a simple linear regression model, predicting $Y$ with one predictor $X$: 
+
+$$
+Y = 
+\underbrace{\vphantom{\beta_0} \overset{\color{#41B6E6}{\text{Intercept}}}{\color{#41B6E6}{\beta_0}} + 
+\overset{\color{#005EB8}{\text{Slope}}}{\color{#005EB8}{\beta_1}}X \space \space}_{\text{Explained Variance}} + 
+\overset{\mathstrut \color{#ED8B00}{\text{Error}}}{\underset{\text{Unexplained}}{\color{#ED8B00}{\epsilon}}}
+$$
+
+- This breaks the problem down into three components, and estimates two parameters:
+    - $\beta_0$ - The intercept, estimating the average value of $Y$ when $X = 0$.
+    - $\beta_1$ - The slope, estimating the effect that $X$ has on the outcome, $Y$. 
+    - $\epsilon$ - The error term, capturing the remaining variance in the outcome $Y$ that is not explained by the rest of the model.
+
+## Applying the Formula {.center}
+
+- The regression formula for predicting or explaining body mass from flipper length:
+
+$$
+\text{Body Mass} = \beta_0 + \beta_1 \times \text{Flipper Length}
+$$
+
+- Intercept ($\beta_0$) = `{python} f"{model.intercept_:.1f}g"`
+    - Average body mass when flipper length equals zero (not meaningful here, but necessary for the line).
+- Slope ($\beta_1$) = `{python} f"{model.coef_[0]:.1f}g"`
+    - How much mass changes per mm increase in flipper length.
+
+# What Makes Regression So Powerful? {data-background-color="#425563"}
+
+Simplicity Combined with Flexibility
+
+## Regression Can Handle Multiple Variables {.center}
+
+- Unlike correlation and a lot of data visualisation, regression is not pairwise.
+- Regression can include many predictors.
+- You can add as many variables to a regression model as you want.
+    - Though you should only add those that matter (and even then less is often more).
+- We know that flipper length influences body mass, but perhaps bill length and/or bill depth also matter?
+
+## From Linear to Generalised Linear Models {.center}
+
+- Linear regression assumes your outcome is continuous and normally distributed, but this is often not the case.
+- Generalised linear models extend this idea to other types of outcome using a "link function".
+- The link function transforms your outcome so linear regression can work on it. It bends the scale so a straight line fits the data.
+    - Logistic regression (logit link function) - Binary outcomes (survival vs death, electoral victory vs loss).
+    - Poisson regression (log link function) - Count outcomes (number of attendances).
+- Generalised linear models use the same core idea, but with a transformation step before fitting the line.
+
+## Dealing with Grouping Structures {.center}
+
+- Linear regression assumes all observations are independent.
+- Sometimes (often) there are higher-level grouping structures that moderate the effect of $X$ on $Y$.
+    - Students in different classes (or schools).
+    - Patients attending different hospitals.
+    - Different species of penguin.
+- Multilevel models account for grouping structure by fitting lines to each group without treating each group as completely distinct.
+    - Groups can share information while still differing.
+- Same linear framework, just allowing for hierarchy and grouping structure.
+
+## The Possibilities are Endless {.center}
+
+- These are just three examples of the ways that the simple linear model can be adapted to fit different needs.
+- The real power of linear regression is that it combines simplicity with flexibility. 
+- It works, and it can work in so many different situations.
+
+# Wrapping Up {data-background-color="#425563"}
+
+A Final Sales Pitch for Linear Regression
+
+## Key Takeaways {.center}
+
+- If things vary together, we can measure that and use it to understand the relationship between them.
+- Regression quantifies those relationships. It asks not just whether variables are related, but by how much.
+- Regression is just fitting lines to data.
+    - When we minimise the error in the line of best fit, we get a line that describes how variables are related in the data.
+    - This allows us to make predictions about unseen data and inferences about the relationship between variables.
+- The linear model is incredibly powerful, but also incredibly flexible.
+    - Once you've figured out linear regression, you have an entire toolbox at your disposal.
+
+## Further Learning {.center}
+
+- MLU-Explain - [Linear Regression](https://mlu-explain.github.io/linear-regression/)
+- StatQuest (Josh Starmer) - [Linear Regression](https://youtube.com/playlist?list=PLblh5JKOoLUIzaEkCLIUxQFjPIlapw8nU)
+- jbstatistics (Jeremy Balka) - [Simple Linear Regression](https://youtube.com/playlist?list=PLvxOuBpazmsND0vmkP1ECjTloiVz-pXla)
+- Andrew Gelman et al. - [Regression & Other Stories](https://users.aalto.fi/~ave/ROS.pdf)
+
+## Thank You! {.center}
+
+Contact:
+
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+
+Code & Slides:
+
+{{< fa brands github >}} [/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
