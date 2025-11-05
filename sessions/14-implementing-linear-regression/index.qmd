@@ -585,7 +585,7 @@ As you gain experience, you'll learn when violations matter and when they don't.
 
 - `sklearn` for prediction - Fast, consistent API for building models.
 - `statsmodels` for inference - Detailed statistical output for understanding.
--  Assumptions matter - Check diagnostics, understand when violations are problematic.
+- Assumptions matter - Check diagnostics, understand when violations are problematic.
 - Effect sizes over p-values - Focus on what matters practically.
 
 Linear regression is a powerful tool, and learning the principles of linear regression (thinking about predictions, uncertainty, assumptions, and interpretation) apply to much more complex models.
