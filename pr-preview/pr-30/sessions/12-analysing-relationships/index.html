@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regression Fundamentals: Analysing Relationships</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sessions/schedule.html"> 
+<span class="menu-text">Sessions</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../resources/glossary.html">
+ <span class="dropdown-text">Glossary</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/NHS-South-Central-and-West/code-club" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/11-comparing-samples/index.html">Data Science</a></li><li class="breadcrumb-item"><a href="../../sessions/12-analysing-relationships/index.html">12. Analysing Relationships</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Onboarding</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/01-onboarding/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Python Onboarding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/02-jupyter_notebooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Jupyter Notebooks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exploration &amp; Visualisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/03-eda-pandas/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3. EDA with Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/04-seaborn-visualisation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Visualisations with Seaborn</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/05-eda-seaborn/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. EDA with Seaborn</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Core Concepts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/06-data-types/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Data Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/07-control-flow/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Control Flow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/08-functions/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Functions &amp; Functional Programming</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/09-object-oriented-programming/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Object-Oriented Programming</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exploration &amp; Visualisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/10-streamlit/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Streamlit Dashboards</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/11-comparing-samples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Comparing Samples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/12-analysing-relationships/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">12. Analysing Relationships</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/13-intro-linear-regression/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Introduction to Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">14. Implementing Linear Regression</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">15. Beyond Linearity</span>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-analyse-relationships" id="toc-why-analyse-relationships" class="nav-link active" data-scroll-target="#why-analyse-relationships">Why Analyse Relationships?</a>
+  <ul class="collapse">
+  <li><a href="#from-categorical-to-continuous" id="toc-from-categorical-to-continuous" class="nav-link" data-scroll-target="#from-categorical-to-continuous">From Categorical to Continuous</a></li>
+  <li><a href="#from-comparing-groups-to-estimating-associations" id="toc-from-comparing-groups-to-estimating-associations" class="nav-link" data-scroll-target="#from-comparing-groups-to-estimating-associations">From Comparing Groups to Estimating Associations</a></li>
+  </ul></li>
+  <li><a href="#penguins-with-long-characteristics" id="toc-penguins-with-long-characteristics" class="nav-link" data-scroll-target="#penguins-with-long-characteristics">Penguins with Long Characteristics</a>
+  <ul class="collapse">
+  <li><a href="#import-process-data" id="toc-import-process-data" class="nav-link" data-scroll-target="#import-process-data">Import &amp; Process Data</a></li>
+  <li><a href="#visualising-relationships" id="toc-visualising-relationships" class="nav-link" data-scroll-target="#visualising-relationships">Visualising Relationships</a></li>
+  <li><a href="#computing-correlations" id="toc-computing-correlations" class="nav-link" data-scroll-target="#computing-correlations">Computing Correlations</a></li>
+  <li><a href="#correlations-limitations" id="toc-correlations-limitations" class="nav-link" data-scroll-target="#correlations-limitations">Correlation’s Limitations</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/11-comparing-samples/index.html">Data Science</a></li><li class="breadcrumb-item"><a href="../../sessions/12-analysing-relationships/index.html">12. Analysing Relationships</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Regression Fundamentals: Analysing Relationships</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is the second in our series of sessions that builds the regression foundations. Here we will look at how to explore relationships in data, using both quantitative measures such as correlation and a range of visualisations methods.</p>
+<p>This session discusses what it means to analyse relationships between variables, what is possible with different types of variables (and how this links to the previous session that looked at <a href="../../sessions/11-comparing-samples">comparing samples</a>), and what these methods can and cannot tell us.</p>
+<p>We will use the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md"><strong>Palmer Penguins</strong></a> dataset throughout this session, taken from the <a href="https://github.com/rfordatascience/tidytuesday/">TidyTuesday</a> GitHub repository (originally from the <a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a> R package<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>). We will import the data directly from GitHub, but if you would prefer to download it instead, click <a href="https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv" download="">here</a>.</p>
+<section id="why-analyse-relationships" class="level2">
+<h2 class="anchored" data-anchor-id="why-analyse-relationships">Why Analyse Relationships?</h2>
+<p>In the <a href="../../sessions/11-comparing-samples">first session</a> in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. We compared fatalities from car crashes between 4/20 and other days. But what if we wanted to examine how the number of fatalities changes as temperature increases or decreases? Or maybe we want to account for the number of cars on the road at different times of year? These questions require different tools.</p>
+<section id="from-categorical-to-continuous" class="level3">
+<h3 class="anchored" data-anchor-id="from-categorical-to-continuous">From Categorical to Continuous</h3>
+<p>The type of variables you are dealing with dictates what you can do to make inferences from your data. In our previous session, comparing samples, we were making comparisons by splitting our data into groups and comparing those groups. We compared the average number of car crash fatalities on 4/20 with the average number of car crash fatalities on all other days of the year. This is comparing the value of a continuous variable (fatalities) but split into categorical groups (4/20 and not 4/20). Here we will compare two continuous variables, considering how one variable (the outcome) changes in response to changes in the other variable (the predictor).</p>
+<p>There is only a subtle difference between the idea of comparing samples and analysing relationships. You can frame a comparison between groups as analysing the relationship between the groups and the continuous variable, but you are still comparing the central tendency<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> and dispersion<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> for each group and inferring the relationship (or association) from this. When comparing two continuous variables, you can’t reduce either to their average, and are instead making statements about the way they vary together.</p>
+<section id="variable-types" class="level4">
+<h4 class="anchored" data-anchor-id="variable-types">Variable Types</h4>
+<p>At this point, it might be necessary to walk through variable types and what continuous and categorical variables really mean.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 29%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Type</th>
+<th>Example Values</th>
+<th>Typical Question</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Continuous</strong></td>
+<td>5.2, 7.8, 102.3</td>
+<td><em>How much?</em></td>
+</tr>
+<tr class="even">
+<td><strong>Discrete</strong></td>
+<td>1, 2, 3, 10</td>
+<td><em>How many?</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Categorical (Nominal)</strong></td>
+<td>Red, Blue, Green</td>
+<td><em>Which type?</em></td>
+</tr>
+<tr class="even">
+<td><strong>Categorical (Ordinal)</strong></td>
+<td>Low, Medium, High</td>
+<td><em>Which level?</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Binary (Dichotomous)</strong></td>
+<td>Yes/No, Pass/Fail</td>
+<td><em>Yes or no?</em></td>
+</tr>
+<tr class="even">
+<td><strong>Time/Date</strong></td>
+<td>2025-06-10, 12:30 PM</td>
+<td><em>When?</em></td>
+</tr>
+<tr class="odd">
+<td><strong>Identifier</strong></td>
+<td>ID12345, username987</td>
+<td><em>Who or what? (unique)</em></td>
+</tr>
+</tbody>
+</table>
+<p>A nominal category has no natural order, while ordinal categories do.</p>
+</section>
+</section>
+<section id="from-comparing-groups-to-estimating-associations" class="level3">
+<h3 class="anchored" data-anchor-id="from-comparing-groups-to-estimating-associations">From Comparing Groups to Estimating Associations</h3>
+<p>Group comparison tells us whether Group A’s sample mean is meaningfully different from Group B’s, but this comparison doesn’t really tell us the size of the difference or the pattern in which the differences occur. If two samples are not drawn from the same population distribution, what does this really tell us? It is possible to structure our analysis such that this could be quite meaningful, but in many cases it won’t be.</p>
+<p>This is why we need to take the next step, to analysing relationships. How do two variables move together? Strictly speaking, what we will be analysing today is less “relationships”, which implies causality, and more “associations”. We are unable to make claims about causality with the methods we are using, because we are only considering how variables vary together, and not directly estimating how one variable causes changes in another. Still, the methods we will discuss here get us one step closer to being able to measure effects and infer causality.</p>
+<p>In this session, we’ll explore the penguins dataset to see how body mass relates to flipper length, how bill length relates to bill depth, and how to identify relationships between continuous traits.</p>
+</section>
+</section>
+<section id="penguins-with-long-characteristics" class="level2">
+<h2 class="anchored" data-anchor-id="penguins-with-long-characteristics">Penguins with Long Characteristics</h2>
+<p>We will use the <a href="https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md"><strong>Palmer Penguins</strong></a> dataset to analyse how the length of penguins’ body mass changes with flipper length and how penguin bill length is associated with bill depth. We can’t draw conclusions about causality from our data, but we are able to move from identifying differences to quantifying those differences. This takes us one step closer to making meaningful inferences.</p>
+<section id="import-process-data" class="level3">
+<h3 class="anchored" data-anchor-id="import-process-data">Import &amp; Process Data</h3>
+<div id="cell-import-data" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load penguins data from TidyTuesday URL</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv'</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>penguins_raw <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>penguins_raw.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="import-data" class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">island</th>
+<th data-quarto-table-cell-role="th">bill_len</th>
+<th data-quarto-table-cell-role="th">bill_dep</th>
+<th data-quarto-table-cell-role="th">flipper_len</th>
+<th data-quarto-table-cell-role="th">body_mass</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.1</td>
+<td>18.7</td>
+<td>181.0</td>
+<td>3750.0</td>
+<td>male</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>39.5</td>
+<td>17.4</td>
+<td>186.0</td>
+<td>3800.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>40.3</td>
+<td>18.0</td>
+<td>195.0</td>
+<td>3250.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>2007</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Adelie</td>
+<td>Torgersen</td>
+<td>36.7</td>
+<td>19.3</td>
+<td>193.0</td>
+<td>3450.0</td>
+<td>female</td>
+<td>2007</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>There are several missing values in this dataset. While we should generally be a little careful when discarding missing values, we will do so here just to simplify the process.</p>
+<div id="cell-clean-data" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop missing values</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> penguins_raw.dropna()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="clean-data" class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>(333, 8)</code></pre>
+</div>
+</div>
+</section>
+<section id="visualising-relationships" class="level3">
+<h3 class="anchored" data-anchor-id="visualising-relationships">Visualising Relationships</h3>
+<p>Let’s start by visualising how body mass varies by flipper length. We will split the data by species as well, in order to identify whether penguin species is a confounding factor<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<div id="cell-fig-flipper-mass-scatter-plot" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.figsize'</span>] <span class="op">=</span> [<span class="dv">8</span>,<span class="dv">6</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter of flipper length vs. body mass</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'flipper_len'</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'body_mass'</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'species'</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Flipper Length (mm)'</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Body Mass (g)'</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-flipper-mass-scatter-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flipper-mass-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-flipper-mass-scatter-plot-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flipper-mass-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The Relationship Between Flipper Length &amp; Body Mass
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>What patterns do you see in <a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a>? How does body mass change when flipper length increases? And how does species moderate the association between flipper length and body mass?</p>
+<p><a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a> shows that, when flipper length increases, body mass appears to increase. There is a clear pattern in the data, and though there are differences in the average value of flipper length and body mass when split by species, the species doesn’t appear to have a significant impact on the relationship between flipper length and body mass.</p>
+<p>We can use the same plot to visualise the association between bill length and bill depth.</p>
+<div id="cell-fig-bill-scatter-plot" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter of bill length vs. bill depth</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'bill_len'</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'bill_dep'</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    hue<span class="op">=</span><span class="st">'species'</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.7</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-bill-scatter-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bill-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-bill-scatter-plot-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bill-scatter-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: The Relationship Between Bill Length &amp; Bill Depth
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>How does the pattern in <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a> differ from <a href="#fig-flipper-mass-scatter-plot" class="quarto-xref">Figure&nbsp;1</a>? What happens to bill depth when bill length changes, and how does species impact these changes?</p>
+<p>When you look at all the data in <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a> without accounting for species, the relationship appears to be very noisy. However, when factoring in species differences, the association looks positive.</p>
+<p>We can also fit a regression line to our data, shown below in <a href="#fig-bill-regression-plot" class="quarto-xref">Figure&nbsp;3</a>, which will show us the “line of best fit” through bill length and bill depth.</p>
+<div id="cell-fig-bill-regression-plot" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add linear fit line</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sns.regplot(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>df,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="st">'bill_len'</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="st">'bill_dep'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    scatter<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ci<span class="op">=</span><span class="dv">95</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-bill-regression-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-bill-regression-plot-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bill-regression-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: The Line of Best Fit Between Bill Length &amp; Bill Depth
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>It is clear that any relationship between bill length and bill depth is more complicated than the relationship between flipper length and body mass. Not only does ignoring species make the association between these variables appear a lot more noisy, it also suggests that bill length is negatively associated with bill depth, which is the opposite conclusion to the conclusion we draw from <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a>.</p>
+</section>
+<section id="computing-correlations" class="level3">
+<h3 class="anchored" data-anchor-id="computing-correlations">Computing Correlations</h3>
+<p>Visualising continuous variables using scatterplots can give us an indication of how two variables change together, but we are unable to quantify this association between two variables only using visualisations. We can put a number to what we are seeing in the plots by calculating the correlation between variables.</p>
+<section id="pairwise-correlation" class="level4">
+<h4 class="anchored" data-anchor-id="pairwise-correlation">Pairwise Correlation</h4>
+<p>Measuring the correlation between variablse can be very useful as a way to explore data and gain quick insight into potential relationships between variables in your dataset. It is simple and intuitive, and serves as a good starting point for analysing data.</p>
+<p>We can compute the correlation between two variables, using <code>scipy.stats</code> to calculate a specific measure of correlation, Pearson’s <span class="math inline">\(r\)</span><a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>.</p>
+<div id="flipper-mass-correlation" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'flipper_len'</span>], df[<span class="st">'body_mass'</span>])</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Correlation (r) = 0.87</code></pre>
+</div>
+</div>
+<p>A correlation of 0.87 is very strong. There is clearly a very strong association between flipper length and body mass. However, we can’t claim that flipper length causes body mass just based off this. Correlation does not imply causation<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>.</p>
+<p>When we visualised the relationship between bill length and bill depth, there appeared to be a grouping structure going on that complicated things, and the overall relationship appeared pretty noisy.</p>
+<div id="bill-correlation" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(df[<span class="st">'bill_len'</span>], df[<span class="st">'bill_dep'</span>])</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Correlation (r) = -0.23</code></pre>
+</div>
+</div>
+<p>As a result, the correlation score is much lower. A correlation of -0.23 tells us two things:</p>
+<ul>
+<li>The negative correlation means that when bill length increases, bill depth tends to decrease.</li>
+<li>The weaker correlation suggests that this decrease is a lot noisier, and it is much harder to estimate a penguin’s bill depth using their bill length.</li>
+</ul>
+<p>A correlation of +/- ~0.2 doesn’t necessarily mean there is no relationship. There are lots of ways correlation can mislead, because it is a limited measure. Visualising the relationship between bill length and bill depth showed us that species is highly relevant, and not factoring this in limits what we can say about this relationship.</p>
+</section>
+<section id="correlation-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="correlation-matrix">Correlation Matrix</h4>
+<p>We may be interested in the pairwise correlation between multiple variables. If so, computing each correlation between pairs of variables is very cumbersome. Instead, we can compute a correlation matrix.</p>
+<div id="cell-correlation-matrix" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute correlation matrix</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    .corr()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="correlation-matrix" class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">bill_len</th>
+<th data-quarto-table-cell-role="th">bill_dep</th>
+<th data-quarto-table-cell-role="th">flipper_len</th>
+<th data-quarto-table-cell-role="th">body_mass</th>
+<th data-quarto-table-cell-role="th">year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">bill_len</th>
+<td>1.00</td>
+<td>-0.23</td>
+<td>0.65</td>
+<td>0.59</td>
+<td>0.03</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">bill_dep</th>
+<td>-0.23</td>
+<td>1.00</td>
+<td>-0.58</td>
+<td>-0.47</td>
+<td>-0.05</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">flipper_len</th>
+<td>0.65</td>
+<td>-0.58</td>
+<td>1.00</td>
+<td>0.87</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">body_mass</th>
+<td>0.59</td>
+<td>-0.47</td>
+<td>0.87</td>
+<td>1.00</td>
+<td>0.02</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">year</th>
+<td>0.03</td>
+<td>-0.05</td>
+<td>0.15</td>
+<td>0.02</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>We can also visualise a correlation matrix, shown below in <a href="#fig-correlation-matrix-plot" class="quarto-xref">Figure&nbsp;4</a>.</p>
+<div id="cell-fig-correlation-matrix-plot" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add correlation matrix to summarise relationships</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>corr_matrix <span class="op">=</span> df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>).corr()</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># plot heatmap</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>sns.heatmap(corr_matrix, annot<span class="op">=</span><span class="va">True</span>, cmap<span class="op">=</span><span class="st">'coolwarm'</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-correlation-matrix-plot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-correlation-matrix-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-correlation-matrix-plot-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-matrix-plot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Correlation Matrix
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>If you are concerned with a certain outcome and you want to quickly look at the correlation between all other continuous variables and the outcome, you can also compute this.</p>
+<div id="cell-body-mass-correlations" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># correlations of all numeric variables with body mass</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    df.select_dtypes(include<span class="op">=</span><span class="st">'number'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    .corr()[<span class="st">'body_mass'</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    .drop(<span class="st">'body_mass'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="body-mass-correlations" class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>bill_len       0.59
+bill_dep      -0.47
+flipper_len    0.87
+year           0.02
+Name: body_mass, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="correlations-limitations" class="level3">
+<h3 class="anchored" data-anchor-id="correlations-limitations">Correlation’s Limitations</h3>
+<p>Computing correlation can be very informative, but there are a lot of ways it is limited. The most common method for calculating correlation, Pearson’s <span class="math inline">\(r\)</span>, assumes a linear pairwise relationship between variables. This means it is unable to capture certain relationships that do not meet these assumptions.</p>
+<section id="non-linearity" class="level4">
+<h4 class="anchored" data-anchor-id="non-linearity">Non-Linearity</h4>
+<p>A correlation coefficient will miss strong non-linear relationships in data. We can demonstrate this by simulating a parabolic relationship (a u-shaped curve) between two variables, <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, where <span class="math inline">\(y\)</span> is a function of <span class="math inline">\(x\)</span>.</p>
+<div id="simulate-non-linear-relationship" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate a u‑shaped relationship example</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>x_sim <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">200</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>y_sim <span class="op">=</span> x_sim<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">200</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>sim_data <span class="op">=</span> pd.DataFrame({<span class="st">'x'</span>: x_sim, <span class="st">'y'</span>: y_sim})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>We know that the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> is meaningful because we generated <span class="math inline">\(y\)</span> from <span class="math inline">\(x\)</span>. However, when we calculate their correlation, it is tiny.</p>
+<div id="non-linear-correlation" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r, p <span class="op">=</span> pearsonr(sim_data[<span class="st">'x'</span>], sim_data[<span class="st">'y'</span>])</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correlation (r) = </span><span class="sc">{</span>r<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Correlation (r) = 0.01</code></pre>
+</div>
+</div>
+<p><a href="#fig-non-linear-relationship" class="quarto-xref">Figure&nbsp;5</a> visualises the relationship between <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, demonstrating that there is clearly a relationship between the two variables.</p>
+<div id="cell-fig-non-linear-relationship" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(data<span class="op">=</span>sim_data, x<span class="op">=</span><span class="st">'x'</span>, y<span class="op">=</span><span class="st">'y'</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-non-linear-relationship" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-non-linear-relationship-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-non-linear-relationship-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-non-linear-relationship-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: A Non-Linear Relationship
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>While there are correlation measures that handle non-linearity (such as Spearman’s rank correlation and Kendall’s tau (<span class="math inline">\(\tau\)</span>)), they are much less common than Pearson’s <span class="math inline">\(r\)</span>.</p>
+</section>
+<section id="complexity" class="level4">
+<h4 class="anchored" data-anchor-id="complexity">Complexity</h4>
+<p>While the linearity assumption can cause Pearson’s <span class="math inline">\(r\)</span> to miss strong non-linear relationships between variables, the biggest limiting factor with measuring correlations is the pairwise assumption. Correlation compares pairs of variables, which means treating the relationship between those pairs as independent, ignoring potential interactions with other variables. Very few relationships in the real world are strictly pairwise.</p>
+<p>We saw an example of this earlier with correlation missing the relationship between bill length and bill depth because it couldn’t account for the group-level species effect.</p>
+<p>We can account for grouping structures in our data visually, by plotting regression lines for each group. <a href="#fig-grouping-structures" class="quarto-xref">Figure&nbsp;6</a> identifies the real story that correlation missed.</p>
+<div id="cell-fig-grouping-structures" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sns.lmplot(data<span class="op">=</span>df, x<span class="op">=</span><span class="st">"bill_len"</span>, y<span class="op">=</span><span class="st">"bill_dep"</span>, hue<span class="op">=</span><span class="st">"species"</span>, height<span class="op">=</span><span class="dv">6</span>, aspect<span class="op">=</span><span class="fl">1.2</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Bill Length (mm)'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Bill Depth (mm)'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="fig-grouping-structures" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-grouping-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="index_files/figure-html/fig-grouping-structures-output-1.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-grouping-structures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;6: Accounting for Grouping Structures
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>This also demonstrates why it is important to approach exploratory data analysis in a few different ways. While a correlation coefficient would have missed the relationship between bill length and bill depth, <a href="#fig-bill-regression-plot" class="quarto-xref">Figure&nbsp;3</a> also would have suggested a negative relationship between two variables that are actually positively associated (though it is unclear if the relationship is causal). Meanwhile, <a href="#fig-bill-scatter-plot" class="quarto-xref">Figure&nbsp;2</a> suggested that species has a moderating effect on the relationship between the length of a penguin’s bill and its depth, and <a href="#fig-grouping-structures" class="quarto-xref">Figure&nbsp;6</a> confirms the suspicions.</p>
+</div>
+</div>
+</div>
+<p>Correlation will not account for grouping structures, but it will also miss any other way that other variables can complicate the relationship between a pair of variables. Outcomes in the real world are rarely as simple as a pairwise relationship. We need different tools to capture this complexity.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>Visualising continuous variables and calculating their correlations can tell us a lot. These methods let us move beyond simple group comparisons to examine continuous associations. However, both approaches have important limitations: they struggle with non-linear patterns, they struggle with complexity, and most importantly, they cannot tell us whether the relationship between variables is causal.</p>
+<p>Real-world relationships rarely exist in isolation, so we need methods that can handle the complexity that occurs in the wild. This is where we turn to regression. Regression can handle multiple variables, account for confounding factors, and provide a more complete picture of how variables relate to each other in complex systems.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>And now a part of the Base R datasets package included as default in R installations (R &gt;= 4.5.0).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The central tendency describes the “typical” or “midpoint” value of your data. There are many ways to measure central tendency, but the most common are the mean (average value), median (middle value), and the mode (most common value).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Dispersion describes how much your data varies. Low dispersion means values are clustered tightly around the midpoint value, while high dispersion means your data can take a wide range of values, some much higher or lower than the midpoint. The most common measure of dispersion is standard deviation, which effectively measures the average distance that values fall from the mean.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Confounding is when a third, unspecified variable influences the relationship between the explanatory variable(s) and the outcome. For example, ice cream sales is correlated with deaths by drowning, but temperature is the confounder (hot weather causes increases in both). A confounding factor creates the false impression that two variables are related or hides/distorts the real relationship.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>For more information about Pearson’s <span class="math inline">\(r\)</span>, check out this <a href="https://hodausama.github.io/posts/PearsonsR/">blog post</a> by Hoda Osama.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Correlation might not imply causation, but it is important to realise that the presence of correlation does not mean causation is <em>not</em> present. You just can’t conclude causation exists simply because you observe a correlation.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Created and maintained by the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page was built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
