@@ -80,9 +80,13 @@ print(f"Slope = {slope:.2f}g per mm")
 
 The fitted model object contains everything we need: coefficients, predictions, and model performance metrics.
 
-The intercept ($\beta_0$) = `{python} f"{intercept:.1f}g"`. The intercept tells us the predicted body mass when flipper length is 0mm. This intercept value is not meaningful because a flipper length of zero is implausible and ultimately nonsensical (if they have flippers, they must be longer than 0mm), but we need the intercept to fit the model. 
+The intercept ($\beta_0$) = `{python} f"{intercept:.1f}g"`. The intercept tells us the predicted body mass when flipper length is 0mm. This intercept value is not meaningful because a flipper length of zero is implausible and ultimately nonsensical (if they have flippers, they must be longer than 0mm)[^Intercept], but we need the intercept to fit the model. 
 
 The slope ($\beta_1$) = `{python} f"{slope:.1f}g/mm"`. The slope tells us that each additional mm increase in flipper length predicts ~50g increase in body mass.
+
+[^Intercept]:
+
+For explanatory models, it is generally best-practice to transform the data so that the intercept is meaningful. For example, subtracting the mean flipper length from each observation (otherwise known as centering) so that the zero value represents the average flipper length and the intercept represents the average body mass for the average flipper length.
 
 ### Making Predictions
 
@@ -103,7 +107,26 @@ print("Sample predictions:")
 print(df[['flipper_len', 'body_mass', 'predicted_mass', 'residual']].head(10))
 ```
 
-We can also predict for new data:
+We can plot the predictions too.
+
+```{python}
+#| label: predictions-plot
+
+# plot
+fig, ax = plt.subplots(figsize=(10, 6))
+sns.scatterplot(data=df, x='flipper_len', y='body_mass', color='#005EB8', alpha=0.5, ax=ax, label='Observed')
+sns.scatterplot(data=df, x='flipper_len', y='predicted_mass', color='red', alpha=0.5, ax=ax, label='Predicted')
+
+ax.set_xlabel('Flipper Length (mm)')
+ax.set_ylabel('Body Mass (g)')
+ax.set_title('Observed vs Predicted Body Mass')
+ax.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+We can also predict for new data.
 
 ```{python}
 #| label: predictions-new-data
@@ -134,7 +157,12 @@ r2 = r2_score(y, y_pred)
 rmse = np.sqrt(mean_squared_error(y, y_pred))
 ```
 
-The $\text{R}^2$ = `{python} f"{r2:.2f}"`, which suggests that flipper length explains a significant amount of the variance in penguin body mass, while the RMSE indicates that the average prediction error is `{python} f"{rmse:.2f}"`g.
+The $\text{R}^2$ = `{python} f"{r2:.2f}"`, which suggests that flipper length explains a significant amount of the variance in penguin body mass, while the RMSE indicates that the average prediction error is `{python} f"{rmse:.2f}"`g. This means that predictions are, on average, off by `{python} f"{rmse:.2f}"`g. 
+
+::: {.callout-note}
+
+There is no rule of thumb or minimum threshold for good prediction error. It all depends on what you are trying to predict and what is needed for predictions to be useful. Another model trying to predict something completely different might have much larger prediction errors but this still be useful in context. It is always necessary to judge a model in context.
+:::
 
 ### Multiple Linear Regression
 
@@ -167,15 +195,13 @@ print(f"Simple model (flipper only):   R² = {r2:.3f}, RMSE = {rmse:.1f}g")
 print(f"Multiple model (three vars):   R² = {r2_multi:.3f}, RMSE = {rmse_multi:.1f}g")
 ```
 
-
-
 Adding bill measurements improves our model slightly. Each predictor contributes information beyond what the others provide.
 
 ## Building Inferential Models Using Statsmodels
 
-`statsmodels` is designed for statistical inference. It provides detailed output about uncertainty, hypothesis tests, and model diagnostics. This is what you want when your goal is understanding relationships rather than pure prediction.
+`statsmodels` is designed for statistical inference[^Inference]. It provides detailed output about uncertainty, hypothesis tests, and model diagnostics. This is what you want when your goal is understanding relationships rather than pure prediction.
 
-Adding predictors is straightforward with the formula interface:
+Adding predictors is straightforward with the formula interface.
 
 ```{python}
 #| label: lm-statsmodels
@@ -186,19 +212,21 @@ model_sm = smf.ols('body_mass ~ flipper_len + bill_len + bill_dep', data=df).fit
 print(model_sm.summary())
 ```
 
-The statsmodels summary is dense but incredibly informative. Here's what matters most.
+The `statsmodels` summary is dense but incredibly informative. Here's what matters most.
 
-- **coef**: The estimated effect size (this is what matters most!)
-- **std err**: Uncertainty in the estimate
-- **t**: Test statistic (coef / std err)
-- **P>|t|**: p-value for null hypothesis that coefficient = 0
-- **[0.025, 0.975]**: 95% confidence interval
+- `coef` - The estimated effect size of each variable holding the others constant
+- `std err` - Uncertainty in the estimate
+- `t` - Test statistic (coef / std err)
+- `P>|t|` - p-value for null hypothesis that coefficient = 0
+- `[0.025, 0.975]` - 95% confidence interval
 
-Each coefficient represents the effect of that variable **holding the others constant**. This is crucial for interpretation.
+Focus on effect sizes first, then uncertainty. The coefficient tells you the magnitude of the relationship. The confidence interval tells you how precisely we've estimated it. Don't obsess over $\text{R}^2$[^R2] or p-values. The most important part of the model is the coefficients. 
 
-Focus on effect sizes first, then uncertainty. The coefficient tells you the magnitude of the relationship. The confidence interval tells you how precisely we've estimated it. The p-value is useful as a diagnostic, indicating whether you have enough data, but it doesn't tell you whether the effect is meaningful or important.
+::: {.callout-note}
 
-Finally, don't obsess over $\text{R}^2$. A model with $\text{R}^2$ = 0.3 can still be incredibly useful if the effects are meaningful and the predictions are good enough for your purpose.
+The p-value is useful as a diagnostic, indicating whether you have enough data, but it doesn't tell you whether the effect is meaningful or important.
+
+:::
 
 We can also produce a simpler regression table, if the above is overwhelming.
 
@@ -213,7 +241,7 @@ print(model_sm.summary().tables[1])
 <details>
   <summary> Styled Tables (Click to Expand)</summary> 
 
-For presentations and reports, we can create publication-ready tables:
+For presentations and reports, we can create publication-ready tables.
 
 ```{python}
 #| label: great-regression-table
@@ -299,9 +327,17 @@ table
 
 </details>
 
+[^Inference]:
+
+Statistical inference is the process of drawing conclusions about a population (or an effect occurring in the real-world) based on sample data. 
+
+[^R2]:
+
+A model with $\text{R}^2$ = 0.3 can still be incredibly useful if the effects are meaningful and the predictions are good enough for your purpose.
+
 ## Adding Categorical Variables
 
-`statsmodels` handles categorical variables automatically with the formula interface:
+`statsmodels` handles categorical variables automatically with the formula interface.
 
 ```{python}
 #| label: categorical-variables
@@ -314,7 +350,11 @@ model_species_sm = smf.ols('body_mass ~ flipper_len + bill_len + bill_dep + C(sp
 print(model_species_sm.summary())
 ```
 
-The `C()` wrapper tells `statsmodels` to treat species as categorical. It automatically creates dummy variables and chooses a reference category (alphabetically first by default).
+The `C()` wrapper tells `statsmodels` to treat species as categorical. The model automatically creates "dummy variables", which splits the categorical variable into multiple columns, with each column being a binary variable representing a category (where the variable equals one when that category appears in the original column). 
+
+When creating the dummy variables, the model drops one category to use it as the reference category against which the other categories are compared. This means that coefficients for those categories tell us how much the outcome variable increases or decreases compared against the reference category that was dropped.
+
+For example, the model specified above uses Adelie penguins as the reference category (it chooses by alphabetical order by default), and the coefficients represent the species effects relative to Adelie penguins.
 
 ```{python}
 #| label: category-effects
@@ -349,15 +389,14 @@ coef_data = pd.DataFrame({
 
 # plot
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.scatter(coef_data['Coefficient'], range(len(coef_data)), s=100, color='#005EB8')
-ax.hlines(range(len(coef_data)), coef_data['Lower'], coef_data['Upper'], 
-         color='#005EB8', linewidth=2)
+sns.scatterplot(data=coef_data, x='Coefficient', y='Variable', s=200, 
+                color='#005EB8', ax=ax)
+for idx, row in coef_data.iterrows():
+    ax.plot([row['Lower'], row['Upper']], [row['Variable'], row['Variable']], 
+            color='#005EB8', linewidth=2)
 ax.axvline(x=0, color='red', linestyle='--', linewidth=1)
-ax.set_yticks(range(len(coef_data)))
-ax.set_yticklabels(coef_data['Variable'])
 ax.set_xlabel('Coefficient (Effect on Body Mass, g)')
 ax.set_title('Coefficient Plot with 95% Confidence Intervals')
-ax.invert_yaxis()
 plt.tight_layout()
 plt.show()
 ```
@@ -366,7 +405,11 @@ Variables whose CI doesn't cross zero have effects distinguishable from zero. Bu
 
 # Regression Assumptions and Diagnostics
 
-Linear regression makes several assumptions. When these hold, OLS gives us the Best Linear Unbiased Estimator (BLUE). When they don't, we need to either fix the problem or acknowledge the limitations.
+Linear regression makes several assumptions. When these hold, OLS gives us the Best Linear Unbiased Estimator (BLUE). When they don't, we need to either fix the problem[^Fixes] or acknowledge the limitations.
+
+[^Fixes]:
+
+Fixing the problem can take many shapes. It could involve transforming the data to fit the model better, adding (or removing) variables that improve model fit, or fitting a different type of regression model entirely.
 
 ## The Gauss-Markov Theorem
 
@@ -386,7 +429,7 @@ Let's check these assumptions systematically.
 
 ## Diagnostic Plots
 
-We'll create a set of diagnostic plots to check our assumptions. First, let's fit a model to diagnose:
+We'll create a set of diagnostic plots to check our assumptions. First, let's fit a model to diagnose.
 
 ```{python}
 #| label: diagnostics-data
@@ -480,7 +523,7 @@ However, I would caution against just removing outliers because they have a sign
 <details>
   <summary> Quick Diagnostic Function (Click to Expand)</summary> 
 
-Let's create a helper function to generate all diagnostic plots at once:
+Let's create a helper function to generate all diagnostic plots at once.
 
 ```{python}
 #| label: diagnostics-function
@@ -543,10 +586,10 @@ plot_diagnostics(model_species_sm)
 
 ## Checking for Multicollinearity
 
-When predictors are highly correlated with each other, coefficient estimates become unstable. We can check this using Variance Inflation Factors (VIF):
+When predictors are highly correlated with each other, coefficient estimates become unstable. We can check this using Variance Inflation Factors (VIF).
 
 ```{python}
-#| label: multicollinearity-plot
+#| label: multicollinearity-test
 
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
