@@ -80,7 +80,7 @@ print(f"Slope = {slope:.2f}g per mm")
 
 The fitted model object contains everything we need: coefficients, predictions, and model performance metrics.
 
-The intercept ($\beta_0$) = `{python} f"{intercept:.1f}g"`. The intercept tells us the predicted body mass when flipper length is 0mm. This intercept value is not meaningful because a flipper length of zero is implausible and ultimately nonsensical (if they have flippers, they must be longer than 0mm)[^Intercept], but we need the intercept to fit the model. 
+The intercept ($\beta_0$) = `{python} f"{intercept:.1f}g"`. The intercept tells us the predicted body mass when flipper length is 0mm. This intercept value is not meaningful because a flipper length of zero is implausible and ultimately nonsensical (if they have flippers, they must be longer than 0mm), but we need the intercept to fit the model. 
 
 The slope ($\beta_1$) = `{python} f"{slope:.1f}g/mm"`. The slope tells us that each additional mm increase in flipper length predicts ~50g increase in body mass.
 
@@ -122,7 +122,7 @@ for flipper, mass in zip(new_penguins['flipper_len'], new_predictions):
 
 ### Model Performance Metrics
 
-An important part of predictive modelling is evaluation. We need to test how well our model is performing! `sklearn` provides several a wide variety of metrics for assessing model performance. We will look at $\text{R}^2$ and RMSE.
+An important part of predictive modelling is evaluation. We need to test how well our model is performing! `sklearn` provides a wide variety of metrics for assessing model performance. We will look at $\text{R}^2$ and RMSE.
 
 ```{python}
 #| label: metrics
