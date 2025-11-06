@@ -1,0 +1,4075 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Exploring Data Using Pandas</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../sessions/schedule.html"> 
+<span class="menu-text">Sessions</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../resources/glossary.html">
+ <span class="dropdown-text">Glossary</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/NHS-South-Central-and-West/code-club" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/03-eda-pandas/index.html">Exploration &amp; Visualisation</a></li><li class="breadcrumb-item"><a href="../../sessions/03-eda-pandas/index.html">3. EDA with Pandas</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Session Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Onboarding</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/01-onboarding/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1. Python Onboarding</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/02-jupyter_notebooks/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2. Jupyter Notebooks</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exploration &amp; Visualisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/03-eda-pandas/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">3. EDA with Pandas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/04-seaborn-visualisation/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4. Visualisations with Seaborn</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/05-eda-seaborn/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5. EDA with Seaborn</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Core Concepts</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/06-data-types/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6. Data Types</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/07-control-flow/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7. Control Flow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/08-functions/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">8. Functions &amp; Functional Programming</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/09-object-oriented-programming/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">9. Object-Oriented Programming</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Exploration &amp; Visualisation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/10-streamlit/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">10. Streamlit Dashboards</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Data Science</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/11-comparing-samples/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">11. Comparing Samples</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/12-analysing-relationships/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">12. Analysing Relationships</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/13-intro-linear-regression/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">13. Introduction to Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/14-implementing-linear-regression/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">14. Implementing Linear Regression</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../sessions/15-beyond-linearity/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">15. Beyond Linearity</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#prep-work" id="toc-prep-work" class="nav-link active" data-scroll-target="#prep-work">Prep work</a></li>
+  <li><a href="#setting-the-scene" id="toc-setting-the-scene" class="nav-link" data-scroll-target="#setting-the-scene">Setting the Scene</a>
+  <ul class="collapse">
+  <li><a href="#what-our-data-can-tell-us-and-what-it-cant" id="toc-what-our-data-can-tell-us-and-what-it-cant" class="nav-link" data-scroll-target="#what-our-data-can-tell-us-and-what-it-cant">What Our Data Can Tell Us (And What it Can’t)</a></li>
+  </ul></li>
+  <li><a href="#exploring-the-dataset" id="toc-exploring-the-dataset" class="nav-link" data-scroll-target="#exploring-the-dataset">Exploring the Dataset</a></li>
+  <li><a href="#exploring-variables-columns-observations-rows" id="toc-exploring-variables-columns-observations-rows" class="nav-link" data-scroll-target="#exploring-variables-columns-observations-rows">Exploring Variables (Columns) &amp; Observations (Rows)</a>
+  <ul class="collapse">
+  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link" data-scroll-target="#summarising-data">Summarising Data</a></li>
+  </ul></li>
+  <li><a href="#transforming-data" id="toc-transforming-data" class="nav-link" data-scroll-target="#transforming-data">Transforming Data</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../sessions/03-eda-pandas/index.html">Exploration &amp; Visualisation</a></li><li class="breadcrumb-item"><a href="../../sessions/03-eda-pandas/index.html">3. EDA with Pandas</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Exploring Data Using Pandas</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is the first of four sessions looking at how to explore data in Python. This session will focus on introducing the Python library, <a href="https://pandas.pydata.org/docs/">pandas</a>. We will use pandas to import, inspect, summarise, and transform the data, illustrating a typical exploratory data analysis workflow.</p>
+<p>We are using <a href="https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package">Australian weather data</a>, taken from <a href="https://kaggle.com">Kaggle</a>. This dataset is used to build machine learning models that predict whether it will rain tomorrow, using data about the weather every day from 2007 to 2017. To download the data, click <a href="data/weatherAUS.csv" download="">here</a>.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Please note!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We assume that you’ve created a <code>uv</code> project with packages <code>jupyter</code>, <code>pandas</code>, <code>numpy</code> and <code>seaborn</code>, and have created a blank notebook in this project and opened it in VS Code. If you’re not sure how to do this, please refer back to sessions <a href="../../sessions/01-onboarding/index.html">1 (onboarding)</a> and <a href="../../sessions/02-jupyter_notebooks/index.html">2 (jupyter)</a>.</p>
+</div>
+</div>
+<section id="prep-work" class="level2">
+<h2 class="anchored" data-anchor-id="prep-work">Prep work</h2>
+<p>Place the <code>weatherAUS.csv</code> file you downloaded in a folder called <code>data</code> within your project folder.</p>
+<p>There’s also one more package we need, called <code>skimpy</code>. In your terminal (PowerShell), from within your project folder:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add skimpy</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, in your JuPyter notebook in VS Code, create a code cell and start by importing the packages we’ll need.</p>
+<div id="setup" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importing packages. This won't work if we didn't add them to our project using uv earlier.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimpy <span class="im">import</span> skim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The bits after <code>as</code> (<code>plt</code>, <code>np</code>, <code>pd</code>, etc.) are called aliases. These are just for convenience and aren’t essential, but it’s easier to type <code>plt</code> every time rather than <code>matplotlib.pyplot</code>, for example. We can choose whatever alias we want but it’s good to stick with common conventions like <code>pd</code> for pandas - this is especially useful for colleagues who might need to read your code further down the line (and who will likely understand what <code>pd</code> is without having to look back to where you imported your packages).</p>
+<p>Next, we’re going to import the data using <code>read_csv</code> from <code>pandas</code>. We’re putting our data into a <em>dataframe</em> which we’re giving the name <code>df</code> - again, we could have chosen whatever name we liked.</p>
+<div id="import-data" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/weatherAUS.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="setting-the-scene" class="level2">
+<h2 class="anchored" data-anchor-id="setting-the-scene">Setting the Scene</h2>
+<p>Before we start to explore any dataset, we need to establish what we are looking to do with the data. This should inform our decisions with any exploration, and any analysis that follows.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>What are we trying to achieve?</li>
+<li>How do our goals impact our analysis?</li>
+<li>What should we take into consideration before we write any code?</li>
+<li>What sort of questions might we be interested in with this dataset?</li>
+</ul>
+<section id="what-our-data-can-tell-us-and-what-it-cant" class="level3">
+<h3 class="anchored" data-anchor-id="what-our-data-can-tell-us-and-what-it-cant">What Our Data Can Tell Us (And What it Can’t)</h3>
+<p>We also need to consider what the data is and where it came from.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>How was the data collected?</li>
+<li>What is it missing?</li>
+<li>What do the variables in our dataset actually mean, and are they a good approximation of the concepts we are interested in?</li>
+</ul>
+</section>
+</section>
+<section id="exploring-the-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-the-dataset">Exploring the Dataset</h2>
+<p>First, we should start with dataset-wide operations.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>What do we want to know about a dataset when we first encounter it?</li>
+<li>How do we get a quick overview of the data that can help us in our next steps?</li>
+<li>We need to get a “feel” for the data before we can really make any decisions about how to analyse it. How do we get there with a new dataset?</li>
+</ul>
+<p>We can start by getting a quick glance at the data. The starting point when you have just imported a new dataset is usually the pandas method <code>.head(n)</code>, which shows the top <span class="math inline">\(n\)</span> rows of the dataset (by default, if we don’t specify a number, it shows the top five rows).</p>
+<div id="cell-inspect-data-head" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view the top five rows</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="inspect-data-head" class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">MinTemp</th>
+<th data-quarto-table-cell-role="th">MaxTemp</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Evaporation</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">WindGustDir</th>
+<th data-quarto-table-cell-role="th">WindGustSpeed</th>
+<th data-quarto-table-cell-role="th">WindDir9am</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Humidity9am</th>
+<th data-quarto-table-cell-role="th">Humidity3pm</th>
+<th data-quarto-table-cell-role="th">Pressure9am</th>
+<th data-quarto-table-cell-role="th">Pressure3pm</th>
+<th data-quarto-table-cell-role="th">Cloud9am</th>
+<th data-quarto-table-cell-role="th">Cloud3pm</th>
+<th data-quarto-table-cell-role="th">Temp9am</th>
+<th data-quarto-table-cell-role="th">Temp3pm</th>
+<th data-quarto-table-cell-role="th">RainToday</th>
+<th data-quarto-table-cell-role="th">RainTomorrow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2008-12-01</td>
+<td>Albury</td>
+<td>13.4</td>
+<td>22.9</td>
+<td>0.6</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>W</td>
+<td>44.0</td>
+<td>W</td>
+<td>...</td>
+<td>71.0</td>
+<td>22.0</td>
+<td>1007.7</td>
+<td>1007.1</td>
+<td>8.0</td>
+<td>NaN</td>
+<td>16.9</td>
+<td>21.8</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2008-12-02</td>
+<td>Albury</td>
+<td>7.4</td>
+<td>25.1</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>WNW</td>
+<td>44.0</td>
+<td>NNW</td>
+<td>...</td>
+<td>44.0</td>
+<td>25.0</td>
+<td>1010.6</td>
+<td>1007.8</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>17.2</td>
+<td>24.3</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2008-12-03</td>
+<td>Albury</td>
+<td>12.9</td>
+<td>25.7</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>WSW</td>
+<td>46.0</td>
+<td>W</td>
+<td>...</td>
+<td>38.0</td>
+<td>30.0</td>
+<td>1007.6</td>
+<td>1008.7</td>
+<td>NaN</td>
+<td>2.0</td>
+<td>21.0</td>
+<td>23.2</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>2008-12-04</td>
+<td>Albury</td>
+<td>9.2</td>
+<td>28.0</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NE</td>
+<td>24.0</td>
+<td>SE</td>
+<td>...</td>
+<td>45.0</td>
+<td>16.0</td>
+<td>1017.6</td>
+<td>1012.8</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>18.1</td>
+<td>26.5</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2008-12-05</td>
+<td>Albury</td>
+<td>17.5</td>
+<td>32.3</td>
+<td>1.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>W</td>
+<td>41.0</td>
+<td>ENE</td>
+<td>...</td>
+<td>82.0</td>
+<td>33.0</td>
+<td>1010.8</td>
+<td>1006.0</td>
+<td>7.0</td>
+<td>8.0</td>
+<td>17.8</td>
+<td>29.7</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<p>You can also look at the bottom rows of the dataset, using <code>.tail(n)</code>. This might be useful if you are dealing with time-series data. Below, we specify that we want to look at the bottom ten rows.</p>
+<div id="cell-inspect-data-tail" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view the bottom ten rows</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df.tail(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="inspect-data-tail" class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">MinTemp</th>
+<th data-quarto-table-cell-role="th">MaxTemp</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Evaporation</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">WindGustDir</th>
+<th data-quarto-table-cell-role="th">WindGustSpeed</th>
+<th data-quarto-table-cell-role="th">WindDir9am</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Humidity9am</th>
+<th data-quarto-table-cell-role="th">Humidity3pm</th>
+<th data-quarto-table-cell-role="th">Pressure9am</th>
+<th data-quarto-table-cell-role="th">Pressure3pm</th>
+<th data-quarto-table-cell-role="th">Cloud9am</th>
+<th data-quarto-table-cell-role="th">Cloud3pm</th>
+<th data-quarto-table-cell-role="th">Temp9am</th>
+<th data-quarto-table-cell-role="th">Temp3pm</th>
+<th data-quarto-table-cell-role="th">RainToday</th>
+<th data-quarto-table-cell-role="th">RainTomorrow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145450</th>
+<td>2017-06-16</td>
+<td>Uluru</td>
+<td>5.2</td>
+<td>24.3</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>E</td>
+<td>24.0</td>
+<td>SE</td>
+<td>...</td>
+<td>53.0</td>
+<td>24.0</td>
+<td>1023.8</td>
+<td>1020.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>12.3</td>
+<td>23.3</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">145451</th>
+<td>2017-06-17</td>
+<td>Uluru</td>
+<td>6.4</td>
+<td>23.4</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>ESE</td>
+<td>31.0</td>
+<td>S</td>
+<td>...</td>
+<td>53.0</td>
+<td>25.0</td>
+<td>1025.8</td>
+<td>1023.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>11.2</td>
+<td>23.1</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145452</th>
+<td>2017-06-18</td>
+<td>Uluru</td>
+<td>8.0</td>
+<td>20.7</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>ESE</td>
+<td>41.0</td>
+<td>SE</td>
+<td>...</td>
+<td>56.0</td>
+<td>32.0</td>
+<td>1028.1</td>
+<td>1024.3</td>
+<td>NaN</td>
+<td>7.0</td>
+<td>11.6</td>
+<td>20.0</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">145453</th>
+<td>2017-06-19</td>
+<td>Uluru</td>
+<td>7.4</td>
+<td>20.6</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>E</td>
+<td>35.0</td>
+<td>ESE</td>
+<td>...</td>
+<td>63.0</td>
+<td>33.0</td>
+<td>1027.2</td>
+<td>1023.3</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>11.0</td>
+<td>20.3</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145454</th>
+<td>2017-06-20</td>
+<td>Uluru</td>
+<td>3.5</td>
+<td>21.8</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>E</td>
+<td>31.0</td>
+<td>ESE</td>
+<td>...</td>
+<td>59.0</td>
+<td>27.0</td>
+<td>1024.7</td>
+<td>1021.2</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>9.4</td>
+<td>20.9</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">145455</th>
+<td>2017-06-21</td>
+<td>Uluru</td>
+<td>2.8</td>
+<td>23.4</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>E</td>
+<td>31.0</td>
+<td>SE</td>
+<td>...</td>
+<td>51.0</td>
+<td>24.0</td>
+<td>1024.6</td>
+<td>1020.3</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>10.1</td>
+<td>22.4</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145456</th>
+<td>2017-06-22</td>
+<td>Uluru</td>
+<td>3.6</td>
+<td>25.3</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NNW</td>
+<td>22.0</td>
+<td>SE</td>
+<td>...</td>
+<td>56.0</td>
+<td>21.0</td>
+<td>1023.5</td>
+<td>1019.1</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>10.9</td>
+<td>24.5</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">145457</th>
+<td>2017-06-23</td>
+<td>Uluru</td>
+<td>5.4</td>
+<td>26.9</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>N</td>
+<td>37.0</td>
+<td>SE</td>
+<td>...</td>
+<td>53.0</td>
+<td>24.0</td>
+<td>1021.0</td>
+<td>1016.8</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>12.5</td>
+<td>26.1</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145458</th>
+<td>2017-06-24</td>
+<td>Uluru</td>
+<td>7.8</td>
+<td>27.0</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>SE</td>
+<td>28.0</td>
+<td>SSE</td>
+<td>...</td>
+<td>51.0</td>
+<td>24.0</td>
+<td>1019.4</td>
+<td>1016.5</td>
+<td>3.0</td>
+<td>2.0</td>
+<td>15.1</td>
+<td>26.0</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">145459</th>
+<td>2017-06-25</td>
+<td>Uluru</td>
+<td>14.9</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>ESE</td>
+<td>...</td>
+<td>62.0</td>
+<td>36.0</td>
+<td>1020.2</td>
+<td>1017.9</td>
+<td>8.0</td>
+<td>8.0</td>
+<td>15.0</td>
+<td>20.9</td>
+<td>No</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>10 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<p>A quick glimpse at the data is useful, but we may also want to get quick descriptions of several aspects of the data. Such as the length of the dataset (<code>len()</code>, which can also be used to get the length of various Python objects), which tells us how many observations we have.</p>
+<div id="cell-data-length" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the object length</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="data-length" class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>145460</code></pre>
+</div>
+</div>
+<p>Another option is <code>pd.DataFrame.shape()</code>, which shows the length (number of rows) and width (number of columns).</p>
+<div id="cell-data-shape" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the object shape (number of rows, number of columns)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>df.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="data-shape" class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>(145460, 23)</code></pre>
+</div>
+</div>
+<p>Speaking of columns, if we want a quick list of the column names, we can get this using <code>pd.DataFrame.columns()</code>.</p>
+<div id="cell-col-names" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get all column names</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df.columns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="col-names" class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Index(['Date', 'Location', 'MinTemp', 'MaxTemp', 'Rainfall', 'Evaporation',
+       'Sunshine', 'WindGustDir', 'WindGustSpeed', 'WindDir9am', 'WindDir3pm',
+       'WindSpeed9am', 'WindSpeed3pm', 'Humidity9am', 'Humidity3pm',
+       'Pressure9am', 'Pressure3pm', 'Cloud9am', 'Cloud3pm', 'Temp9am',
+       'Temp3pm', 'RainToday', 'RainTomorrow'],
+      dtype='object')</code></pre>
+</div>
+</div>
+<p>A quick and easy way to get some valuable information about the dataset is <code>pd.DataFrame.info()</code>, including the total non-null observations and data type<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> of each column.</p>
+<div id="data-info" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get dataframe info (column indices, non-null counts, data types)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>df.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 145460 entries, 0 to 145459
+Data columns (total 23 columns):
+ #   Column         Non-Null Count   Dtype  
+---  ------         --------------   -----  
+ 0   Date           145460 non-null  object 
+ 1   Location       145460 non-null  object 
+ 2   MinTemp        143975 non-null  float64
+ 3   MaxTemp        144199 non-null  float64
+ 4   Rainfall       142199 non-null  float64
+ 5   Evaporation    82670 non-null   float64
+ 6   Sunshine       75625 non-null   float64
+ 7   WindGustDir    135134 non-null  object 
+ 8   WindGustSpeed  135197 non-null  float64
+ 9   WindDir9am     134894 non-null  object 
+ 10  WindDir3pm     141232 non-null  object 
+ 11  WindSpeed9am   143693 non-null  float64
+ 12  WindSpeed3pm   142398 non-null  float64
+ 13  Humidity9am    142806 non-null  float64
+ 14  Humidity3pm    140953 non-null  float64
+ 15  Pressure9am    130395 non-null  float64
+ 16  Pressure3pm    130432 non-null  float64
+ 17  Cloud9am       89572 non-null   float64
+ 18  Cloud3pm       86102 non-null   float64
+ 19  Temp9am        143693 non-null  float64
+ 20  Temp3pm        141851 non-null  float64
+ 21  RainToday      142199 non-null  object 
+ 22  RainTomorrow   142193 non-null  object 
+dtypes: float64(16), object(7)
+memory usage: 25.5+ MB</code></pre>
+</div>
+</div>
+<p>If we wanted to get a better sense of the null values in each column, we could calculate the percentage of null values by capturing whether each row of each column is null (<code>pd.DataFrame.isnull()</code>), summing the total null values in each column (<code>pd.DataFrame.sum()</code>), and then dividing by the length of the dataframe (<code>/len()</code>).</p>
+<div id="cell-null-values-percent" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the percentage of null values in each column</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df.isnull().<span class="bu">sum</span>()<span class="op">/</span><span class="bu">len</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="null-values-percent" class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>Date             0.000000
+Location         0.000000
+MinTemp          0.010209
+MaxTemp          0.008669
+Rainfall         0.022419
+Evaporation      0.431665
+Sunshine         0.480098
+WindGustDir      0.070989
+WindGustSpeed    0.070555
+WindDir9am       0.072639
+WindDir3pm       0.029066
+WindSpeed9am     0.012148
+WindSpeed3pm     0.021050
+Humidity9am      0.018246
+Humidity3pm      0.030984
+Pressure9am      0.103568
+Pressure3pm      0.103314
+Cloud9am         0.384216
+Cloud3pm         0.408071
+Temp9am          0.012148
+Temp3pm          0.024811
+RainToday        0.022419
+RainTomorrow     0.022460
+dtype: float64</code></pre>
+</div>
+</div>
+<p>If we want a quick summary of all the numeric columns in the dataset, we can use <code>pd.DataFrame.describe()</code>.</p>
+<div id="cell-describe-data" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># quick summary of numeric variables</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="describe-data" class="cell-output cell-output-display" data-execution_count="10">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">MinTemp</th>
+<th data-quarto-table-cell-role="th">MaxTemp</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Evaporation</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">WindGustSpeed</th>
+<th data-quarto-table-cell-role="th">WindSpeed9am</th>
+<th data-quarto-table-cell-role="th">WindSpeed3pm</th>
+<th data-quarto-table-cell-role="th">Humidity9am</th>
+<th data-quarto-table-cell-role="th">Humidity3pm</th>
+<th data-quarto-table-cell-role="th">Pressure9am</th>
+<th data-quarto-table-cell-role="th">Pressure3pm</th>
+<th data-quarto-table-cell-role="th">Cloud9am</th>
+<th data-quarto-table-cell-role="th">Cloud3pm</th>
+<th data-quarto-table-cell-role="th">Temp9am</th>
+<th data-quarto-table-cell-role="th">Temp3pm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">count</th>
+<td>143975.000000</td>
+<td>144199.000000</td>
+<td>142199.000000</td>
+<td>82670.000000</td>
+<td>75625.000000</td>
+<td>135197.000000</td>
+<td>143693.000000</td>
+<td>142398.000000</td>
+<td>142806.000000</td>
+<td>140953.000000</td>
+<td>130395.00000</td>
+<td>130432.000000</td>
+<td>89572.000000</td>
+<td>86102.000000</td>
+<td>143693.000000</td>
+<td>141851.00000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mean</th>
+<td>12.194034</td>
+<td>23.221348</td>
+<td>2.360918</td>
+<td>5.468232</td>
+<td>7.611178</td>
+<td>40.035230</td>
+<td>14.043426</td>
+<td>18.662657</td>
+<td>68.880831</td>
+<td>51.539116</td>
+<td>1017.64994</td>
+<td>1015.255889</td>
+<td>4.447461</td>
+<td>4.509930</td>
+<td>16.990631</td>
+<td>21.68339</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">std</th>
+<td>6.398495</td>
+<td>7.119049</td>
+<td>8.478060</td>
+<td>4.193704</td>
+<td>3.785483</td>
+<td>13.607062</td>
+<td>8.915375</td>
+<td>8.809800</td>
+<td>19.029164</td>
+<td>20.795902</td>
+<td>7.10653</td>
+<td>7.037414</td>
+<td>2.887159</td>
+<td>2.720357</td>
+<td>6.488753</td>
+<td>6.93665</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">min</th>
+<td>-8.500000</td>
+<td>-4.800000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>6.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>980.50000</td>
+<td>977.100000</td>
+<td>0.000000</td>
+<td>0.000000</td>
+<td>-7.200000</td>
+<td>-5.40000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">25%</th>
+<td>7.600000</td>
+<td>17.900000</td>
+<td>0.000000</td>
+<td>2.600000</td>
+<td>4.800000</td>
+<td>31.000000</td>
+<td>7.000000</td>
+<td>13.000000</td>
+<td>57.000000</td>
+<td>37.000000</td>
+<td>1012.90000</td>
+<td>1010.400000</td>
+<td>1.000000</td>
+<td>2.000000</td>
+<td>12.300000</td>
+<td>16.60000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">50%</th>
+<td>12.000000</td>
+<td>22.600000</td>
+<td>0.000000</td>
+<td>4.800000</td>
+<td>8.400000</td>
+<td>39.000000</td>
+<td>13.000000</td>
+<td>19.000000</td>
+<td>70.000000</td>
+<td>52.000000</td>
+<td>1017.60000</td>
+<td>1015.200000</td>
+<td>5.000000</td>
+<td>5.000000</td>
+<td>16.700000</td>
+<td>21.10000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">75%</th>
+<td>16.900000</td>
+<td>28.200000</td>
+<td>0.800000</td>
+<td>7.400000</td>
+<td>10.600000</td>
+<td>48.000000</td>
+<td>19.000000</td>
+<td>24.000000</td>
+<td>83.000000</td>
+<td>66.000000</td>
+<td>1022.40000</td>
+<td>1020.000000</td>
+<td>7.000000</td>
+<td>7.000000</td>
+<td>21.600000</td>
+<td>26.40000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>33.900000</td>
+<td>48.100000</td>
+<td>371.000000</td>
+<td>145.000000</td>
+<td>14.500000</td>
+<td>135.000000</td>
+<td>130.000000</td>
+<td>87.000000</td>
+<td>100.000000</td>
+<td>100.000000</td>
+<td>1041.00000</td>
+<td>1039.600000</td>
+<td>9.000000</td>
+<td>9.000000</td>
+<td>40.200000</td>
+<td>46.70000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>However, I prefer to bring in another package, skimpy, that does all of this very quickly and cleanly. We can get a detailed description of the entire dataset using <code>skim()</code>.</p>
+<div id="cell-summarise-data" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a more informative summary function from the skimpy package</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>skim(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="summarise-data" class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">╭──────────────────────────────────────────────── skimpy summary ─────────────────────────────────────────────────╮
+│ <span style="font-style: italic">         Data Summary         </span> <span style="font-style: italic">      Data Types       </span>                                                          │
+│ ┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┓ ┏━━━━━━━━━━━━━┳━━━━━━━┓                                                          │
+│ ┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Dataframe         </span>┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Values </span>┃ ┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Column Type </span>┃<span style="color: #008080; text-decoration-color: #008080; font-weight: bold"> Count </span>┃                                                          │
+│ ┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━┩ ┡━━━━━━━━━━━━━╇━━━━━━━┩                                                          │
+│ │ Number of rows    │ 145460 │ │ float64     │ 16    │                                                          │
+│ │ Number of columns │ 23     │ │ string      │ 7     │                                                          │
+│ └───────────────────┴────────┘ └─────────────┴───────┘                                                          │
+│ <span style="font-style: italic">                                                    number                                                    </span>  │
+│ ┏━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━┳━━━━━━━┳━━━━━━━┳━━━━━━┳━━━━━━┳━━━━━━┳━━━━━━┳━━━━━━━━┓  │
+│ ┃<span style="font-weight: bold"> column         </span>┃<span style="font-weight: bold"> NA     </span>┃<span style="font-weight: bold"> NA %                </span>┃<span style="font-weight: bold"> mean  </span>┃<span style="font-weight: bold"> sd    </span>┃<span style="font-weight: bold"> p0    </span>┃<span style="font-weight: bold"> p25  </span>┃<span style="font-weight: bold"> p50  </span>┃<span style="font-weight: bold"> p75  </span>┃<span style="font-weight: bold"> p100 </span>┃<span style="font-weight: bold"> hist   </span>┃  │
+│ ┡━━━━━━━━━━━━━━━━╇━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━╇━━━━━━━╇━━━━━━━╇━━━━━━╇━━━━━━╇━━━━━━╇━━━━━━╇━━━━━━━━┩  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">MinTemp       </span> │ <span style="color: #008080; text-decoration-color: #008080">  1485</span> │ <span style="color: #008080; text-decoration-color: #008080"> 1.0208992162793895</span> │ <span style="color: #008080; text-decoration-color: #008080">12.19</span> │ <span style="color: #008080; text-decoration-color: #008080">6.398</span> │ <span style="color: #008080; text-decoration-color: #008080"> -8.5</span> │ <span style="color: #008080; text-decoration-color: #008080"> 7.6</span> │ <span style="color: #008080; text-decoration-color: #008080">  12</span> │ <span style="color: #008080; text-decoration-color: #008080">16.9</span> │ <span style="color: #008080; text-decoration-color: #008080">33.9</span> │ <span style="color: #008000; text-decoration-color: #008000"> ▃▇▇▃ </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">MaxTemp       </span> │ <span style="color: #008080; text-decoration-color: #008080">  1261</span> │ <span style="color: #008080; text-decoration-color: #008080"> 0.8669049910628351</span> │ <span style="color: #008080; text-decoration-color: #008080">23.22</span> │ <span style="color: #008080; text-decoration-color: #008080">7.119</span> │ <span style="color: #008080; text-decoration-color: #008080"> -4.8</span> │ <span style="color: #008080; text-decoration-color: #008080">17.9</span> │ <span style="color: #008080; text-decoration-color: #008080">22.6</span> │ <span style="color: #008080; text-decoration-color: #008080">28.2</span> │ <span style="color: #008080; text-decoration-color: #008080">48.1</span> │ <span style="color: #008000; text-decoration-color: #008000"> ▁▇▇▃ </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Rainfall      </span> │ <span style="color: #008080; text-decoration-color: #008080">  3261</span> │ <span style="color: #008080; text-decoration-color: #008080">  2.241853430496356</span> │ <span style="color: #008080; text-decoration-color: #008080">2.361</span> │ <span style="color: #008080; text-decoration-color: #008080">8.478</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080">   0</span> │ <span style="color: #008080; text-decoration-color: #008080"> 0.8</span> │ <span style="color: #008080; text-decoration-color: #008080"> 371</span> │ <span style="color: #008000; text-decoration-color: #008000">  ▇   </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Evaporation   </span> │ <span style="color: #008080; text-decoration-color: #008080"> 62790</span> │ <span style="color: #008080; text-decoration-color: #008080">   43.1665062560154</span> │ <span style="color: #008080; text-decoration-color: #008080">5.468</span> │ <span style="color: #008080; text-decoration-color: #008080">4.194</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080"> 2.6</span> │ <span style="color: #008080; text-decoration-color: #008080"> 4.8</span> │ <span style="color: #008080; text-decoration-color: #008080"> 7.4</span> │ <span style="color: #008080; text-decoration-color: #008080"> 145</span> │ <span style="color: #008000; text-decoration-color: #008000">  ▇   </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Sunshine      </span> │ <span style="color: #008080; text-decoration-color: #008080"> 69835</span> │ <span style="color: #008080; text-decoration-color: #008080">  48.00976213391998</span> │ <span style="color: #008080; text-decoration-color: #008080">7.611</span> │ <span style="color: #008080; text-decoration-color: #008080">3.785</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080"> 4.8</span> │ <span style="color: #008080; text-decoration-color: #008080"> 8.4</span> │ <span style="color: #008080; text-decoration-color: #008080">10.6</span> │ <span style="color: #008080; text-decoration-color: #008080">14.5</span> │ <span style="color: #008000; text-decoration-color: #008000">▃▃▅▆▇▃</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">WindGustSpeed </span> │ <span style="color: #008080; text-decoration-color: #008080"> 10263</span> │ <span style="color: #008080; text-decoration-color: #008080">  7.055547916953114</span> │ <span style="color: #008080; text-decoration-color: #008080">40.04</span> │ <span style="color: #008080; text-decoration-color: #008080">13.61</span> │ <span style="color: #008080; text-decoration-color: #008080">    6</span> │ <span style="color: #008080; text-decoration-color: #008080">  31</span> │ <span style="color: #008080; text-decoration-color: #008080">  39</span> │ <span style="color: #008080; text-decoration-color: #008080">  48</span> │ <span style="color: #008080; text-decoration-color: #008080"> 135</span> │ <span style="color: #008000; text-decoration-color: #008000"> ▂▇▂  </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">WindSpeed9am  </span> │ <span style="color: #008080; text-decoration-color: #008080">  1767</span> │ <span style="color: #008080; text-decoration-color: #008080">  1.214766946239516</span> │ <span style="color: #008080; text-decoration-color: #008080">14.04</span> │ <span style="color: #008080; text-decoration-color: #008080">8.915</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">   7</span> │ <span style="color: #008080; text-decoration-color: #008080">  13</span> │ <span style="color: #008080; text-decoration-color: #008080">  19</span> │ <span style="color: #008080; text-decoration-color: #008080"> 130</span> │ <span style="color: #008000; text-decoration-color: #008000">  ▇▂  </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">WindSpeed3pm  </span> │ <span style="color: #008080; text-decoration-color: #008080">  3062</span> │ <span style="color: #008080; text-decoration-color: #008080">  2.105046060772721</span> │ <span style="color: #008080; text-decoration-color: #008080">18.66</span> │ <span style="color: #008080; text-decoration-color: #008080"> 8.81</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">  13</span> │ <span style="color: #008080; text-decoration-color: #008080">  19</span> │ <span style="color: #008080; text-decoration-color: #008080">  24</span> │ <span style="color: #008080; text-decoration-color: #008080">  87</span> │ <span style="color: #008000; text-decoration-color: #008000"> ▅▇▂  </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Humidity9am   </span> │ <span style="color: #008080; text-decoration-color: #008080">  2654</span> │ <span style="color: #008080; text-decoration-color: #008080"> 1.8245565791282827</span> │ <span style="color: #008080; text-decoration-color: #008080">68.88</span> │ <span style="color: #008080; text-decoration-color: #008080">19.03</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">  57</span> │ <span style="color: #008080; text-decoration-color: #008080">  70</span> │ <span style="color: #008080; text-decoration-color: #008080">  83</span> │ <span style="color: #008080; text-decoration-color: #008080"> 100</span> │ <span style="color: #008000; text-decoration-color: #008000"> ▁▂▇▇▆</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Humidity3pm   </span> │ <span style="color: #008080; text-decoration-color: #008080">  4507</span> │ <span style="color: #008080; text-decoration-color: #008080">   3.09844630826344</span> │ <span style="color: #008080; text-decoration-color: #008080">51.54</span> │ <span style="color: #008080; text-decoration-color: #008080"> 20.8</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">  37</span> │ <span style="color: #008080; text-decoration-color: #008080">  52</span> │ <span style="color: #008080; text-decoration-color: #008080">  66</span> │ <span style="color: #008080; text-decoration-color: #008080"> 100</span> │ <span style="color: #008000; text-decoration-color: #008000">▁▅▆▇▅▂</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Pressure9am   </span> │ <span style="color: #008080; text-decoration-color: #008080"> 15065</span> │ <span style="color: #008080; text-decoration-color: #008080">    10.356799120033</span> │ <span style="color: #008080; text-decoration-color: #008080"> 1018</span> │ <span style="color: #008080; text-decoration-color: #008080">7.107</span> │ <span style="color: #008080; text-decoration-color: #008080">980.5</span> │ <span style="color: #008080; text-decoration-color: #008080">1013</span> │ <span style="color: #008080; text-decoration-color: #008080">1018</span> │ <span style="color: #008080; text-decoration-color: #008080">1022</span> │ <span style="color: #008080; text-decoration-color: #008080">1041</span> │ <span style="color: #008000; text-decoration-color: #008000">  ▂▇▅ </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Pressure3pm   </span> │ <span style="color: #008080; text-decoration-color: #008080"> 15028</span> │ <span style="color: #008080; text-decoration-color: #008080"> 10.331362573903478</span> │ <span style="color: #008080; text-decoration-color: #008080"> 1015</span> │ <span style="color: #008080; text-decoration-color: #008080">7.037</span> │ <span style="color: #008080; text-decoration-color: #008080">977.1</span> │ <span style="color: #008080; text-decoration-color: #008080">1010</span> │ <span style="color: #008080; text-decoration-color: #008080">1015</span> │ <span style="color: #008080; text-decoration-color: #008080">1020</span> │ <span style="color: #008080; text-decoration-color: #008080">1040</span> │ <span style="color: #008000; text-decoration-color: #008000">  ▂▇▅ </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Cloud9am      </span> │ <span style="color: #008080; text-decoration-color: #008080"> 55888</span> │ <span style="color: #008080; text-decoration-color: #008080">  38.42155919153032</span> │ <span style="color: #008080; text-decoration-color: #008080">4.447</span> │ <span style="color: #008080; text-decoration-color: #008080">2.887</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">   1</span> │ <span style="color: #008080; text-decoration-color: #008080">   5</span> │ <span style="color: #008080; text-decoration-color: #008080">   7</span> │ <span style="color: #008080; text-decoration-color: #008080">   9</span> │ <span style="color: #008000; text-decoration-color: #008000">▇▂▃▂▇▅</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Cloud3pm      </span> │ <span style="color: #008080; text-decoration-color: #008080"> 59358</span> │ <span style="color: #008080; text-decoration-color: #008080">  40.80709473394748</span> │ <span style="color: #008080; text-decoration-color: #008080"> 4.51</span> │ <span style="color: #008080; text-decoration-color: #008080"> 2.72</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">   2</span> │ <span style="color: #008080; text-decoration-color: #008080">   5</span> │ <span style="color: #008080; text-decoration-color: #008080">   7</span> │ <span style="color: #008080; text-decoration-color: #008080">   9</span> │ <span style="color: #008000; text-decoration-color: #008000">▆▂▃▂▇▃</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Temp9am       </span> │ <span style="color: #008080; text-decoration-color: #008080">  1767</span> │ <span style="color: #008080; text-decoration-color: #008080">  1.214766946239516</span> │ <span style="color: #008080; text-decoration-color: #008080">16.99</span> │ <span style="color: #008080; text-decoration-color: #008080">6.489</span> │ <span style="color: #008080; text-decoration-color: #008080"> -7.2</span> │ <span style="color: #008080; text-decoration-color: #008080">12.3</span> │ <span style="color: #008080; text-decoration-color: #008080">16.7</span> │ <span style="color: #008080; text-decoration-color: #008080">21.6</span> │ <span style="color: #008080; text-decoration-color: #008080">40.2</span> │ <span style="color: #008000; text-decoration-color: #008000"> ▂▇▇▃ </span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Temp3pm       </span> │ <span style="color: #008080; text-decoration-color: #008080">  3609</span> │ <span style="color: #008080; text-decoration-color: #008080"> 2.4810944589577892</span> │ <span style="color: #008080; text-decoration-color: #008080">21.68</span> │ <span style="color: #008080; text-decoration-color: #008080">6.937</span> │ <span style="color: #008080; text-decoration-color: #008080"> -5.4</span> │ <span style="color: #008080; text-decoration-color: #008080">16.6</span> │ <span style="color: #008080; text-decoration-color: #008080">21.1</span> │ <span style="color: #008080; text-decoration-color: #008080">26.4</span> │ <span style="color: #008080; text-decoration-color: #008080">46.7</span> │ <span style="color: #008000; text-decoration-color: #008000"> ▁▇▇▃ </span> │  │
+│ └────────────────┴────────┴─────────────────────┴───────┴───────┴───────┴──────┴──────┴──────┴──────┴────────┘  │
+│ <span style="font-style: italic">                                                    string                                                    </span>  │
+│ ┏━━━━━━━━━━┳━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┳━━━━━━━━━━┳━━━━━━━━━━━┓  │
+│ ┃<span style="font-weight: bold">          </span>┃<span style="font-weight: bold">       </span>┃<span style="font-weight: bold">          </span>┃<span style="font-weight: bold">          </span>┃<span style="font-weight: bold">          </span>┃<span style="font-weight: bold">          </span>┃<span style="font-weight: bold">          </span>┃<span style="font-weight: bold"> chars per </span>┃<span style="font-weight: bold"> words    </span>┃<span style="font-weight: bold"> total     </span>┃  │
+│ ┃<span style="font-weight: bold"> column   </span>┃<span style="font-weight: bold"> NA    </span>┃<span style="font-weight: bold"> NA %     </span>┃<span style="font-weight: bold"> shortest </span>┃<span style="font-weight: bold"> longest  </span>┃<span style="font-weight: bold"> min      </span>┃<span style="font-weight: bold"> max      </span>┃<span style="font-weight: bold"> row       </span>┃<span style="font-weight: bold"> per row  </span>┃<span style="font-weight: bold"> words     </span>┃  │
+│ ┡━━━━━━━━━━╇━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━╇━━━━━━━━━━╇━━━━━━━━━━━┩  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Date    </span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">       0</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">2008-12-</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">2008-12-</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">2007-11-</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">2017-06-</span> │ <span style="color: #008080; text-decoration-color: #008080">       10</span> │ <span style="color: #008080; text-decoration-color: #008080">       1</span> │ <span style="color: #008080; text-decoration-color: #008080">   145460</span> │  │
+│ │          │       │          │ <span style="color: #af87ff; text-decoration-color: #af87ff">01      </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">01      </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">01      </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">25      </span> │           │          │           │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Location</span> │ <span style="color: #008080; text-decoration-color: #008080">    0</span> │ <span style="color: #008080; text-decoration-color: #008080">       0</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Sale    </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Melbourn</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Adelaide</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Woomera </span> │ <span style="color: #008080; text-decoration-color: #008080">     8.71</span> │ <span style="color: #008080; text-decoration-color: #008080">       1</span> │ <span style="color: #008080; text-decoration-color: #008080">   145460</span> │  │
+│ │          │       │          │          │ <span style="color: #af87ff; text-decoration-color: #af87ff">eAirport</span> │          │          │           │          │           │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">WindGust</span> │ <span style="color: #008080; text-decoration-color: #008080">10326</span> │ <span style="color: #008080; text-decoration-color: #008080">7.098858</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">W       </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">WNW     </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">E       </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">WSW     </span> │ <span style="color: #008080; text-decoration-color: #008080">     2.19</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.93</span> │ <span style="color: #008080; text-decoration-color: #008080">   135134</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">Dir     </span> │       │ <span style="color: #008080; text-decoration-color: #008080">79279527</span> │          │          │          │          │           │          │           │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">WindDir9</span> │ <span style="color: #008080; text-decoration-color: #008080">10566</span> │ <span style="color: #008080; text-decoration-color: #008080">7.263852</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">W       </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">NNW     </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">E       </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">WSW     </span> │ <span style="color: #008080; text-decoration-color: #008080">     2.18</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.93</span> │ <span style="color: #008080; text-decoration-color: #008080">   134894</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">am      </span> │       │ <span style="color: #008080; text-decoration-color: #008080">60552729</span> │          │          │          │          │           │          │           │  │
+│ │          │       │ <span style="color: #008080; text-decoration-color: #008080">       2</span> │          │          │          │          │           │          │           │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">WindDir3</span> │ <span style="color: #008080; text-decoration-color: #008080"> 4228</span> │ <span style="color: #008080; text-decoration-color: #008080">2.906641</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">E       </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">WNW     </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">E       </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">WSW     </span> │ <span style="color: #008080; text-decoration-color: #008080">     2.21</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.97</span> │ <span style="color: #008080; text-decoration-color: #008080">   141232</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">pm      </span> │       │ <span style="color: #008080; text-decoration-color: #008080">00096246</span> │          │          │          │          │           │          │           │  │
+│ │          │       │ <span style="color: #008080; text-decoration-color: #008080">       4</span> │          │          │          │          │           │          │           │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">RainToda</span> │ <span style="color: #008080; text-decoration-color: #008080"> 3261</span> │ <span style="color: #008080; text-decoration-color: #008080">2.241853</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">No      </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Yes     </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">No      </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Yes     </span> │ <span style="color: #008080; text-decoration-color: #008080">     2.22</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.98</span> │ <span style="color: #008080; text-decoration-color: #008080">   142199</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">y       </span> │       │ <span style="color: #008080; text-decoration-color: #008080">43049635</span> │          │          │          │          │           │          │           │  │
+│ │          │       │ <span style="color: #008080; text-decoration-color: #008080">       6</span> │          │          │          │          │           │          │           │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">RainTomo</span> │ <span style="color: #008080; text-decoration-color: #008080"> 3267</span> │ <span style="color: #008080; text-decoration-color: #008080">2.245978</span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">No      </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Yes     </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">No      </span> │ <span style="color: #af87ff; text-decoration-color: #af87ff">Yes     </span> │ <span style="color: #008080; text-decoration-color: #008080">     2.22</span> │ <span style="color: #008080; text-decoration-color: #008080">    0.98</span> │ <span style="color: #008080; text-decoration-color: #008080">   142193</span> │  │
+│ │ <span style="color: #af87ff; text-decoration-color: #af87ff">rrow    </span> │       │ <span style="color: #008080; text-decoration-color: #008080">27581465</span> │          │          │          │          │           │          │           │  │
+│ │          │       │ <span style="color: #008080; text-decoration-color: #008080">       7</span> │          │          │          │          │           │          │           │  │
+│ └──────────┴───────┴──────────┴──────────┴──────────┴──────────┴──────────┴───────────┴──────────┴───────────┘  │
+╰────────────────────────────────────────────────────── End ──────────────────────────────────────────────────────╯
+</pre>
+</div>
+</div>
+</section>
+<section id="exploring-variables-columns-observations-rows" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-variables-columns-observations-rows">Exploring Variables (Columns) &amp; Observations (Rows)</h2>
+<p>If we are going to narrow our focus to specific variables or groups of observations, we need to know how to select columns, filter values, and group the data. There are lots of different ways we can slice up the data. We won’t cover all of them here<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, but we will try to cover a range that helps illustrate how pandas works and will help you build the intuition for working with data in pandas.</p>
+<p>We can select columns in a variety of ways, but the “correct” way to select columns in most circumstances is using selection brackets (the square brackets <code>[]</code>), also known as the indexing operator.</p>
+<div id="cell-select-col" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selecting a single column by name</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative ways to select columns</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># df.loc[:, 'Date']</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># df.Date</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="select-col" class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>0         2008-12-01
+1         2008-12-02
+2         2008-12-03
+3         2008-12-04
+4         2008-12-05
+             ...    
+145455    2017-06-21
+145456    2017-06-22
+145457    2017-06-23
+145458    2017-06-24
+145459    2017-06-25
+Name: Date, Length: 145460, dtype: object</code></pre>
+</div>
+</div>
+<p>If we want to select multiple columns, we can use double squared brackets (<code>[[ ]]</code>). This is the same process as before, but the inner brackets define a list, and the outer are the selection brackets. Lists are an example of a data (variable) type - for more detail on data types, refer to <a href="../../sessions/06-data-types/index.html">session 6</a>.</p>
+<div id="cell-select-multiple-cols" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># selecting multiple columns (and all rows) by name</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">'Date'</span>, <span class="st">'Location'</span>, <span class="st">'Rainfall'</span>]]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df.loc[:, ['Date', 'Location', 'Rainfall']]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="select-multiple-cols" class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2008-12-01</td>
+<td>Albury</td>
+<td>0.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2008-12-02</td>
+<td>Albury</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2008-12-03</td>
+<td>Albury</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>2008-12-04</td>
+<td>Albury</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2008-12-05</td>
+<td>Albury</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145455</th>
+<td>2017-06-21</td>
+<td>Uluru</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">145456</th>
+<td>2017-06-22</td>
+<td>Uluru</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145457</th>
+<td>2017-06-23</td>
+<td>Uluru</td>
+<td>0.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">145458</th>
+<td>2017-06-24</td>
+<td>Uluru</td>
+<td>0.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">145459</th>
+<td>2017-06-25</td>
+<td>Uluru</td>
+<td>0.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>145460 rows × 3 columns</p>
+</div>
+</div>
+</div>
+<p>While selection brackets are a quick and easy solution if we want to grab a subset of variables in the dataset, it is realy only intended to be used for simple operations using only column selection.</p>
+<p>For row selection, we should use <code>pd.DataFrame.iloc[]</code>. The <code>iloc</code> function is used for “integer position” selection, which means you can select rows or columns using their integer position. For rows 10-15, you can select them using the following:</p>
+<div id="cell-subset-rows" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># slicing by rows</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">10</span>:<span class="dv">16</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="subset-rows" class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">MinTemp</th>
+<th data-quarto-table-cell-role="th">MaxTemp</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Evaporation</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">WindGustDir</th>
+<th data-quarto-table-cell-role="th">WindGustSpeed</th>
+<th data-quarto-table-cell-role="th">WindDir9am</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Humidity9am</th>
+<th data-quarto-table-cell-role="th">Humidity3pm</th>
+<th data-quarto-table-cell-role="th">Pressure9am</th>
+<th data-quarto-table-cell-role="th">Pressure3pm</th>
+<th data-quarto-table-cell-role="th">Cloud9am</th>
+<th data-quarto-table-cell-role="th">Cloud3pm</th>
+<th data-quarto-table-cell-role="th">Temp9am</th>
+<th data-quarto-table-cell-role="th">Temp3pm</th>
+<th data-quarto-table-cell-role="th">RainToday</th>
+<th data-quarto-table-cell-role="th">RainTomorrow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10</th>
+<td>2008-12-11</td>
+<td>Albury</td>
+<td>13.4</td>
+<td>30.4</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>N</td>
+<td>30.0</td>
+<td>SSE</td>
+<td>...</td>
+<td>48.0</td>
+<td>22.0</td>
+<td>1011.8</td>
+<td>1008.7</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>20.4</td>
+<td>28.8</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">11</th>
+<td>2008-12-12</td>
+<td>Albury</td>
+<td>15.9</td>
+<td>21.7</td>
+<td>2.2</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NNE</td>
+<td>31.0</td>
+<td>NE</td>
+<td>...</td>
+<td>89.0</td>
+<td>91.0</td>
+<td>1010.5</td>
+<td>1004.2</td>
+<td>8.0</td>
+<td>8.0</td>
+<td>15.9</td>
+<td>17.0</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12</th>
+<td>2008-12-13</td>
+<td>Albury</td>
+<td>15.9</td>
+<td>18.6</td>
+<td>15.6</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>W</td>
+<td>61.0</td>
+<td>NNW</td>
+<td>...</td>
+<td>76.0</td>
+<td>93.0</td>
+<td>994.3</td>
+<td>993.0</td>
+<td>8.0</td>
+<td>8.0</td>
+<td>17.4</td>
+<td>15.8</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">13</th>
+<td>2008-12-14</td>
+<td>Albury</td>
+<td>12.6</td>
+<td>21.0</td>
+<td>3.6</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>SW</td>
+<td>44.0</td>
+<td>W</td>
+<td>...</td>
+<td>65.0</td>
+<td>43.0</td>
+<td>1001.2</td>
+<td>1001.8</td>
+<td>NaN</td>
+<td>7.0</td>
+<td>15.8</td>
+<td>19.8</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14</th>
+<td>2008-12-15</td>
+<td>Albury</td>
+<td>8.4</td>
+<td>24.6</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>S</td>
+<td>...</td>
+<td>57.0</td>
+<td>32.0</td>
+<td>1009.7</td>
+<td>1008.7</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>15.9</td>
+<td>23.5</td>
+<td>No</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">15</th>
+<td>2008-12-16</td>
+<td>Albury</td>
+<td>9.8</td>
+<td>27.7</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>WNW</td>
+<td>50.0</td>
+<td>NaN</td>
+<td>...</td>
+<td>50.0</td>
+<td>28.0</td>
+<td>1013.4</td>
+<td>1010.3</td>
+<td>0.0</td>
+<td>NaN</td>
+<td>17.3</td>
+<td>26.2</td>
+<td>NaN</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>6 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<p>We can do similar using a column’s integer position, but we have to select all rows (<code>:</code>) first:</p>
+<div id="cell-col-iloc" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using iloc with columns</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>df.iloc[:, <span class="dv">20</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="col-iloc" class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>0         21.8
+1         24.3
+2         23.2
+3         26.5
+4         29.7
+          ... 
+145455    22.4
+145456    24.5
+145457    26.1
+145458    26.0
+145459    20.9
+Name: Temp3pm, Length: 145460, dtype: float64</code></pre>
+</div>
+</div>
+<p>Finally, we can put both together to take a subset of both rows and columns:</p>
+<div id="cell-col-rows-iloc" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using iloc with rows and columns</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>df.iloc[<span class="dv">10</span>:<span class="dv">16</span>, <span class="dv">20</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="col-rows-iloc" class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>10    28.8
+11    17.0
+12    15.8
+13    19.8
+14    23.5
+15    26.2
+Name: Temp3pm, dtype: float64</code></pre>
+</div>
+</div>
+<p>However, selecting by integer position is relatively limited. It is more likely we would want to subset the data based on the values of certain columns. We can filter rows by condition using <code>pd.DataFrame.loc[]</code>. The <code>loc</code> function slices by label, instead of integer position.</p>
+<p>For example, we might want to look at a subset of the data based on location.</p>
+<div id="cell-filter-location" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select all observations in Perth</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>df.loc[df[<span class="st">'Location'</span>] <span class="op">==</span> <span class="st">'Perth'</span>] <span class="co"># we use double equals to compare the value in Location to the string Perth </span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                                  <span class="co"># (so the effect is to output the rows that match that condition.)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="filter-location" class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">MinTemp</th>
+<th data-quarto-table-cell-role="th">MaxTemp</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Evaporation</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">WindGustDir</th>
+<th data-quarto-table-cell-role="th">WindGustSpeed</th>
+<th data-quarto-table-cell-role="th">WindDir9am</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Humidity9am</th>
+<th data-quarto-table-cell-role="th">Humidity3pm</th>
+<th data-quarto-table-cell-role="th">Pressure9am</th>
+<th data-quarto-table-cell-role="th">Pressure3pm</th>
+<th data-quarto-table-cell-role="th">Cloud9am</th>
+<th data-quarto-table-cell-role="th">Cloud3pm</th>
+<th data-quarto-table-cell-role="th">Temp9am</th>
+<th data-quarto-table-cell-role="th">Temp3pm</th>
+<th data-quarto-table-cell-role="th">RainToday</th>
+<th data-quarto-table-cell-role="th">RainTomorrow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">120638</th>
+<td>2008-07-01</td>
+<td>Perth</td>
+<td>2.7</td>
+<td>18.8</td>
+<td>0.0</td>
+<td>0.8</td>
+<td>9.1</td>
+<td>ENE</td>
+<td>20.0</td>
+<td>NaN</td>
+<td>...</td>
+<td>97.0</td>
+<td>53.0</td>
+<td>1027.6</td>
+<td>1024.5</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>8.5</td>
+<td>18.1</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">120639</th>
+<td>2008-07-02</td>
+<td>Perth</td>
+<td>6.4</td>
+<td>20.7</td>
+<td>0.0</td>
+<td>1.8</td>
+<td>7.0</td>
+<td>NE</td>
+<td>22.0</td>
+<td>ESE</td>
+<td>...</td>
+<td>80.0</td>
+<td>39.0</td>
+<td>1024.1</td>
+<td>1019.0</td>
+<td>0.0</td>
+<td>6.0</td>
+<td>11.1</td>
+<td>19.7</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">120640</th>
+<td>2008-07-03</td>
+<td>Perth</td>
+<td>6.5</td>
+<td>19.9</td>
+<td>0.4</td>
+<td>2.2</td>
+<td>7.3</td>
+<td>NE</td>
+<td>31.0</td>
+<td>NaN</td>
+<td>...</td>
+<td>84.0</td>
+<td>71.0</td>
+<td>1016.8</td>
+<td>1015.6</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>12.1</td>
+<td>17.7</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">120641</th>
+<td>2008-07-04</td>
+<td>Perth</td>
+<td>9.5</td>
+<td>19.2</td>
+<td>1.8</td>
+<td>1.2</td>
+<td>4.7</td>
+<td>W</td>
+<td>26.0</td>
+<td>NNE</td>
+<td>...</td>
+<td>93.0</td>
+<td>73.0</td>
+<td>1019.3</td>
+<td>1018.4</td>
+<td>6.0</td>
+<td>6.0</td>
+<td>13.2</td>
+<td>17.7</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">120642</th>
+<td>2008-07-05</td>
+<td>Perth</td>
+<td>9.5</td>
+<td>16.4</td>
+<td>1.8</td>
+<td>1.4</td>
+<td>4.9</td>
+<td>WSW</td>
+<td>44.0</td>
+<td>W</td>
+<td>...</td>
+<td>69.0</td>
+<td>57.0</td>
+<td>1020.4</td>
+<td>1022.1</td>
+<td>7.0</td>
+<td>5.0</td>
+<td>15.9</td>
+<td>16.0</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">123826</th>
+<td>2017-06-21</td>
+<td>Perth</td>
+<td>10.3</td>
+<td>19.9</td>
+<td>0.2</td>
+<td>1.8</td>
+<td>7.5</td>
+<td>NW</td>
+<td>37.0</td>
+<td>NNE</td>
+<td>...</td>
+<td>89.0</td>
+<td>60.0</td>
+<td>1017.1</td>
+<td>1013.8</td>
+<td>5.0</td>
+<td>6.0</td>
+<td>13.0</td>
+<td>18.5</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">123827</th>
+<td>2017-06-22</td>
+<td>Perth</td>
+<td>13.0</td>
+<td>16.8</td>
+<td>61.2</td>
+<td>3.6</td>
+<td>0.0</td>
+<td>SSW</td>
+<td>46.0</td>
+<td>W</td>
+<td>...</td>
+<td>90.0</td>
+<td>75.0</td>
+<td>1005.6</td>
+<td>1008.9</td>
+<td>7.0</td>
+<td>7.0</td>
+<td>16.4</td>
+<td>15.6</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">123828</th>
+<td>2017-06-23</td>
+<td>Perth</td>
+<td>13.3</td>
+<td>18.9</td>
+<td>0.4</td>
+<td>1.8</td>
+<td>6.5</td>
+<td>SE</td>
+<td>37.0</td>
+<td>SE</td>
+<td>...</td>
+<td>85.0</td>
+<td>65.0</td>
+<td>1019.2</td>
+<td>1019.4</td>
+<td>6.0</td>
+<td>6.0</td>
+<td>15.1</td>
+<td>18.0</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">123829</th>
+<td>2017-06-24</td>
+<td>Perth</td>
+<td>11.5</td>
+<td>18.2</td>
+<td>0.0</td>
+<td>3.8</td>
+<td>9.3</td>
+<td>SE</td>
+<td>30.0</td>
+<td>ESE</td>
+<td>...</td>
+<td>62.0</td>
+<td>47.0</td>
+<td>1025.9</td>
+<td>1023.4</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>14.0</td>
+<td>17.6</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">123830</th>
+<td>2017-06-25</td>
+<td>Perth</td>
+<td>6.3</td>
+<td>17.0</td>
+<td>0.0</td>
+<td>1.6</td>
+<td>7.9</td>
+<td>E</td>
+<td>26.0</td>
+<td>SE</td>
+<td>...</td>
+<td>75.0</td>
+<td>49.0</td>
+<td>1028.6</td>
+<td>1026.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>11.5</td>
+<td>15.6</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>3193 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<p>We can also filter by multiple values, such as location and rainfall.</p>
+<div id="cell-filter-multiple-vals" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">'Rainfall'</span>] <span class="op">==</span> <span class="dv">0</span>) <span class="op">&amp;</span> (df[<span class="st">'Location'</span>] <span class="op">==</span> <span class="st">'Perth'</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="filter-multiple-vals" class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">MinTemp</th>
+<th data-quarto-table-cell-role="th">MaxTemp</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Evaporation</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">WindGustDir</th>
+<th data-quarto-table-cell-role="th">WindGustSpeed</th>
+<th data-quarto-table-cell-role="th">WindDir9am</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Humidity9am</th>
+<th data-quarto-table-cell-role="th">Humidity3pm</th>
+<th data-quarto-table-cell-role="th">Pressure9am</th>
+<th data-quarto-table-cell-role="th">Pressure3pm</th>
+<th data-quarto-table-cell-role="th">Cloud9am</th>
+<th data-quarto-table-cell-role="th">Cloud3pm</th>
+<th data-quarto-table-cell-role="th">Temp9am</th>
+<th data-quarto-table-cell-role="th">Temp3pm</th>
+<th data-quarto-table-cell-role="th">RainToday</th>
+<th data-quarto-table-cell-role="th">RainTomorrow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">120638</th>
+<td>2008-07-01</td>
+<td>Perth</td>
+<td>2.7</td>
+<td>18.8</td>
+<td>0.0</td>
+<td>0.8</td>
+<td>9.1</td>
+<td>ENE</td>
+<td>20.0</td>
+<td>NaN</td>
+<td>...</td>
+<td>97.0</td>
+<td>53.0</td>
+<td>1027.6</td>
+<td>1024.5</td>
+<td>2.0</td>
+<td>3.0</td>
+<td>8.5</td>
+<td>18.1</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">120639</th>
+<td>2008-07-02</td>
+<td>Perth</td>
+<td>6.4</td>
+<td>20.7</td>
+<td>0.0</td>
+<td>1.8</td>
+<td>7.0</td>
+<td>NE</td>
+<td>22.0</td>
+<td>ESE</td>
+<td>...</td>
+<td>80.0</td>
+<td>39.0</td>
+<td>1024.1</td>
+<td>1019.0</td>
+<td>0.0</td>
+<td>6.0</td>
+<td>11.1</td>
+<td>19.7</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">120644</th>
+<td>2008-07-07</td>
+<td>Perth</td>
+<td>0.7</td>
+<td>18.3</td>
+<td>0.0</td>
+<td>0.8</td>
+<td>9.3</td>
+<td>N</td>
+<td>37.0</td>
+<td>NE</td>
+<td>...</td>
+<td>72.0</td>
+<td>36.0</td>
+<td>1028.9</td>
+<td>1024.2</td>
+<td>1.0</td>
+<td>5.0</td>
+<td>8.7</td>
+<td>17.9</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">120645</th>
+<td>2008-07-08</td>
+<td>Perth</td>
+<td>3.2</td>
+<td>20.4</td>
+<td>0.0</td>
+<td>1.4</td>
+<td>6.9</td>
+<td>NNW</td>
+<td>24.0</td>
+<td>NE</td>
+<td>...</td>
+<td>58.0</td>
+<td>42.0</td>
+<td>1023.9</td>
+<td>1021.1</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>10.2</td>
+<td>19.3</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">120651</th>
+<td>2008-07-14</td>
+<td>Perth</td>
+<td>7.9</td>
+<td>19.7</td>
+<td>0.0</td>
+<td>0.2</td>
+<td>6.5</td>
+<td>NE</td>
+<td>31.0</td>
+<td>NE</td>
+<td>...</td>
+<td>86.0</td>
+<td>41.0</td>
+<td>1026.0</td>
+<td>1021.9</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>11.7</td>
+<td>18.7</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">123823</th>
+<td>2017-06-18</td>
+<td>Perth</td>
+<td>7.5</td>
+<td>23.4</td>
+<td>0.0</td>
+<td>1.8</td>
+<td>9.2</td>
+<td>NNE</td>
+<td>28.0</td>
+<td>ENE</td>
+<td>...</td>
+<td>67.0</td>
+<td>41.0</td>
+<td>1026.9</td>
+<td>1022.9</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>14.2</td>
+<td>22.2</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">123824</th>
+<td>2017-06-19</td>
+<td>Perth</td>
+<td>5.5</td>
+<td>23.0</td>
+<td>0.0</td>
+<td>3.0</td>
+<td>9.1</td>
+<td>SW</td>
+<td>19.0</td>
+<td>ENE</td>
+<td>...</td>
+<td>84.0</td>
+<td>55.0</td>
+<td>1023.0</td>
+<td>1020.3</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>11.5</td>
+<td>22.0</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">123825</th>
+<td>2017-06-20</td>
+<td>Perth</td>
+<td>7.8</td>
+<td>22.5</td>
+<td>0.0</td>
+<td>2.8</td>
+<td>9.1</td>
+<td>NW</td>
+<td>26.0</td>
+<td>W</td>
+<td>...</td>
+<td>98.0</td>
+<td>59.0</td>
+<td>1019.3</td>
+<td>1015.9</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>13.5</td>
+<td>21.6</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">123829</th>
+<td>2017-06-24</td>
+<td>Perth</td>
+<td>11.5</td>
+<td>18.2</td>
+<td>0.0</td>
+<td>3.8</td>
+<td>9.3</td>
+<td>SE</td>
+<td>30.0</td>
+<td>ESE</td>
+<td>...</td>
+<td>62.0</td>
+<td>47.0</td>
+<td>1025.9</td>
+<td>1023.4</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>14.0</td>
+<td>17.6</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">123830</th>
+<td>2017-06-25</td>
+<td>Perth</td>
+<td>6.3</td>
+<td>17.0</td>
+<td>0.0</td>
+<td>1.6</td>
+<td>7.9</td>
+<td>E</td>
+<td>26.0</td>
+<td>SE</td>
+<td>...</td>
+<td>75.0</td>
+<td>49.0</td>
+<td>1028.6</td>
+<td>1026.0</td>
+<td>1.0</td>
+<td>3.0</td>
+<td>11.5</td>
+<td>15.6</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>2293 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<p>For any complex process for subsetting the data, including multiple conditions, <code>pd.DataFrame.loc[]</code> is the best bet.</p>
+<section id="summarising-data" class="level3">
+<h3 class="anchored" data-anchor-id="summarising-data">Summarising Data</h3>
+<p>Now that we know how to select the variables or observations we are interested in, we can start doing some descriptive analysis. The operations we use will depend on the questions we are trying to answer, and the possibilities will be almost endless.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>What “functions” might we need to carry out on our data when we are exploring it?</li>
+</ul>
+<p>We know that the weather data includes observations from all over the country, but we might want to check exactly how many different locations there are. We can use <code>pd.DataFrame.nunique()</code> to do this.</p>
+<div id="cell-count-unique" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># count unique values</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Location'</span>].nunique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="count-unique" class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>49</code></pre>
+</div>
+</div>
+<p>We may also be interested in the locations themselves, which may tell us more about the spatial distribution of our data. In this case, we can use <code>pd.DataFrame.unique()</code>.</p>
+<div id="cell-unique-vals" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get unique values</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Location'</span>].unique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="unique-vals" class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>array(['Albury', 'BadgerysCreek', 'Cobar', 'CoffsHarbour', 'Moree',
+       'Newcastle', 'NorahHead', 'NorfolkIsland', 'Penrith', 'Richmond',
+       'Sydney', 'SydneyAirport', 'WaggaWagga', 'Williamtown',
+       'Wollongong', 'Canberra', 'Tuggeranong', 'MountGinini', 'Ballarat',
+       'Bendigo', 'Sale', 'MelbourneAirport', 'Melbourne', 'Mildura',
+       'Nhil', 'Portland', 'Watsonia', 'Dartmoor', 'Brisbane', 'Cairns',
+       'GoldCoast', 'Townsville', 'Adelaide', 'MountGambier', 'Nuriootpa',
+       'Woomera', 'Albany', 'Witchcliffe', 'PearceRAAF', 'PerthAirport',
+       'Perth', 'SalmonGums', 'Walpole', 'Hobart', 'Launceston',
+       'AliceSprings', 'Darwin', 'Katherine', 'Uluru'], dtype=object)</code></pre>
+</div>
+</div>
+<p>Another common operation we might look to do is calculating the mean value (<code>pd.DataFrame.mean()</code>) of a certain variable. What is the average value of sunshine across the entire dataset?</p>
+<div id="cell-simple-mean" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate variable mean</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sunshine'</span>].mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="simple-mean" class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>np.float64(7.611177520661157)</code></pre>
+</div>
+</div>
+<p>This gives us the mean to many decimal places, and we probably don’t need to know the average sunshine hours to this level of precision. We can use the <code>pd.DataFrame.round()</code> function to round to two decimal places.</p>
+<div id="cell-rounded-mean" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># round mean value</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sunshine'</span>].mean().<span class="bu">round</span>(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="rounded-mean" class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>np.float64(7.61)</code></pre>
+</div>
+</div>
+<p>Many operations will return the value with information about the object’s type included. The above values are wrapped in <code>np.float64()</code> because <code>pd.DataFrame.mean()</code> uses numpy to calculate the mean value. However, if you want to strip this information out so you only see the value itself, you can use <code>print()</code>.</p>
+<div id="print-values" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># print mean value</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'Sunshine'</span>].mean().<span class="bu">round</span>(<span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7.61</code></pre>
+</div>
+</div>
+<p>While we are often interested in the mean value when we talk about averages, we might want to know the median instead (<code>pd.DataFrame.median()</code>).</p>
+<div id="median" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate other summary statistics</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'Sunshine'</span>].median())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>8.4</code></pre>
+</div>
+</div>
+<p>Another common calculation is summing values (<code>pd.DataFrame.sum()</code>). We can use <code>sum()</code> to see the total hours of sunshine in our dataset, and we can use <code>int()</code> to convert this value to an integer (which also means we don’t need to use <code>print()</code><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>).</p>
+<div id="cell-sum" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate sum value and return an integer</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(df[<span class="st">'Sunshine'</span>].<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="sum" class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>575595</code></pre>
+</div>
+</div>
+<p>We can also apply these summary operations on multiple variables, using the same selection logic as before (using double squared brackets).</p>
+<div id="summarise-multiple-cols" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">'Sunshine'</span>, <span class="st">'Rainfall'</span>]].mean())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sunshine    7.611178
+Rainfall    2.360918
+dtype: float64</code></pre>
+</div>
+</div>
+<p>And we can apply multiple functions, using <code>pd.DataFrame.agg()</code>.</p>
+<div id="cell-agg" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Sunshine'</span>].agg([<span class="st">'mean'</span>, <span class="st">'median'</span>, <span class="st">'sum'</span>]).<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="agg" class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>mean           7.6
+median         8.4
+sum       575595.3
+Name: Sunshine, dtype: float64</code></pre>
+</div>
+</div>
+<p>The next step when exploring specific variables will often be group-level summaries. The average amount of sunshine across the whole dataset has limited utility, but the average hours of sunshine in each location allows us to compare between locations and start to understand how different variables are related to each other. If we want to do a group-level operation, we have to use <code>pd.DataFrame.groupby()</code>.</p>
+<div id="cell-group-means" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate group means</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>df.groupby(by<span class="op">=</span><span class="st">'Location'</span>)[<span class="st">'Sunshine'</span>].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="group-means" class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>Location
+Adelaide            7.7
+Albany              6.7
+Albury              NaN
+AliceSprings        9.6
+BadgerysCreek       NaN
+Ballarat            NaN
+Bendigo             NaN
+Brisbane            8.1
+Cairns              7.6
+Canberra            7.4
+Cobar               8.7
+CoffsHarbour        7.4
+Dartmoor            6.5
+Darwin              8.5
+GoldCoast           NaN
+Hobart              6.6
+Katherine           NaN
+Launceston          NaN
+Melbourne           6.4
+MelbourneAirport    6.4
+Mildura             8.5
+Moree               8.9
+MountGambier        6.5
+MountGinini         NaN
+Newcastle           NaN
+Nhil                NaN
+NorahHead           NaN
+NorfolkIsland       7.0
+Nuriootpa           7.7
+PearceRAAF          8.8
+Penrith             NaN
+Perth               8.8
+PerthAirport        8.8
+Portland            6.5
+Richmond            NaN
+Sale                6.7
+SalmonGums          NaN
+Sydney              7.2
+SydneyAirport       7.2
+Townsville          8.5
+Tuggeranong         NaN
+Uluru               NaN
+WaggaWagga          8.2
+Walpole             NaN
+Watsonia            6.4
+Williamtown         7.2
+Witchcliffe         NaN
+Wollongong          NaN
+Woomera             9.0
+Name: Sunshine, dtype: float64</code></pre>
+</div>
+</div>
+<p>The <code>groupby(by='Location')</code> function tells us the grouping variable (location), then we select the variable we want to summarise by location (sunshine), and then we specify the operation (mean).</p>
+<p>There are multiple locations that return <code>NaN</code> (<strong>N</strong>ot <strong>a</strong> <strong>N</strong>umber). This indicates that numpy was unable to calculate a mean value for those locations. This is likely to be because all sunshine values for those locations are null.</p>
+<p>We can check this using <code>pd.DataFrame.count()</code>, which counts the total non-null values (whereas <code>pd.DataFrame.size()</code> counts the total values).</p>
+<div id="cell-count-group-non-nulls" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group by location and count non-null sunshine values</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Location'</span>)[<span class="st">'Sunshine'</span>].count()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="count-group-non-nulls" class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>Location
+Adelaide            1769
+Albany              2520
+Albury                 0
+AliceSprings        2520
+BadgerysCreek          0
+Ballarat               0
+Bendigo                0
+Brisbane            3144
+Cairns              2564
+Canberra            1521
+Cobar                550
+CoffsHarbour        1494
+Dartmoor            2566
+Darwin              3189
+GoldCoast              0
+Hobart              3179
+Katherine              0
+Launceston             0
+Melbourne           3192
+MelbourneAirport    3008
+Mildura             2876
+Moree               2055
+MountGambier        2597
+MountGinini            0
+Newcastle              0
+Nhil                   0
+NorahHead              0
+NorfolkIsland       2570
+Nuriootpa           2848
+PearceRAAF          3004
+Penrith                0
+Perth               3188
+PerthAirport        3004
+Portland            2566
+Richmond               0
+Sale                1818
+SalmonGums             0
+Sydney              3328
+SydneyAirport       2993
+Townsville          2617
+Tuggeranong            0
+Uluru                  0
+WaggaWagga          2575
+Walpole                0
+Watsonia            3008
+Williamtown         1355
+Witchcliffe            0
+Wollongong             0
+Woomera             2007
+Name: Sunshine, dtype: int64</code></pre>
+</div>
+</div>
+<p>The results show that all the locations that return <code>NaN</code> in our group mean calculation have zero non-null values.</p>
+</section>
+</section>
+<section id="transforming-data" class="level2">
+<h2 class="anchored" data-anchor-id="transforming-data">Transforming Data</h2>
+<p>Datasets are rarely perfectly clean and <a href="https://vita.had.co.nz/papers/tidy-data.pdf">tidy</a>. We often need to transform the data before we can get the most out of it.</p>
+<p><strong>Questions:</strong></p>
+<ul>
+<li>What sort of transformations would help us get the most out of the analysis of the Australian weather data?</li>
+</ul>
+<p>The first step with any analysis is often converting columns to the correct types. With a longitudinal (time-series) dataset,the date column is a good place to start. We can use <code>pd.DataFrame.dtypes</code> to check the data type, either of a single column (using the selector brackets) or all columns in the dataset.</p>
+<div id="data-types" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.dtypes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Date              object
+Location          object
+MinTemp          float64
+MaxTemp          float64
+Rainfall         float64
+Evaporation      float64
+Sunshine         float64
+WindGustDir       object
+WindGustSpeed    float64
+WindDir9am        object
+WindDir3pm        object
+WindSpeed9am     float64
+WindSpeed3pm     float64
+Humidity9am      float64
+Humidity3pm      float64
+Pressure9am      float64
+Pressure3pm      float64
+Cloud9am         float64
+Cloud3pm         float64
+Temp9am          float64
+Temp3pm          float64
+RainToday         object
+RainTomorrow      object
+dtype: object</code></pre>
+</div>
+</div>
+<p>All columns are either stored as <code>object</code> or <code>float64</code>. The <code>object</code> data type is for generic non-numeric data, but from the columns that are stored as objects, we can tell this is mostly categorical variables where the categories are represented as text. The float64 data type refers to data that is numeric and includes decimals (float64 = 64-bit floating point number).</p>
+<p>The date column is stored as an object, but pandas can store dates as <code>datetime64</code>. We can convert dates using <code>pd.to_datetime()</code>. When transforming data, if we want to keep those transformations, we have to store those changes, using <code>=</code>. In this case, we want to convert the date column but we don’t want to create an entirely new dataframe to handle this change, so we can overwrite the current date column by using the selection brackets to identify the column we want to apply this change to.</p>
+<div id="convert-to-datetime" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert date column to datetime</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Date'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'Date'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The remaining <code>object</code> columns can be converted to categorical, which makes them easier to work with in subsequent analyses. We can use <code>pd.DataFrame.astype()</code> to convert column data types.</p>
+<div id="convert-cols" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a list of all object columns</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>object_cols <span class="op">=</span> [<span class="st">'Location'</span>, <span class="st">'WindGustDir'</span>, <span class="st">'WindDir9am'</span>, <span class="st">'WindDir3pm'</span>, <span class="st">'RainToday'</span>, <span class="st">'RainTomorrow'</span>]</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co"># convert object columns to category</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>df[object_cols] <span class="op">=</span> df[object_cols].astype(<span class="st">'category'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A more efficient, though synactically more complex, way of doing this is using lamda functions. We won’t cover lambda functons in this session (they will be discussed in detail in a future session), but below is how we can use them to convert objects to categories.</p>
+<div id="convert-to-cat" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert object columns to category data type</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.astype(<span class="st">'category'</span>) <span class="cf">if</span> x.dtype <span class="op">==</span> <span class="st">'object'</span> <span class="cf">else</span> x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Another choice we might make is to remove missing values, using <code>pd.DataFrame.dropna()</code> to filter the null values and keep only the non-null values. We can use this to drop all null values across the entire dataset, or we can apply it to a subset of columns, using the <code>subset</code> argument.</p>
+<div id="cell-filter-not-null" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter observations where sunshine is NA</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>df.dropna(subset<span class="op">=</span><span class="st">'Sunshine'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="filter-not-null" class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">MinTemp</th>
+<th data-quarto-table-cell-role="th">MaxTemp</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Evaporation</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">WindGustDir</th>
+<th data-quarto-table-cell-role="th">WindGustSpeed</th>
+<th data-quarto-table-cell-role="th">WindDir9am</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Humidity9am</th>
+<th data-quarto-table-cell-role="th">Humidity3pm</th>
+<th data-quarto-table-cell-role="th">Pressure9am</th>
+<th data-quarto-table-cell-role="th">Pressure3pm</th>
+<th data-quarto-table-cell-role="th">Cloud9am</th>
+<th data-quarto-table-cell-role="th">Cloud3pm</th>
+<th data-quarto-table-cell-role="th">Temp9am</th>
+<th data-quarto-table-cell-role="th">Temp3pm</th>
+<th data-quarto-table-cell-role="th">RainToday</th>
+<th data-quarto-table-cell-role="th">RainTomorrow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6049</th>
+<td>2009-01-01</td>
+<td>Cobar</td>
+<td>17.9</td>
+<td>35.2</td>
+<td>0.0</td>
+<td>12.0</td>
+<td>12.3</td>
+<td>SSW</td>
+<td>48.0</td>
+<td>ENE</td>
+<td>...</td>
+<td>20.0</td>
+<td>13.0</td>
+<td>1006.3</td>
+<td>1004.4</td>
+<td>2.0</td>
+<td>5.0</td>
+<td>26.6</td>
+<td>33.4</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">6050</th>
+<td>2009-01-02</td>
+<td>Cobar</td>
+<td>18.4</td>
+<td>28.9</td>
+<td>0.0</td>
+<td>14.8</td>
+<td>13.0</td>
+<td>S</td>
+<td>37.0</td>
+<td>SSE</td>
+<td>...</td>
+<td>30.0</td>
+<td>8.0</td>
+<td>1012.9</td>
+<td>1012.1</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>20.3</td>
+<td>27.0</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6051</th>
+<td>2009-01-03</td>
+<td>Cobar</td>
+<td>15.5</td>
+<td>34.1</td>
+<td>0.0</td>
+<td>12.6</td>
+<td>13.3</td>
+<td>SE</td>
+<td>30.0</td>
+<td>NaN</td>
+<td>...</td>
+<td>NaN</td>
+<td>7.0</td>
+<td>NaN</td>
+<td>1011.6</td>
+<td>NaN</td>
+<td>1.0</td>
+<td>NaN</td>
+<td>32.7</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">6052</th>
+<td>2009-01-04</td>
+<td>Cobar</td>
+<td>19.4</td>
+<td>37.6</td>
+<td>0.0</td>
+<td>10.8</td>
+<td>10.6</td>
+<td>NNE</td>
+<td>46.0</td>
+<td>NNE</td>
+<td>...</td>
+<td>42.0</td>
+<td>22.0</td>
+<td>1012.3</td>
+<td>1009.2</td>
+<td>1.0</td>
+<td>6.0</td>
+<td>28.7</td>
+<td>34.9</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6053</th>
+<td>2009-01-05</td>
+<td>Cobar</td>
+<td>21.9</td>
+<td>38.4</td>
+<td>0.0</td>
+<td>11.4</td>
+<td>12.2</td>
+<td>WNW</td>
+<td>31.0</td>
+<td>WNW</td>
+<td>...</td>
+<td>37.0</td>
+<td>22.0</td>
+<td>1012.7</td>
+<td>1009.1</td>
+<td>1.0</td>
+<td>5.0</td>
+<td>29.1</td>
+<td>35.6</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">142298</th>
+<td>2017-06-20</td>
+<td>Darwin</td>
+<td>19.3</td>
+<td>33.4</td>
+<td>0.0</td>
+<td>6.0</td>
+<td>11.0</td>
+<td>ENE</td>
+<td>35.0</td>
+<td>SE</td>
+<td>...</td>
+<td>63.0</td>
+<td>32.0</td>
+<td>1013.9</td>
+<td>1010.5</td>
+<td>0.0</td>
+<td>1.0</td>
+<td>24.5</td>
+<td>32.3</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">142299</th>
+<td>2017-06-21</td>
+<td>Darwin</td>
+<td>21.2</td>
+<td>32.6</td>
+<td>0.0</td>
+<td>7.6</td>
+<td>8.6</td>
+<td>E</td>
+<td>37.0</td>
+<td>SE</td>
+<td>...</td>
+<td>56.0</td>
+<td>28.0</td>
+<td>1014.6</td>
+<td>1011.2</td>
+<td>7.0</td>
+<td>0.0</td>
+<td>24.8</td>
+<td>32.0</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">142300</th>
+<td>2017-06-22</td>
+<td>Darwin</td>
+<td>20.7</td>
+<td>32.8</td>
+<td>0.0</td>
+<td>5.6</td>
+<td>11.0</td>
+<td>E</td>
+<td>33.0</td>
+<td>E</td>
+<td>...</td>
+<td>46.0</td>
+<td>23.0</td>
+<td>1015.3</td>
+<td>1011.8</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>24.8</td>
+<td>32.1</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">142301</th>
+<td>2017-06-23</td>
+<td>Darwin</td>
+<td>19.5</td>
+<td>31.8</td>
+<td>0.0</td>
+<td>6.2</td>
+<td>10.6</td>
+<td>ESE</td>
+<td>26.0</td>
+<td>SE</td>
+<td>...</td>
+<td>62.0</td>
+<td>58.0</td>
+<td>1014.9</td>
+<td>1010.7</td>
+<td>1.0</td>
+<td>1.0</td>
+<td>24.8</td>
+<td>29.2</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">142302</th>
+<td>2017-06-24</td>
+<td>Darwin</td>
+<td>20.2</td>
+<td>31.7</td>
+<td>0.0</td>
+<td>5.6</td>
+<td>10.7</td>
+<td>ENE</td>
+<td>30.0</td>
+<td>ENE</td>
+<td>...</td>
+<td>73.0</td>
+<td>32.0</td>
+<td>1013.9</td>
+<td>1009.7</td>
+<td>6.0</td>
+<td>5.0</td>
+<td>25.4</td>
+<td>31.0</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+<p>75625 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<p>We haven’t stored this transformation, because filtering nulls without careful consideration is a bad idea, but it’s useful to know, nonetheless.</p>
+<p>There are lots of ways we could transform the data, but the final example we will consider here is reshaping the data using <code>pd.DataFrame.pivot()</code>, which transforms the data from long to wide format data, and <code>pd.DataFrame.melt()</code>, which transforms it from wide to long format.</p>
+<p>Perhaps we want to focus on the maximum temperature per day in each location in 2015. We can use <code>pd.Series.dt.year</code> to get the year from the date column, and filter for the year 2015, before reshaping the data.</p>
+<div id="cell-pivot" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>df2015 <span class="op">=</span> df.loc[df[<span class="st">'Date'</span>].dt.year <span class="op">==</span> <span class="dv">2015</span>]</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>df_wide <span class="op">=</span> df2015.pivot(index<span class="op">=</span><span class="st">'Date'</span>, columns<span class="op">=</span><span class="st">'Location'</span>, values<span class="op">=</span><span class="st">'MaxTemp'</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>df_wide.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="pivot" class="cell-output cell-output-display" data-execution_count="35">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">Adelaide</th>
+<th data-quarto-table-cell-role="th">Albany</th>
+<th data-quarto-table-cell-role="th">Albury</th>
+<th data-quarto-table-cell-role="th">AliceSprings</th>
+<th data-quarto-table-cell-role="th">BadgerysCreek</th>
+<th data-quarto-table-cell-role="th">Ballarat</th>
+<th data-quarto-table-cell-role="th">Bendigo</th>
+<th data-quarto-table-cell-role="th">Brisbane</th>
+<th data-quarto-table-cell-role="th">Cairns</th>
+<th data-quarto-table-cell-role="th">Canberra</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Townsville</th>
+<th data-quarto-table-cell-role="th">Tuggeranong</th>
+<th data-quarto-table-cell-role="th">Uluru</th>
+<th data-quarto-table-cell-role="th">WaggaWagga</th>
+<th data-quarto-table-cell-role="th">Walpole</th>
+<th data-quarto-table-cell-role="th">Watsonia</th>
+<th data-quarto-table-cell-role="th">Williamtown</th>
+<th data-quarto-table-cell-role="th">Witchcliffe</th>
+<th data-quarto-table-cell-role="th">Wollongong</th>
+<th data-quarto-table-cell-role="th">Woomera</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2015-01-01</th>
+<td>37.0</td>
+<td>21.9</td>
+<td>33.5</td>
+<td>40.3</td>
+<td>34.7</td>
+<td>27.4</td>
+<td>31.2</td>
+<td>31.3</td>
+<td>33.7</td>
+<td>32.6</td>
+<td>...</td>
+<td>32.6</td>
+<td>32.1</td>
+<td>42.0</td>
+<td>35.2</td>
+<td>23.6</td>
+<td>28.3</td>
+<td>33.7</td>
+<td>25.0</td>
+<td>25.3</td>
+<td>39.2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2015-01-02</th>
+<td>44.1</td>
+<td>21.2</td>
+<td>39.6</td>
+<td>41.4</td>
+<td>30.5</td>
+<td>38.2</td>
+<td>39.8</td>
+<td>30.5</td>
+<td>33.7</td>
+<td>35.2</td>
+<td>...</td>
+<td>33.0</td>
+<td>34.1</td>
+<td>42.4</td>
+<td>38.9</td>
+<td>21.1</td>
+<td>40.6</td>
+<td>29.3</td>
+<td>23.6</td>
+<td>24.6</td>
+<td>43.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2015-01-03</th>
+<td>38.2</td>
+<td>21.5</td>
+<td>38.3</td>
+<td>36.4</td>
+<td>34.3</td>
+<td>37.5</td>
+<td>40.3</td>
+<td>28.9</td>
+<td>33.6</td>
+<td>34.7</td>
+<td>...</td>
+<td>28.1</td>
+<td>33.7</td>
+<td>39.8</td>
+<td>37.5</td>
+<td>21.8</td>
+<td>39.5</td>
+<td>32.8</td>
+<td>23.0</td>
+<td>25.7</td>
+<td>44.7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2015-01-04</th>
+<td>30.5</td>
+<td>23.3</td>
+<td>33.1</td>
+<td>29.0</td>
+<td>34.8</td>
+<td>23.5</td>
+<td>29.0</td>
+<td>30.2</td>
+<td>29.4</td>
+<td>32.5</td>
+<td>...</td>
+<td>31.6</td>
+<td>32.8</td>
+<td>36.1</td>
+<td>33.8</td>
+<td>24.4</td>
+<td>25.1</td>
+<td>34.5</td>
+<td>29.8</td>
+<td>25.3</td>
+<td>37.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2015-01-05</th>
+<td>34.9</td>
+<td>24.9</td>
+<td>35.2</td>
+<td>27.1</td>
+<td>27.2</td>
+<td>26.6</td>
+<td>33.6</td>
+<td>28.1</td>
+<td>31.4</td>
+<td>29.6</td>
+<td>...</td>
+<td>31.6</td>
+<td>28.9</td>
+<td>38.8</td>
+<td>34.9</td>
+<td>29.5</td>
+<td>25.7</td>
+<td>27.0</td>
+<td>31.7</td>
+<td>23.1</td>
+<td>38.3</td>
+</tr>
+</tbody>
+</table>
+
+<p>5 rows × 49 columns</p>
+</div>
+</div>
+</div>
+<p>Perhaps we want to look at the maximum and minimum temperatures in each location, together. We can reshape the data to support this<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<div id="cell-melt" class="cell" data-execution_count="36">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>df_long <span class="op">=</span> df2015.melt(</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    id_vars<span class="op">=</span>[<span class="st">'Date'</span>, <span class="st">'Location'</span>],</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    value_vars<span class="op">=</span>[<span class="st">'MaxTemp'</span>, <span class="st">'MinTemp'</span>],</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    var_name<span class="op">=</span><span class="st">'Variable'</span>,</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    value_name<span class="op">=</span><span class="st">'Value'</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>df_long.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="melt" class="cell-output cell-output-display" data-execution_count="36">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">Variable</th>
+<th data-quarto-table-cell-role="th">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2015-01-01</td>
+<td>Albury</td>
+<td>MaxTemp</td>
+<td>33.5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2015-01-02</td>
+<td>Albury</td>
+<td>MaxTemp</td>
+<td>39.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2015-01-03</td>
+<td>Albury</td>
+<td>MaxTemp</td>
+<td>38.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>2015-01-04</td>
+<td>Albury</td>
+<td>MaxTemp</td>
+<td>33.1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2015-01-05</td>
+<td>Albury</td>
+<td>MaxTemp</td>
+<td>35.2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<p>Some of these questions are easily answered by scrolling up and finding the answer in the output of the above code, however, the goal is to find the answer using code. No one actually cares what the answer to any of these questions is, it’s the process that matters!</p>
+<p><strong>Remember, if you don’t know the answer, it’s okay to Google it (or speak to others, including me, for help)!</strong></p>
+<div id="reset-data" class="cell" data-execution_count="37">
+<details class="code-fold">
+<summary>Import Data (to Reset)</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import the dataset</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'data/weatherAUS.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<ol type="1">
+<li>What is the ‘Sunshine’ column’s data type?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="col-type" class="cell" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What is the 'Sunshine' column's data type?</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'Sunshine'</span>].dtypes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>float64</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Identify all the columns that are of dtype ‘object’.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="object-cols" class="cell" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Identify all the columns that are of dtype 'object'</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">list</span>(df.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>['Date', 'Location', 'WindGustDir', 'WindDir9am', 'WindDir3pm', 'RainToday', 'RainTomorrow']</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>How many of the dataframe’s columns are of dtype ‘object’?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-count-object-cols" class="cell" data-execution_count="40">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many of the dataframe's columns are of dtype 'object'?</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">list</span>(df.select_dtypes(include<span class="op">=</span>[<span class="st">'object'</span>])))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="count-object-cols" class="cell-output cell-output-display" data-execution_count="40">
+<pre><code>7</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>How many of the ‘Rainfall’ column values are NAs?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="count-rainfall-nulls" class="cell" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many of the 'Rainfall' column values are NAs?</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">'Rainfall'</span>].isna().<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3261</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Create a new dataframe which only includes the ‘Date’, ‘Location, ’Sunshine’, ‘Rainfall’, and ‘RainTomorrow’ columns.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-subset-data" class="cell" data-execution_count="42">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>new_df <span class="op">=</span> df[[<span class="st">'Date'</span>, <span class="st">'Location'</span>, <span class="st">'Sunshine'</span>, <span class="st">'Rainfall'</span>, <span class="st">'RainTomorrow'</span>]]</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>new_df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="subset-data" class="cell-output cell-output-display" data-execution_count="42">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Location</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">RainTomorrow</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>2008-12-01</td>
+<td>Albury</td>
+<td>NaN</td>
+<td>0.6</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2008-12-02</td>
+<td>Albury</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>2008-12-03</td>
+<td>Albury</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>No</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>2008-12-04</td>
+<td>Albury</td>
+<td>NaN</td>
+<td>0.0</td>
+<td>No</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2008-12-05</td>
+<td>Albury</td>
+<td>NaN</td>
+<td>1.0</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Convert ‘RainTomorrow’ to a numeric variable, where ‘Yes’ = 1 and ‘No’ = 0.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-numeric-outcome" class="cell" data-execution_count="43">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df['Location'].astype('category').cat.codes</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df['RainTomorrow'].astype('category').cat.codes</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'RainTomorrow'</span>].<span class="bu">map</span>({<span class="st">'Yes'</span>: <span class="dv">1</span>, <span class="st">'No'</span>: <span class="dv">0</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="numeric-outcome" class="cell-output cell-output-display" data-execution_count="43">
+<pre><code>0         0.0
+1         0.0
+2         0.0
+3         0.0
+4         0.0
+         ... 
+145455    0.0
+145456    0.0
+145457    0.0
+145458    0.0
+145459    NaN
+Name: RainTomorrow, Length: 145460, dtype: float64</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li>What is the average amount of rainfall for each location?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-avg-rainfall-location" class="cell" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># average rainfall by location, sorted by value</span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Location'</span>)[<span class="st">'Rainfall'</span>].mean().sort_values(ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="avg-rainfall-location" class="cell-output cell-output-display" data-execution_count="44">
+<pre><code>Location
+Cairns              5.742035
+Darwin              5.092452
+CoffsHarbour        5.061497
+GoldCoast           3.769396
+Wollongong          3.594903
+Williamtown         3.591108
+Townsville          3.485592
+NorahHead           3.387299
+Sydney              3.324543
+MountGinini         3.292260
+Katherine           3.201090
+Newcastle           3.183892
+Brisbane            3.144891
+NorfolkIsland       3.127665
+SydneyAirport       3.009917
+Walpole             2.906846
+Witchcliffe         2.895664
+Portland            2.530374
+Albany              2.263859
+BadgerysCreek       2.193101
+Penrith             2.175304
+Tuggeranong         2.164043
+Dartmoor            2.146567
+Richmond            2.138462
+MountGambier        2.087562
+Launceston          2.011988
+Albury              1.914115
+Perth               1.906295
+Melbourne           1.870062
+Watsonia            1.860820
+PerthAirport        1.761648
+Canberra            1.741720
+Ballarat            1.740026
+WaggaWagga          1.709946
+PearceRAAF          1.669080
+Moree               1.630203
+Bendigo             1.619380
+Hobart              1.601819
+Adelaide            1.566354
+Sale                1.510167
+MelbourneAirport    1.451977
+Nuriootpa           1.390343
+Cobar               1.127309
+SalmonGums          1.034382
+Mildura             0.945062
+Nhil                0.934863
+AliceSprings        0.882850
+Uluru               0.784363
+Woomera             0.490405
+Name: Rainfall, dtype: float64</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="8" type="1">
+<li>What is the average amount of rainfall for days that it will rain tomorrow?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-avg-rainfall-rain-tomorrow" class="cell" data-execution_count="45">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># average rainfall depending on whether it will rain tomorrow or not</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'RainTomorrow'</span>)[<span class="st">'Rainfall'</span>].mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="avg-rainfall-rain-tomorrow" class="cell-output cell-output-display" data-execution_count="45">
+<pre><code>RainTomorrow
+No     1.270290
+Yes    6.142104
+Name: Rainfall, dtype: float64</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="9" type="1">
+<li>What is the average amount of sunshine in Perth when it will not rain tomorrow?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-avg-sunshine-perth-no-rain" class="cell" data-execution_count="46">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># average sunshine in Perth when it won't rain tomorrow</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>df.loc[(df[<span class="st">'Location'</span>] <span class="op">==</span> <span class="st">'Perth'</span>) <span class="op">&amp;</span> (df[<span class="st">'RainTomorrow'</span>] <span class="op">==</span> <span class="st">'No'</span>), <span class="st">'Sunshine'</span>].mean()</span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df[(df['Location']=='Perth') &amp; (df['RainTomorrow']=='No')]['Sunshine'].mean()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="avg-sunshine-perth-no-rain" class="cell-output cell-output-display" data-execution_count="46">
+<pre><code>np.float64(9.705306603773584)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="10" type="1">
+<li>We want to understand the role that time plays in the dataset. Using the original dataframe, carry the following tasks and answer the corresponding questions:
+<ul>
+<li>Create columns representing the year and month from the ‘Date’ column. How many years of data are in the dataset?</li>
+<li>Examine the distribution of the ‘Sunshine’ NAs over time. Is time a component in the ‘Sunshine’ data quality issues?</li>
+<li>Calculate the average rainfall and sunshine by month. How do rainfall and sunshine vary through the year?</li>
+<li>Calculate the average rainfall and sunshine by year. How have rainfall and sunshine changed over time?</li>
+</ul></li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-unique-years" class="cell" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get year and month columns</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> (</span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>    df.assign(Date<span class="op">=</span>pd.to_datetime(df[<span class="st">'Date'</span>]))</span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>    .assign(</span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>        Year<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'Date'</span>].dt.year,</span>
+<span id="cb76-6"><a href="#cb76-6" aria-hidden="true" tabindex="-1"></a>        Month<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="st">'Date'</span>].dt.month</span>
+<span id="cb76-7"><a href="#cb76-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb76-8"><a href="#cb76-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb76-9"><a href="#cb76-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-10"><a href="#cb76-10" aria-hidden="true" tabindex="-1"></a><span class="co"># count unique years</span></span>
+<span id="cb76-11"><a href="#cb76-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'Year'</span>].nunique()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="unique-years" class="cell-output cell-output-display" data-execution_count="47">
+<pre><code>11</code></pre>
+</div>
+</div>
+<div id="cell-sunshine-nulls-over-time" class="cell" data-execution_count="48">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lambda function counting nulls by year</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Year'</span>)[<span class="st">'Sunshine'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.isna().<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="sunshine-nulls-over-time" class="cell-output cell-output-display" data-execution_count="48">
+<pre><code>Year
+2007        0
+2008      323
+2009     6146
+2010     6220
+2011     6053
+2012     6539
+2013     7570
+2014     9157
+2015     9441
+2016    11994
+2017     6392
+Name: Sunshine, dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-rainfall-sunshine-by-month" class="cell" data-execution_count="49">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rainfall and sunshine by month</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Month'</span>)[[<span class="st">'Rainfall'</span>, <span class="st">'Sunshine'</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="rainfall-sunshine-by-month" class="cell-output cell-output-display" data-execution_count="49">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Month</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1</th>
+<td>2.7</td>
+<td>9.2</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2</th>
+<td>3.2</td>
+<td>8.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3</th>
+<td>2.8</td>
+<td>7.6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">4</th>
+<td>2.3</td>
+<td>7.1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">5</th>
+<td>2.0</td>
+<td>6.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">6</th>
+<td>2.8</td>
+<td>5.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">7</th>
+<td>2.2</td>
+<td>6.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8</th>
+<td>2.0</td>
+<td>7.1</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9</th>
+<td>1.9</td>
+<td>7.7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">10</th>
+<td>1.6</td>
+<td>8.5</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">11</th>
+<td>2.3</td>
+<td>8.7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">12</th>
+<td>2.5</td>
+<td>9.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-rainfall-sunshine-by-year" class="cell" data-execution_count="50">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rainfall and sunshine by year</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>df.groupby(<span class="st">'Year'</span>)[[<span class="st">'Rainfall'</span>, <span class="st">'Sunshine'</span>]].mean().<span class="bu">round</span>(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="rainfall-sunshine-by-year" class="cell-output cell-output-display" data-execution_count="50">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Rainfall</th>
+<th data-quarto-table-cell-role="th">Sunshine</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Year</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2007</th>
+<td>3.2</td>
+<td>8.1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2008</th>
+<td>2.3</td>
+<td>7.8</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2009</th>
+<td>2.2</td>
+<td>7.9</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2010</th>
+<td>2.7</td>
+<td>7.3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2011</th>
+<td>2.8</td>
+<td>7.3</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2012</th>
+<td>2.4</td>
+<td>7.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2013</th>
+<td>2.3</td>
+<td>7.7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2014</th>
+<td>2.0</td>
+<td>7.8</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2015</th>
+<td>2.2</td>
+<td>7.7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2016</th>
+<td>2.4</td>
+<td>7.6</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2017</th>
+<td>2.5</td>
+<td>7.7</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>For more information about pandas data types, check out the pandas documentation on <a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.html#basics-dtypes">dtypes</a>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>For more information, I’d recommend the <a href="https://pandas.pydata.org/docs/">pandas documentation</a>, and this pandas tutorial on <a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/03_subset_data.html">subsetting data</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Some functions should be wrapped in <code>print()</code> in order to return a value that is easy to read, but others won’t. There will be an internal logic for which is which, but it’s not of huge importance to us. You are better off just testing functions out and wrapping them in <code>print()</code> if necessary.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>This is often very useful when we need to visualise data, for example plotting the max and min temp for each location, is easier if the values are organised in the same column and differentiated using another column.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Created and maintained by the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page was built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
