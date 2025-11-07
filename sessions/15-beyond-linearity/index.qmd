@@ -217,15 +217,9 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# fit simple model (sex only)
-model_simple = LogisticRegression(max_iter=1000)
-model_simple.fit(X_train[['Sex']], y_train)
-
-# fit multiple model (all predictors)
-model_full = LogisticRegression(max_iter=1000)
-model_full.fit(X_train, y_train)
-
-print("Models fitted successfully")
+# fit logistic regression
+clf = LogisticRegression(max_iter=1000)
+clf.fit(X_train, y_train)
 ```
 
 ### Interpreting Coefficients
@@ -236,18 +230,18 @@ print("Models fitted successfully")
 import statsmodels.api as sm
 
 # use statsmodels for detailed output
-X_train_sm = sm.add_constant(X_train)
-model_sm = sm.Logit(y_train, X_train_sm).fit()
+X = sm.add_constant(X)
+glm = sm.Logit(y, X).fit()
 
-print(model_sm.summary().tables[1])
+print(glm.summary().tables[1])
 ```
 
 Coefficients are on the log-odds scale. Positive coefficients increase the probability of survival, negative coefficients decrease it.
 
-- Sex (Female) - Coefficient = `{python} f"{model_sm.params['Sex']:.2f}"`. Being female increases log-odds of survival. On the probability scale, women had much higher survival rates.
-- Age - Coefficient = `{python} f"{model_sm.params['Age']:.3f}"`. Younger passengers had slightly higher survival rates.
-- Pclass - Coefficient = `{python} f"{model_sm.params['Pclass']:.2f}"`. Higher class numbers (lower class) decrease survival probability.
-- Fare - Coefficient = `{python} f"{model_sm.params['Fare']:.3f}"`. Higher fares (correlated with class) increase survival.
+- Sex (Female) - Coefficient = `{python} f"{glm.params['Sex']:.2f}"`. Being female increases log-odds of survival. On the probability scale, women had much higher survival rates.
+- Age - Coefficient = `{python} f"{glm.params['Age']:.3f}"`. Younger passengers had slightly higher survival rates.
+- Pclass - Coefficient = `{python} f"{glm.params['Pclass']:.2f}"`. Higher class numbers (lower class) decrease survival probability.
+- Fare - Coefficient = `{python} f"{glm.params['Fare']:.3f}"`. Higher fares (correlated with class) increase survival.
 
 ### Converting Coefficients to Odds Ratios
 
@@ -256,8 +250,8 @@ Exponentiate coefficients to get **odds ratios**.
 ```{python}
 #| label: odds-ratios
 
-odds_ratios = np.exp(model_sm.params)
-conf_int = np.exp(model_sm.conf_int())
+odds_ratios = np.exp(glm.params)
+conf_int = np.exp(glm.conf_int())
 
 results_df = pd.DataFrame({
     'Odds Ratio': odds_ratios,
@@ -279,8 +273,8 @@ print(results_df)
 #| label: predictions
 
 # predict probabilities on test set
-y_pred_prob = model_full.predict_proba(X_test)[:, 1]
-y_pred = model_full.predict(X_test)
+y_pred_prob = clf.predict_proba(X_test)[:, 1]
+y_pred = clf.predict(X_test)
 
 # model performance
 accuracy = accuracy_score(y_test, y_pred)
@@ -324,8 +318,8 @@ X_female = pd.DataFrame({
     'Fare': df['Fare'].median()
 })
 
-prob_male = model_full.predict_proba(X_male)[:, 1]
-prob_female = model_full.predict_proba(X_female)[:, 1]
+prob_male = clf.predict_proba(X_male)[:, 1]
+prob_female = clf.predict_proba(X_female)[:, 1]
 
 fig, ax = plt.subplots(figsize=(10, 6))
 sns.lineplot(x=age_range, y=prob_male, color='#005EB8', linewidth=2, 
@@ -345,29 +339,38 @@ Female passengers had much higher predicted survival probabilities across all ag
 
 ## Other Extensions of Linear Regression
 
-Logistic regression is one example of adapting the linear framework to non-linear data. Here are other common extensions.
+Logistic regression is just one example of adapting the linear framework to non-linear data, but there are many ways thi framework can be extended.
 
 ### Poisson Regression for Count Data
 
 When outcomes are counts (number of events, visits, occurrences), Poisson regression uses a log link.
 
+<details>
+  <summary> Model Formula (Click to Expand)</summary> 
 $$
 \log(\text{E}[Y]) = \beta_0 + \beta_1X
 $$
 
 Transform back to get expected count: $\text{E}[Y] = e^{\beta_0 + \beta_1X}$. Predictions are always positive, matching count data.
 
-**Example use cases - Number of hospital admissions, customer complaints, goals scored.
+</details>
+
+Example use cases - Number of hospital admissions, customer complaints, goals scored.
 
 ### Generalised Additive Models (GAMs)
 
 GAMs fit smooth, flexible curves instead of straight lines.
+
+<details>
+  <summary> Model Formula (Click to Expand)</summary> 
 
 $$
 Y = \beta_0 + f_1(X_1) + f_2(X_2) + \epsilon
 $$
 
 Each $f_i(X_i)$ is a smooth function that adapts to the data. GAMs capture complex non-linear patterns (U-shapes, wiggles) while remaining interpretable.
+
+</details>
 
 Example use cases - Temperature effects on sales, age-related health trends, non-linear dose-response relationships.
 
@@ -381,16 +384,20 @@ gam = GAM(s(0) + s(1))
 gam.fit(X, y)
 ```
 
-### Multilevel (Mixed-Effects) Models
+### Multilevel Models
 
-When data has **hierarchical structure** (students in schools, patients in hospitals, repeated measures on individuals), **multilevel models** account for grouping:
+When data has hierarchical structure (students in schools, patients in hospitals, repeated measures on individuals), multilevel models account for grouping.
 
+<details>
+  <summary> Model Formula (Click to Expand)</summary> 
 $$
 Y_{ij} = \beta_0 + u_j + \beta_1X_{ij} + \epsilon_{ij}
 $$
 
-- $u_j$ is a group-specific effect (random intercept)
-- Groups can have different baselines but share information
+- $u_j$ is a group-specific effect (random intercept).
+- Groups can have different baselines but share information.
+
+</details>
 
 Example use cases - Educational data (students in schools), clinical trials (patients in sites), longitudinal data (repeated measures on individuals).
 
@@ -399,9 +406,9 @@ Python implementation uses `statsmodels` or `pymer4`:
 ```python
 import statsmodels.formula.api as smf
 
-# fit a mixed-effects model
-model = smf.mixedlm("y ~ x", data=df, groups=df["group_id"])
-result = model.fit()
+# fit a multilevel model
+mlm = smf.mixedlm("y ~ x", data=df, groups=df["group_id"])
+result = mlm.fit()
 ```
 
 ### Survival Analysis
