@@ -177,3 +177,7 @@ cython_debug/
 # Quarto site directories
 /.quarto/
 /_site/
+
+# Data exploration for the Streamlit demo
+
+/sessions/10-streamlit/exploration

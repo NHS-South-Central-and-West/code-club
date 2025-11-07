@@ -1,0 +1,219 @@
+---
+title: "An Introduction to Control Flow"
+footer: '**SAT //** Intro to Control Flow **//** August 2025'
+format: revealjs
+---
+
+# What is Control Flow? {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+Ordering & Controlling Statements in Code
+
+## Things That Flow {.center}
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/stream.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">A stream flowing towards the sea.</figcaption>
+</figure>
+:::
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/traffic.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Traffic flow on a busy road.</figcaption>
+</figure>
+:::
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/conversation.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Conversation flowing between people.</figcaption>
+</figure>
+:::
+
+
+## Code Flows Too {.center}
+
+- The flow of code and the steps that impact that flow are called "control flow".
+- In general code flows in the way same as a book (with some exceptions).
+  - Each function is completed before considering the next.
+- Functions can be nested in other functions - the inner most function is completed first.
+- Control structures can be used to change the course of a program.
+- Repetition structures can be used to repeat a section of code.
+
+# Control Flow Structure {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+How to Structure Control Flows in Python
+
+## Sequential Structure {.center}
+
+- In general code flows like a book reads:
+  - Statements (like lines of code) run top to bottom line,
+  - Left to right in statement,
+  - Each statement being completed before moving to the next.
+
+```{python}
+#| output-location: default
+#| eval: false
+
+v = "2"         #stores "2" as a string in 'v'
+i = int(v)      #stores v as an integer 'i'
+t = type(i)     #stores the type of 'i' as 't'
+print(t)        #prints 't'
+```
+
+## Nesting Functions and Operations {.center}
+
+- We are not limited to a single function or operation per row.
+- The previous example could be re-written as:
+  - `print(type(int("2")))`
+- Nesting functions can be useful, however care should be taken and it may be easier to separate functions over multiple rows.
+
+## Control Structures {.center}
+
+- Control structures (also known as decision structures) allow the flow to respond to varying situations.
+- A decision is made based on one or more conditions.
+- These control structures are very similar to the `IF` function in Excel and the `CASE` statement in SQL (but remember that indentation matters in Python).
+
+| Python - Control | SQL - CASE        | Excel - IF              |
+|:-----------------|:----------------- |:------------------------|
+| `if x = 2:`      | `CASE WHEN x > 2` | `IF(x > 2,`             |
+| `    y = 1`      | `    THEN 1`      | `1,`                    |
+| `else:`          | `ELSE`            |                         |
+| `    y = 0`      | `    0 END`       | `0)`                    |
+
+## The Importance of Being Boole(an) {.center}
+
+::: {.column width="35%"}
+![](images/bool.png)
+:::
+
+::: {.column style="width: 60%"}
+
+- George Boole was an English Mathmetician and logician whose work on binary logic has resulted in binary conditions bearing his name
+- Any statement that can be evaluated as only either `True` (1) or `False` (0) is Boolean.
+:::
+
+## Repetition Structures {.center}
+
+- Repetition structures (commonly referred to as "loops") allow for us to recycle chunks of code to perform the same or similar operation a specified number of times or until a condition changes.
+- **For** loops cycle through a series of iterations, until they reach the end performing each series of statements for each iteration.
+  - This can be used to cycle through a list, dictionary or other iterable as well as working through ranges of numbers
+- **While** loops continue until a predetermined condition changes from True to False.
+  - This can be useful for testing conditions but comes with a warning:
+- *Make sure your condition will change at some point or else your loop cannot end.*
+
+## What is Iterability? {.center}
+
+- Iterability is the ability to split an object into discrete items. The item may be ordered or unordered, each item will be extracted, processed ad set aside.
+- In general if an object can be split into multiple items it can be iterated (integers and floats are not iterable).
+
+- Iterable objects include:
+  - Strings (the word “strings” contains 7 iterable items).
+  - Lists eg [1, 2, 3, 4, 4, 4, 5, 6]
+  - Tuples eg (12, ‘Red’, ‘Apples’)
+  - Sets eg {1, 2, 3, 4, 5, 6}
+  - Dict eg {ICB_Code: ‘QSL’, Metric_Code: E.M.10}
+
+# Code Examples {data-background-color="#425563" data-verticator="#E8EDEE"}
+
+Code Flow Structures in Action
+
+## Sequential Structure Example {.center}
+
+- The following sequential code will create a variable called 'var' which is a string, it converts this string to an integer and conducts a series of mathematical operators before printing the result:
+
+```{python}
+#| output-location: default
+#| eval: false
+
+var = '22' # set "var" to '22'
+var = int(var) # convert "var" to int
+var = var  / 2 - 3 # apply math operators
+print (var) # print result
+```
+
+## Control Structure Example {.center}
+
+- This code checks if a variable called 'provider' in this list is equal to a selection of values and prints out an associated string.
+
+```{python}
+#| output-location: default
+#| eval: false
+
+if provider == ‘ryr’:
+  print(‘SUSSEX’)
+elif provider == ‘rhu’:
+  print(‘HIOW’)
+elif provider == ‘rxq’:
+  print(‘BOB’)
+else:
+  print(‘Unknown’)
+```
+
+## Control Structure Example {.center}
+
+For comparison, this is the equivalent SQL CASE statement.
+
+```sql
+CASE
+  WHEN provider = 'ryr'
+    THEN 'Sussex'
+  WHEN provider = 'rhu'
+    THEN 'HIOW'
+  WHEN provider = 'rhu'
+    THEN 'BOB'
+  ELSE 'Unknown'
+  END
+```
+
+## Watch Out for Unintended Consequences {.center}
+
+::: {.column style="width:50%"}
+- Not taking care over your coding can cause big issues. Consider the corner cases and unintended consequences?
+- Empty variables, incorrect data types, and misunderstood flow in the structure can affect your program.
+- Close the loop! Make sure you know how your loops are being switched off and that it’s possible.
+- A cautionary tale: [The Virtual Plague That Nearly Wiped Out The World of Warcraft](https://youtu.be/HFMv_hqinvc)
+
+:::
+
+::: {.column width="45%"}
+![The "Corrupted Blood" Incident - a fairly famous coding error.](images/plague.jpg)
+:::
+
+
+## Final Thoughts {.center}
+
+- **Don't worry about memorising any of this!**
+- The aim of this session is to give a basic understanding of the logic needed to implement control flow in your program.
+
+## Further Reading {.center}
+
+::: {.column style="width:95%;"}
+
+- [Python Tutorial - Control Flow](https://docs.python.org/3/tutorial/controlflow.html)
+- [Geeks for Geeks - Control Structures](https://www.geeksforgeeks.org/dsa/control-structures-in-programming-languages/)
+- [W3 Schools - if/elif/else Logic](https://www.w3schools.com/python/python_conditions.asp)
+- [List Comprehension in Python](https://realpython.com/list-comprehension-python/)
+:::
+
+# Thank You! {.center}
+
+<br>
+Contact:
+<br>
+
+<ul >
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+</ul>
+
+
+Code & Slides:
+<br>
+
+<ul >
+{{< fa brands github >}}[/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+</ul>
+<br>
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
