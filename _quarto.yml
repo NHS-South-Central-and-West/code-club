@@ -27,24 +27,25 @@ website:
         href: index.qmd
       # - text: Schedule
       #   aria-label: Sessions Schedule
-      #   href: schedule.qmd
+      #   href: schedule.qmd  # This was the original structure, reflected in the link people originally received,
+                              # hence the need for the redirect page.
       - text: Sessions
         aria-label: Session Series
         menu:
           - text: Essential Skills
             aria-label: Essential Skills Schedule
             href: sessions/schedule.qmd
-          - text: Intermediate
+          - text: Intermediate Skills
             aria-label: Intermediate Skills Schedule
-            href: intermidiate-skills-sessions/intermediate_skills_schedule.qmd
+            href: intermediate-skills-sessions/intermediate_skills_schedule.qmd
       - text: Resources
         aria-label: Additional Resources
         menu:
           - text: Glossary
             aria-label: Glossary
             href: resources/glossary.qmd
-      - sidebar:essentials
-      - sidebar:intermediate
+      #- sidebar:essentials
+      #- sidebar:intermediate
 
 
   sidebar:
@@ -99,30 +100,30 @@ website:
       style: docked
       contents:
         - text: Session Schedule
-        - file: intermediate-skills-sessions.qmd
+        - file: intermediate-skills-sessions/intermediate_skills_schedule.qmd
         - section: Tools
           contents: 
-          - text: 16. Git and GitHub
-          - text: 17. Quarto
+            - text: 16. Git and GitHub
+            - text: 17. Quarto
         - section: Intermediate Python
           contents: 
-          - text: 18. Webscraping and APIs
+            - text: 18. Webscraping and APIs
         - section: Machine Learning
           contents: 
-          - text: 19. TBC
-          - text: 20. TBC
-          - text: 21. TBC
-          - text: 22. TBC
+            - text: 19. TBC
+            - text: 20. TBC
+            - text: 21. TBC
+            - text: 22. TBC
         - section: Intermediate Python
           contents: 
-          - text: 23. Generators
-          - text: 24. Decorators
-          - text: 25. Asynchronous programming and callbacks
-          - text: 26. Higher order functions
-          - text: 27. Map, filter, reduce
-          - text: 28. Logging, debugging, exception handling
-          - text: 29. Packages
-          - text: 30. Design patterns
+            - text: 23. Generators
+            - text: 24. Decorators
+            - text: 25. Asynchronous programming and callbacks
+            - text: 26. Higher order functions
+            - text: 27. Map, filter, reduce
+            - text: 28. Logging, debugging, exception handling
+            - text: 29. Packages
+            - text: 30. Design patterns
 
 
 format:
