@@ -1,0 +1,42 @@
+---
+title: "Webscraping and APIs"
+format:
+  html: default
+  ipynb: default
+---
+
+## Regular Expressions
+
+This is a very important part of webscraping and APIs since you are often interested in accessing web pages and API endpoints based on a URL pattern
+
+https://pythex.org (for testing regex patterns against test strings). It also has a regex cheatsheet.
+
+Can be used to search for patterns re.search() and get the actual string from where the match was found: re.group()
+
+See my OneNote notes, since there's something interesting about finding second level options from the first level in a URL.
+
+## GET requests
+
+This is important enough to have its own level 2 section since it is used in both webscraping and API calls.
+
+- `request` library
+- You are looking for a response of 200. It's often built into try/except or if/else.
+
+## Webscraping
+
+### HTML tags
+
+These are important since they encode the structure of a web page. Understanding these gives you an idea of what is possible when it comes to accessing elements of the structure of a web page.
+
+- Examples from my Python Learning repo such as getting the title of the SCW page and scraping a table.
+
+### Beautiful Soup
+
+This library helps to parse the HTML and access the elements on a web page.
+
+## JSON APIs
+
+See OneNote notes since it's got a good note about how JSON records are semi-structured data since the data is labelled, but the structure or completeness may be inconsistent across entities relating to objects of the same type.
+
+- Flood data as the example? Or find another one since that's already used in the generators tutorial. Don't use UKHSA, though. Or maybe do & get people interested in collaborating.
+
