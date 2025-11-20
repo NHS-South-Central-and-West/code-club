@@ -7,7 +7,7 @@ format:
 
 In previous sessions, we learned how linear regression works: fit a straight line to data, minimise prediction error, and use that line for prediction and inference. Linear regression is powerful, but it assumes relationships are linear. In reality, data often follows curves, has constraints, or exhibits patterns that straight lines can't capture.
 
-This session explores how the linear regression framework adapts to non-linear patterns through **link functions**. We'll see that the same core idea, fitting a line through data to describe the relationship between variables, works for binary outcomes, counts, and other constrained data types. The key is transforming the scale so linear models can work.
+This session explores how the linear regression framework is adapted to non-linear patterns, using generalised linear models (GLMs), through **link functions**. We'll see that the same core idea, fitting a line through data to describe the relationship between variables, works for binary outcomes, counts, and other constrained data types. The key is transforming the scale so linear models can work.
 
 We'll focus on **logistic regression** for binary outcomes, implement it with real data, and briefly introduce other extensions like multilevel models and GAMs.
 
@@ -76,7 +76,7 @@ Linear regression predicts values below 0 and above 1, which make no sense for b
 
 ## The Solution - Link Functions
 
-Link functions transform the scale so linear models work. Instead of fitting a line directly to constrained data, we:
+Generalised linear models adapt the linear model framework to work with non-linear data. Link functions transform the scale so that a linear model fits the data. Instead of fitting a line directly to constrained data, we:
 
 1. Transform the outcome to an unbounded scale
 2. Fit a linear model on the transformed scale
@@ -343,7 +343,7 @@ Female passengers had much higher predicted survival probabilities across all ag
 
 ## Other Extensions of Linear Regression
 
-Logistic regression is just one example of adapting the linear framework to non-linear data, but there are many ways thi framework can be extended.
+Logistic regression is just one example of adapting the linear framework to non-linear data, but there are many ways this framework can be extended.
 
 ### Poisson Regression for Count Data
 
