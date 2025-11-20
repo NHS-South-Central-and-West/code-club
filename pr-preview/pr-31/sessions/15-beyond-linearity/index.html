@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,7 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -159,11 +159,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../sessions/schedule.html"> 
+    <a class="nav-link active" href="../../sessions/schedule.html" aria-current="page"> 
 <span class="menu-text">Sessions</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -199,10 +199,6 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../../index.html" class="sidebar-logo-link">
-      </a>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -381,7 +377,6 @@ window.Quarto = {
   <li><a href="#logistic-regression-in-practice" id="toc-logistic-regression-in-practice" class="nav-link" data-scroll-target="#logistic-regression-in-practice">Logistic Regression in Practice</a>
   <ul class="collapse">
   <li><a href="#load-and-prepare-data" id="toc-load-and-prepare-data" class="nav-link" data-scroll-target="#load-and-prepare-data">Load and Prepare Data</a></li>
-  <li><a href="#exploratory-data-analysis" id="toc-exploratory-data-analysis" class="nav-link" data-scroll-target="#exploratory-data-analysis">Exploratory Data Analysis</a></li>
   <li><a href="#fitting-a-logistic-regression-model" id="toc-fitting-a-logistic-regression-model" class="nav-link" data-scroll-target="#fitting-a-logistic-regression-model">Fitting a Logistic Regression Model</a></li>
   <li><a href="#interpreting-coefficients" id="toc-interpreting-coefficients" class="nav-link" data-scroll-target="#interpreting-coefficients">Interpreting Coefficients</a></li>
   <li><a href="#converting-coefficients-to-odds-ratios" id="toc-converting-coefficients-to-odds-ratios" class="nav-link" data-scroll-target="#converting-coefficients-to-odds-ratios">Converting Coefficients to Odds Ratios</a></li>
@@ -424,7 +419,7 @@ window.Quarto = {
 
 
 <p>In previous sessions, we learned how linear regression works: fit a straight line to data, minimise prediction error, and use that line for prediction and inference. Linear regression is powerful, but it assumes relationships are linear. In reality, data often follows curves, has constraints, or exhibits patterns that straight lines can’t capture.</p>
-<p>This session explores how the linear regression framework adapts to non-linear patterns through <strong>link functions</strong>. We’ll see that the same core idea—fitting a model to data—works for binary outcomes, counts, and other constrained data types. The key is transforming the scale so linear models can work.</p>
+<p>This session explores how the linear regression framework adapts to non-linear patterns through <strong>link functions</strong>. We’ll see that the same core idea, fitting a line through data to describe the relationship between variables, works for binary outcomes, counts, and other constrained data types. The key is transforming the scale so linear models can work.</p>
 <p>We’ll focus on <strong>logistic regression</strong> for binary outcomes, implement it with real data, and briefly introduce other extensions like multilevel models and GAMs.</p>
 <section id="slides" class="level1">
 <h1>Slides</h1>
@@ -567,9 +562,10 @@ First few rows:
 10         1       3    1   4.0  16.7000</code></pre>
 </div>
 </div>
-</section>
-<section id="exploratory-data-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="exploratory-data-analysis">Exploratory Data Analysis</h3>
+<details>
+<summary>
+Exploratory Data Analysis (Click to Expand)
+</summary>
 <p>Before modelling, examine the relationships between predictors and survival.</p>
 <div id="eda-survival-rate" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># overall survival rate</span></span>
@@ -633,6 +629,7 @@ Sex
 </div>
 </div>
 <p>Women, first-class passengers, and children had higher survival rates. Fare correlates with class.</p>
+</details>
 </section>
 <section id="fitting-a-logistic-regression-model" class="level3">
 <h3 class="anchored" data-anchor-id="fitting-a-logistic-regression-model">Fitting a Logistic Regression Model</h3>
