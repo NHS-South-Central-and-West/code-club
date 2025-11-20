@@ -221,26 +221,6 @@ The Family of Link Functions
 
 - All follow the same pattern: transform, fit linear model, transform back.
 
-## Poisson Regression for Count Outcomes {.center}
-
-```{python}
-#| label: count-example
-
-np.random.seed(42)
-hours_study = np.linspace(0, 10, 100)
-# counts follow Poisson with log-linear mean
-lambda_true = np.exp(0.5 + 0.3 * hours_study)
-questions = np.random.poisson(lambda_true)
-
-fig, ax = plt.subplots(figsize=(12, 8))
-sns.scatterplot(x=hours_study, y=questions, facecolors='white', edgecolors='black',
-                s=60, linewidths=1, alpha=0.7, ax=ax)
-ax.set_xlabel('Hours Studied')
-ax.set_ylabel('Questions Answered')
-ax.set_title('Count Data: Questions Answered vs Hours Studied')
-plt.show()
-```
-
 ## Poisson Regression Uses Log Link {.center}
 
 - Model the log of the expected count:
