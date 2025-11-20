@@ -419,7 +419,7 @@ window.Quarto = {
 
 
 <p>In previous sessions, we learned how linear regression works: fit a straight line to data, minimise prediction error, and use that line for prediction and inference. Linear regression is powerful, but it assumes relationships are linear. In reality, data often follows curves, has constraints, or exhibits patterns that straight lines can’t capture.</p>
-<p>This session explores how the linear regression framework adapts to non-linear patterns through <strong>link functions</strong>. We’ll see that the same core idea, fitting a line through data to describe the relationship between variables, works for binary outcomes, counts, and other constrained data types. The key is transforming the scale so linear models can work.</p>
+<p>This session explores how the linear regression framework is adapted to non-linear patterns, using generalised linear models (GLMs), through <strong>link functions</strong>. We’ll see that the same core idea, fitting a line through data to describe the relationship between variables, works for binary outcomes, counts, and other constrained data types. The key is transforming the scale so linear models can work.</p>
 <p>We’ll focus on <strong>logistic regression</strong> for binary outcomes, implement it with real data, and briefly introduce other extensions like multilevel models and GAMs.</p>
 <section id="slides" class="level1">
 <h1>Slides</h1>
@@ -490,7 +490,7 @@ window.Quarto = {
 </section>
 <section id="the-solution---link-functions" class="level2">
 <h2 class="anchored" data-anchor-id="the-solution---link-functions">The Solution - Link Functions</h2>
-<p>Link functions transform the scale so linear models work. Instead of fitting a line directly to constrained data, we:</p>
+<p>Generalised linear models adapt the linear model framework to work with non-linear data. Link functions transform the scale so that a linear model fits the data. Instead of fitting a line directly to constrained data, we:</p>
 <ol type="1">
 <li>Transform the outcome to an unbounded scale</li>
 <li>Fit a linear model on the transformed scale</li>
@@ -1419,7 +1419,7 @@ weighted avg       0.76      0.76      0.76       143
 </section>
 <section id="other-extensions-of-linear-regression" class="level2">
 <h2 class="anchored" data-anchor-id="other-extensions-of-linear-regression">Other Extensions of Linear Regression</h2>
-<p>Logistic regression is just one example of adapting the linear framework to non-linear data, but there are many ways thi framework can be extended.</p>
+<p>Logistic regression is just one example of adapting the linear framework to non-linear data, but there are many ways this framework can be extended.</p>
 <section id="poisson-regression-for-count-data" class="level3">
 <h3 class="anchored" data-anchor-id="poisson-regression-for-count-data">Poisson Regression for Count Data</h3>
 <p>When outcomes are counts (number of events, visits, occurrences), Poisson regression uses a log link.</p>
