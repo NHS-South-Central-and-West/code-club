@@ -259,10 +259,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
   <ul class="collapse">
   <li><a href="#what-is-git" id="toc-what-is-git" class="nav-link" data-scroll-target="#what-is-git">What is Git?</a></li>
-  <li><a href="#what-is-github" id="toc-what-is-github" class="nav-link" data-scroll-target="#what-is-github">What is Github?</a>
-  <ul class="collapse">
-  <li><a href="#github-desktop" id="toc-github-desktop" class="nav-link" data-scroll-target="#github-desktop">Github Desktop</a></li>
-  </ul></li>
+  <li><a href="#what-is-github" id="toc-what-is-github" class="nav-link" data-scroll-target="#what-is-github">What is Github?</a></li>
+  <li><a href="#terminology" id="toc-terminology" class="nav-link" data-scroll-target="#terminology">Terminology</a></li>
   </ul></li>
   <li><a href="#working-with-github" id="toc-working-with-github" class="nav-link" data-scroll-target="#working-with-github">Working with Github</a>
   <ul class="collapse">
@@ -327,21 +325,62 @@ ul.task-list li input[type="checkbox"] {
 <h1>Introduction</h1>
 <section id="what-is-git" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-git">What is Git?</h2>
+<p>Git is a <em>version control system</em>. It’s software that helps you track changes to your files over time. You can sort of think of it like <em>Track Changes</em> in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example.</p>
+<p>The basic concept in Git is a <em>repository</em>, which you can think of as a <em>project</em> that can contain an unlimited number of files and folders.</p>
+<p>Using Git for a project lets us:</p>
+<ul>
+<li>Automatically create and keep snapshots of your work at different points in time</li>
+<li>Clearly see exactly what changed between versions</li>
+<li>Go back to earlier versions if something goes wrong</li>
+<li>Create <em>branches</em> that let individuals or subgroups work on parts of a project without affecting the rest of it</li>
+<li>Understand who made which changes and when</li>
+<li>Request reviews from our colleagues, add comments to changes, and resolve issues before committing to an update</li>
+</ul>
+<p>Git was created in 2005 by Linus Torvalds (who also created Linux) and has become the standard tool for version control, particularly in software development. However, it’s useful for any project where you’re working with text files - reports, data analysis scripts, documentation, and more.</p>
 </section>
 <section id="what-is-github" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-github">What is Github?</h2>
-<section id="github-desktop" class="level3">
-<h3 class="anchored" data-anchor-id="github-desktop">Github Desktop</h3>
+<p>Github is a website that hosts Git repositories online. While Git works on your own computer and can be hosted on an organisation’s server, Github provides a place to store your repositories in the cloud where others can access them.</p>
+<p>Github adds several features on top of Git:</p>
+<ul>
+<li>A backup of your work stored safely online</li>
+<li>Easy collaboration - multiple people can work on the same project using a web-based interface</li>
+<li>A web interface to browse your files and history without using Git commands</li>
+<li>Github Desktop, an application that runs on your computer and lets you sync a Github repository with your local filesystem</li>
+<li>Tools for managing projects, discussing changes, and reviewing code</li>
+<li>A way to share your work publicly or keep it private within your organisation, with detailed user-based permissions</li>
+</ul>
+<p>Many organisations use Github to manage their projects because it makes collaboration straightforward and keeps everything in one accessible place. It’s free for most use cases, including unlimited private repositories for teams.</p>
+<p>Alternatives to Github do exist - one example is Gitlab.</p>
 </section>
+<section id="terminology" class="level2">
+<h2 class="anchored" data-anchor-id="terminology">Terminology</h2>
+<p>Git and Github use their own terminology and it’s important to keep this straight if we want to understand how to work with it. The essentials are below. This is non-exhaustive, but covers the basics needed to get started.</p>
+<ul>
+<li>Repository (“repo”) - A project folder that Git is tracking. Contains all your files plus the complete history of changes.</li>
+<li>Commit - A saved snapshot of your work at a particular point in time. Each commit records what changed, who made the change, and when.</li>
+<li>Clone - Making a copy of a repository from Github onto your computer so you can work on it locally.</li>
+<li>Push - Sending your commits from your computer up to Github so others can see them.</li>
+<li>Pull - Downloading commits from Github to your computer to get the latest changes others have made.</li>
+<li>Branch - A separate line of development. Lets you work on new features without affecting the main version of your project.</li>
+<li>Merge - Combining changes from one branch into another, typically bringing your work back into the <code>main</code> branch.</li>
+<li>Staging - Marking files to be included in your next commit. You stage changes before committing them.</li>
+<li>Conflict - When Git can’t automatically merge changes because two people edited the same part of a file differently. A merge conflict requires manual intervention to resolve, but thankfully Github gives us nice tools to deal with this.</li>
+</ul>
 </section>
 </section>
 <section id="working-with-github" class="level1">
 <h1>Working with Github</h1>
 <section id="creating-a-repository" class="level2">
 <h2 class="anchored" data-anchor-id="creating-a-repository">Creating a repository</h2>
+<p>Once you’ve got a Github account, creating a repository is very simple. On <a href="https://github.com/new">github.com/new</a>, there’s a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an <em>organisation</em>, and deciding whether it is going to be public or private.</p>
+<p><img src="images/create-repo.png" class="img-fluid"></p>
 </section>
 <section id="cloning-a-repository" class="level2">
 <h2 class="anchored" data-anchor-id="cloning-a-repository">Cloning a repository</h2>
+<p><em>Cloning</em> just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!</p>
+<p>In Github Desktop, assuming you’re logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click <em>File</em> &gt; <em>Clone Repository</em>:</p>
+<p><img src="images/desktop-clone-repo.png" class="img-fluid"></p>
 </section>
 <section id="making-changes" class="level2">
 <h2 class="anchored" data-anchor-id="making-changes">Making changes</h2>
