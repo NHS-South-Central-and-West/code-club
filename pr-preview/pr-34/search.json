@@ -947,77 +947,121 @@
     "href": "intermediate-skills-sessions/16-git-github/index.html#creating-a-repository",
     "title": "Git and Github",
     "section": "Creating a repository",
-    "text": "Creating a repository"
+    "text": "Creating a repository",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#cloning-a-repository",
     "href": "intermediate-skills-sessions/16-git-github/index.html#cloning-a-repository",
     "title": "Git and Github",
     "section": "Cloning a repository",
-    "text": "Cloning a repository"
+    "text": "Cloning a repository",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#making-changes",
     "href": "intermediate-skills-sessions/16-git-github/index.html#making-changes",
     "title": "Git and Github",
     "section": "Making changes",
-    "text": "Making changes\n\nEditing files\n\n\nStaging changes\n\n\nWriting commit messages"
+    "text": "Making changes\n\nEditing files\n\n\nStaging changes\n\n\nWriting commit messages",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#pushing-and-pulling",
     "href": "intermediate-skills-sessions/16-git-github/index.html#pushing-and-pulling",
     "title": "Git and Github",
     "section": "Pushing and pulling",
-    "text": "Pushing and pulling\n\nPushing your changes\n\n\nPulling changes from others"
+    "text": "Pushing and pulling\n\nPushing your changes\n\n\nPulling changes from others",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#viewing-history",
     "href": "intermediate-skills-sessions/16-git-github/index.html#viewing-history",
     "title": "Git and Github",
     "section": "Viewing history",
-    "text": "Viewing history"
+    "text": "Viewing history",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#branching-basics",
     "href": "intermediate-skills-sessions/16-git-github/index.html#branching-basics",
     "title": "Git and Github",
     "section": "Branching basics",
-    "text": "Branching basics\n\nWhat are branches?\n\n\nCreating and switching branches\n\n\nMerging branches"
+    "text": "Branching basics\n\nWhat are branches?\n\n\nCreating and switching branches\n\n\nMerging branches",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#working-with-others",
     "href": "intermediate-skills-sessions/16-git-github/index.html#working-with-others",
     "title": "Git and Github",
     "section": "Working with others",
-    "text": "Working with others"
+    "text": "Working with others",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#handling-conflicts",
     "href": "intermediate-skills-sessions/16-git-github/index.html#handling-conflicts",
     "title": "Git and Github",
     "section": "Handling conflicts",
-    "text": "Handling conflicts"
+    "text": "Handling conflicts",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#pull-requests",
     "href": "intermediate-skills-sessions/16-git-github/index.html#pull-requests",
     "title": "Git and Github",
     "section": "Pull requests",
-    "text": "Pull requests"
+    "text": "Pull requests",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#common-issues-and-solutions",
     "href": "intermediate-skills-sessions/16-git-github/index.html#common-issues-and-solutions",
     "title": "Git and Github",
     "section": "Common issues and solutions",
-    "text": "Common issues and solutions"
+    "text": "Common issues and solutions",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "intermediate-skills-sessions/16-git-github/index.html#resources-for-learning-more",
     "href": "intermediate-skills-sessions/16-git-github/index.html#resources-for-learning-more",
     "title": "Git and Github",
     "section": "Resources for learning more",
-    "text": "Resources for learning more"
+    "text": "Resources for learning more",
+    "crumbs": [
+      "Tools",
+      "16. Git and GitHub"
+    ]
   },
   {
     "objectID": "index.html",
