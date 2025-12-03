@@ -266,6 +266,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#creating-a-repository" id="toc-creating-a-repository" class="nav-link" data-scroll-target="#creating-a-repository">Creating a repository</a></li>
   <li><a href="#cloning-a-repository" id="toc-cloning-a-repository" class="nav-link" data-scroll-target="#cloning-a-repository">Cloning a repository</a></li>
+  <li><a href="#brief-note-on-gitignore" id="toc-brief-note-on-gitignore" class="nav-link" data-scroll-target="#brief-note-on-gitignore">Brief note on <code>gitignore</code></a></li>
   <li><a href="#making-changes" id="toc-making-changes" class="nav-link" data-scroll-target="#making-changes">Making changes</a></li>
   <li><a href="#pushing-and-pulling" id="toc-pushing-and-pulling" class="nav-link" data-scroll-target="#pushing-and-pulling">Pushing and pulling</a></li>
   <li><a href="#viewing-history" id="toc-viewing-history" class="nav-link" data-scroll-target="#viewing-history">Viewing history</a></li>
@@ -334,6 +335,19 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Many organisations use Github to manage their projects because it makes collaboration straightforward and keeps everything in one accessible place. It’s free for most use cases, including unlimited private repositories for teams.</p>
 <p>Alternatives to Github do exist - one example is Gitlab.</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>An important note regarding IG
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Github is a public platform ultimately operated by Microsoft with servers in the USA. Public repositories are visible to anyone, even those without a github account! Be absolutely sure you understand what you’re pushing to Github if you are working on a project that interacts with non-public NHS data in any way. Even if you’re working with a private repository, this still is not suitable for anything sensitive as this will not be GDPR compliant.</p>
+</div>
+</div>
 </section>
 <section id="terminology" class="level3">
 <h3 class="anchored" data-anchor-id="terminology">Terminology</h3>
@@ -363,6 +377,14 @@ ul.task-list li input[type="checkbox"] {
 <p><em>Cloning</em> just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!</p>
 <p>In Github Desktop, assuming you’re logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click <em>File</em> &gt; <em>Clone Repository</em>:</p>
 <p><img src="images/desktop-clone-repo.png" class="img-fluid"></p>
+</section>
+<section id="brief-note-on-gitignore" class="level3">
+<h3 class="anchored" data-anchor-id="brief-note-on-gitignore">Brief note on <code>gitignore</code></h3>
+<p>There are often cases where we want certain parts of the project <em>not</em> to be tracked by git. For example, if we’re using <code>uv</code> to maintain a <code>venv</code> with our python libraries, it would be a waste for these files to be uploaded and downloaded every time we interact with our repo. <code>uv</code> actually takes care of this for us! But in other cases we need to do this ourselves - for example, we might be writing a project that uses <code>csv</code> files for data, and we don’t want these to be uploaded.</p>
+<p>Github Desktop makes this very easy. When we’ve added some files or folders that we want git to ignore, we just right click within the changes list and add either the individual files or entire folders to <code>gitignore</code> - once we’ve done this, git will disregard these files and folders, refrain from pushing them to the remote repo, and not track any changes made to them.</p>
+<p><img src="images/desktop-ignore.png" class="img-fluid"></p>
+<p>We can also go to <strong>Repository</strong> &gt; <strong>Repository Settings…</strong> and see everything currently in our gitignore file.</p>
+<p><img src="images/desktop-ignore-2.png" class="img-fluid"></p>
 </section>
 <section id="making-changes" class="level3">
 <h3 class="anchored" data-anchor-id="making-changes">Making changes</h3>
