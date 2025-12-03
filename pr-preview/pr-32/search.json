@@ -187,6 +187,94 @@
     ]
   },
   {
+    "objectID": "sessions/15-beyond-linearity/index.html",
+    "href": "sessions/15-beyond-linearity/index.html",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "",
+    "text": "In previous sessions, we learned how linear regression works: fit a straight line to data, minimise prediction error, and use that line for prediction and inference. Linear regression is powerful, but it assumes relationships are linear. In reality, data often follows curves, has constraints, or exhibits patterns that straight lines can’t capture.\nThis session explores how the linear regression framework is adapted to non-linear patterns, using generalised linear models (GLMs), through link functions. We’ll see that the same core idea, fitting a line through data to describe the relationship between variables, works for binary outcomes, counts, and other constrained data types. The key is transforming the scale so linear models can work.\nWe’ll focus on logistic regression for binary outcomes, implement it with real data, and briefly introduce other extensions like multilevel models and GAMs.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/index.html#when-linear-regression-fails",
+    "href": "sessions/15-beyond-linearity/index.html#when-linear-regression-fails",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "When Linear Regression Fails",
+    "text": "When Linear Regression Fails\nLinear regression assumes the relationship between predictors and outcome is linear. This works when each unit increase in \\(X\\) produces a constant change in \\(Y\\). But many real-world relationships don’t follow this pattern.\n\nExamples of Non-Linear Data\n\nBinary outcomes - Survived/died, yes/no, pass/fail. Outcomes are 0 or 1, not continuous.\nCount data - Number of hospital visits, customer complaints. Must be non-negative integers.\nProportions - Percentage passing an exam, recovery rates. Bounded between 0 and 1.\nGrowth curves - Disease spread, population growth. Exponential or S-shaped patterns.\n\nForcing linear regression onto these data types produces nonsensical predictions (probabilities above 1, negative counts) and violates model assumptions.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/index.html#the-problem-illustrated",
+    "href": "sessions/15-beyond-linearity/index.html#the-problem-illustrated",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "The Problem Illustrated",
+    "text": "The Problem Illustrated\n\nimport pandas as pd\nimport numpy as np\nimport matplotlib.pyplot as plt\nimport seaborn as sns\nfrom sklearn.linear_model import LinearRegression, LogisticRegression\n\n# set visualisation style\nsns.set_theme(style=\"whitegrid\")\nplt.rcParams['figure.figsize'] = (10, 6)\n\n# simulate binary outcome data\nnp.random.seed(42)\nage = np.linspace(20, 80, 100)\nprob_true = 1 / (1 + np.exp(-(age - 50) / 8))\ndisease = np.random.binomial(1, prob_true)\n\n# fit linear regression\nmodel_linear = LinearRegression()\nmodel_linear.fit(age.reshape(-1, 1), disease)\npred_linear = model_linear.predict(age.reshape(-1, 1))\n\n# plot\nfig, ax = plt.subplots(figsize=(10, 6))\nsns.scatterplot(x=age, y=disease, facecolors='white', edgecolors='black',\n                s=60, linewidths=1, alpha=0.7, ax=ax)\nsns.lineplot(x=age, y=pred_linear, color='#ED8B00', linewidth=2, ax=ax, label='Linear Model')\nax.axhline(y=0, color='red', linestyle='--', alpha=0.5, label='Valid Range')\nax.axhline(y=1, color='red', linestyle='--', alpha=0.5)\nax.set_xlabel('Age')\nax.set_ylabel('Disease (0 = No, 1 = Yes)')\nax.set_title('Linear Regression on Binary Data: Predictions Outside Valid Range')\nax.set_ylim(-0.2, 1.2)\nax.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\nLinear regression predicts values below 0 and above 1, which make no sense for binary outcomes.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/index.html#the-solution---link-functions",
+    "href": "sessions/15-beyond-linearity/index.html#the-solution---link-functions",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "The Solution - Link Functions",
+    "text": "The Solution - Link Functions\nGeneralised linear models adapt the linear model framework to work with non-linear data. Link functions transform the scale so that a linear model fits the data. Instead of fitting a line directly to constrained data, we:\n\nTransform the outcome to an unbounded scale\nFit a linear model on the transformed scale\nTransform predictions back to the original scale\n\nThis preserves the linearity of the model while respecting data constraints.\n\n\nHow Logistic Regression Works (Click to Expand)\n\n\nThe Logit Link\nFor binary outcomes, we use the logit link, which models the log-odds.\n\\[\n\\log\\left(\\frac{p}{1-p}\\right) = \\beta_0 + \\beta_1X\n\\]\nThe left side of this equation is the log-odds for an outcome of probability \\(p\\). This can be any value from \\(-\\infty\\) to \\(+\\infty\\). This is equivalent to the right side of the equation, which is the linear predictor we have encountered in previous sessions.\nTo get probabilities, we transform back using the inverse logit.\n\\[\np = \\frac{1}{1 + e^{-(\\beta_0 + \\beta_1X)}}\n\\]\nThis produces an S-shaped curve that stays between 0 and 1.\n\n\nWhy Log-Odds?\nOdds represent the ratio of success to failure: \\(\\frac{p}{1-p}\\). If \\(p = 0.8\\), odds are \\(\\frac{0.8}{0.2} = 4\\) (4 to 1 in favour). Taking the log makes this unbounded:\n\n\\(p = 0.5\\) → odds = 1 → log-odds = 0\n\\(p\\) close to 0 → odds close to 0 → log-odds \\(\\to -\\infty\\)\n\\(p\\) close to 1 → odds \\(\\to \\infty\\) → log-odds \\(\\to +\\infty\\)\n\nNow we can fit a linear model on the log-odds scale.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/index.html#logistic-regression-in-practice",
+    "href": "sessions/15-beyond-linearity/index.html#logistic-regression-in-practice",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "Logistic Regression in Practice",
+    "text": "Logistic Regression in Practice\nLet’s implement logistic regression using the Titanic dataset. Our goal is to predict passenger survival based on characteristics like age, sex, and passenger class.\n\nLoad and Prepare Data\n\n# load titanic data\nurl = 'https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv'\ntitanic = pd.read_csv(url)\n\n# select relevant columns and drop missing values\ndf = titanic[['Survived', 'Pclass', 'Sex', 'Age', 'Fare']].dropna()\n\n# convert sex to binary\ndf['Sex'] = (df['Sex'] == 'female').astype(int)\n\nprint(f\"Dataset shape: {df.shape}\")\nprint(\"\\nFirst few rows:\")\nprint(df.head(10))\n\nDataset shape: (714, 5)\n\nFirst few rows:\n    Survived  Pclass  Sex   Age     Fare\n0          0       3    0  22.0   7.2500\n1          1       1    1  38.0  71.2833\n2          1       3    1  26.0   7.9250\n3          1       1    1  35.0  53.1000\n4          0       3    0  35.0   8.0500\n6          0       1    0  54.0  51.8625\n7          0       3    0   2.0  21.0750\n8          1       3    1  27.0  11.1333\n9          1       2    1  14.0  30.0708\n10         1       3    1   4.0  16.7000\n\n\n\n\nExploratory Data Analysis (Click to Expand)\n\nBefore modelling, examine the relationships between predictors and survival.\n\n# overall survival rate\nsurvival_rate = df['Survived'].mean()\nprint(f\"Overall survival rate: {survival_rate:.1%}\")\n\n# survival by sex\nsurvival_sex = df.groupby('Sex')['Survived'].mean()\nprint(\"\\nSurvival rate by sex:\")\nprint(survival_sex.to_frame().rename(columns={'Survived': 'Survival Rate'}))\n\nOverall survival rate: 40.6%\n\nSurvival rate by sex:\n     Survival Rate\nSex               \n0         0.205298\n1         0.754789\n\n\n\nfig, axes = plt.subplots(2, 2, figsize=(14, 10))\n\n# survival by sex\nsurvival_sex = df.groupby('Sex')['Survived'].mean()\naxes[0, 0].bar(['Male', 'Female'], survival_sex.values, color=['#005EB8', '#ED8B00'])\naxes[0, 0].set_ylabel('Survival Rate')\naxes[0, 0].set_title('Survival Rate by Sex')\naxes[0, 0].set_ylim(0, 1)\n\n# survival by class\nsurvival_class = df.groupby('Pclass')['Survived'].mean()\naxes[0, 1].bar(survival_class.index, survival_class.values, color='#005EB8')\naxes[0, 1].set_xlabel('Passenger Class')\naxes[0, 1].set_ylabel('Survival Rate')\naxes[0, 1].set_title('Survival Rate by Class')\naxes[0, 1].set_ylim(0, 1)\n\n# age distribution by survival\nsns.histplot(data=df, x='Age', hue='Survived', bins=30, ax=axes[1, 0], \n             palette={0: '#ED8B00', 1: '#005EB8'}, alpha=0.6)\naxes[1, 0].set_title('Age Distribution by Survival')\naxes[1, 0].set_xlabel('Age')\naxes[1, 0].legend(['Died', 'Survived'])\n\n# fare distribution by survival\nsns.histplot(data=df, x='Fare', hue='Survived', bins=30, ax=axes[1, 1],\n             palette={0: '#ED8B00', 1: '#005EB8'}, alpha=0.6, log_scale=True)\naxes[1, 1].set_title('Fare Distribution by Survival (Log Scale)')\naxes[1, 1].set_xlabel('Fare (£)')\naxes[1, 1].legend(['Died', 'Survived'])\n\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\nWomen, first-class passengers, and children had higher survival rates. Fare correlates with class.\n\n\n\nFitting a Logistic Regression Model\nWe’ll fit two models: a simple model with only sex as a predictor, and a multiple model with all predictors.\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import accuracy_score, confusion_matrix, classification_report\n\n# prepare data\nX = df[['Sex', 'Age', 'Pclass', 'Fare']]\ny = df['Survived']\n\n# split into train and test sets\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42\n)\n\n# fit logistic regression\nclf = LogisticRegression(max_iter=1000)\nclf.fit(X_train, y_train)\n\nLogisticRegression(max_iter=1000)In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.LogisticRegression?Documentation for LogisticRegressioniFitted\n        \n            \n                Parameters\n                \n\n\n\n\npenalty \n'l2'\n\n\n\ndual \nFalse\n\n\n\ntol \n0.0001\n\n\n\nC \n1.0\n\n\n\nfit_intercept \nTrue\n\n\n\nintercept_scaling \n1\n\n\n\nclass_weight \nNone\n\n\n\nrandom_state \nNone\n\n\n\nsolver \n'lbfgs'\n\n\n\nmax_iter \n1000\n\n\n\nmulti_class \n'deprecated'\n\n\n\nverbose \n0\n\n\n\nwarm_start \nFalse\n\n\n\nn_jobs \nNone\n\n\n\nl1_ratio \nNone\n\n\n\n\n            \n        \n    \n\n\n\n\nInterpreting Coefficients\n\nimport statsmodels.api as sm\n\n# use statsmodels for detailed output\nX = sm.add_constant(X)\nglm = sm.Logit(y, X).fit()\n\nprint(glm.summary().tables[1])\n\nOptimization terminated successfully.\n         Current function value: 0.453242\n         Iterations 6\n==============================================================================\n                 coef    std err          z      P&gt;|z|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          2.4698      0.525      4.707      0.000       1.442       3.498\nSex            2.5182      0.208     12.115      0.000       2.111       2.926\nAge           -0.0367      0.008     -4.780      0.000      -0.052      -0.022\nPclass        -1.2697      0.159     -8.005      0.000      -1.581      -0.959\nFare           0.0005      0.002      0.246      0.805      -0.004       0.005\n==============================================================================\n\n\nCoefficients are on the log-odds scale. Positive coefficients increase the probability of survival, negative coefficients decrease it.\n\nSex (Female) - Coefficient = 2.52. Being female increases log-odds of survival. On the probability scale, women had much higher survival rates.\nAge - Coefficient = -0.037. Younger passengers had slightly higher survival rates.\nPclass - Coefficient = -1.27. Higher class numbers (lower class) decrease survival probability.\nFare - Coefficient = 0.001. Higher fares (correlated with class) increase survival.\n\n\n\nConverting Coefficients to Odds Ratios\nExponentiate coefficients to get odds ratios.\n\nodds_ratios = np.exp(glm.params)\nconf_int = np.exp(glm.conf_int())\n\nresults_df = pd.DataFrame({\n    'Odds Ratio': odds_ratios,\n    '95% CI Lower': conf_int[0],\n    '95% CI Upper': conf_int[1]\n}).round(2)\n\nprint(\"\\nOdds Ratios:\")\nprint(results_df)\n\n\nOdds Ratios:\n        Odds Ratio  95% CI Lower  95% CI Upper\nconst        11.82          4.23         33.05\nSex          12.41          8.25         18.65\nAge           0.96          0.95          0.98\nPclass        0.28          0.21          0.38\nFare          1.00          1.00          1.00\n\n\n\nSex - Being female multiplies the odds of survival by ~11. Women were much more likely to survive.\nAge - Each year of age multiplies odds by ~0.97 (slight decrease).\nPclass - Each class decrease (e.g., 2nd to 3rd) multiplies odds by ~0.33.\n\n\n\nMaking Predictions\n\n# predict probabilities on test set\ny_pred_prob = clf.predict_proba(X_test)[:, 1]\ny_pred = clf.predict(X_test)\n\n# model performance\naccuracy = accuracy_score(y_test, y_pred)\nprint(f\"Test set accuracy: {accuracy:.1%}\")\n\n# confusion matrix\ncm = confusion_matrix(y_test, y_pred)\nprint(\"\\nConfusion Matrix:\")\nprint(pd.DataFrame(cm, \n                   columns=['Predicted: Died', 'Predicted: Survived'],\n                   index=['Actual: Died', 'Actual: Survived']))\n\n# classification report\nprint(\"\\nClassification Report:\")\nprint(classification_report(y_test, y_pred, target_names=['Died', 'Survived']))\n\nTest set accuracy: 75.5%\n\nConfusion Matrix:\n                  Predicted: Died  Predicted: Survived\nActual: Died                   68                   19\nActual: Survived               16                   40\n\nClassification Report:\n              precision    recall  f1-score   support\n\n        Died       0.81      0.78      0.80        87\n    Survived       0.68      0.71      0.70        56\n\n    accuracy                           0.76       143\n   macro avg       0.74      0.75      0.75       143\nweighted avg       0.76      0.76      0.76       143\n\n\n\nThe model correctly classifies ~76% of passengers. It performs better at predicting deaths than survivals, likely because more passengers died overall.\n\n\nVisualising Predictions\n\n# create a grid of ages and predict survival probability for male/female passengers\nage_range = np.linspace(0, 80, 100)\n\n# predictions for male, 3rd class passengers\nX_male = pd.DataFrame({\n    'Sex': 0,\n    'Age': age_range,\n    'Pclass': 3,\n    'Fare': df['Fare'].median()\n})\n\n# predictions for female, 3rd class passengers\nX_female = pd.DataFrame({\n    'Sex': 1,\n    'Age': age_range,\n    'Pclass': 3,\n    'Fare': df['Fare'].median()\n})\n\nprob_male = clf.predict_proba(X_male)[:, 1]\nprob_female = clf.predict_proba(X_female)[:, 1]\n\nfig, ax = plt.subplots(figsize=(10, 6))\nsns.lineplot(x=age_range, y=prob_male, color='#005EB8', linewidth=2, \n             label='Male, 3rd Class', ax=ax)\nsns.lineplot(x=age_range, y=prob_female, color='#ED8B00', linewidth=2,\n             label='Female, 3rd Class', ax=ax)\nax.set_xlabel('Age')\nax.set_ylabel('Probability of Survival')\nax.set_title('Predicted Survival Probability by Age and Sex (3rd Class)')\nax.set_ylim(0, 1)\nax.legend()\nplt.tight_layout()\nplt.show()\n\n\n\n\n\n\n\n\nFemale passengers had much higher predicted survival probabilities across all ages. Younger passengers (especially children) had higher survival rates, consistent with “women and children first”.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/index.html#other-extensions-of-linear-regression",
+    "href": "sessions/15-beyond-linearity/index.html#other-extensions-of-linear-regression",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "Other Extensions of Linear Regression",
+    "text": "Other Extensions of Linear Regression\nLogistic regression is just one example of adapting the linear framework to non-linear data, but there are many ways this framework can be extended.\n\nPoisson Regression for Count Data\nWhen outcomes are counts (number of events, visits, occurrences), Poisson regression uses a log link.\n\n\nModel Formula (Click to Expand)\n\n\\[\n\\log(\\text{E}[Y]) = \\beta_0 + \\beta_1X\n\\]\nTransform back to get expected count: \\(\\text{E}[Y] = e^{\\beta_0 + \\beta_1X}\\). Predictions are always positive, matching count data.\n\nExample use cases - Number of hospital admissions, customer complaints, goals scored.\n\n\nGeneralised Additive Models (GAMs)\nGAMs fit smooth, flexible curves instead of straight lines.\n\n\nModel Formula (Click to Expand)\n\n\\[\nY = \\beta_0 + f_1(X_1) + f_2(X_2) + \\epsilon\n\\]\nEach \\(f_i(X_i)\\) is a smooth function that adapts to the data. GAMs capture complex non-linear patterns (U-shapes, wiggles) while remaining interpretable.\n\nExample use cases - Temperature effects on sales, age-related health trends, non-linear dose-response relationships.\nPython implementation uses pygam:\nfrom pygam import GAM, s\n\n# fit a GAM with smooth functions\ngam = GAM(s(0) + s(1))\ngam.fit(X, y)\n\n\nMultilevel Models\nWhen data has hierarchical structure (students in schools, patients in hospitals, repeated measures on individuals), multilevel models account for grouping.\n\n\nModel Formula (Click to Expand)\n\n\\[\nY_{ij} = \\beta_0 + u_j + \\beta_1X_{ij} + \\epsilon_{ij}\n\\]\n\n\\(u_j\\) is a group-specific effect (random intercept).\nGroups can have different baselines but share information.\n\n\nExample use cases - Educational data (students in schools), clinical trials (patients in sites), longitudinal data (repeated measures on individuals).\nPython implementation uses statsmodels or pymer4:\nimport statsmodels.formula.api as smf\n\n# fit a multilevel model\nmlm = smf.mixedlm(\"y ~ x\", data=df, groups=df[\"group_id\"])\nresult = mlm.fit()\n\n\nSurvival Analysis\nWhen modelling time until an event (death, failure, recovery), use survival models like Cox proportional hazards regression. These account for censoring (observations where the event hasn’t occurred yet).\nExample use cases - Patient survival times, equipment failure, customer churn.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/index.html#why-this-matters",
+    "href": "sessions/15-beyond-linearity/index.html#why-this-matters",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "Why This Matters",
+    "text": "Why This Matters\nAll these models share the same foundation: linear regression. Once you understand fitting a line to data, you can:\n\nUse link functions for constrained outcomes (binary, counts, proportions)\nFit flexible curves with GAMs\nAccount for hierarchy with multilevel models\nModel time-to-event data with survival analysis\n\nThe linear framework is incredibly versatile. It’s not just for linear relationships.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/index.html#summary",
+    "href": "sessions/15-beyond-linearity/index.html#summary",
+    "title": "Regression Fundamentals: Beyond Linearity",
+    "section": "Summary",
+    "text": "Summary\n\nReal data often violates linear regression assumptions\nLink functions transform data so linear models work\nLogistic regression (logit link) handles binary outcomes\nOther GLMs (Poisson, etc.) handle counts and constrained data\nExtensions like GAMs and multilevel models add flexibility\nThe linear framework adapts to almost any problem\n\nLinear regression isn’t just a starting point. It’s a foundation you can build on for almost any modelling task.",
+    "crumbs": [
+      "Data Science",
+      "15. Beyond Linearity"
+    ]
+  },
+  {
     "objectID": "sessions/01-onboarding/index.html",
     "href": "sessions/01-onboarding/index.html",
     "title": "Python Onboarding",
@@ -1388,6 +1476,125 @@
     "title": "Python Onboarding",
     "section": "IDE",
     "text": "IDE\n\nAn IDE (Integrated Development Environment) is fully featured software that provides everything you need to write code as conveniently as possible.\nIt typically includes a code editor, debugger, build tools, and features like syntax highlighting and code completion.\nSome common IDEs used for Python include VS Code, PyCharm, Vim, Jupyter Notebooks/JupyterLab, and Positron.\nWe will use VS Code or Jupyter Notebooks (which is not exactly an IDE but is similar)."
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#linear-models-for-linear-effects",
+    "href": "sessions/15-beyond-linearity/slides.html#linear-models-for-linear-effects",
+    "title": "Beyond Linearity",
+    "section": "Linear Models for Linear Effects",
+    "text": "Linear Models for Linear Effects\n\nLinear regression fits a straight line through data\nAssumes constant effect: each unit increase in \\(X\\) changes \\(Y\\) by the same amount\nWorks when the relationship is linear\n\n\\[\nY = \\beta_0 + \\beta_1X + \\epsilon\n\\]"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#linear-relationships-in-the-real-world",
+    "href": "sessions/15-beyond-linearity/slides.html#linear-relationships-in-the-real-world",
+    "title": "Beyond Linearity",
+    "section": "Linear Relationships in the Real World",
+    "text": "Linear Relationships in the Real World"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#but-real-data-isnt-always-linear",
+    "href": "sessions/15-beyond-linearity/slides.html#but-real-data-isnt-always-linear",
+    "title": "Beyond Linearity",
+    "section": "But Real Data Isn’t Always Linear",
+    "text": "But Real Data Isn’t Always Linear\n\nGrowth curves (exponential, logistic)\nBinary outcomes (survived/died, yes/no)\nCount data (number of events)\nBounded outcomes (proportions, rates)\nCurved relationships (U-shaped, S-shaped)"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#probability-of-disease-by-age",
+    "href": "sessions/15-beyond-linearity/slides.html#probability-of-disease-by-age",
+    "title": "Beyond Linearity",
+    "section": "Probability of Disease by Age",
+    "text": "Probability of Disease by Age"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#fitting-a-straight-line-fails",
+    "href": "sessions/15-beyond-linearity/slides.html#fitting-a-straight-line-fails",
+    "title": "Beyond Linearity",
+    "section": "Fitting a Straight Line Fails",
+    "text": "Fitting a Straight Line Fails"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#the-problem-is-the-scale",
+    "href": "sessions/15-beyond-linearity/slides.html#the-problem-is-the-scale",
+    "title": "Beyond Linearity",
+    "section": "The Problem is the Scale",
+    "text": "The Problem is the Scale\n\nLinear regression assumes outcomes can take any value\nBut many outcomes are constrained:\n\nProbabilities must be between 0 and 1\nCounts must be non-negative integers\nProportions are bounded\n\nForcing a straight line violates these constraints"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#the-core-insight",
+    "href": "sessions/15-beyond-linearity/slides.html#the-core-insight",
+    "title": "Beyond Linearity",
+    "section": "The Core Insight",
+    "text": "The Core Insight\n\nDon’t force data onto a straight line\nTransform the scale so linear regression works\nFit the line on the transformed scale\nTransform back to get predictions\nThis is what link functions do."
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#how-link-functions-work",
+    "href": "sessions/15-beyond-linearity/slides.html#how-link-functions-work",
+    "title": "Beyond Linearity",
+    "section": "How Link Functions Work",
+    "text": "How Link Functions Work\n\nThe link function connects the linear predictor to the outcome:\n\nTake your outcome \\(Y\\) (bounded, binary, count, etc.)\nApply a transformation that “stretches” or “squashes” the scale\nFit a linear model on the transformed scale\nTransform predictions back to the original scale"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#the-logit-link-for-binary-outcomes",
+    "href": "sessions/15-beyond-linearity/slides.html#the-logit-link-for-binary-outcomes",
+    "title": "Beyond Linearity",
+    "section": "The Logit Link for Binary Outcomes",
+    "text": "The Logit Link for Binary Outcomes\n\nFor binary outcomes (0 or 1), we model the log-odds:\n\n\\[\n\\log\\left(\\frac{p}{1-p}\\right) = \\beta_0 + \\beta_1X\n\\]\n\nLeft side: log-odds (can be any value)\nRight side: linear predictor (can be any value)\nTransform back to get probability: \\(p = \\frac{1}{1 + e^{-(\\beta_0 + \\beta_1X)}}\\)\nThis is logistic regression."
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#visualising-the-transformation",
+    "href": "sessions/15-beyond-linearity/slides.html#visualising-the-transformation",
+    "title": "Beyond Linearity",
+    "section": "Visualising the Transformation",
+    "text": "Visualising the Transformation"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#logistic-regression-fits-an-s-curve",
+    "href": "sessions/15-beyond-linearity/slides.html#logistic-regression-fits-an-s-curve",
+    "title": "Beyond Linearity",
+    "section": "Logistic Regression Fits an S-Curve",
+    "text": "Logistic Regression Fits an S-Curve"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#different-outcomes-need-different-links",
+    "href": "sessions/15-beyond-linearity/slides.html#different-outcomes-need-different-links",
+    "title": "Beyond Linearity",
+    "section": "Different Outcomes Need Different Links",
+    "text": "Different Outcomes Need Different Links\n\nBinary outcomes → Logit link → Logistic regression\nCount data → Log link → Poisson regression\nContinuous positive → Log link → Log-linear models\nProportions → Logit link → Beta regression\nAll follow the same pattern: transform, fit linear model, transform back."
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#poisson-regression-uses-log-link",
+    "href": "sessions/15-beyond-linearity/slides.html#poisson-regression-uses-log-link",
+    "title": "Beyond Linearity",
+    "section": "Poisson Regression Uses Log Link",
+    "text": "Poisson Regression Uses Log Link\n\nModel the log of the expected count:\n\n\\[\n\\log(\\text{E}[Y]) = \\beta_0 + \\beta_1X\n\\]\n\nLeft side: log of expected count (can be any value)\nRight side: linear predictor (can be any value)\nTransform back: \\(\\text{E}[Y] = e^{\\beta_0 + \\beta_1X}\\)\nPredictions are always positive, matching count data."
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#what-weve-learned",
+    "href": "sessions/15-beyond-linearity/slides.html#what-weve-learned",
+    "title": "Beyond Linearity",
+    "section": "What We’ve Learned",
+    "text": "What We’ve Learned\n\nReal data often doesn’t fit straight lines.\nLink functions transform non-linear problems into linear ones.\nLogistic regression (logit link) handles binary outcomes.\nPoisson regression (log link) handles count data.\nLinear regression isn’t limited to linear relationships."
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#the-power-of-this-approach",
+    "href": "sessions/15-beyond-linearity/slides.html#the-power-of-this-approach",
+    "title": "Beyond Linearity",
+    "section": "The Power of This Approach",
+    "text": "The Power of This Approach\n\nSimplicity - Same core idea (fit a line) works everywhere.\nFlexibility - Adapts to different data types and structures.\nInterpretability - Coefficients still represent effects.\nExtensibility - Once you know linear regression, you can learn anything."
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#further-learning",
+    "href": "sessions/15-beyond-linearity/slides.html#further-learning",
+    "title": "Beyond Linearity",
+    "section": "Further Learning",
+    "text": "Further Learning\n\nStatQuest (Josh Starmer) - Logistic Regression\nAndrew Gelman et al. - Regression & Other Stories"
+  },
+  {
+    "objectID": "sessions/15-beyond-linearity/slides.html#thank-you",
+    "href": "sessions/15-beyond-linearity/slides.html#thank-you",
+    "title": "Beyond Linearity",
+    "section": "Thank You!",
+    "text": "Thank You!\nContact:\n scwcsu.analytics.specialist at nhs dot net\nCode & Slides:\n /NHS-South-Central-and-West/code-club\n… And don’t forget to give us your feedback."
   },
   {
     "objectID": "sessions/08-functions/slides.html#what-are-functions",
