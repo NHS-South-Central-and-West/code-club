@@ -1,0 +1,57 @@
+---
+title: "Git and Github"
+format:
+  html: default
+---
+
+# Introduction
+
+## What is Git?
+
+## What is Github?
+
+### Github Desktop
+
+# Working with Github
+
+## Creating a repository
+
+## Cloning a repository
+
+## Making changes
+
+### Editing files
+
+### Staging changes
+
+### Writing commit messages
+
+## Pushing and pulling
+
+### Pushing your changes
+
+### Pulling changes from others
+
+## Viewing history
+
+## Branching basics
+
+### What are branches?
+
+### Creating and switching branches
+
+### Merging branches
+
+# Collaboration
+
+## Working with others
+
+## Handling conflicts
+
+## Pull requests
+
+# Getting help
+
+## Common issues and solutions
+
+## Resources for learning more
