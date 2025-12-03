@@ -105,6 +105,7 @@ website:
         - section: Tools
           contents: 
             - text: 16. Git and GitHub
+              file: intermediate-skills-sessions/16-git-github/index.qmd
             - text: 17. Quarto
         - section: Intermediate Python
           contents: 
