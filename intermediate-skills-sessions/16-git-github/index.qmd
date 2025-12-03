@@ -4,9 +4,9 @@ format:
   html: default
 ---
 
-# Introduction
+## Introduction
 
-## What is Git?
+### What is Git?
 
 Git is a *version control system*. It's software that helps you track changes to your files over time. You can sort of think of it like *Track Changes* in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example. 
 
@@ -23,7 +23,7 @@ Using Git for a project lets us:
 
 Git was created in 2005 by Linus Torvalds (who also created Linux) and has become the standard tool for version control, particularly in software development. However, it's useful for any project where you're working with text files - reports, data analysis scripts, documentation, and more.
 
-## What is Github?
+### What is Github?
 
 Github is a website that hosts Git repositories online. While Git works on your own computer and can be hosted on an organisation's server, Github provides a place to store your repositories in the cloud where others can access them.
 
@@ -40,7 +40,7 @@ Many organisations use Github to manage their projects because it makes collabor
 
 Alternatives to Github do exist - one example is Gitlab.
 
-## Terminology
+### Terminology
 
 Git and Github use their own terminology and it's important to keep this straight if we want to understand how to work with it. The essentials are below. This is non-exhaustive, but covers the basics needed to get started.
 
@@ -54,15 +54,15 @@ Git and Github use their own terminology and it's important to keep this straigh
 - Staging - Marking files to be included in your next commit. You stage changes before committing them.
 - Conflict - When Git can't automatically merge changes because two people edited the same part of a file differently. A merge conflict requires manual intervention to resolve, but thankfully Github gives us nice tools to deal with this.
 
-# Working with Github
+## Working with Github
 
-## Creating a repository
+### Creating a repository
 
 Once you've got a Github account, creating a repository is very simple. On [github.com/new](https://github.com/new), there's a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an *organisation*, and deciding whether it is going to be public or private.
 
 ![](images/create-repo.png)
 
-## Cloning a repository
+### Cloning a repository
 
 *Cloning* just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!
 
@@ -70,40 +70,36 @@ In Github Desktop, assuming you're logged into your Github account that has acce
 
 ![](images/desktop-clone-repo.png)
 
-## Making changes
+### Making changes
 
-### Editing files
+#### Editing files
 
-### Staging changes
+#### Staging changes
 
-### Writing commit messages
+#### Writing commit messages
 
-## Pushing and pulling
+### Pushing and pulling
 
-### Pushing your changes
+#### Pushing your changes
 
-### Pulling changes from others
+#### Pulling changes from others
 
-## Viewing history
+### Viewing history
 
-## Branching basics
+### Branching basics
 
-### What are branches?
+#### What are branches?
 
-### Creating and switching branches
+#### Creating and switching branches
 
-### Merging branches
+#### Merging branches
 
-# Collaboration
+## Collaboration
 
-## Working with others
+### Working with others
 
-## Handling conflicts
+### Handling conflicts
 
-## Pull requests
+### Pull requests
 
-# Getting help
-
-## Common issues and solutions
-
-## Resources for learning more
+## Resources
