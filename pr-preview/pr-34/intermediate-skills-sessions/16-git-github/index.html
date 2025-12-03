@@ -266,24 +266,10 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#creating-a-repository" id="toc-creating-a-repository" class="nav-link" data-scroll-target="#creating-a-repository">Creating a repository</a></li>
   <li><a href="#cloning-a-repository" id="toc-cloning-a-repository" class="nav-link" data-scroll-target="#cloning-a-repository">Cloning a repository</a></li>
-  <li><a href="#making-changes" id="toc-making-changes" class="nav-link" data-scroll-target="#making-changes">Making changes</a>
-  <ul class="collapse">
-  <li><a href="#editing-files" id="toc-editing-files" class="nav-link" data-scroll-target="#editing-files">Editing files</a></li>
-  <li><a href="#staging-changes" id="toc-staging-changes" class="nav-link" data-scroll-target="#staging-changes">Staging changes</a></li>
-  <li><a href="#writing-commit-messages" id="toc-writing-commit-messages" class="nav-link" data-scroll-target="#writing-commit-messages">Writing commit messages</a></li>
-  </ul></li>
-  <li><a href="#pushing-and-pulling" id="toc-pushing-and-pulling" class="nav-link" data-scroll-target="#pushing-and-pulling">Pushing and pulling</a>
-  <ul class="collapse">
-  <li><a href="#pushing-your-changes" id="toc-pushing-your-changes" class="nav-link" data-scroll-target="#pushing-your-changes">Pushing your changes</a></li>
-  <li><a href="#pulling-changes-from-others" id="toc-pulling-changes-from-others" class="nav-link" data-scroll-target="#pulling-changes-from-others">Pulling changes from others</a></li>
-  </ul></li>
+  <li><a href="#making-changes" id="toc-making-changes" class="nav-link" data-scroll-target="#making-changes">Making changes</a></li>
+  <li><a href="#pushing-and-pulling" id="toc-pushing-and-pulling" class="nav-link" data-scroll-target="#pushing-and-pulling">Pushing and pulling</a></li>
   <li><a href="#viewing-history" id="toc-viewing-history" class="nav-link" data-scroll-target="#viewing-history">Viewing history</a></li>
-  <li><a href="#branching-basics" id="toc-branching-basics" class="nav-link" data-scroll-target="#branching-basics">Branching basics</a>
-  <ul class="collapse">
-  <li><a href="#what-are-branches" id="toc-what-are-branches" class="nav-link" data-scroll-target="#what-are-branches">What are branches?</a></li>
-  <li><a href="#creating-and-switching-branches" id="toc-creating-and-switching-branches" class="nav-link" data-scroll-target="#creating-and-switching-branches">Creating and switching branches</a></li>
-  <li><a href="#merging-branches" id="toc-merging-branches" class="nav-link" data-scroll-target="#merging-branches">Merging branches</a></li>
-  </ul></li>
+  <li><a href="#branching-basics" id="toc-branching-basics" class="nav-link" data-scroll-target="#branching-basics">Branching basics</a></li>
   </ul></li>
   <li><a href="#collaboration" id="toc-collaboration" class="nav-link" data-scroll-target="#collaboration">Collaboration</a>
   <ul class="collapse">
@@ -291,11 +277,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#handling-conflicts" id="toc-handling-conflicts" class="nav-link" data-scroll-target="#handling-conflicts">Handling conflicts</a></li>
   <li><a href="#pull-requests" id="toc-pull-requests" class="nav-link" data-scroll-target="#pull-requests">Pull requests</a></li>
   </ul></li>
-  <li><a href="#getting-help" id="toc-getting-help" class="nav-link" data-scroll-target="#getting-help">Getting help</a>
-  <ul class="collapse">
-  <li><a href="#common-issues-and-solutions" id="toc-common-issues-and-solutions" class="nav-link" data-scroll-target="#common-issues-and-solutions">Common issues and solutions</a></li>
-  <li><a href="#resources-for-learning-more" id="toc-resources-for-learning-more" class="nav-link" data-scroll-target="#resources-for-learning-more">Resources for learning more</a></li>
-  </ul></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -321,10 +303,10 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<section id="what-is-git" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-git">What is Git?</h2>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="what-is-git" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-git">What is Git?</h3>
 <p>Git is a <em>version control system</em>. It’s software that helps you track changes to your files over time. You can sort of think of it like <em>Track Changes</em> in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example.</p>
 <p>The basic concept in Git is a <em>repository</em>, which you can think of as a <em>project</em> that can contain an unlimited number of files and folders.</p>
 <p>Using Git for a project lets us:</p>
@@ -338,8 +320,8 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 <p>Git was created in 2005 by Linus Torvalds (who also created Linux) and has become the standard tool for version control, particularly in software development. However, it’s useful for any project where you’re working with text files - reports, data analysis scripts, documentation, and more.</p>
 </section>
-<section id="what-is-github" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-github">What is Github?</h2>
+<section id="what-is-github" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-github">What is Github?</h3>
 <p>Github is a website that hosts Git repositories online. While Git works on your own computer and can be hosted on an organisation’s server, Github provides a place to store your repositories in the cloud where others can access them.</p>
 <p>Github adds several features on top of Git:</p>
 <ul>
@@ -353,8 +335,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Many organisations use Github to manage their projects because it makes collaboration straightforward and keeps everything in one accessible place. It’s free for most use cases, including unlimited private repositories for teams.</p>
 <p>Alternatives to Github do exist - one example is Gitlab.</p>
 </section>
-<section id="terminology" class="level2">
-<h2 class="anchored" data-anchor-id="terminology">Terminology</h2>
+<section id="terminology" class="level3">
+<h3 class="anchored" data-anchor-id="terminology">Terminology</h3>
 <p>Git and Github use their own terminology and it’s important to keep this straight if we want to understand how to work with it. The essentials are below. This is non-exhaustive, but covers the basics needed to get started.</p>
 <ul>
 <li>Repository (“repo”) - A project folder that Git is tracking. Contains all your files plus the complete history of changes.</li>
@@ -369,78 +351,72 @@ ul.task-list li input[type="checkbox"] {
 </ul>
 </section>
 </section>
-<section id="working-with-github" class="level1">
-<h1>Working with Github</h1>
-<section id="creating-a-repository" class="level2">
-<h2 class="anchored" data-anchor-id="creating-a-repository">Creating a repository</h2>
+<section id="working-with-github" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-github">Working with Github</h2>
+<section id="creating-a-repository" class="level3">
+<h3 class="anchored" data-anchor-id="creating-a-repository">Creating a repository</h3>
 <p>Once you’ve got a Github account, creating a repository is very simple. On <a href="https://github.com/new">github.com/new</a>, there’s a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an <em>organisation</em>, and deciding whether it is going to be public or private.</p>
 <p><img src="images/create-repo.png" class="img-fluid"></p>
 </section>
-<section id="cloning-a-repository" class="level2">
-<h2 class="anchored" data-anchor-id="cloning-a-repository">Cloning a repository</h2>
+<section id="cloning-a-repository" class="level3">
+<h3 class="anchored" data-anchor-id="cloning-a-repository">Cloning a repository</h3>
 <p><em>Cloning</em> just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!</p>
 <p>In Github Desktop, assuming you’re logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click <em>File</em> &gt; <em>Clone Repository</em>:</p>
 <p><img src="images/desktop-clone-repo.png" class="img-fluid"></p>
 </section>
-<section id="making-changes" class="level2">
-<h2 class="anchored" data-anchor-id="making-changes">Making changes</h2>
-<section id="editing-files" class="level3">
-<h3 class="anchored" data-anchor-id="editing-files">Editing files</h3>
+<section id="making-changes" class="level3">
+<h3 class="anchored" data-anchor-id="making-changes">Making changes</h3>
+<section id="editing-files" class="level4">
+<h4 class="anchored" data-anchor-id="editing-files">Editing files</h4>
 </section>
-<section id="staging-changes" class="level3">
-<h3 class="anchored" data-anchor-id="staging-changes">Staging changes</h3>
+<section id="staging-changes" class="level4">
+<h4 class="anchored" data-anchor-id="staging-changes">Staging changes</h4>
 </section>
-<section id="writing-commit-messages" class="level3">
-<h3 class="anchored" data-anchor-id="writing-commit-messages">Writing commit messages</h3>
-</section>
-</section>
-<section id="pushing-and-pulling" class="level2">
-<h2 class="anchored" data-anchor-id="pushing-and-pulling">Pushing and pulling</h2>
-<section id="pushing-your-changes" class="level3">
-<h3 class="anchored" data-anchor-id="pushing-your-changes">Pushing your changes</h3>
-</section>
-<section id="pulling-changes-from-others" class="level3">
-<h3 class="anchored" data-anchor-id="pulling-changes-from-others">Pulling changes from others</h3>
+<section id="writing-commit-messages" class="level4">
+<h4 class="anchored" data-anchor-id="writing-commit-messages">Writing commit messages</h4>
 </section>
 </section>
-<section id="viewing-history" class="level2">
-<h2 class="anchored" data-anchor-id="viewing-history">Viewing history</h2>
+<section id="pushing-and-pulling" class="level3">
+<h3 class="anchored" data-anchor-id="pushing-and-pulling">Pushing and pulling</h3>
+<section id="pushing-your-changes" class="level4">
+<h4 class="anchored" data-anchor-id="pushing-your-changes">Pushing your changes</h4>
 </section>
-<section id="branching-basics" class="level2">
-<h2 class="anchored" data-anchor-id="branching-basics">Branching basics</h2>
-<section id="what-are-branches" class="level3">
-<h3 class="anchored" data-anchor-id="what-are-branches">What are branches?</h3>
-</section>
-<section id="creating-and-switching-branches" class="level3">
-<h3 class="anchored" data-anchor-id="creating-and-switching-branches">Creating and switching branches</h3>
-</section>
-<section id="merging-branches" class="level3">
-<h3 class="anchored" data-anchor-id="merging-branches">Merging branches</h3>
+<section id="pulling-changes-from-others" class="level4">
+<h4 class="anchored" data-anchor-id="pulling-changes-from-others">Pulling changes from others</h4>
 </section>
 </section>
+<section id="viewing-history" class="level3">
+<h3 class="anchored" data-anchor-id="viewing-history">Viewing history</h3>
 </section>
-<section id="collaboration" class="level1">
-<h1>Collaboration</h1>
-<section id="working-with-others" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-others">Working with others</h2>
+<section id="branching-basics" class="level3">
+<h3 class="anchored" data-anchor-id="branching-basics">Branching basics</h3>
+<section id="what-are-branches" class="level4">
+<h4 class="anchored" data-anchor-id="what-are-branches">What are branches?</h4>
 </section>
-<section id="handling-conflicts" class="level2">
-<h2 class="anchored" data-anchor-id="handling-conflicts">Handling conflicts</h2>
+<section id="creating-and-switching-branches" class="level4">
+<h4 class="anchored" data-anchor-id="creating-and-switching-branches">Creating and switching branches</h4>
 </section>
-<section id="pull-requests" class="level2">
-<h2 class="anchored" data-anchor-id="pull-requests">Pull requests</h2>
+<section id="merging-branches" class="level4">
+<h4 class="anchored" data-anchor-id="merging-branches">Merging branches</h4>
 </section>
 </section>
-<section id="getting-help" class="level1">
-<h1>Getting help</h1>
-<section id="common-issues-and-solutions" class="level2">
-<h2 class="anchored" data-anchor-id="common-issues-and-solutions">Common issues and solutions</h2>
 </section>
-<section id="resources-for-learning-more" class="level2">
-<h2 class="anchored" data-anchor-id="resources-for-learning-more">Resources for learning more</h2>
+<section id="collaboration" class="level2">
+<h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
+<section id="working-with-others" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-others">Working with others</h3>
+</section>
+<section id="handling-conflicts" class="level3">
+<h3 class="anchored" data-anchor-id="handling-conflicts">Handling conflicts</h3>
+</section>
+<section id="pull-requests" class="level3">
+<h3 class="anchored" data-anchor-id="pull-requests">Pull requests</h3>
+</section>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

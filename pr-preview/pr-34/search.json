@@ -954,154 +954,44 @@
     ]
   },
   {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#what-is-git",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#what-is-git",
+    "objectID": "intermediate-skills-sessions/16-git-github/index.html#introduction",
+    "href": "intermediate-skills-sessions/16-git-github/index.html#introduction",
     "title": "Git and Github",
     "section": "",
-    "text": "Git is a version control system. It’s software that helps you track changes to your files over time. You can sort of think of it like Track Changes in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example.\nThe basic concept in Git is a repository, which you can think of as a project that can contain an unlimited number of files and folders.\nUsing Git for a project lets us:\n\nAutomatically create and keep snapshots of your work at different points in time\nClearly see exactly what changed between versions\nGo back to earlier versions if something goes wrong\nCreate branches that let individuals or subgroups work on parts of a project without affecting the rest of it\nUnderstand who made which changes and when\nRequest reviews from our colleagues, add comments to changes, and resolve issues before committing to an update\n\nGit was created in 2005 by Linus Torvalds (who also created Linux) and has become the standard tool for version control, particularly in software development. However, it’s useful for any project where you’re working with text files - reports, data analysis scripts, documentation, and more.",
+    "text": "Git is a version control system. It’s software that helps you track changes to your files over time. You can sort of think of it like Track Changes in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example.\nThe basic concept in Git is a repository, which you can think of as a project that can contain an unlimited number of files and folders.\nUsing Git for a project lets us:\n\nAutomatically create and keep snapshots of your work at different points in time\nClearly see exactly what changed between versions\nGo back to earlier versions if something goes wrong\nCreate branches that let individuals or subgroups work on parts of a project without affecting the rest of it\nUnderstand who made which changes and when\nRequest reviews from our colleagues, add comments to changes, and resolve issues before committing to an update\n\nGit was created in 2005 by Linus Torvalds (who also created Linux) and has become the standard tool for version control, particularly in software development. However, it’s useful for any project where you’re working with text files - reports, data analysis scripts, documentation, and more.\n\n\n\nGithub is a website that hosts Git repositories online. While Git works on your own computer and can be hosted on an organisation’s server, Github provides a place to store your repositories in the cloud where others can access them.\nGithub adds several features on top of Git:\n\nA backup of your work stored safely online\nEasy collaboration - multiple people can work on the same project using a web-based interface\nA web interface to browse your files and history without using Git commands\nGithub Desktop, an application that runs on your computer and lets you sync a Github repository with your local filesystem\nTools for managing projects, discussing changes, and reviewing code\nA way to share your work publicly or keep it private within your organisation, with detailed user-based permissions\n\nMany organisations use Github to manage their projects because it makes collaboration straightforward and keeps everything in one accessible place. It’s free for most use cases, including unlimited private repositories for teams.\nAlternatives to Github do exist - one example is Gitlab.\n\n\n\nGit and Github use their own terminology and it’s important to keep this straight if we want to understand how to work with it. The essentials are below. This is non-exhaustive, but covers the basics needed to get started.\n\nRepository (“repo”) - A project folder that Git is tracking. Contains all your files plus the complete history of changes.\nCommit - A saved snapshot of your work at a particular point in time. Each commit records what changed, who made the change, and when.\nClone - Making a copy of a repository from Github onto your computer so you can work on it locally.\nPush - Sending your commits from your computer up to Github so others can see them.\nPull - Downloading commits from Github to your computer to get the latest changes others have made.\nBranch - A separate line of development. Lets you work on new features without affecting the main version of your project.\nMerge - Combining changes from one branch into another, typically bringing your work back into the main branch.\nStaging - Marking files to be included in your next commit. You stage changes before committing them.\nConflict - When Git can’t automatically merge changes because two people edited the same part of a file differently. A merge conflict requires manual intervention to resolve, but thankfully Github gives us nice tools to deal with this.",
     "crumbs": [
       "Tools",
       "16. Git and GitHub"
     ]
   },
   {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#what-is-github",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#what-is-github",
+    "objectID": "intermediate-skills-sessions/16-git-github/index.html#working-with-github",
+    "href": "intermediate-skills-sessions/16-git-github/index.html#working-with-github",
     "title": "Git and Github",
-    "section": "",
-    "text": "Github is a website that hosts Git repositories online. While Git works on your own computer and can be hosted on an organisation’s server, Github provides a place to store your repositories in the cloud where others can access them.\nGithub adds several features on top of Git:\n\nA backup of your work stored safely online\nEasy collaboration - multiple people can work on the same project using a web-based interface\nA web interface to browse your files and history without using Git commands\nGithub Desktop, an application that runs on your computer and lets you sync a Github repository with your local filesystem\nTools for managing projects, discussing changes, and reviewing code\nA way to share your work publicly or keep it private within your organisation, with detailed user-based permissions\n\nMany organisations use Github to manage their projects because it makes collaboration straightforward and keeps everything in one accessible place. It’s free for most use cases, including unlimited private repositories for teams.\nAlternatives to Github do exist - one example is Gitlab.",
+    "section": "Working with Github",
+    "text": "Working with Github\n\nCreating a repository\nOnce you’ve got a Github account, creating a repository is very simple. On github.com/new, there’s a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an organisation, and deciding whether it is going to be public or private.\n\n\n\nCloning a repository\nCloning just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!\nIn Github Desktop, assuming you’re logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click File &gt; Clone Repository:\n\n\n\nMaking changes\n\nEditing files\n\n\nStaging changes\n\n\nWriting commit messages\n\n\n\nPushing and pulling\n\nPushing your changes\n\n\nPulling changes from others\n\n\n\nViewing history\n\n\nBranching basics\n\nWhat are branches?\n\n\nCreating and switching branches\n\n\nMerging branches",
     "crumbs": [
       "Tools",
       "16. Git and GitHub"
     ]
   },
   {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#terminology",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#terminology",
+    "objectID": "intermediate-skills-sessions/16-git-github/index.html#collaboration",
+    "href": "intermediate-skills-sessions/16-git-github/index.html#collaboration",
     "title": "Git and Github",
-    "section": "",
-    "text": "Git and Github use their own terminology and it’s important to keep this straight if we want to understand how to work with it. The essentials are below. This is non-exhaustive, but covers the basics needed to get started.\n\nRepository (“repo”) - A project folder that Git is tracking. Contains all your files plus the complete history of changes.\nCommit - A saved snapshot of your work at a particular point in time. Each commit records what changed, who made the change, and when.\nClone - Making a copy of a repository from Github onto your computer so you can work on it locally.\nPush - Sending your commits from your computer up to Github so others can see them.\nPull - Downloading commits from Github to your computer to get the latest changes others have made.\nBranch - A separate line of development. Lets you work on new features without affecting the main version of your project.\nMerge - Combining changes from one branch into another, typically bringing your work back into the main branch.\nStaging - Marking files to be included in your next commit. You stage changes before committing them.\nConflict - When Git can’t automatically merge changes because two people edited the same part of a file differently. A merge conflict requires manual intervention to resolve, but thankfully Github gives us nice tools to deal with this.",
+    "section": "Collaboration",
+    "text": "Collaboration\n\nWorking with others\n\n\nHandling conflicts\n\n\nPull requests",
     "crumbs": [
       "Tools",
       "16. Git and GitHub"
     ]
   },
   {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#creating-a-repository",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#creating-a-repository",
+    "objectID": "intermediate-skills-sessions/16-git-github/index.html#resources",
+    "href": "intermediate-skills-sessions/16-git-github/index.html#resources",
     "title": "Git and Github",
-    "section": "Creating a repository",
-    "text": "Creating a repository\nOnce you’ve got a Github account, creating a repository is very simple. On github.com/new, there’s a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an organisation, and deciding whether it is going to be public or private.",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#cloning-a-repository",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#cloning-a-repository",
-    "title": "Git and Github",
-    "section": "Cloning a repository",
-    "text": "Cloning a repository\nCloning just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!\nIn Github Desktop, assuming you’re logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click File &gt; Clone Repository:",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#making-changes",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#making-changes",
-    "title": "Git and Github",
-    "section": "Making changes",
-    "text": "Making changes\n\nEditing files\n\n\nStaging changes\n\n\nWriting commit messages",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#pushing-and-pulling",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#pushing-and-pulling",
-    "title": "Git and Github",
-    "section": "Pushing and pulling",
-    "text": "Pushing and pulling\n\nPushing your changes\n\n\nPulling changes from others",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#viewing-history",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#viewing-history",
-    "title": "Git and Github",
-    "section": "Viewing history",
-    "text": "Viewing history",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#branching-basics",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#branching-basics",
-    "title": "Git and Github",
-    "section": "Branching basics",
-    "text": "Branching basics\n\nWhat are branches?\n\n\nCreating and switching branches\n\n\nMerging branches",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#working-with-others",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#working-with-others",
-    "title": "Git and Github",
-    "section": "Working with others",
-    "text": "Working with others",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#handling-conflicts",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#handling-conflicts",
-    "title": "Git and Github",
-    "section": "Handling conflicts",
-    "text": "Handling conflicts",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#pull-requests",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#pull-requests",
-    "title": "Git and Github",
-    "section": "Pull requests",
-    "text": "Pull requests",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#common-issues-and-solutions",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#common-issues-and-solutions",
-    "title": "Git and Github",
-    "section": "Common issues and solutions",
-    "text": "Common issues and solutions",
-    "crumbs": [
-      "Tools",
-      "16. Git and GitHub"
-    ]
-  },
-  {
-    "objectID": "intermediate-skills-sessions/16-git-github/index.html#resources-for-learning-more",
-    "href": "intermediate-skills-sessions/16-git-github/index.html#resources-for-learning-more",
-    "title": "Git and Github",
-    "section": "Resources for learning more",
-    "text": "Resources for learning more",
+    "section": "Resources",
+    "text": "Resources",
     "crumbs": [
       "Tools",
       "16. Git and GitHub"
