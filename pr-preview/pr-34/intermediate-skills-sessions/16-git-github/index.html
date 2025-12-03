@@ -370,21 +370,21 @@ ul.task-list li input[type="checkbox"] {
 <section id="creating-a-repository" class="level3">
 <h3 class="anchored" data-anchor-id="creating-a-repository">Creating a repository</h3>
 <p>Once you’ve got a Github account, creating a repository is very simple. On <a href="https://github.com/new">github.com/new</a>, there’s a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an <em>organisation</em>, and deciding whether it is going to be public or private.</p>
-<p><img src="images/create-repo.png" class="img-fluid"></p>
+<p><img src="images/create-repo.png" class="img-fluid" style="width:70.0%"></p>
 </section>
 <section id="cloning-a-repository" class="level3">
 <h3 class="anchored" data-anchor-id="cloning-a-repository">Cloning a repository</h3>
 <p><em>Cloning</em> just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!</p>
 <p>In Github Desktop, assuming you’re logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click <em>File</em> &gt; <em>Clone Repository</em>:</p>
-<p><img src="images/desktop-clone-repo.png" class="img-fluid"></p>
+<p><img src="images/desktop-clone-repo.png" class="img-fluid" style="width:70.0%"></p>
 </section>
 <section id="brief-note-on-gitignore" class="level3">
 <h3 class="anchored" data-anchor-id="brief-note-on-gitignore">Brief note on <code>gitignore</code></h3>
 <p>There are often cases where we want certain parts of the project <em>not</em> to be tracked by git. For example, if we’re using <code>uv</code> to maintain a <code>venv</code> with our python libraries, it would be a waste for these files to be uploaded and downloaded every time we interact with our repo. <code>uv</code> actually takes care of this for us! But in other cases we need to do this ourselves - for example, we might be writing a project that uses <code>csv</code> files for data, and we don’t want these to be uploaded.</p>
 <p>Github Desktop makes this very easy. When we’ve added some files or folders that we want git to ignore, we just right click within the changes list and add either the individual files or entire folders to <code>gitignore</code> - once we’ve done this, git will disregard these files and folders, refrain from pushing them to the remote repo, and not track any changes made to them.</p>
-<p><img src="images/desktop-ignore.png" class="img-fluid"></p>
+<p><img src="images/desktop-ignore.png" class="img-fluid" style="width:70.0%"></p>
 <p>We can also go to <strong>Repository</strong> &gt; <strong>Repository Settings…</strong> and see everything currently in our gitignore file.</p>
-<p><img src="images/desktop-ignore-2.png" class="img-fluid"></p>
+<p><img src="images/desktop-ignore-2.png" class="img-fluid" style="width:70.0%"></p>
 </section>
 <section id="making-changes" class="level3">
 <h3 class="anchored" data-anchor-id="making-changes">Making changes</h3>
