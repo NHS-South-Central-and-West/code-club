@@ -40,6 +40,11 @@ Many organisations use Github to manage their projects because it makes collabor
 
 Alternatives to Github do exist - one example is Gitlab.
 
+::: {.callout-warning}
+### An important note regarding IG
+Github is a public platform ultimately operated by Microsoft with servers in the USA. Public repositories are visible to anyone, even those without a github account! Be absolutely sure you understand what you're pushing to Github if you are working on a project that interacts with non-public NHS data in any way. Even if you're working with a private repository, this still is not suitable for anything sensitive as this will not be GDPR compliant.
+:::
+
 ### Terminology
 
 Git and Github use their own terminology and it's important to keep this straight if we want to understand how to work with it. The essentials are below. This is non-exhaustive, but covers the basics needed to get started.
@@ -69,6 +74,20 @@ Once you've got a Github account, creating a repository is very simple. On [gith
 In Github Desktop, assuming you're logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click *File* > *Clone Repository*:
 
 ![](images/desktop-clone-repo.png)
+
+### Brief note on `gitignore`
+
+There are often cases where we want certain parts of the project *not* to be tracked by git. For example, if we're using `uv` to maintain a `venv` with our python libraries, it would be a waste for these files to be uploaded and downloaded every time we interact with our repo. `uv` actually takes care of this for us! But in other cases we need to do this ourselves - for example, we might be writing a project that uses `csv` files for data, and we don't want these to be uploaded.
+
+Github Desktop makes this very easy. When we've added some files or folders that we want git to ignore, we just right click within the changes list and add either the individual files or entire folders to `gitignore` - once we've done this, git will disregard these files and folders, refrain from pushing them to the remote repo, and not track any changes made to them.
+
+![](images/desktop-ignore.png)
+
+We can also go to **Repository** > **Repository Settings...** and see everything currently in our gitignore file.
+
+![](images/desktop-ignore-2.png)
+
+
 
 ### Making changes
 
