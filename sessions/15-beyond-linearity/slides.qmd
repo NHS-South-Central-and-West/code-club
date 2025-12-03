@@ -1,0 +1,271 @@
+---
+title: "Beyond Linearity"
+subtitle: "Adapting the Linear Model Framework for Non-Linear Patterns"
+footer: '**SAT //** Beyond Linearity **//** November, 2025'
+format: revealjs
+execute: 
+    echo: false
+---
+
+```{python}
+#| label: setup
+#| include: false
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.linear_model import LogisticRegression
+import warnings
+warnings.filterwarnings('ignore')
+
+# set seaborn style
+sns.set_theme(style="whitegrid")
+```
+
+# When Linear Regression Works {data-background-color="#425563"}
+
+The Linearity Assumption
+
+## Linear Models for Linear Effects {.center}
+
+- Linear regression fits a straight line through data
+- Assumes constant effect: each unit increase in $X$ changes $Y$ by the same amount
+- Works when the relationship is linear
+
+$$
+Y = \beta_0 + \beta_1X + \epsilon
+$$
+
+## Linear Relationships in the Real World {.center}
+
+```{python}
+#| label: linear-example
+
+np.random.seed(42)
+x = np.linspace(0, 10, 100)
+y = 2 + 3*x + np.random.normal(0, 2, 100)
+
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.scatterplot(x=x, y=y, facecolors='white', edgecolors='black', 
+                s=60, linewidths=1, alpha=0.7, ax=ax)
+sns.lineplot(x=x, y=2 + 3*x, color='#005EB8', linewidth=2, ax=ax)
+ax.set_xlabel('Hours Worked')
+ax.set_ylabel('Pay (£)')
+ax.set_title('Linear Relationship: Hours Worked vs Pay')
+plt.show()
+```
+
+## But Real Data Isn't Always Linear {.center}
+
+- Growth curves (exponential, logistic)
+- Binary outcomes (survived/died, yes/no)
+- Count data (number of events)
+- Bounded outcomes (proportions, rates)
+- Curved relationships (U-shaped, S-shaped)
+
+# The Problem with Forcing Linearity {data-background-color="#425563"}
+
+When Straight Lines Don't Fit
+
+## Probability of Disease by Age {.center}
+
+```{python}
+#| label: nonlinear-problem
+
+np.random.seed(42)
+age = np.linspace(20, 80, 100)
+# true probability follows logistic curve
+prob_true = 1 / (1 + np.exp(-(age - 50) / 8))
+# simulate binary outcomes
+disease = np.random.binomial(1, prob_true)
+
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.scatterplot(x=age, y=disease, facecolors='white', edgecolors='black',
+                s=60, linewidths=1, alpha=0.7, ax=ax)
+ax.set_xlabel('Age')
+ax.set_ylabel('Disease (0 = No, 1 = Yes)')
+ax.set_title('Binary Outcome: Disease Status by Age')
+ax.set_ylim(-0.1, 1.1)
+plt.show()
+```
+
+## Fitting a Straight Line Fails {.center}
+
+```{python}
+#| label: linear-fail
+
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+model.fit(age.reshape(-1, 1), disease)
+pred = model.predict(age.reshape(-1, 1))
+
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.scatterplot(x=age, y=disease, facecolors='white', edgecolors='black',
+                s=60, linewidths=1, alpha=0.7, ax=ax)
+sns.lineplot(x=age, y=pred, color='#ED8B00', linewidth=2, ax=ax, label='Linear Model')
+ax.set_xlabel('Age')
+ax.set_ylabel('Disease (0 = No, 1 = Yes)')
+ax.set_title('Problem: Linear Regression on Binary Data')
+ax.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+ax.axhline(y=1, color='red', linestyle='--', alpha=0.5)
+ax.set_ylim(-0.2, 1.2)
+plt.show()
+```
+
+## The Problem is the Scale {.center}
+
+- Linear regression assumes outcomes can take any value
+- But many outcomes are constrained:
+    - Probabilities must be between 0 and 1
+    - Counts must be non-negative integers
+    - Proportions are bounded
+- Forcing a straight line violates these constraints
+
+# Transform the Scale {data-background-color="#425563"}
+
+Link Functions Make Non-Linear Data Linear
+
+## The Core Insight {.center}
+
+- Don't force data onto a straight line
+- Transform the scale so linear regression works
+- Fit the line on the transformed scale
+- Transform back to get predictions
+- This is what link functions do.
+
+## How Link Functions Work {.center}
+
+- The link function connects the linear predictor to the outcome: 
+
+    1. Take your outcome $Y$ (bounded, binary, count, etc.)
+    2. Apply a transformation that "stretches" or "squashes" the scale
+    3. Fit a linear model on the transformed scale
+    4. Transform predictions back to the original scale
+
+## The Logit Link for Binary Outcomes {.center}
+
+- For binary outcomes (0 or 1), we model the **log-odds**:
+
+$$
+\log\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1X
+$$
+
+- Left side: log-odds (can be any value)
+- Right side: linear predictor (can be any value)
+- Transform back to get probability: $p = \frac{1}{1 + e^{-(\beta_0 + \beta_1X)}}$
+
+- This is **logistic regression**.
+
+## Visualising the Transformation {.center}
+
+```{python}
+#| label: logit-transform
+
+p = np.linspace(0.01, 0.99, 100)
+log_odds = np.log(p / (1 - p))
+
+fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+
+# probability scale
+axes[0].plot(p, p, color='#005EB8', linewidth=2)
+axes[0].axhline(y=0, color='red', linestyle='--', alpha=0.5)
+axes[0].axhline(y=1, color='red', linestyle='--', alpha=0.5)
+axes[0].set_xlabel('Probability (p)')
+axes[0].set_ylabel('Probability (p)')
+axes[0].set_title('Original Scale: Bounded [0, 1]')
+
+# log-odds scale
+axes[1].plot(p, log_odds, color='#005EB8', linewidth=2)
+axes[1].set_xlabel('Probability (p)')
+axes[1].set_ylabel('Log-Odds')
+axes[1].set_title('Transformed Scale: Unbounded')
+
+plt.tight_layout()
+plt.show()
+```
+
+## Logistic Regression Fits an S-Curve {.center}
+
+```{python}
+#| label: logistic-fit
+
+from sklearn.linear_model import LogisticRegression
+
+model_log = LogisticRegression()
+model_log.fit(age.reshape(-1, 1), disease)
+pred_log = model_log.predict_proba(age.reshape(-1, 1))[:, 1]
+
+fig, ax = plt.subplots(figsize=(12, 8))
+sns.scatterplot(x=age, y=disease, facecolors='white', edgecolors='black',
+                s=60, linewidths=1, alpha=0.7, ax=ax)
+sns.lineplot(x=age, y=pred_log, color='#005EB8', linewidth=2, ax=ax, label='Logistic Model')
+ax.set_xlabel('Age')
+ax.set_ylabel('Probability of Disease')
+ax.set_title('Solution: Logistic Regression')
+ax.set_ylim(-0.1, 1.1)
+plt.show()
+```
+
+# Generalised Linear Models {data-background-color="#425563"}
+
+The Family of Link Functions
+
+## Different Outcomes Need Different Links {.center}
+
+- **Binary outcomes** → Logit link → **Logistic regression**
+- **Count data** → Log link → **Poisson regression**
+- **Continuous positive** → Log link → **Log-linear models**
+- **Proportions** → Logit link → **Beta regression**
+
+- All follow the same pattern: transform, fit linear model, transform back.
+
+## Poisson Regression Uses Log Link {.center}
+
+- Model the log of the expected count:
+
+$$
+\log(\text{E}[Y]) = \beta_0 + \beta_1X
+$$
+
+- Left side: log of expected count (can be any value)
+- Right side: linear predictor (can be any value)
+- Transform back: $\text{E}[Y] = e^{\beta_0 + \beta_1X}$
+- Predictions are always positive, matching count data.
+
+# Wrapping Up {data-background-color="#425563"}
+
+Key Takeaways
+
+## What We've Learned {.center}
+
+- Real data often doesn't fit straight lines.
+- Link functions transform non-linear problems into linear ones.
+- Logistic regression (logit link) handles binary outcomes.
+- Poisson regression (log link) handles count data.
+- Linear regression isn't limited to linear relationships.
+
+## The Power of This Approach {.center}
+
+- Simplicity - Same core idea (fit a line) works everywhere.
+- Flexibility - Adapts to different data types and structures.
+- Interpretability - Coefficients still represent effects.
+- Extensibility - Once you know linear regression, you can learn anything.
+
+## Further Learning {.center}
+
+- StatQuest (Josh Starmer) - [Logistic Regression](https://www.youtube.com/watch?v=yIYKR4sgzI8)
+- Andrew Gelman et al. - [Regression & Other Stories](https://users.aalto.fi/~ave/ROS.pdf)
+
+## Thank You! {.center}
+
+Contact:
+
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+
+Code & Slides:
+
+{{< fa brands github >}} [/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
