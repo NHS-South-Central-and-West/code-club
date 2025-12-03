@@ -8,15 +8,67 @@ format:
 
 ## What is Git?
 
+Git is a *version control system*. It's software that helps you track changes to your files over time. You can sort of think of it like *Track Changes* in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example. 
+
+The basic concept in Git is a *repository*, which you can think of as a *project* that can contain an unlimited number of files and folders.
+
+Using Git for a project lets us:
+
+- Automatically create and keep snapshots of your work at different points in time
+- Clearly see exactly what changed between versions
+- Go back to earlier versions if something goes wrong
+- Create *branches* that let individuals or subgroups work on parts of a project without affecting the rest of it
+- Understand who made which changes and when
+- Request reviews from our colleagues, add comments to changes, and resolve issues before committing to an update
+
+Git was created in 2005 by Linus Torvalds (who also created Linux) and has become the standard tool for version control, particularly in software development. However, it's useful for any project where you're working with text files - reports, data analysis scripts, documentation, and more.
+
 ## What is Github?
 
-### Github Desktop
+Github is a website that hosts Git repositories online. While Git works on your own computer and can be hosted on an organisation's server, Github provides a place to store your repositories in the cloud where others can access them.
+
+Github adds several features on top of Git:
+
+- A backup of your work stored safely online
+- Easy collaboration - multiple people can work on the same project using a web-based interface
+- A web interface to browse your files and history without using Git commands
+- Github Desktop, an application that runs on your computer and lets you sync a Github repository with your local filesystem
+- Tools for managing projects, discussing changes, and reviewing code
+- A way to share your work publicly or keep it private within your organisation, with detailed user-based permissions
+
+Many organisations use Github to manage their projects because it makes collaboration straightforward and keeps everything in one accessible place. It's free for most use cases, including unlimited private repositories for teams.
+
+Alternatives to Github do exist - one example is Gitlab.
+
+## Terminology
+
+Git and Github use their own terminology and it's important to keep this straight if we want to understand how to work with it. The essentials are below. This is non-exhaustive, but covers the basics needed to get started.
+
+- Repository ("repo") - A project folder that Git is tracking. Contains all your files plus the complete history of changes.
+- Commit - A saved snapshot of your work at a particular point in time. Each commit records what changed, who made the change, and when.
+- Clone - Making a copy of a repository from Github onto your computer so you can work on it locally.
+- Push - Sending your commits from your computer up to Github so others can see them.
+- Pull - Downloading commits from Github to your computer to get the latest changes others have made.
+- Branch - A separate line of development. Lets you work on new features without affecting the main version of your project.
+- Merge - Combining changes from one branch into another, typically bringing your work back into the `main` branch.
+- Staging - Marking files to be included in your next commit. You stage changes before committing them.
+- Conflict - When Git can't automatically merge changes because two people edited the same part of a file differently. A merge conflict requires manual intervention to resolve, but thankfully Github gives us nice tools to deal with this.
 
 # Working with Github
 
 ## Creating a repository
 
+Once you've got a Github account, creating a repository is very simple. On [github.com/new](https://github.com/new), there's a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an *organisation*, and deciding whether it is going to be public or private.
+
+![](images/create-repo.png)
+
 ## Cloning a repository
+
+*Cloning* just means downloading the current state of a repository from Github to our local machine. However, we normally do this so that we can make local changes and potentially upload (push) those back to the source repository!
+
+In Github Desktop, assuming you're logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click *File* > *Clone Repository*:
+
+![](images/desktop-clone-repo.png)
 
 ## Making changes
 
