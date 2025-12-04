@@ -98,25 +98,105 @@ Once we've set up our repo in Github Desktop, any changes to the local folder (w
 
 #### Staging changes
 
+In Git, *staging* is the process of selecting which changes you want to include in your next commit.
+
+In Github Desktop, staging is handled automatically for you. When you make changes to files, they'll appear in the left panel. By default, all changed files are staged (they have a tick next to them). If you want to commit only some files, you can untick the others - only the ticked files will be included in your commit.
+
+![](images/desktop-staging.png){width=70% fig-align="center"}
+
 #### Writing commit messages
+
+Every commit needs a *commit message* - a short description of what changed and why. Good commit messages are crucial for understanding your project's history later.
+
+In Github Desktop, you'll see a commit message box at the bottom left. The first line is the *summary* (required) - keep this short and clear, like "Fix bug in data import function" or "Add analysis for Q3 data". The larger text box below is for an optional *description* where you can add more detail if needed.
+
+![](images/desktop-commit-message.png){width=70% fig-align="center"}
+
+Some tips for good commit messages:
+
+Once you're happy with your message, click "Commit to [branch name]". Remember that if you're working on a public repo, these comments will be visible publicly on Github.
 
 ### Pushing and pulling
 
 #### Pushing your changes
 
+Once you've made one or more commits locally, they exist only on your computer. To share them with others (or just to back them up to Github), you need to *push* them.
+
+In Github Desktop, after you've made a commit, you'll see a button at the top that says "Push origin" with a number indicating how many commits are waiting to be pushed. Simply click this button and your changes will be uploaded to Github.
+
+![](images/desktop-push.png){width=70% fig-align="center"}
+
+It's good practice to push regularly, and certainly when you want other people to see the changes you've made in order to comment on them (or base their own changes on them).
+
 #### Pulling changes from others
+
+If you're working with others on the same repository, they'll be making changes too. To get their latest changes onto your computer, you need to *pull* from Github.
+
+In Github Desktop, when there are new commits on Github that you don't have locally, you'll see a "Pull origin" button at the top. Click this to download the latest changes.
+
+![](images/desktop-pull.png){width=70% fig-align="center}
+
+Make sure you've pulled the latest state of the branch before making your own changes - not doing so can result in conflicts.
 
 ### Viewing history
 
+One of the most powerful features of git is the ability to see your project's complete history. In Github Desktop, click on the "History" tab (next to "Changes") to see a list of all commits that have been made to the repository.
+
+![](images/desktop-history.png){width=70% fig-align="center"}
+
+Clicking on any commit shows you exactly what changed in that commit - which files were modified, and what the specific changes were. This is incredibly useful for understanding how your project evolved, or for tracking down when a particular change was made.
+
+You can also view this history on the Github website, which provides additional features like searching through commits and viewing the state of files at any point in time.
+
 ### Branching basics
+
+*Branches* are one of Git's most powerful features, but they can seem confusing at first. Think of them as parallel versions of your project where you can experiment or work on new features (like a specific subset of a report) without affecting the main version.
+
+By default, every repository has a `main` branch. This is typically the "official" version of your project. When you want to add a new feature or make significant changes, you can create a new branch, make your changes there, **and then merge them back into `main` when you're happy with them**.
+
+In Github Desktop, you can create a new branch by clicking on the "Current Branch" dropdown at the top and selecting "New Branch". Give it a descriptive name like "add-data-validation" or "update-documentation".
+
+![](images/desktop-branch.png){width=70% fig-align="center"}
+
+Once you're on a branch, any commits you make will only affect that branch. You can switch back to `main` (or any other branch) at any time using the same dropdown. When your work on the branch is complete, you'll typically merge it back into `main` using a *pull request* (covered in the Collaboration section).
 
 ## Collaboration
 
 ### Working with others
 
+One of Github's greatest strengths is making collaboration straightforward. When multiple people are working on the same repository, the basic workflow is:
+
+1. Pull the latest changes before you start work
+2. Make your changes and commit them locally
+3. Pull again to get any changes others have made while you were working
+4. Push your changes.
+
+For larger teams or more complex projects, it's common to use branches for each feature or task. This means different people can work on different aspects of the project simultaneously without interfering with each other's work. However, this is optional, and if you're just starting out with Github it's absolutely fine to just keep everything on a `main` branch while you get the hang of things.
+
 ### Handling conflicts
 
+Sometimes, Git can't automatically merge changes because two people have edited the same part of the same file in different ways. This is called a *merge conflict*, and it requires manual intervention to resolve.
+
+When you pull changes and a conflict occurs, Github Desktop will show you which files are conflicted. You can click on a conflicted file and Github Desktop will show you both versions of the conflicting sections, letting you choose which to keep (or manually edit to combine them).
+
+![](images/desktop-conflict.png){width=70% fig-align="center"}
+
 ### Pull requests
+
+A *pull request* (often abbreviated to PR) is how you propose and discuss changes before they're merged into the main branch. Despite the name, it's not actually about "pulling" - think of it as a request for your changes to be merged.
+
+The typical workflow is:
+
+1. Create a branch for your work
+2. Make commits on that branch
+3. Push the branch to Github
+4. Open a pull request on Github's website (Github Desktop will also offer to do this for you)
+5. Others can review your changes, leave comments, and suggest modifications
+6. Once approved, the pull request is merged into `main`
+
+Pull requests are particularly useful because they provide a space for code review and discussion, and they create a clear record of what changed and why. They're central to how many development teams work.
+
+![](images/desktop-pr.png){width=70% fig-align="center"}
 
 ## Resources
 
