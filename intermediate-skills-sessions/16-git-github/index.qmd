@@ -128,7 +128,7 @@ If you're working with others on the same repository, they'll be making changes 
 
 In Github Desktop, when there are new commits on Github that you don't have locally, you'll see a "Pull origin" button at the top. Click this to download the latest changes.
 
-![](images/desktop-pull.png){width=70% fig-align="center}
+![](images/desktop-pull.png){width=70% fig-align="center"}
 
 Make sure you've pulled the latest state of the branch before making your own changes - not doing so can result in conflicts.
 
