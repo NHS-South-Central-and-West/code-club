@@ -66,7 +66,7 @@ Git and Github use their own terminology and it's important to keep this straigh
 
 Once you've got a Github account, creating a repository is very simple. On [github.com/new](https://github.com/new), there's a single screen that lets you create a blank repository. The key thing is choosing whether the repo is going to sit under your personal account or under an *organisation*, and deciding whether it is going to be public or private.
 
-![](images/create-repo.png){width=70%}
+![](images/create-repo.png){width=70% fig-align="center"}
 
 ### Cloning a repository
 
@@ -74,7 +74,7 @@ Once you've got a Github account, creating a repository is very simple. On [gith
 
 In Github Desktop, assuming you're logged into your Github account that has access to the repo you want to clone, you should see it in the list when you click *File* > *Clone Repository*:
 
-![](images/desktop-clone-repo.png){width=70%}
+![](images/desktop-clone-repo.png){width=70% fig-align="center"}
 
 ### Brief note on `gitignore`
 
@@ -82,11 +82,11 @@ There are often cases where we want certain parts of the project *not* to be tra
 
 Github Desktop makes this very easy. When we've added some files or folders that we want git to ignore, we just right click within the changes list and add either the individual files or entire folders to `gitignore` - once we've done this, git will disregard these files and folders, refrain from pushing them to the remote repo, and not track any changes made to them.
 
-![](images/desktop-ignore.png){width=70%}
+![](images/desktop-ignore.png){width=70% fig-align="center"}
 
 We can also go to **Repository** > **Repository Settings...** and see everything currently in our gitignore file.
 
-![](images/desktop-ignore-2.png){width=70%}
+![](images/desktop-ignore-2.png){width=70% fig-align="center"}
 
 ### Making changes
 
@@ -94,7 +94,7 @@ We can also go to **Repository** > **Repository Settings...** and see everything
 
 Once we've set up our repo in Github Desktop, any changes to the local folder (with the exception of anything covered by `gitignore`) will automatically be detected. The app will helpfully show us which files have been added, removed, or changed, and for the latter it will directly show which lines have been altered:
 
-![](images/desktop-changes-1.png){width=70%}
+![](images/desktop-changes-1.png){width=70% fig-align="center"}
 
 #### Staging changes
 
