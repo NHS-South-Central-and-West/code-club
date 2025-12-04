@@ -416,37 +416,117 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="staging-changes" class="level4">
 <h4 class="anchored" data-anchor-id="staging-changes">Staging changes</h4>
+<p>In Git, <em>staging</em> is the process of selecting which changes you want to include in your next commit.</p>
+<p>In Github Desktop, staging is handled automatically for you. When you make changes to files, they’ll appear in the left panel. By default, all changed files are staged (they have a tick next to them). If you want to commit only some files, you can untick the others - only the ticked files will be included in your commit.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/desktop-staging.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 </section>
 <section id="writing-commit-messages" class="level4">
 <h4 class="anchored" data-anchor-id="writing-commit-messages">Writing commit messages</h4>
+<p>Every commit needs a <em>commit message</em> - a short description of what changed and why. Good commit messages are crucial for understanding your project’s history later.</p>
+<p>In Github Desktop, you’ll see a commit message box at the bottom left. The first line is the <em>summary</em> (required) - keep this short and clear, like “Fix bug in data import function” or “Add analysis for Q3 data”. The larger text box below is for an optional <em>description</em> where you can add more detail if needed.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/desktop-commit-message.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>Some tips for good commit messages:</p>
+<p>Once you’re happy with your message, click “Commit to [branch name]”. Remember that if you’re working on a public repo, these comments will be visible publicly on Github.</p>
 </section>
 </section>
 <section id="pushing-and-pulling" class="level3">
 <h3 class="anchored" data-anchor-id="pushing-and-pulling">Pushing and pulling</h3>
 <section id="pushing-your-changes" class="level4">
 <h4 class="anchored" data-anchor-id="pushing-your-changes">Pushing your changes</h4>
+<p>Once you’ve made one or more commits locally, they exist only on your computer. To share them with others (or just to back them up to Github), you need to <em>push</em> them.</p>
+<p>In Github Desktop, after you’ve made a commit, you’ll see a button at the top that says “Push origin” with a number indicating how many commits are waiting to be pushed. Simply click this button and your changes will be uploaded to Github.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/desktop-push.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>It’s good practice to push regularly, and certainly when you want other people to see the changes you’ve made in order to comment on them (or base their own changes on them).</p>
 </section>
 <section id="pulling-changes-from-others" class="level4">
 <h4 class="anchored" data-anchor-id="pulling-changes-from-others">Pulling changes from others</h4>
+<p>If you’re working with others on the same repository, they’ll be making changes too. To get their latest changes onto your computer, you need to <em>pull</em> from Github.</p>
+<p>In Github Desktop, when there are new commits on Github that you don’t have locally, you’ll see a “Pull origin” button at the top. Click this to download the latest changes.</p>
+<div class="quarto-figure quarto-figure-&quot;center">
+<figure class="figure">
+<p><img src="images/desktop-pull.png" class="img-fluid quarto-figure quarto-figure-&quot;center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>Make sure you’ve pulled the latest state of the branch before making your own changes - not doing so can result in conflicts.</p>
 </section>
 </section>
 <section id="viewing-history" class="level3">
 <h3 class="anchored" data-anchor-id="viewing-history">Viewing history</h3>
+<p>One of the most powerful features of git is the ability to see your project’s complete history. In Github Desktop, click on the “History” tab (next to “Changes”) to see a list of all commits that have been made to the repository.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/desktop-history.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>Clicking on any commit shows you exactly what changed in that commit - which files were modified, and what the specific changes were. This is incredibly useful for understanding how your project evolved, or for tracking down when a particular change was made.</p>
+<p>You can also view this history on the Github website, which provides additional features like searching through commits and viewing the state of files at any point in time.</p>
 </section>
 <section id="branching-basics" class="level3">
 <h3 class="anchored" data-anchor-id="branching-basics">Branching basics</h3>
+<p><em>Branches</em> are one of Git’s most powerful features, but they can seem confusing at first. Think of them as parallel versions of your project where you can experiment or work on new features (like a specific subset of a report) without affecting the main version.</p>
+<p>By default, every repository has a <code>main</code> branch. This is typically the “official” version of your project. When you want to add a new feature or make significant changes, you can create a new branch, make your changes there, <strong>and then merge them back into <code>main</code> when you’re happy with them</strong>.</p>
+<p>In Github Desktop, you can create a new branch by clicking on the “Current Branch” dropdown at the top and selecting “New Branch”. Give it a descriptive name like “add-data-validation” or “update-documentation”.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/desktop-branch.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p>Once you’re on a branch, any commits you make will only affect that branch. You can switch back to <code>main</code> (or any other branch) at any time using the same dropdown. When your work on the branch is complete, you’ll typically merge it back into <code>main</code> using a <em>pull request</em> (covered in the Collaboration section).</p>
 </section>
 </section>
 <section id="collaboration" class="level2">
 <h2 class="anchored" data-anchor-id="collaboration">Collaboration</h2>
 <section id="working-with-others" class="level3">
 <h3 class="anchored" data-anchor-id="working-with-others">Working with others</h3>
+<p>One of Github’s greatest strengths is making collaboration straightforward. When multiple people are working on the same repository, the basic workflow is:</p>
+<ol type="1">
+<li>Pull the latest changes before you start work</li>
+<li>Make your changes and commit them locally</li>
+<li>Pull again to get any changes others have made while you were working</li>
+<li>Push your changes.</li>
+</ol>
+<p>For larger teams or more complex projects, it’s common to use branches for each feature or task. This means different people can work on different aspects of the project simultaneously without interfering with each other’s work. However, this is optional, and if you’re just starting out with Github it’s absolutely fine to just keep everything on a <code>main</code> branch while you get the hang of things.</p>
 </section>
 <section id="handling-conflicts" class="level3">
 <h3 class="anchored" data-anchor-id="handling-conflicts">Handling conflicts</h3>
+<p>Sometimes, Git can’t automatically merge changes because two people have edited the same part of the same file in different ways. This is called a <em>merge conflict</em>, and it requires manual intervention to resolve.</p>
+<p>When you pull changes and a conflict occurs, Github Desktop will show you which files are conflicted. You can click on a conflicted file and Github Desktop will show you both versions of the conflicting sections, letting you choose which to keep (or manually edit to combine them).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/desktop-conflict.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 </section>
 <section id="pull-requests" class="level3">
 <h3 class="anchored" data-anchor-id="pull-requests">Pull requests</h3>
+<p>A <em>pull request</em> (often abbreviated to PR) is how you propose and discuss changes before they’re merged into the main branch. Despite the name, it’s not actually about “pulling” - think of it as a request for your changes to be merged.</p>
+<p>The typical workflow is:</p>
+<ol type="1">
+<li>Create a branch for your work</li>
+<li>Make commits on that branch</li>
+<li>Push the branch to Github</li>
+<li>Open a pull request on Github’s website (Github Desktop will also offer to do this for you)</li>
+<li>Others can review your changes, leave comments, and suggest modifications</li>
+<li>Once approved, the pull request is merged into <code>main</code></li>
+</ol>
+<p>Pull requests are particularly useful because they provide a space for code review and discussion, and they create a clear record of what changed and why. They’re central to how many development teams work.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/desktop-pr.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 </section>
 </section>
 <section id="resources" class="level2">
