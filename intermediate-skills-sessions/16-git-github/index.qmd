@@ -8,7 +8,7 @@ format:
 
 ### What is Git?
 
-Git is a *version control system*. It's software that helps you track changes to your files over time. You can sort of think of it like *Track Changes* in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example. 
+Git is a *version control system* (or *source control system*, referring to source code). It's software that helps you track changes to your files over time. You can sort of think of it like *Track Changes* in Word, but applied to an entire folder worth of files, much more powerful, and primarily designed to work with plaintext files - such as Python code, for example. 
 
 The basic concept in Git is a *repository*, which you can think of as a *project* that can contain an unlimited number of files and folders.
 
@@ -20,6 +20,7 @@ Using Git for a project lets us:
 - Create *branches* that let individuals or subgroups work on parts of a project without affecting the rest of it
 - Understand who made which changes and when
 - Request reviews from our colleagues, add comments to changes, and resolve issues before committing to an update
+- Avoid the classic issue of people working on their own copies of files, and having to figure out whether "Copy of Board Report Script_FINAL_V8-USE THIS.py" is the correct version
 
 Git was created in 2005 by Linus Torvalds (who also created Linux) and has become the standard tool for version control, particularly in software development. However, it's useful for any project where you're working with text files - reports, data analysis scripts, documentation, and more.
 
@@ -121,6 +122,10 @@ In Github Desktop, after you've made a commit, you'll see a button at the top th
 ![](images/desktop-push.png){width=70% fig-align="center"}
 
 It's good practice to push regularly, and certainly when you want other people to see the changes you've made in order to comment on them (or base their own changes on them).
+
+::: {.callout-note}
+If you're using branches, make sure you're on the correct branch before pushing your changes! Do also note that you can make changes on one branch and switch to another branch *without* pushing your changes yet; Github Desktop will offer to "stash" your changes on that branch locally so that you can go back to them later.
+:::
 
 #### Pulling changes from others
 
