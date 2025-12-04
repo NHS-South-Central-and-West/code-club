@@ -266,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#creating-a-repository" id="toc-creating-a-repository" class="nav-link" data-scroll-target="#creating-a-repository">Creating a repository</a></li>
   <li><a href="#cloning-a-repository" id="toc-cloning-a-repository" class="nav-link" data-scroll-target="#cloning-a-repository">Cloning a repository</a></li>
-  <li><a href="#brief-note-on-gitignore" id="toc-brief-note-on-gitignore" class="nav-link" data-scroll-target="#brief-note-on-gitignore">Brief note on <code>gitignore</code></a></li>
+  <li><a href="#a-brief-note-on-gitignore" id="toc-a-brief-note-on-gitignore" class="nav-link" data-scroll-target="#a-brief-note-on-gitignore">A brief note on <code>gitignore</code></a></li>
   <li><a href="#making-changes" id="toc-making-changes" class="nav-link" data-scroll-target="#making-changes">Making changes</a></li>
   <li><a href="#pushing-and-pulling" id="toc-pushing-and-pulling" class="nav-link" data-scroll-target="#pushing-and-pulling">Pushing and pulling</a></li>
   <li><a href="#viewing-history" id="toc-viewing-history" class="nav-link" data-scroll-target="#viewing-history">Viewing history</a></li>
@@ -387,8 +387,8 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="brief-note-on-gitignore" class="level3">
-<h3 class="anchored" data-anchor-id="brief-note-on-gitignore">Brief note on <code>gitignore</code></h3>
+<section id="a-brief-note-on-gitignore" class="level3">
+<h3 class="anchored" data-anchor-id="a-brief-note-on-gitignore">A brief note on <code>gitignore</code></h3>
 <p>There are often cases where we want certain parts of the project <em>not</em> to be tracked by git. For example, if we’re using <code>uv</code> to maintain a <code>venv</code> with our python libraries, it would be a waste for these files to be uploaded and downloaded every time we interact with our repo. <code>uv</code> actually takes care of this for us! But in other cases we need to do this ourselves - for example, we might be writing a project that uses <code>csv</code> files for data, and we don’t want these to be uploaded.</p>
 <p>Github Desktop makes this very easy. When we’ve added some files or folders that we want git to ignore, we just right click within the changes list and add either the individual files or entire folders to <code>gitignore</code> - once we’ve done this, git will disregard these files and folders, refrain from pushing them to the remote repo, and not track any changes made to them.</p>
 <div class="quarto-figure quarto-figure-center">
@@ -477,6 +477,12 @@ ul.task-list li input[type="checkbox"] {
 <h3 class="anchored" data-anchor-id="branching-basics">Branching basics</h3>
 <p><em>Branches</em> are one of Git’s most powerful features, but they can seem confusing at first. Think of them as parallel versions of your project where you can experiment or work on new features (like a specific subset of a report) without affecting the main version.</p>
 <p>By default, every repository has a <code>main</code> branch. This is typically the “official” version of your project. When you want to add a new feature or make significant changes, you can create a new branch, make your changes there, <strong>and then merge them back into <code>main</code> when you’re happy with them</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/git-branches.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>From https://blog.while-true-do.io/git-next-steps/. © 2021, Daniel Schier, CC BY-SA 4.0</figcaption>
+</figure>
+</div>
 <p>In Github Desktop, you can create a new branch by clicking on the “Current Branch” dropdown at the top and selecting “New Branch”. Give it a descriptive name like “add-data-validation” or “update-documentation”.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
