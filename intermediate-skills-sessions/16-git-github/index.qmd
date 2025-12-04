@@ -124,7 +124,7 @@ In Github Desktop, after you've made a commit, you'll see a button at the top th
 It's good practice to push regularly, and certainly when you want other people to see the changes you've made in order to comment on them (or base their own changes on them).
 
 ::: {.callout-note}
-If you're using branches, make sure you're on the correct branch before pushing your changes! Do also note that you can make changes on one branch and switch to another branch *without* pushing your changes yet; Github Desktop will offer to "stash" your changes on that branch locally so that you can go back to them later.
+If you're using branches, make sure you're on the correct branch before pushing your changes! Do also note that you can make changes on one branch and switch to another branch *without* pushing your changes yet; Github Desktop will offer to [stash](https://docs.github.com/en/desktop/making-changes-in-a-branch/stashing-changes-in-github-desktop) your changes on that branch locally so that you can go back to them later.
 :::
 
 #### Pulling changes from others
