@@ -54,6 +54,7 @@ Git and Github use their own terminology and it's important to keep this straigh
 - Clone - Making a copy of a repository from Github onto your computer so you can work on it locally.
 - Push - Sending your commits from your computer up to Github so others can see them.
 - Pull - Downloading commits from Github to your computer to get the latest changes others have made.
+- Pull *request* - A process for merging changes made on a branch back into the `main` branch.
 - Branch - A separate line of development. Lets you work on new features without affecting the main version of your project.
 - Merge - Combining changes from one branch into another, typically bringing your work back into the `main` branch.
 - Staging - Marking files to be included in your next commit. You stage changes before committing them.
@@ -87,11 +88,13 @@ We can also go to **Repository** > **Repository Settings...** and see everything
 
 ![](images/desktop-ignore-2.png){width=70%}
 
-
-
 ### Making changes
 
 #### Editing files
+
+Once we've set up our repo in Github Desktop, any changes to the local folder (with the exception of anything covered by `gitignore`) will automatically be detected. The app will helpfully show us which files have been added, removed, or changed, and for the latter it will directly show which lines have been altered:
+
+![](images/desktop-changes-1.png){width=70%}
 
 #### Staging changes
 
@@ -107,12 +110,6 @@ We can also go to **Repository** > **Repository Settings...** and see everything
 
 ### Branching basics
 
-#### What are branches?
-
-#### Creating and switching branches
-
-#### Merging branches
-
 ## Collaboration
 
 ### Working with others
@@ -122,3 +119,6 @@ We can also go to **Repository** > **Repository Settings...** and see everything
 ### Pull requests
 
 ## Resources
+
+- [W3schools git and Github tutorials](https://www.w3schools.com/git/default.asp?remote=github)
+- [Github documentation](https://docs.github.com/en/get-started)
