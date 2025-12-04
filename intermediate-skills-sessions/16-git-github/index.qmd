@@ -76,7 +76,7 @@ In Github Desktop, assuming you're logged into your Github account that has acce
 
 ![](images/desktop-clone-repo.png){width=70% fig-align="center"}
 
-### Brief note on `gitignore`
+### A brief note on `gitignore`
 
 There are often cases where we want certain parts of the project *not* to be tracked by git. For example, if we're using `uv` to maintain a `venv` with our python libraries, it would be a waste for these files to be uploaded and downloaded every time we interact with our repo. `uv` actually takes care of this for us! But in other cases we need to do this ourselves - for example, we might be writing a project that uses `csv` files for data, and we don't want these to be uploaded.
 
@@ -153,6 +153,8 @@ You can also view this history on the Github website, which provides additional 
 *Branches* are one of Git's most powerful features, but they can seem confusing at first. Think of them as parallel versions of your project where you can experiment or work on new features (like a specific subset of a report) without affecting the main version.
 
 By default, every repository has a `main` branch. This is typically the "official" version of your project. When you want to add a new feature or make significant changes, you can create a new branch, make your changes there, **and then merge them back into `main` when you're happy with them**.
+
+![From https://blog.while-true-do.io/git-next-steps/. © 2021, Daniel Schier, CC BY-SA 4.0](images/git-branches.png){width=70% fig-align="center"}
 
 In Github Desktop, you can create a new branch by clicking on the "Current Branch" dropdown at the top and selecting "New Branch". Give it a descriptive name like "add-data-validation" or "update-documentation".
 
