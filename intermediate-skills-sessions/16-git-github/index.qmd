@@ -96,15 +96,11 @@ Once we've set up our repo in Github Desktop, any changes to the local folder (w
 
 ![](images/desktop-changes-1.png){width=70% fig-align="center"}
 
-#### Staging changes
+#### Staging changes and commit messages
 
 In Git, *staging* is the process of selecting which changes you want to include in your next commit.
 
 In Github Desktop, staging is handled automatically for you. When you make changes to files, they'll appear in the left panel. By default, all changed files are staged (they have a tick next to them). If you want to commit only some files, you can untick the others - only the ticked files will be included in your commit.
-
-![](images/desktop-staging.png){width=70% fig-align="center"}
-
-#### Writing commit messages
 
 Every commit needs a *commit message* - a short description of what changed and why. Good commit messages are crucial for understanding your project's history later.
 
