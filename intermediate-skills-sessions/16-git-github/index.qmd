@@ -108,8 +108,6 @@ In Github Desktop, you'll see a commit message box at the bottom left. The first
 
 ![](images/desktop-commit-message.png){width=70% fig-align="center"}
 
-Some tips for good commit messages:
-
 Once you're happy with your message, click "Commit to [branch name]". Remember that if you're working on a public repo, these comments will be visible publicly on Github.
 
 ### Pushing and pulling
