@@ -27,19 +27,30 @@ website:
         href: index.qmd
       # - text: Schedule
       #   aria-label: Sessions Schedule
-      #   href: schedule.qmd
+      #   href: schedule.qmd  # This was the original structure, reflected in the link people originally received,
+                              # hence the need for the redirect page.
       - text: Sessions
-        href: sessions/schedule.qmd
+        aria-label: Session Series
+        menu:
+          - text: Essential Skills
+            aria-label: Essential Skills Schedule
+            href: sessions/schedule.qmd
+          - text: Intermediate Skills
+            aria-label: Intermediate Skills Schedule
+            href: intermediate-skills-sessions/intermediate_skills_schedule.qmd
       - text: Resources
         aria-label: Additional Resources
         menu:
           - text: Glossary
             aria-label: Glossary
             href: resources/glossary.qmd
+      #- sidebar:essentials
+      #- sidebar:intermediate
 
 
   sidebar:
-    - title: Sessions
+    - id: essentials
+      title: Essential Skills
       style: docked
       contents:
         - text: Session Schedule
@@ -84,6 +95,38 @@ website:
               file: sessions/14-implementing-linear-regression/index.qmd
             - text: 15. Beyond Linearity
               file: sessions/15-beyond-linearity/index.qmd
+
+    - id: intermediate
+      title: Intermediate Skills
+      style: docked
+      contents:
+        - text: Session Schedule
+        - file: intermediate-skills-sessions/intermediate_skills_schedule.qmd
+        - section: Tools
+          contents: 
+            - text: 16. Git and GitHub
+              file: intermediate-skills-sessions/16-git-github/index.qmd
+            - text: 17. Quarto
+        - section: Intermediate Python
+          contents: 
+            - text: 18. Webscraping and APIs
+        - section: Machine Learning
+          contents: 
+            - text: 19. TBC
+            - text: 20. TBC
+            - text: 21. TBC
+            - text: 22. TBC
+        - section: Intermediate Python
+          contents: 
+            - text: 23. Generators
+            - text: 24. Decorators
+            - text: 25. Asynchronous programming and callbacks
+            - text: 26. Higher order functions
+            - text: 27. Map, filter, reduce
+            - text: 28. Logging, debugging, exception handling
+            - text: 29. Packages
+            - text: 30. Design patterns
+
 
 format:
   html:

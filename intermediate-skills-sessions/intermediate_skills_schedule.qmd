@@ -1,5 +1,5 @@
 ---
-title: "Code Club Essentials Schedule"
+title: "Code Club Intermediate Skills Schedule"
 format:
   html:
     page-layout: full
@@ -7,15 +7,15 @@ execute:
     echo: false
 ---
 
-This is the schedule and contents page for Code Club's coding and data science essentials for FY25/26.
+This is the schedule and contents page for Code Club's series on Intermediate Skills for FY25/26.
+
+The series covers aspects of Python programming that appear in the Intermediate and Advanced columns of the National Competency Framework, as well as an introduction to Machine Learning and some other coding-related skills to have up your sleeve, such as source control with Git.
 
 The **Demonstration**, **Presentation**, and **Notebook** columns indicate the content to be expected for each session:
 
 - **Demonstration:** A live show-and-tell relating to the discussion topic.
 - **Presentation:** A slide deck covering the discussion topic.
 - **Notebook:** A Jupyter Notebook containing code-along elements or examples for people to work through after the session.
-
-Tutorials will be divided into **Modules**. We recommend that people attend or watch tutorials in the Core module in order to gain a fundamental understanding of coding concepts and resources. Further modules are to be confirmed, but will likely include Automation, Dashboards and Visualisation, and Data Science. People will be able to attend those modules that interest them.
 
 We have mapped the contents of the syllabus to competencies in the National Competency Framework for Data Professionals in Health and Care so that you can see which sessions will help you on your way towards them. For full details of the skills in the framework, the self-assessment tool can be found on [FutureNHS](https://future.nhs.uk/DataAnalytics/view?objectID=163018181).
 
@@ -33,9 +33,9 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 # import .csv
 df = pl.read_csv('../data/schedule.csv')
 
-# essentials series only
+# intermediate series only
 
-df = df[:16,:]
+df = df[16:,:]
 
 # replace 'x' with emojis and create hyperlink markdown
 df_processed = df.with_columns(
