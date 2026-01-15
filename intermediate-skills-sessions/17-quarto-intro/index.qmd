@@ -51,4 +51,4 @@ A helpful command line tip: entering the command quarto help will provide a list
 The most commonly used of these will likely be "quarto render --to [format]" (where format is something like "HTML", "Word", or "PDF").
 
 # Further reading
-![Read more about publishing your work using Quarto](https://quarto.org/)
+![Read more about publishing your work using Quarto](https://quarto.org/docs/guide/)
