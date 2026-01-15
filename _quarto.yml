@@ -107,6 +107,7 @@ website:
             - text: 16. Git and GitHub
               file: intermediate-skills-sessions/16-git-github/index.qmd
             - text: 17. Quarto
+              file: intermediate-skills-sessions/17-quarto-intro/index.qmd
         - section: Intermediate Python
           contents: 
             - text: 18. Webscraping and APIs
