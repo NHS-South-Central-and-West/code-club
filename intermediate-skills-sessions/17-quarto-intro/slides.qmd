@@ -1,5 +1,5 @@
 ---
-title: "An Introduction to to Quarto"
+title: "An Introduction to Quarto"
 footer: '**SAT //** Introduction to Quarto **//** January 2026'
 format: revealjs
 ---
