@@ -998,6 +998,41 @@
     ]
   },
   {
+    "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#from-publishing-in-quarto",
+    "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#from-publishing-in-quarto",
+    "title": "An Introduction to to Quarto",
+    "section": "From publishing in “Quarto”",
+    "text": "From publishing in “Quarto”\nThe word Quarto was originally a print publishing format where each page would have been a quarter the print size (depending on margin and trim point).\n\n\n\n\nHow to print in Quarto.\n\n\n\n\n\n\nQuarto document from the front as it would be printed.\n\n\n\n\n\n\nQuarto sheet as it would be read"
+  },
+  {
+    "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#to-publishing-in-quarto",
+    "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#to-publishing-in-quarto",
+    "title": "An Introduction to to Quarto",
+    "section": "To publishing in Quarto",
+    "text": "To publishing in Quarto\n\nThe Quarto we are referring to today is a system for publishing documents into a number of common digital formats though it can also be optimised to allow for designing print publications.\nBuilt as the evolution of R Markdown, it allows for a multi language system that supports code in Python, R, JavaScript and Julia.\nQuarto allows users to publish reporting from a combination of MarkDown and Code to numerous formats including MS Word, HTML, ePub, Revealjs, MS PowerPoint, and many more"
+  },
+  {
+    "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-websites",
+    "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-websites",
+    "title": "An Introduction to to Quarto",
+    "section": "Quarto Websites",
+    "text": "Quarto Websites\nOur very own website is built pretty much entirely using Quarto hosted from GitHub, it can also be used for personal blogs such as that of our very own Paul Johnson.\n\n\n\n\nCode Club\n\n\n\n\n\n\nPaul’s Blog"
+  },
+  {
+    "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-books-and-dashboards",
+    "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-books-and-dashboards",
+    "title": "An Introduction to to Quarto",
+    "section": "Quarto books and Dashboards",
+    "text": "Quarto books and Dashboards\nBeyond websites you can also use Quarto to publish to other formats. Here’s two such examples, an e-book and a shiny dashboard about penguins:\n\n\n\n\nCode Club\n\n\n\n\n\n\nTelling Stories With Data"
+  },
+  {
+    "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#final-thoughts",
+    "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#final-thoughts",
+    "title": "An Introduction to to Quarto",
+    "section": "Final Thoughts",
+    "text": "Final Thoughts\n\nDon’t worry about memorising any of this!\nThe chief purpose of this session is to give you an idea of what is possible.\nYou can always come back later or ask for help via the “Code Help” channel or by contacting SAT directly."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Welcome to Code Club!",
@@ -1012,6 +1047,17 @@
     "text": "This is the schedule and contents page for Code Club’s series on Intermediate Skills for FY25/26.\nThe series covers aspects of Python programming that appear in the Intermediate and Advanced columns of the National Competency Framework, as well as an introduction to Machine Learning and some other coding-related skills to have up your sleeve, such as source control with Git.\nThe Demonstration, Presentation, and Notebook columns indicate the content to be expected for each session:\n\nDemonstration: A live show-and-tell relating to the discussion topic.\nPresentation: A slide deck covering the discussion topic.\nNotebook: A Jupyter Notebook containing code-along elements or examples for people to work through after the session.\n\nWe have mapped the contents of the syllabus to competencies in the National Competency Framework for Data Professionals in Health and Care so that you can see which sessions will help you on your way towards them. For full details of the skills in the framework, the self-assessment tool can be found on FutureNHS.\nPlease note that this is a first draft of the mapping of NCF competencies to our syllabus and it is awaiting review.\n\n\n\n\n\n\n\n  \n  \n  \n  \n  \n  \n  \n  \n\n\n\n\n\n  Session Date\n  Module\n  Session Name\n  Description\n  Demonstration\n  Presentation\n  Notebook\n  NCF Competency\n\n\n\n  \n    04/12/2025\n    Tools\n    Git and GitHub\n    Source control and collaboration\n    -\n    -\n    -\n    DEC6 / DSC6: Programming\n  \n  \n    18/12/2025\n    Tools\n    Quarto\n    Reproducible reports, documents and websites\n    -\n    -\n    -\n    SA13: Data Automation\n  \n  \n    08/01/2026\n    Intermediate Python\n    Webscraping and APIs\n    How to use these techniques to import data in an automatic, programmatic way from the web\n    -\n    -\n    -\n    SA13: Data Automation\n  \n  \n    22/01/2026\n    Machine Learning\n    TBC\n    TBC\n    -\n    -\n    -\n    SA12: Machine Learning\n  \n  \n    05/02/2026\n    Machine Learning\n    TBC\n    TBC\n    -\n    -\n    -\n    SA12: Machine Learning\n  \n  \n    19/02/2026\n    Machine Learning\n    TBC\n    TBC\n    -\n    -\n    -\n    SA12: Machine Learning\n  \n  \n    05/03/2026\n    Machine Learning\n    TBC\n    TBC\n    -\n    -\n    -\n    SA12: Machine Learning\n  \n  \n    19/03/2026\n    Intermediate Python\n    Generators\n    Pros, cons, practical applications\n    -\n    -\n    -\n    SA21 : Python Proficiency (Intermediate)\n  \n  \n    02/04/2026\n    Intermediate Python\n    Decorators\n    How to use\n    -\n    -\n    -\n    SA21 : Python Proficiency (Intermediate)\n  \n  \n    16/04/2026\n    Intermediate Python\n    Asynchronous programming and callbacks\n    How to use and the differences between asynchronous and synchronous\n    -\n    -\n    -\n    SA21 : Python Proficiency (Intermediate)\n  \n  \n    30/04/2026\n    Intermediate Python\n    Higher order functions\n    How to use\n    -\n    -\n    -\n    SA21 : Python Proficiency (Intermediate)\n  \n  \n    14/05/2026\n    Intermediate Python\n    Map, filter, reduce\n    Extend your functional programming capabilities\n    -\n    -\n    -\n    SA21 : Python Proficiency (Advanced)\n  \n  \n    28/05/2026\n    Intermediate Python\n    Logging, debugging, exception handling\n    How to handle exceptions and how to eliminate errors in your programs\n    -\n    -\n    -\n    SA21 : Python Proficiency (Advanced)\n  \n  \n    11/06/2026\n    Intermediate Python\n    Packages\n    How to build your own package\n    -\n    -\n    -\n    -\n  \n  \n    25/06/2026\n    Intermediate Python\n    Design patterns\n    Using iterators, decorators, proxies and factories\n    -\n    -\n    -\n    SA21 : Python Proficiency (Advanced)",
     "crumbs": [
       "Code Club Intermediate Skills Schedule"
+    ]
+  },
+  {
+    "objectID": "intermediate-skills-sessions/17-quarto-intro/index.html",
+    "href": "intermediate-skills-sessions/17-quarto-intro/index.html",
+    "title": "An Introduction to Quarto",
+    "section": "",
+    "text": "This session is a standalone introduction to Quarto, a tool which can be used to turn notebooks into sharable documents and build presentations and websites from live code segments.\nWhilst this session is not part of a specific series it will be more accessible once you have an understanding of key concepts as covered in existing code club sessions.\n\nSlides\nUse the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, follow this link.\n\n\n\n\nCode along requirements\nIn addition to the slideshow above there will also be some elements which learners may wish to code along with. The demonstration has been run in VS Code enabled with the Quarto extension.\nThe code base for the demonstration is stored in an SCW repository as it connects to SCW servers, but the information downloaded is a replica of information released by NHS England.\nOnce downloaded you will need to run the “uv sync” command in a powershell terminal from your local repository folder.\n\n\nWhat is Quarto?\n“Quarto” is a system for publishing scientific and technical work. The name is a reference to the “Quarto” format of print publishing, where a sheet is printed into 4 sections which can all be printed double sided.\nThe Quarto system (code not print) allows for multiple code languages to be combined with markdown to allow for users to format their output for readability before converting into one of a number of formats from Word documents and PDFs to Presentations and Websites (For example, this website has been built in Quarto).\nIn its simplest form Quarto is a standalone command-line interface (CLI) but is easily integrated with integrated development environments (IDEs) such as VS Code, Positron or R-Studio. Given that we have used VS Code throughout the rest of the session.\n\n\nHow do I use Quarto in VS Code?\nThe easiest way to use Quarto is to install the relevant extension. Go to the extensions tab in VS Code and search for “Quarto”.\n\n\n\nFind the Quarto Extension\n\n\nInstalling this will enable the quarto extension meaning you can now access commands via the terminal or via the command pallette and search “Quarto” which will bring you to the Quarto commands.\n\n\n\nViewing Quarto commands in the Command Palette\n\n\nThere may be further items required depending on your output requirements but this should enable output into a number of different formats including Word and HTML.\nA helpful command line tip: entering the command quarto help will provide a list of common commands that you can use to interact with your quarto documents.\nThe most commonly used of these will likely be “quarto render –to [format]” (where format is something like “HTML”, “Word”, or “PDF”).\n\n\nFurther reading\n\n\n\nRead more about publishing your work using Quarto",
+    "crumbs": [
+      "Tools",
+      "17. Quarto"
     ]
   },
   {
