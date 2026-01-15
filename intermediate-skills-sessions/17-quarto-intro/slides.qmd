@@ -1,0 +1,112 @@
+---
+title: "An Introduction to to Quarto"
+footer: '**SAT //** Introduction to Quarto **//** January 2026'
+format: revealjs
+---
+
+# What is Quarto? {data-background-color="#425563" data-verticator="#E8EDEE"}
+An effective system for publishing documents
+
+
+## From publishing in "Quarto"{.center}
+The word **Quarto** was originally a print publishing format where each page would have been a quarter the print size (depending on margin and trim point). 
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/quarto2.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">How to print in Quarto.</figcaption>
+</figure>
+:::
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/quarto_top_down.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Quarto document from the front as it would be printed.</figcaption>
+</figure>
+:::
+
+::: {.column width="30%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/quarto_pressed.jpg"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;">Quarto sheet as it would be read</figcaption>
+</figure>
+:::
+
+
+## To publishing in Quarto {.center}
+
+- The Quarto we are referring to today is a system for publishing documents into a number of common digital formats though it can also be optimised to allow for designing print publications. 
+- Built as the evolution of R Markdown, it allows for a multi language system that supports code in Python, R, JavaScript and Julia.
+- Quarto allows users to publish reporting from a combination of MarkDown and Code to numerous formats including MS Word, HTML, ePub, Revealjs, MS PowerPoint, and many more
+
+# Examples of Quarto documents {data-background-color="#425563" data-verticator="#E8EDEE"}
+Websites, slideshows, books, dashboards and more...
+
+## Quarto Websites {.center}
+Our very own website is built pretty much entirely using Quarto hosted from GitHub, it can also be used for personal blogs such as that of our very own Paul Johnson.
+
+::: {.column width="50%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/code_club.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;"><a href="https://nhs-south-central-and-west.github.io/code-club/">Code Club</a></figcaption>
+</figure>
+:::
+
+::: {.column width="50%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/paulrjohnson_dot_net.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;"><a href="https://paulrjohnson.net/blog/">Paul's Blog</a></figcaption>
+</figure>
+:::
+
+
+## Quarto books and Dashboards {.center}
+Beyond websites you can also use Quarto to publish to other formats. Here's two such examples, an e-book and a shiny dashboard about penguins:
+
+::: {.column width="50%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/code_club.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;"><a href="">Code Club</a></figcaption>
+</figure>
+:::
+
+::: {.column width="50%" height="80%"}
+<figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
+  <img src="images/Penguins_dashboard.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;"><a href="https://tellingstorieswithdata.com/">Telling Stories With Data</a></figcaption>
+</figure>
+:::
+
+# Demonstration on creating Quarto documents{data-background-color="#425563" data-verticator="#E8EDEE"}
+This section of the presentation will be in the live recording only.
+
+
+
+
+## Final Thoughts {.center}
+
+- **Don't worry about memorising any of this!**
+- The chief purpose of this session is to give you an idea of what is possible.
+- You can always come back later or ask for help via the <a href="https://teams.microsoft.com/l/channel/19%3Aaade66d3b9e542c28224d9c2f43519eb%40thread.tacv2/Code%20Help?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3">"Code Help" channel</a> or by contacting SAT directly.
+
+
+# Thank You! {.center}
+
+<br>
+Contact SAT:
+<br>
+
+<ul >
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+</ul>
+
+
+Code & Slides:
+<br>
+
+<ul >
+{{< fa brands github >}}[/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+</ul>
+<br>
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
