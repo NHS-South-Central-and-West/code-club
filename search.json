@@ -1000,35 +1000,35 @@
   {
     "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#from-publishing-in-quarto",
     "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#from-publishing-in-quarto",
-    "title": "An Introduction to to Quarto",
+    "title": "An Introduction to Quarto",
     "section": "From publishing in “Quarto”",
     "text": "From publishing in “Quarto”\nThe word Quarto was originally a print publishing format where each page would have been a quarter the print size (depending on margin and trim point).\n\n\n\n\nHow to print in Quarto.\n\n\n\n\n\n\nQuarto document from the front as it would be printed.\n\n\n\n\n\n\nQuarto sheet as it would be read"
   },
   {
     "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#to-publishing-in-quarto",
     "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#to-publishing-in-quarto",
-    "title": "An Introduction to to Quarto",
+    "title": "An Introduction to Quarto",
     "section": "To publishing in Quarto",
     "text": "To publishing in Quarto\n\nThe Quarto we are referring to today is a system for publishing documents into a number of common digital formats though it can also be optimised to allow for designing print publications.\nBuilt as the evolution of R Markdown, it allows for a multi language system that supports code in Python, R, JavaScript and Julia.\nQuarto allows users to publish reporting from a combination of MarkDown and Code to numerous formats including MS Word, HTML, ePub, Revealjs, MS PowerPoint, and many more"
   },
   {
     "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-websites",
     "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-websites",
-    "title": "An Introduction to to Quarto",
+    "title": "An Introduction to Quarto",
     "section": "Quarto Websites",
     "text": "Quarto Websites\nOur very own website is built pretty much entirely using Quarto hosted from GitHub, it can also be used for personal blogs such as that of our very own Paul Johnson.\n\n\n\n\nCode Club\n\n\n\n\n\n\nPaul’s Blog"
   },
   {
     "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-books-and-dashboards",
     "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-books-and-dashboards",
-    "title": "An Introduction to to Quarto",
+    "title": "An Introduction to Quarto",
     "section": "Quarto books and Dashboards",
-    "text": "Quarto books and Dashboards\nBeyond websites you can also use Quarto to publish to other formats. Here’s two such examples, an e-book and a shiny dashboard about penguins:\n\n\n\n\nCode Club\n\n\n\n\n\n\nTelling Stories With Data"
+    "text": "Quarto books and Dashboards\nBeyond websites you can also use Quarto to publish to other formats. Here’s two such examples, an e-book and a shiny dashboard about penguins:\n\n\n\n\nA dashboard on Penguins\n\n\n\n\n\n\nTelling Stories With Data"
   },
   {
     "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#final-thoughts",
     "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#final-thoughts",
-    "title": "An Introduction to to Quarto",
+    "title": "An Introduction to Quarto",
     "section": "Final Thoughts",
     "text": "Final Thoughts\n\nDon’t worry about memorising any of this!\nThe chief purpose of this session is to give you an idea of what is possible.\nYou can always come back later or ask for help via the “Code Help” channel or by contacting SAT directly."
   },
