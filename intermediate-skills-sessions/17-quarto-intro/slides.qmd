@@ -1,5 +1,5 @@
 ---
-title: "An Introduction to to Quarto"
+title: "An Introduction to Quarto"
 footer: '**SAT //** Introduction to Quarto **//** January 2026'
 format: revealjs
 ---
@@ -65,8 +65,8 @@ Beyond websites you can also use Quarto to publish to other formats. Here's two 
 
 ::: {.column width="50%" height="80%"}
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
-  <img src="images/code_club.png"/>
-  <figcaption style="margin-top: 0.1em; line-height: 1.2;"><a href="">Code Club</a></figcaption>
+  <img src="Penguins_dashboard.png"/>
+  <figcaption style="margin-top: 0.1em; line-height: 1.2;"><a href="https://jjallaire.shinyapps.io/penguins-dashboard/">A dashboard on Penguins</a></figcaption>
 </figure>
 :::
 
