@@ -22,7 +22,7 @@ Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides b
 
 In addition to the slideshow above there will also be some elements which learners may wish to code along with. The demonstration has been run in VS Code enabled with the Quarto extension.
 
-The code base for the demonstration is stored in an SCW repository as it connects to SCW servers, but the information downloaded is a replica of information released by NHS England []
+The code base for the demonstration is stored in an SCW repository as it connects to SCW servers, but the information downloaded is a replica of information released by NHS England.
 
 Once downloaded you will need to run the "uv sync" command in a powershell terminal from your local repository folder.
 
