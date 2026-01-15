@@ -32,7 +32,7 @@ Once downloaded you will need to run the "uv sync" command in a powershell termi
 
 The Quarto system (code not print) allows for multiple code languages to be combined with markdown to allow for users to format their output for readability before converting into one of a number of formats from Word documents and PDFs to Presentations and Websites (For example, this website has been built in Quarto).
 
-in its simplest form Quarto is a standalone command-line interface (CLI) but is easily integrated with integrated development environments (IDEs) such as VS Code, Positron or R-Studio. Given that we have used VS Code throughout the rest of the session.
+In its simplest form Quarto is a standalone command-line interface (CLI) but is easily integrated with integrated development environments (IDEs) such as VS Code, Positron or R-Studio. Given that we have used VS Code throughout the rest of the session.
 
 # How do I use Quarto in VS Code?
 
