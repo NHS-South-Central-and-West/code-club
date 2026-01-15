@@ -72,7 +72,7 @@ Beyond websites you can also use Quarto to publish to other formats. Here's two 
 
 ::: {.column width="50%" height="80%"}
 <figure style="display: flex; flex-direction: column; align-items: center; margin: 0;">
-  <img src="images/Penguins_dashboard.png"/>
+  <img src="images/Telling_stories.png"/>
   <figcaption style="margin-top: 0.1em; line-height: 1.2;"><a href="https://tellingstorieswithdata.com/">Telling Stories With Data</a></figcaption>
 </figure>
 :::
