@@ -1023,7 +1023,7 @@
     "href": "intermediate-skills-sessions/17-quarto-intro/slides.html#quarto-books-and-dashboards",
     "title": "An Introduction to Quarto",
     "section": "Quarto books and Dashboards",
-    "text": "Quarto books and Dashboards\nBeyond websites you can also use Quarto to publish to other formats. Here’s two such examples, an e-book and a shiny dashboard about penguins:\n\n\n\n\nCode Club\n\n\n\n\n\n\nTelling Stories With Data"
+    "text": "Quarto books and Dashboards\nBeyond websites you can also use Quarto to publish to other formats. Here’s two such examples, an e-book and a shiny dashboard about penguins:\n\n\n\n\nA dashboard on Penguins\n\n\n\n\n\n\nTelling Stories With Data"
   },
   {
     "objectID": "intermediate-skills-sessions/17-quarto-intro/slides.html#final-thoughts",
