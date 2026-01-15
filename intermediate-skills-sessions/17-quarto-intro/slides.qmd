@@ -35,7 +35,7 @@ The word **Quarto** was originally a print publishing format where each page wou
 
 ## To publishing in Quarto {.center}
 
-- The Quarto we are referring to today is a system  for publishing documents into a number of common digital formats though it can also be optimised to allow for designing print publications. 
+- The Quarto we are referring to today is a system for publishing documents into a number of common digital formats though it can also be optimised to allow for designing print publications. 
 - Built as the evolution of R Markdown, it allows for a multi language system that supports code in Python, R, JavaScript and Julia.
 - Quarto allows users to publish reporting from a combination of MarkDown and Code to numerous formats including MS Word, HTML, ePub, Revealjs, MS PowerPoint, and many more
 

@@ -42,7 +42,7 @@ The easiest way to use Quarto is to install the relevant extension. Go to the ex
 
 Installing this will enable the quarto extension meaning you can now access commands via the terminal or via the command pallette and search "Quarto" which will bring you to the *Quarto* commands. 
 
-![viewing Quarto commands in the Command Palette](images/quarto_command_pallette.png)
+![Viewing Quarto commands in the Command Palette](images/quarto_command_pallette.png)
 
 There may be further items required depending on your output requirements but this should enable output into a number of different formats including Word and HTML.
 
