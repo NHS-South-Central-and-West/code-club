@@ -208,24 +208,6 @@ table_df
 
 ```
 
-It doesn't appear to cover the whole year. Is there another section to the table?
-
-```{python}
-#| label: check-sections
-len(pd.read_html((str(tables)))) # check how many individual tables have been found
-```
-
-Now that we know there is more than one section, let's return the second item from the ResultSet.
-
-```{python}
-#| label: second-section
-
-table_df2 = pd.read_html(str(tables))[0] # return the second item from the ResultSet
-
-table_df2 
-```
-
-This is illustrative of the fact that you need to inspect the HTML of the page that you are querying to ensure that you are getting everything that you need. You also need to be aware of any changes that get made to the structure of the web page, lest your Python code fail to return everything that you are expecting.
 
 #### Locate a .csv file on a webpage.
 
@@ -281,7 +263,7 @@ else:
 Using the `StringIO()` class from the `io` library, create an in-memory stream of the data that can be operated on like a file, without having first saved it down as one. The .csv data is treated like a long string where fields are separated by delimiters (commas by default) and rows are separated by newline characters (typically `\n`). The `.read_csv()` method in Pandas converts this string into a DataFrame.
 
 ```{python}
-#| label: csv-to-pdf
+#| label: csv-to-df
 
 csv_content = StringIO(file_response.text)
 
