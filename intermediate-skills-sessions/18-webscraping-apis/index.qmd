@@ -5,38 +5,467 @@ format:
   ipynb: default
 ---
 
+Ever wanted to automate the dowloading of data from external websites? Ever had a request where you need historic data from NHS publications where each .csv file is on its own web page and you are faced with negotiating dozens of clicks and dialogue boxes? Ever wanted to pipe public data directly into a report to provide wider context entirely fuss-free? Then you have come to the right tutorial. We are going to cover two methods for doing these very things, things that you can take away and apply today: no highfalutin concepts to digest, no need to hold out hope for a juicy data science project to get your teeth into. What's more, we are going to give you some examples of public datasets that you can try these out on, giving you data with which to exercise your other Python skills.
+
+The first method we are going to cover is webscraping, which is basically a way to retrieve elements on web pages by accessing them via the HTML tags (stay with us, there's no need to become an expert in HTML, the Python package is going to do the hard work).
+
+The second method is to access data made available via APIs (Application Programming Interfaces). We will specifically be looking at APIs that provide the data in JSON format, something which only requires minimal manipulation to put it into a dataframe.
+
+However, before we get to the good stuff, there are a few things to touch on that will prove essential when using these two methods. They relate to accessing URLs (web links) dynamically and making requests to content via the web. We will give you a brief introduction to prime you for when they come up later.
+
 ## Regular Expressions
 
-This is a very important part of webscraping and APIs since you are often interested in accessing web pages and API endpoints based on a URL pattern
+This is a very important part of webscraping and making API calls since you are often interested in accessing web pages, hosted files and API endpoints based on a URL pattern. Where it becomes useful is when you want to programmatically access any URLs or file names that match a pattern, but contain an element that can vary: for example, when there are monthly editions of a publication, where the file name or URL contains the name of the month. Take the example below:
 
-https://pythex.org (for testing regex patterns against test strings). It also has a regex cheatsheet.
+```{python}
+#| label: regex-example
+#| eval: false
 
-Can be used to search for patterns re.search() and get the actual string from where the match was found: re.group()
+dynamic_section = r'^england-[a-z]+-202[0-9]$'
 
-See my OneNote notes, since there's something interesting about finding second level options from the first level in a URL.
+```
 
-## GET requests
+This regular expression is intended to represent the changing part of a URL that points to the specific pages where monthly publications are hosted. Let's look at the elements:
 
-This is important enough to have its own level 2 section since it is used in both webscraping and API calls.
+- The "r" in front of the string tells Python that it should handle whatever comes between the quotation marks as a **raw** string, which is to say that it should ignore any of Python's conventions around special characters, such as "\" being an escape character, and that it should pass the regex string to the `re` functions without manipulating it in any way.
+- The "^" states that the following characters must come at the beginning of the string that you are searching, i.e. nothing should come before it.
+- The "$" denotes the end of the string, i.e. nothing should come after it.
+- The string must start with the sequence "england-".
+- It must end with the sequence "-202x", where x is any digit from 0 to 9.
+- And the "[a-z]+" means that the string will contain one or more (the "+") lower case alphabetical characters ("[a-z]", i.e. any lower case letter in the range between the square brackets).
 
-- `request` library
-- You are looking for a response of 200. It's often built into try/except or if/else.
+Taking the following as the base URL...
+
+`'https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme'`
+
+The following would be valid URLs matching the pattern of `dynamic_section`:
+
+`https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme/england-january-2024`
+
+`https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme/england-may-2021`
+
+But the following would be ignored:
+
+`https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme/england-quarter-4-2020-21`
+
+
+If you want a hand with creating a regular expression that does the job for your situation, [https://pythex.org](https://pythex.org) has an interface that can be used to test regex patterns against text springs, as well as a regex cheatsheet. The [Geeks for Geeks](https://www.geeksforgeeks.org/python/python-regex/) tutorial has a good set of examples of what each regex character sequence could be used to target.
+
+:::{.callout-note}
+## Choose the right library
+The Python library to use when constructing regular expressions is `re`. There is also a library called `regex`, but it is an older library with less functionality. You do not need to explicitly _install_ `re` since it comes with Python when that is installed, but you still need to _import_ it.
+:::
+
+
+## The REST standard and GET requests
+
+When it comes to making requests for data online, it is important to understand a little about how they are made and the standard that underpins them. The requests that we are concerned with follow the **REST** (**RE**presentational **S**tate **T**ransfer) standard. REST guides the design of processes, standardising and simplifying the communication of requests for data hosted on web servers. As a result, operations are made using a standard set of terms. The most common ones are listed below:
+
+- **GET**: is used when you want to **read** data on the server.
+- **POST**: is used to **create** data.
+-  **PATCH** (or PUT): is used to **update** data.
+- **DELETE**: no surprise, is used to **delete** data.
+
+Since this tutorial is teaching you to be a consumer of this data, we are really only interested in GET requests. Whether you are webscraping or making a request to an API endpoint, you will be making a GET request. The first step of each is to make a GET request using the `request` library and checking which response is returned:
+
+- A response of **200** is positive, i.e. there is data to be had via the supplied URL.
+- **400** is a negative response.
+- **304** is a "not modified" or "no new data" reponse, which will come up again later when we cover API call etiquette.
+- These codes are often built into try/except or if/else blocks to govern what happens when there is / isn't any available data.
+- There are [many other codes](https://restfulapi.net/http-status-codes/) that you may wish to handle, particularly if you want to generate informative error messages, but the three listed above should be enough to get you started.
+
+```{python}
+#| label: get-response-example
+#| eval: false
+
+import request as req
+
+url = [...] # the target URL
+
+response = req.get(url)
+
+if response.status_code == 200:
+  # do something with the data
+else:
+  print(f'Failed to fetch webpage: {response.status_code}')
+
+```
+
+Now that we have introduced those concepts, we can start having a look at the things you were promised.
 
 ## Webscraping
+
+This is a really handy tool for automating the extraction from a web page of anything that is encoded with HTML tags. It can be used to: 
+
+- Download files hosted on the web server and made available via hyperlinks; for example, monthly / annual data publications.
+- Copy down data tables appearing on a web page and converting them to a Pandas dataframe; for example, data collection deadlines / data dissemination dates.
+- Copy text from the page title, headers or the body of the page.
+- Copy images, hyperlinks, mailto links, iframes... 
 
 ### HTML tags
 
 These are important since they encode the structure of a web page. Understanding these gives you an idea of what is possible when it comes to accessing elements of the structure of a web page.
 
-- Examples from my Python Learning repo such as getting the title of the SCW page and scraping a table.
+There's a nice compact HTML cheatsheet from [Stanford University](https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf), but if you are not into the whole brevity thing, [Geeks for Geeks](https://www.geeksforgeeks.org/html/html-cheat-sheet/) has got you covered again with a nicely laid-out explanation of each.
 
 ### Beautiful Soup
 
-This library helps to parse the HTML and access the elements on a web page.
+One of the most commonly used libraries for webscraping is Beautiful Soup. It parses the HTML and allows the user to access the elements using familiar Python syntax. The [documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) is very comprehensive, and the Quick Start section provides plenty of useful, simple examples.
 
-## JSON APIs
+To install it in your Python environment, enter `uv add beautifulsoup4` into your terminal.
 
-See OneNote notes since it's got a good note about how JSON records are semi-structured data since the data is labelled, but the structure or completeness may be inconsistent across entities relating to objects of the same type.
+Note that when you import it into your script, you write: `from bs4 import BeautifulSoup`. 
 
-- Flood data as the example? Or find another one since that's already used in the generators tutorial. Don't use UKHSA, though. Or maybe do & get people interested in collaborating.
+### Examples
 
+Let's see how this is used in practise. First of all, we will install the packages that we are going to be using.
+
+```{python}
+#| label: import-packages
+
+from bs4 import BeautifulSoup # the webscraping library
+
+import requests as req # the web request library
+
+import re # the regular expressions library that comes with the Python installation.
+
+# this will help us construct dynamic URLs from different elements joined together.
+# it can also be used to make HTTP requests.
+# it is installed by entering "uv add urllib3" into your terminal
+from urllib.parse import urljoin 
+
+# used for converting files into binary data, which can then be converted into 
+# other formats.
+# it comes as part of the Python installation.
+from io import StringIO 
+
+import pandas as pd # so that we can store our data in a dataframe
+
+import os # operating system functions, such as accessing file directories
+
+```
+
+#### A simple request to retrieve a web page title
+
+:::{.callout-note}
+## Instantiation
+Note that it is conventional to instantiate a BeautifulSoup parser object as "soup".
+:::
+
+```{python}
+#| label: page-title
+url = 'https://www.scwcsu.nhs.uk/about/our-values' # define the url in question
+
+response = req.get(url) # define the response as a GET request to the URL
+
+# if there is a positive reponse to the request, create a BeautifulSoup parser object
+# that collects the parsed content of the response.
+# Then print the web page "title" element.
+# The parser library being used is Python's in-built "html.parser"
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    print('Webpage title:', soup.title.string)
+
+# otherwise, return a helpful error message
+else:
+    print(f'Failed to fetch webpage: {response.status_code}')
+
+```
+
+For a list of alternative parser libraries, see [this](https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser) section of the BeautifulSoup documentation.
+
+#### Display the full HTML of a web page.
+
+If you want to inspect all of the HTML code for a given page, so that you can get an idea of what is available, you can use the `prettify()` method. This re-uses the same `soup` object defined above. The output of the code will not be produced since it has been deactivated so that it does not take up too much space on our website. We recommend that you run it in a downloaded copy of the accompanying Jupyter Notebook.
+
+```{python}
+#| label: full-html
+#| eval: false
+print(soup.prettify())
+```
+
+#### Scrape information from a table on a web page.
+
+```{python}
+#| label: scrape-table
+
+url = ('https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/mental-health-services-data-set/submit-data')
+
+response = req.get(url)
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, "html.parser")
+
+tables = soup.find_all('table')
+print(type(tables))
+
+# get the first item in the BeautifulSoup ResultSet, convert it into a string, 
+# and read the html into a pandas DataFrame
+table_df = pd.read_html(str(tables))[0] 
+
+table_df
+
+```
+
+It doesn't appear to cover the whole year. Is there another section to the table?
+
+```{python}
+#| label: check-sections
+len(pd.read_html((str(tables)))) # check how many individual tables have been found
+```
+
+Now that we know there is more than one section, let's return the second item from the ResultSet.
+
+```{python}
+#| label: second-section
+
+table_df2 = pd.read_html(str(tables))[0] # return the second item from the ResultSet
+
+table_df2 
+```
+
+This is illustrative of the fact that you need to inspect the HTML of the page that you are querying to ensure that you are getting everything that you need. You also need to be aware of any changes that get made to the structure of the web page, lest your Python code fail to return everything that you are expecting.
+
+#### Locate a .csv file on a webpage.
+
+Most of the code is the same as the "title" example, but this time we are looking for a hyperlink on the page that points to a .csv file (that is to say, the URL ends with the .csv file extension).
+
+```{python}
+#| label: locate-csv
+
+url = ('https://digital.nhs.uk/data-and-information/publications/statistical/out-of-area-placements-in-mental-health-services/march-2024') 
+
+response = req.get(url)
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # find a hyperlink element (has the tag "a") where the hyperlink element
+    # ends with "csv".
+    csv_link = soup.find("a", href=lambda href: href and href.endswith('csv'))
+
+    file_url = csv_link["href"] # just return the URL from within the HTML statement
+
+    print("Found .csv file:", file_url)
+
+else:
+    print(f'Failed to fetch webpage: {response.status_code}')
+
+
+```
+
+
+#### Download the file via the discovered hyperlink.
+
+First of all, we need to check whether the file is available for us to download, so we also need to check the reponse here, too.
+
+```{python}
+#| label: download-csv
+
+file_name = file_url.split("/")[-1]  # extract the file name from the URL i.e. the bit after the last "/"
+file_response = req.get(file_url)
+
+if file_response.status_code == 200:
+    # save the file to the current directory
+    with open(f'{file_name}', "wb") as file:
+        file.write(file_response.content)
+    print(f"Downloaded: {file_name}")
+else:
+    print(f"Failed to download: {file_url}")
+
+```
+
+#### Read .csv data directly into a Pandas dataframe
+
+Using the `StringIO()` class from the `io` library, create an in-memory stream of the data that can be operated on like a file, without having first saved it down as one. The .csv data is treated like a long string where fields are separated by delimiters (commas by default) and rows are separated by newline characters (typically `\n`). The `.read_csv()` method in Pandas converts this string into a DataFrame.
+
+```{python}
+#| label: csv-to-pdf
+
+csv_content = StringIO(file_response.text)
+
+df = pd.read_csv(csv_content)
+
+df.head()
+
+```
+
+
+#### Using a regular expression and `urljoin` to locate files on multiple web pages.
+
+This is a hefty bit of code with multiple `for` loops and `if` statements. Hopefully, the inline comments explain what is going on at each stage. The great thing about using Python code is that you can easily re-use this code, simply replacing the base URL and the dynamic section. You can also specify the file type, in case you want to use it to download .xlsx files, for example.
+
+When defining the "dynamic_section", you need to make sure that you have identified a regular expression that matches the pattern of all the target URLs that you are interested in.
+
+While the regular expression in the example above ended with `202[0-9]$`, it has been set to `2024$` here so that it doesn't download too many files in one go.
+
+```{python}
+#| label: multiple-pages
+
+url = 'https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme'
+
+target_urls = []                           # empty list that will later get filled with target URLs in a for loop.
+
+dynamic_section = r'^england-[a-z]+-2024$' # the regular expression for the URLs we are interested in. note that the $ implies that you don't want anything else to follow.
+
+response = req.get(url)                    # get the response from the base URL
+
+ext = '.csv'                               # specify the file type
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, "html.parser")     # if there is a successful response, create a BeautifulSoup object.
+
+    for link in soup.find_all('a', href = True):
+        sublink = link["href"]
+        if re.match(dynamic_section,sublink.split('/')[-1]):
+            full_url = urljoin(url, sublink)                   # for each of the instances of the pattern we are looking for
+            target_urls.append(full_url)                        # add the constructed full URL to a list of target URLs
+        
+    for link in target_urls:                                    # check for a successful response (code 200) from each URL
+        response = req.get(link)                                # and create a BeautifulSoup object for each.
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, "html.parser")
+
+            for link in soup.find_all("a", href=True):          # for each URL found on each of the pages in target_urls...
+                file_url = link['href']                         
+
+                if file_url.endswith((ext)):                    # ... check for .csv file extensions
+                    print("Found .csv file:", file_url)
+
+                    file_name = file_url.split("/")[-1]         # extract the file name from the URL i.e. everything after the last /
+                    file_response = req.get(file_url)           # check the response for each file
+            
+                    if file_response.status_code == 200:        # if there's a successful response
+                        
+                        with open(file_name, "wb") as file:     # save the file to the current directory
+                            file.write(file_response.content)
+                        print(f"Downloaded: {file_name}")
+                    else:
+                        print(f"Failed to download: {file_url}")
+
+else:
+    print(f'Failed to fetch webpage: {response.status_code}')   # this else statement pairs with the original response code check for the base URL
+                                                                # (see the first "if" in this code block)
+```
+
+
+## APIs
+
+The second method we are going to cover in this tutorial is making requests to data that has been made available via a web API endpoint. API stands for **A**pplication **P**rogramming **I**nterface, and these are used to extend the functionality of an application allowing it to communicate with another. 
+
+We will specifically be looking at web APIs that return their data in JSON format[^Alternative]. For a very simple explanation of what JSON data is, have a look at the [W3 Schools](https://www.w3schools.com/whatis/whatis_json.asp) page. In short, it is a format that is typically used for sending data from a server to a web page. The key thing to understand about them is that each record takes the form of a list of key : value pairs, looking just like a Python dictionary, and multiple records are contained in an array denoted by square brackets. You will see this structure reflected in the Python code below.
+
+[^Alternative]: XML is another common format for data made available via an API endpoint.
+
+For this demonstration, we are going to pull in flood alerts with at least a severity score of 3 from the Environment Agency's live flood alert data[^Flood_Documentation]. If you want to see the data that we will be extracting in its original JSON format, follow this [URL](https://environment.data.gov.uk/flood-monitoring/id/floods?min-severity=3). It is the same URL as will be used in the the Python-based request.
+
+[^Flood_Documentation]: [Environment Agency real-time flood-monitoring API documentation](https://environment.data.gov.uk/flood-monitoring/doc/reference)
+
+
+:::{.callout-important}
+## 
+The options available for querying the data is determined by the way in which the API endpoint has been constructed by the developers. For example, the data may be aggregated by default, meaning that an unfiltered request returns the data aggregated to the highest level. This may well be intended to stop people from requesting masses of granular data by default, but it can be difficult to get an idea of what the available categories are in the data breakdown, if there isn't a dedicated part of the API that allows for the breakdown categories to be returned in a list. It is important to read the API documentation thoroughly to get an undestanding of what your options are.
+:::
+
+Now for the code itself. As was mentioned in the section above on REST and GET requests, we need to import the `requests` library to make the GET request. We also need to import the `json` library, which decodes the JSON format, converting the JSON data types into Python data types. A table of these conversions can be found [here](https://docs.python.org/3/library/json.html#encoders-and-decoders).
+
+The example below has been placed inside a function. This isn't essential, but it can prove useful if you want to expand the function to take inputs that make it reusable and apply it to different extracts of the data. You will also see that placing the code inside a function becomes necessary when using Python **generators**, which is another topic [covered later on]() in our Intermediate Skills curriculum.
+
+1. The first step is to define the request URL, which points to the API endpoint. If you follow the link in a web browser, you will see all of the relevant records laid out in JSON format. Note that in the example below there is the section `"min-severity=3"` which comes after a question mark `?`. The question mark indicates that everything after it relates to an **optional filter**, which is to say that you can get a cut of the data based on specific criteria. You can add multiple filters by joining them together with "&".
+2. Then a GET request is made and assigned to the variable "response".
+3. Then, as with the webscraping, we want to handle the response from the webserver gracefully, in case the data is not available. This means placing details of what we are requesting in an if/else conditional statement. If we get a positive response of 200, proceed with retrieving the data; otherwise, return the error code.
+4. The results of the JSON data request are returned as a dictionary (remember that data in JSON format is very similar to Python dictionaries). In the flood data API, `'items'` is the key in the dictionary, and the values are all of the data records[^Hierarchy]. In the line `results_json = response.json()['items']`, we are accessing all of the records stored against "items".
+5. The values corresponding to the key "items" are held in an array (in square brackets). We give the results that we want to return the variable name `alerts`. We then create a `for` loop to create a Python list of all of the records, and for each record there is a key : value pair for each field in the data, replicating the array / JSON record object structure. Think of each key in the dictionary as being a column name, each value as the record value and each item in the `alerts` list as being a row.
+6. In the dictionary, we give the key a name of our choosing. It is what _we_ want the column name to be. On the value side of the dictionary, we are accessing the value corresponding to each key in the JSON reponse. In the line `for json in results_json`, each `json` is it's own dictionary containing a record, for example `"@id" : "http://environment.data.gov.uk/flood-monitoring/id/floods/112WAFTUBA", "description" : "Upper Bristol Avon area", "eaAreaName" : "Wessex"...`. We want to access the value corresponding to each key in the JSON data and store it against _our_ key.
+7. The list of records is returned in a format that can be used by other Python packages.
+
+[^Hierarchy]: In actual fact, the format that the flood alert data is provided in is a little more complex and is more like a nested dictionary, where you have a top-level set of key-value pairs and one of those keys has values that are themselves dictionaries. In the case of the flood alert data, there are some metadata fields that are defined in the top level alongside "items", and then the value against the "items" key is then itself an array of key-value pairs. 
+
+```{python}
+#| label: flood-data-function
+
+import json
+
+import requests as req
+
+def get_flood_alerts():
+    request_url = 'https://environment.data.gov.uk/flood-monitoring/id/floods?min-severity=3' # Step 1
+    response = req.get(request_url) # Step 2
+    if response.status_code == 200: # Step 3
+        results_json = response.json()['items'] # Step 4
+        alerts = [{   # Step 5
+            'id' : json['@id'], # Step 6
+            'description' : json['description'],
+            'area_name' : json['eaAreaName'],
+            'flood_area_id' : json['floodAreaID'],
+            'is_tidal' : json['isTidal'],
+            'severity' : json['severity'],
+            'severity_level' : json['severityLevel'],
+            'time_message_changed' : json['timeMessageChanged'],
+            'time_raised' : json['timeRaised'],
+            'time_severity_changed' : json['timeSeverityChanged']
+        } for json in results_json] # Step 5 continued
+        return alerts # Step 7
+    else:
+        print(f'Failed to fetch data. Response status: {response.status_code}') # Step 3 continued
+
+```
+
+Let's put the results of the query into a Pandas DataFrame and view the results. For this we call the function we defined above and have Pandas convert that list into a DataFrame, with column names that we have given it and rows that correspond to each record.
+
+```{python}
+#| label: flood-data-results
+
+alerts = pd.DataFrame(get_flood_alerts())
+
+alerts
+
+```
+
+## API request etiquette
+
+These are particularly important if you are making requests to free, public APIs, such as those provided by the government and NHS.
+
+#### Respect rate limits
+
+APIs typically define:
+
+- Requests per second/minute
+- Daily/monthly quotas
+- Burst versus sustained limits
+
+They may not be stated explicitly, but you should assume that these limits exists and throttle your calls appropriately.
+
+#### Use caching
+
+If the API isn't subject to frequent changes, cache results locally so that you do not need to make repeated requests for the same data.
+
+#### Avoid polling too aggressively
+
+- Make requests at a reasonable rate: do you really need to check for updates every second?. Link about what "polling" is : (https://medium.com/@sankalpa115/what-is-polling-b1ff70e87001)
+- Make use of webhooks: these allow for automatic communication between systems, eliminating the need for one system to constantly check another for updates. Data is pushed automatically whenever an event occurs (https://www.geeksforgeeks.org/blogs/what-is-a-webhook-and-how-to-use-it/)
+
+#### Use conditional requests
+
+If supported, you can use `ETag` and `If-Modified-Since`, which return a `304 Not Modfied` reponse instead of a full JSON payload. In essence, this response is saying that no changes have been made to the content made available via the endpoint. You could build in some logic that handles the error without crashing the program, and also notifies the end user that there is no new data since the last update.
+
+#### Select only what you need
+
+Just as you would with a SQL query, try to select only what you need. Some APIs support field selection in the optional filters part of the URL (e.g `?fields=metric,value`). Similarly, try not to request all of the records made available via the API. Would having a rolling 12 months' data be sufficient? Could you store historic data locally? Try to use any filters available in the API to exclude any data that you do not need.
+
+#### Identify yourself
+
+Some APIs require users to provide a `User-Agent` or use an API key so that the provider can get in contact if there is a problem
+
+:::{.callout-caution}
+## Read the smallprint
+It is advisable that you read any Terms of Service applied to the use of an API. Providers of free APIs may forbid commercial use (and you need to be sure what is meant by this), redistribution of the data and automated, high-frequency usage.
+
+:::
+
+### The `fingertips_py` package
+
+This is a package that was originally developed by Public Health England to make it easy to import data via the Fingertips API endpoint. It's an example of what the possibilities are, hopefully serving as inspiration for your own Python projects. It's also pretty useful, if you want to make use of Fingertips data yourself!
+
+We have created a walkthrough of using the `fingertips_py` package [here](/intermediate-skills-sessions/18-webscraping-apis/fingertips_py.html).
