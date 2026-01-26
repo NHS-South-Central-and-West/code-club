@@ -94,6 +94,7 @@ website:
             - text: 14. Implementing Linear Regression
               file: sessions/14-implementing-linear-regression/index.qmd
             - text: 15. Beyond Linearity
+              file: sessions/15-beyond-linearity/index.qmd
 
     - id: intermediate
       title: Intermediate Skills
@@ -104,7 +105,9 @@ website:
         - section: Tools
           contents: 
             - text: 16. Git and GitHub
+              file: intermediate-skills-sessions/16-git-github/index.qmd
             - text: 17. Quarto
+              file: intermediate-skills-sessions/17-quarto-intro/index.qmd
         - section: Intermediate Python
           contents: 
             - text: 18. Webscraping and APIs
