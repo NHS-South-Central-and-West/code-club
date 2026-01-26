@@ -197,12 +197,12 @@ response = req.get(url)
 if response.status_code == 200:
     soup = BeautifulSoup(response.content, "html.parser")
 
-tables = soup.find_all('table')
+tables = soup.find_all('table') # if you are sure there is only one, use "soup.find()"
 print(type(tables))
 
 # get the first item in the BeautifulSoup ResultSet, convert it into a string, 
 # and read the html into a pandas DataFrame
-table_df = pd.read_html(str(tables))[0] 
+table_df = pd.read_html(str(tables))[0]     # if you are sure there is just one, no need to select by index "[0]"
 
 table_df
 
@@ -249,6 +249,7 @@ file_name = file_url.split("/")[-1]  # extract the file name from the URL i.e. t
 file_response = req.get(file_url)
 
 if file_response.status_code == 200:
+
     # save the file to the current directory
     with open(f'{file_name}', "wb") as file:
         file.write(file_response.content)
@@ -260,16 +261,18 @@ else:
 
 #### Read .csv data directly into a Pandas dataframe
 
-Using the `StringIO()` class from the `io` library, create an in-memory stream of the data that can be operated on like a file, without having first saved it down as one. The .csv data is treated like a long string where fields are separated by delimiters (commas by default) and rows are separated by newline characters (typically `\n`). The `.read_csv()` method in Pandas converts this string into a DataFrame.
+Using the `StringIO()` class from the `io` library, create an in-memory stream of the data that can be operated on like a file, without having first saved it down as one. The .csv data is treated like a long string of text where fields are separated by delimiters (commas by default) and rows are separated by newline characters (typically `\n`). The `.read_csv()` method in Pandas converts this string into a DataFrame.
 
 ```{python}
 #| label: csv-to-df
+
+from io import StringIO 
 
 csv_content = StringIO(file_response.text)
 
 df = pd.read_csv(csv_content)
 
-df.head()
+df.head(3)
 
 ```
 
@@ -284,6 +287,7 @@ While the regular expression in the example above ended with `202[0-9]$`, it has
 
 ```{python}
 #| label: multiple-pages
+#| eval: false
 
 url = 'https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme'
 
@@ -298,16 +302,16 @@ ext = '.csv'                               # specify the file type
 if response.status_code == 200:
     soup = BeautifulSoup(response.content, "html.parser")     # if there is a successful response, create a BeautifulSoup object.
 
-    for link in soup.find_all('a', href = True):
+    for link in soup.find_all('a', href = True):                # for each of the instances of the pattern we are looking for...
         sublink = link["href"]
         if re.match(dynamic_section,sublink.split('/')[-1]):
-            full_url = urljoin(url, sublink)                   # for each of the instances of the pattern we are looking for
-            target_urls.append(full_url)                        # add the constructed full URL to a list of target URLs
+            full_url = urljoin(url, sublink)                   
+            target_urls.append(full_url)                        # ... add the constructed full URL to a list of target URLs
         
-    for link in target_urls:                                    # check for a successful response (code 200) from each URL
-        response = req.get(link)                                # and create a BeautifulSoup object for each.
+    for link in target_urls:                                    # check for a successful response (code 200) from each URL...
+        response = req.get(link)                                
         if response.status_code == 200:
-            soup = BeautifulSoup(response.content, "html.parser")
+            soup = BeautifulSoup(response.content, "html.parser") # ... and create a BeautifulSoup object for each.
 
             for link in soup.find_all("a", href=True):          # for each URL found on each of the pages in target_urls...
                 file_url = link['href']                         
@@ -318,9 +322,9 @@ if response.status_code == 200:
                     file_name = file_url.split("/")[-1]         # extract the file name from the URL i.e. everything after the last /
                     file_response = req.get(file_url)           # check the response for each file
             
-                    if file_response.status_code == 200:        # if there's a successful response
+                    if file_response.status_code == 200:        # if there's a successful response...
                         
-                        with open(file_name, "wb") as file:     # save the file to the current directory
+                        with open(file_name, "wb") as file:     # ... save the file to the current directory
                             file.write(file_response.content)
                         print(f"Downloaded: {file_name}")
                     else:
@@ -352,17 +356,7 @@ The options available for querying the data is determined by the way in which th
 
 Now for the code itself. As was mentioned in the section above on REST and GET requests, we need to import the `requests` library to make the GET request. We also need to import the `json` library, which decodes the JSON format, converting the JSON data types into Python data types. A table of these conversions can be found [here](https://docs.python.org/3/library/json.html#encoders-and-decoders).
 
-The example below has been placed inside a function. This isn't essential, but it can prove useful if you want to expand the function to take inputs that make it reusable and apply it to different extracts of the data. You will also see that placing the code inside a function becomes necessary when using Python **generators**, which is another topic [covered later on]() in our Intermediate Skills curriculum.
-
-1. The first step is to define the request URL, which points to the API endpoint. If you follow the link in a web browser, you will see all of the relevant records laid out in JSON format. Note that in the example below there is the section `"min-severity=3"` which comes after a question mark `?`. The question mark indicates that everything after it relates to an **optional filter**, which is to say that you can get a cut of the data based on specific criteria. You can add multiple filters by joining them together with "&".
-2. Then a GET request is made and assigned to the variable "response".
-3. Then, as with the webscraping, we want to handle the response from the webserver gracefully, in case the data is not available. This means placing details of what we are requesting in an if/else conditional statement. If we get a positive response of 200, proceed with retrieving the data; otherwise, return the error code.
-4. The results of the JSON data request are returned as a dictionary (remember that data in JSON format is very similar to Python dictionaries). In the flood data API, `'items'` is the key in the dictionary, and the values are all of the data records[^Hierarchy]. In the line `results_json = response.json()['items']`, we are accessing all of the records stored against "items".
-5. The values corresponding to the key "items" are held in an array (in square brackets). We give the results that we want to return the variable name `alerts`. We then create a `for` loop to create a Python list of all of the records, and for each record there is a key : value pair for each field in the data, replicating the array / JSON record object structure. Think of each key in the dictionary as being a column name, each value as the record value and each item in the `alerts` list as being a row.
-6. In the dictionary, we give the key a name of our choosing. It is what _we_ want the column name to be. On the value side of the dictionary, we are accessing the value corresponding to each key in the JSON reponse. In the line `for json in results_json`, each `json` is it's own dictionary containing a record, for example `"@id" : "http://environment.data.gov.uk/flood-monitoring/id/floods/112WAFTUBA", "description" : "Upper Bristol Avon area", "eaAreaName" : "Wessex"...`. We want to access the value corresponding to each key in the JSON data and store it against _our_ key.
-7. The list of records is returned in a format that can be used by other Python packages.
-
-[^Hierarchy]: In actual fact, the format that the flood alert data is provided in is a little more complex and is more like a nested dictionary, where you have a top-level set of key-value pairs and one of those keys has values that are themselves dictionaries. In the case of the flood alert data, there are some metadata fields that are defined in the top level alongside "items", and then the value against the "items" key is then itself an array of key-value pairs. 
+The example below has been placed inside a function. This isn't essential, but it can prove useful if you want to expand the function to take inputs that make it reusable and apply it to different extracts of the data. You will also see that placing the code inside a function becomes necessary when using Python **generators**, which is another topic [covered later on](/intermediate-skills-sessions/xx-generators/index.html) in our Intermediate Skills curriculum.
 
 ```{python}
 #| label: flood-data-function
@@ -394,6 +388,18 @@ def get_flood_alerts():
 
 ```
 
+**The steps below are labelled in the code above:**
+
+1. The first step is to define the request URL, which points to the API endpoint. If you follow the link in a web browser, you will see all of the relevant records laid out in JSON format. Note that in the example below there is the section `"min-severity=3"` which comes after a question mark `?`. The question mark indicates that everything after it relates to an **optional filter**, which is to say that you can get a cut of the data based on specific criteria. You can add multiple filters by joining them together with "&".
+2. Then a GET request is made and assigned to the variable "response".
+3. Then, as with the webscraping, we want to handle the response from the webserver gracefully, in case the data is not available. This means placing details of what we are requesting in an if/else conditional statement. If we get a positive response of 200, proceed with retrieving the data; otherwise, return the error code.
+4. The results of the JSON data request are returned as a dictionary (remember that data in JSON format is very similar to Python dictionaries). In the flood data API, `'items'` is the key in the dictionary, and the values are all of the data records[^Hierarchy]. In the line `results_json = response.json()['items']`, we are accessing all of the records stored against "items".
+5. The values corresponding to the key "items" are held in an array (in square brackets). We give the results that we want to return the variable name `alerts`. We then create a `for` loop to create a Python list of all of the records, and for each record there is a key : value pair for each field in the data, replicating the array / JSON record object structure. Think of each key in the dictionary as being a column name, each value as the record value and each item in the `alerts` list as being a row.
+6. In the dictionary, we give the key a name of our choosing. It is what _we_ want the column name to be. On the value side of the dictionary, we are accessing the value corresponding to each key in the JSON reponse. In the line `for json in results_json`, each `json` is it's own dictionary containing a record, for example `"@id" : "http://environment.data.gov.uk/flood-monitoring/id/floods/112WAFTUBA",` \newline `"description" : "Upper Bristol Avon area", "eaAreaName" : "Wessex"...`. We want to access the value corresponding to each key in the JSON data and store it against _our_ key.
+7. The list of records is returned in a format that can be used by other Python packages.
+
+[^Hierarchy]: In actual fact, the format that the flood alert data is provided in is a little more complex and is more like a nested dictionary, where you have a top-level set of key-value pairs and one of those keys has values that are themselves dictionaries. In the case of the flood alert data, there are some metadata fields that are defined in the top level alongside "items", and then the value against the "items" key is then itself an array of key-value pairs. 
+
 Let's put the results of the query into a Pandas DataFrame and view the results. For this we call the function we defined above and have Pandas convert that list into a DataFrame, with column names that we have given it and rows that correspond to each record.
 
 ```{python}
@@ -401,13 +407,15 @@ Let's put the results of the query into a Pandas DataFrame and view the results.
 
 alerts = pd.DataFrame(get_flood_alerts())
 
-alerts
+print(f'Number of rows and columns in the dataset: {alerts.shape}')
+
+alerts.head()
 
 ```
 
 ## API request etiquette
 
-These are particularly important if you are making requests to free, public APIs, such as those provided by the government and NHS.
+These are particularly important if you are making requests to free, public APIs, such as those provided by the government and NHS. These considerations are a little more advanced, and are probably only required if you are intending to develop something that supplies data with frequent updates, but it is worth being aware of them: You may start with a project that is small and simple, but it might then develop into something more data-hungry
 
 #### Respect rate limits
 
@@ -417,20 +425,24 @@ APIs typically define:
 - Daily/monthly quotas
 - Burst versus sustained limits
 
-They may not be stated explicitly, but you should assume that these limits exists and throttle your calls appropriately.
+They may not be stated explicitly, but you should assume that these limits exist and throttle your calls appropriately. For more information on throttling techniques, have a look at this [Medium post](https://medium.com/@datajournal/how-to-throttle-requests-c1f9dcd8508f).
 
 #### Use caching
 
-If the API isn't subject to frequent changes, cache results locally so that you do not need to make repeated requests for the same data.
+If the API isn't subject to frequent changes, cache results locally so that you do not need to make repeated requests for the same data. Here's a [Geeks for Geeks tutorial](https://www.geeksforgeeks.org/python/how-to-implement-file-caching-in-python/) on different types of caching in Python to get you started. 
+
+If you intend to create your own web app that is pulling in data from other sources, it is likely that you will be using a particular web app framework, and these will provide their own tools for web caching. For example, we have introduced [Steamlit](/sessions/10-streamlit/index.html) in another tutorial and their overview of caching can be found [here](https://docs.streamlit.io/develop/concepts/architecture/caching). Another framework for creating web apps is [Flask](https://flask.palletsprojects.com/en/stable/) and a simple introduction to web caching using that framework can be found on [PyQuestHub](https://pyquesthub.com/implementing-web-caching-in-python-for-enhanced-performance).
 
 #### Avoid polling too aggressively
 
-- Make requests at a reasonable rate: do you really need to check for updates every second?. Link about what "polling" is : (https://medium.com/@sankalpa115/what-is-polling-b1ff70e87001)
-- Make use of webhooks: these allow for automatic communication between systems, eliminating the need for one system to constantly check another for updates. Data is pushed automatically whenever an event occurs (https://www.geeksforgeeks.org/blogs/what-is-a-webhook-and-how-to-use-it/)
+- Make requests at a reasonable rate: do you really need to check for updates every second?. You can find out more about polling in this [Medium blog post](https://medium.com/@sankalpa115/what-is-polling-b1ff70e87001).
+- Make use of webhooks: these allow for automatic communication between systems, eliminating the need for one system to constantly check another for updates. Data is pushed automatically whenever an event occurs. You can find another trusty Geek's for Geek's tutorial on webhooks [here](https://www.geeksforgeeks.org/blogs/what-is-a-webhook-and-how-to-use-it/).
 
 #### Use conditional requests
 
 If supported, you can use `ETag` and `If-Modified-Since`, which return a `304 Not Modfied` reponse instead of a full JSON payload. In essence, this response is saying that no changes have been made to the content made available via the endpoint. You could build in some logic that handles the error without crashing the program, and also notifies the end user that there is no new data since the last update.
+
+Examples of each, plus a combined approach, can be found in this [Python Lore tutorial](https://www.pythonlore.com/handling-http-conditional-requests-with-requests/).
 
 #### Select only what you need
 
@@ -438,7 +450,44 @@ Just as you would with a SQL query, try to select only what you need. Some APIs 
 
 #### Identify yourself
 
-Some APIs require users to provide a `User-Agent` or use an API key so that the provider can get in contact if there is a problem
+Some APIs require users to provide a `User-Agent` string. Failure to do so could mean that your request gets blocked by the web server. Web servers use the information to serve appropriate content, implement rate-limiting or block automated requests[^UserAgentSource]. You can even add some kind of contact information or a link to the repository for your application so that you can be contacted if there is an issue (only include contact information you are willing to share publicly!). Below is an example of some Python that could be used to generate a `User-Agent` string:
+
+[^UserAgentSource]: See (https://webscraping.ai/faq/requests/how-do-i-set-a-user-agent-string-for-requests)
+
+```{python}
+#| label: user-agent-builder
+
+import platform     # to get operating system information
+import sys          # to get Python version information
+
+APP_NAME = "MyApiProject"
+APP_VERSION = "1.0"
+GITHUB_PAGE = "https://github.com/NHS-South-Central-and-West/code-club"
+
+def build_user_agent():
+    python_version = f"{sys.version_info.major}.{sys.version_info.minor}"
+    os_info = platform.system()
+    return f"{APP_NAME}/{APP_VERSION} (Python {python_version}; {os_info}); {GITHUB_PAGE}"
+
+headers = {
+    "User-Agent": build_user_agent()
+}
+
+# let's see what that looks like:
+
+print(headers)
+
+```
+
+Then, when you make the request, you pass the `User-Agent` string to the "headers" keyword argument:
+
+```{python}
+#| label: user-agent-request
+#| eval: false
+
+response = requests.get("https://environment.data.gov.uk/flood-monitoring/id/floods", headers=headers)
+
+```
 
 :::{.callout-caution}
 ## Read the smallprint
@@ -446,8 +495,198 @@ It is advisable that you read any Terms of Service applied to the use of an API.
 
 :::
 
-### The `fingertips_py` package
+## The `fingertips_py` package
 
 This is a package that was originally developed by Public Health England to make it easy to import data via the Fingertips API endpoint. It's an example of what the possibilities are, hopefully serving as inspiration for your own Python projects. It's also pretty useful, if you want to make use of Fingertips data yourself!
 
 We have created a walkthrough of using the `fingertips_py` package [here](/intermediate-skills-sessions/18-webscraping-apis/fingertips_py.html).
+
+
+## Exercises
+
+1. Write a regular expression that could be used to identify all of the Excel files on the following web page:[Mental Health Services Data Set Submission Reports](https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/mental-health-services-data-set/mental-health-services-data-set-mhsds-submission-update).
+
+**Note:** The displayed document titles may not reflect the actual file URLs.
+
+::: {.callout-note title="Solution" collapse="true"}
+```{python}
+#| label: answer-1
+#| eval: false
+
+pattern = r'.*mswm-submission-tracker.*.xlsm'
+
+# . matches any character; * means any number of those.
+# That pattern can occur before or after "mswm-submission-tracker".
+
+```
+:::
+
+2. Which REST API response code means a positive result, i.e. that data is available?
+
+::: {.callout-note title="Solution" collapse="true"}
+`200`
+:::
+
+3. Which REST API response code means that no new data is available?
+
+::: {.callout-note title="Solution" collapse="true"}
+`304`
+:::
+
+4. Write some Python code to return the planned outages table on the [SUS Service Announcements and Outages page](https://digital.nhs.uk/services/secondary-uses-service-sus/secondary-uses-service-sus-what-s-new/service-announcements-and-outages) to a Pandas DataFrame and then print the result. Make sure that you handle any error raised due to the web page being unavailable.
+
+::: {.callout-note title="Solution" collapse="true"}
+
+```{python}
+#| label: answer-4
+
+import pandas as pd
+from bs4 import BeautifulSoup
+
+url = 'https://digital.nhs.uk/services/secondary-uses-service-sus/secondary-uses-service-sus-what-s-new/service-announcements-and-outages'
+
+response = req.get(url)
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, "html.parser")
+    table = soup.find('table')
+    table_df = pd.read_html(str(table))
+    print(table_df)
+else:
+    print(f'Outages page currently unavailable: {response.status_code}')
+
+```
+
+:::
+
+5. Which BeautifulSoup method can you use to return the HTML in a nicely laid out format?
+
+::: {.callout-note title="Solution" collapse="true"}
+`print(soup.prettify())`
+:::
+
+6. Using the example under "Using a regular expression and `urljoin` to locate files on multiple web pages." as a template, write some Python code that will download all of the NHS Talking Therapies Data Quality Reports for 2025 accessible via the [official statistics page](https://digital.nhs.uk/data-and-information/publications/statistical/nhs-talking-therapies-monthly-statistics-including-employment-advisors).
+
+::: {.callout-note title="Solution" collapse="true"}
+
+```{python}
+#| label: answer-6
+#| eval: false
+
+import pandas as pd
+from bs4 import BeautifulSoup
+import re
+
+url = 'https://digital.nhs.uk/data-and-information/publications/statistical/nhs-talking-therapies-monthly-statistics-including-employment-advisors'
+
+target_urls = []                           
+
+dynamic_section = r'^performance-[a-z]+-2025$' 
+
+response = req.get(url)                    
+
+ext = '.csv'                               
+
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, "html.parser")     
+
+    for link in soup.find_all('a', href = True):                
+        sublink = link["href"]
+        if re.match(dynamic_section,sublink.split('/')[-1]):
+            full_url = urljoin(url, sublink)                   
+            target_urls.append(full_url)                        
+        
+    for link in target_urls:                                    
+        response = req.get(link)                                
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.content, "html.parser") 
+
+            for link in soup.find_all("a", href=True):          
+                file_url = link['href']                         
+
+                if file_url.endswith((ext)):                   
+                    print("Found .csv file:", file_url)
+
+                    file_name = file_url.split("/")[-1]        
+                    file_response = req.get(file_url)          
+            
+                    if file_response.status_code == 200:       
+                        
+                        with open(file_name, "wb") as file:     
+                            file.write(file_response.content)
+                        print(f"Downloaded: {file_name}")
+                    else:
+                        print(f"Failed to download: {file_url}")
+
+else:
+    print(f'Failed to fetch webpage: {response.status_code}')   
+                                                                
+
+```
+
+:::
+
+7. Which character designates the beginning of the filter section of a URL when filtering a JSON API request? Which character is used to join multiple filters together?
+
+::: {.callout-note title="Solution" collapse="true"}
+Designates the beginning of the filter section: `?`
+
+Joins multiple filters together: `&`
+:::
+
+8. Write a Python function that will return a dataframe of the daily number of patients admitted to hospital with COVID-19 in 2025 via the [UKHSA data dashboard API](https://ukhsa-dashboard.data.gov.uk/access-our-data). You will need to read the API documentation, making use of the examples. The [UKHSA data dashboard page](https://ukhsa-dashboard.data.gov.uk/).
+
+- Filter the data to just **2025**.
+- The `geography_type` should be **Nation**.
+- The `geography` should be **England**.
+- Return the following columns:
+    - `theme`
+    - `sub_theme`
+    - `topic`
+    - `geography`
+    - `metric`
+    - `year`
+    - `date`
+    - `metric_value`
+
+**HINT:** Instead of "items" (as in the flood alerts example), the records are contained in a list called "results".
+
+
+::: {.callout-note title="Solution" collapse="true"}
+
+```{python}
+#| label: answer-8
+
+import json
+import pandas as pd
+import requests as req
+
+def get_covid_admissions():
+    request_url = 'https://api.ukhsa-dashboard.data.gov.uk/themes/infectious_disease/sub_themes/respiratory/topics/COVID-19/geography_types/Nation/geographies/England/metrics/COVID-19_healthcare_admissionByDay?year=2025'
+    response = req.get(request_url)
+    if response.status_code == 200:
+        results_json = response.json()["results"]
+        records = [{   
+            'theme': json['theme'],
+            'sub_theme': json['sub_theme'],
+            'topic': json['topic'],
+            'geography': json['geography'],
+            'metric': json['metric'],
+            'year': json['year'],
+            'date': json['date'],
+            'metric_value': json['metric_value'],
+        } for json in results_json
+        ]
+        return records
+    else:
+        print(f'Failed to fetch data. Response status: {response.status_code}')
+
+records = pd.DataFrame(get_covid_admissions())
+
+print(f'Number of rows and columns in the dataset: {records.shape}')
+
+records.head()
+
+```
+
+:::
