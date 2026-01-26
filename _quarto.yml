@@ -108,12 +108,15 @@ website:
         - section: Intermediate Python
           contents: 
             - text: 18. Webscraping and APIs
+            - file: intermediate-skills-sessions/18-webscraping-apis/index.qmd
+            - text: Bonus content - Fingertips package walkthrough
+            - file: intermediate-skills-sessions/18-webscraping-apis/fingertips_py.qmd
         - section: Machine Learning
           contents: 
-            - text: 19. TBC
-            - text: 20. TBC
-            - text: 21. TBC
-            - text: 22. TBC
+            - text: 19. Introduction to Machine Learning
+            - text: 20. Linear and Logistic Regression Machine Learning Models
+            - text: 21. Machine Learning Workflows
+            - text: 22. Unsupervised Machine Learning
         - section: Intermediate Python
           contents: 
             - text: 23. Generators
