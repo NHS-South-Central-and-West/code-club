@@ -111,7 +111,7 @@ website:
         - section: Intermediate Python
           contents: 
             - text: 18. Webscraping and APIs
-            - file: intermediate-skills-sessions/18-webscraping-apis/index.qmd
+              file: intermediate-skills-sessions/18-webscraping-apis/index.qmd
         - section: Machine Learning
           contents: 
             - text: 19. Introduction to Machine Learning
