@@ -5,7 +5,7 @@ format:
   ipynb: default
 ---
 
-Ever wanted to automate the dowloading of data from external websites? Ever had a request where you need historic data from NHS publications where each .csv file is on its own web page and you are faced with negotiating dozens of clicks and dialogue boxes? Ever wanted to pipe public data directly into a report to provide wider context entirely fuss-free? Then you have come to the right tutorial. We are going to cover two methods for doing these very things, things that you can take away and apply today: no highfalutin concepts to digest, no need to hold out hope for a juicy data science project to get your teeth into. What's more, we are going to give you some examples of public datasets that you can try these out on, giving you data with which to exercise your other Python skills.
+Ever wanted to automate the downloading of data from external websites? Ever had a request where you need historic data from NHS publications where each .csv file is on its own web page and you are faced with negotiating dozens of clicks and dialogue boxes? Ever wanted to pipe public data directly into a report to provide wider context entirely fuss-free? Then you have come to the right tutorial. We are going to cover two methods for doing these very things, things that you can take away and apply today: no highfalutin concepts to digest, no need to hold out hope for a juicy data science project to get your teeth into. What's more, we are going to give you some examples of public datasets that you can try these out on, giving you data with which to exercise your other Python skills.
 
 The first method we are going to cover is webscraping, which is basically a way to retrieve elements on web pages by accessing them via the HTML tags (stay with us, there's no need to become an expert in HTML, the Python package is going to do the hard work).
 
@@ -27,7 +27,7 @@ dynamic_section = r'^england-[a-z]+-202[0-9]$'
 
 This regular expression is intended to represent the changing part of a URL that points to the specific pages where monthly publications are hosted. Let's look at the elements:
 
-- The "r" in front of the string tells Python that it should handle whatever comes between the quotation marks as a **raw** string, which is to say that it should ignore any of Python's conventions around special characters, such as "\" being an escape character, and that it should pass the regex string to the `re` functions without manipulating it in any way.
+- The "r" in front of the string tells Python that it should handle whatever comes between the quotation marks as a **raw** string, which is to say that it should ignore any of Python's conventions around special characters, such as backslash being an escape character, and that it should pass the regex string to the `re` functions without manipulating it in any way.
 - The "^" states that the following characters must come at the beginning of the string that you are searching, i.e. nothing should come before it.
 - The "$" denotes the end of the string, i.e. nothing should come after it.
 - The string must start with the sequence "england-".
