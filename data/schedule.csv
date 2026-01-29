@@ -15,18 +15,18 @@
 14,23/10/2025,Data Science,Introduction to Linear Regression,Introduction to regression concepts and the component parts of linear regression,SA7 : Advanced Statistics,,,,x,x
 15,06/11/2025,Data Science,Implementing Linear Regression,"Building linear models, assessing model fit, and interpreting coefficients",SA7 : Advanced Statistics,,,x,x,x
 16,20/11/2025,Data Science,Beyond Linearity,Introduction to generalised linear regression models,SA7 : Advanced Statistics,,,x,x,x
-17,04/12/2025,Tools,Git and GitHub,Source control and collaboration,DEC6 / DSC6: Programming,,,,,
-18,18/12/2025,Tools,Quarto,"Reproducible reports, documents and websites",SA13: Data Automation,,,,,
-19,08/01/2026,Intermediate Python,Webscraping and APIs,"How to use these techniques to import data in an automatic, programmatic way from the web",SA13: Data Automation,,,,,
-20,22/01/2026,Machine Learning,Introduction to Machine Learning,Demystifying the concept and introducing different kinds of models,SA12: Machine Learning,,,,,
-21,05/02/2026,Machine Learning,Linear and Logistic Regression Machine Learning Models,A closer look at these models in a Machine Learning context,SA12: Machine Learning,,,,,
-22,19/02/2026,Machine Learning,Machine Learning Workflows,What a typical end-to-end machine learning project workflow looks like,SA12: Machine Learning,,,,,
-23,05/03/2026,Machine Learning,Unsupervised Machine Learning,When can this technique be useful and what are its shortcomings?,SA12: Machine Learning,,,,,
-24,19/03/2026,Intermediate Python,Generators,"Pros, cons, practical applications",SA21 : Python Proficiency (Intermediate),,,,,
-25,02/04/2026,Intermediate Python,Decorators,Modify or extend functions with simple syntax,SA21 : Python Proficiency (Intermediate),,,,,
-26,16/04/2026,Intermediate Python,Asynchronous programming and callbacks,How to use and the differences between asynchronous and synchronous,SA21 : Python Proficiency (Intermediate),,,,,
-27,30/04/2026,Intermediate Python,Higher order functions,"How to use functions within functions, and why",SA21 : Python Proficiency (Intermediate),,,,,
-28,14/05/2026,Intermediate Python,"Map, filter, reduce",Extend your functional programming capabilities with these in-built higher order functions,SA21 : Python Proficiency (Advanced),,,,,
-29,28/05/2026,Intermediate Python,"Logging, debugging, exception handling",How to handle exceptions and how to eliminate errors in your programs,SA21 : Python Proficiency (Advanced),,,,,
-30,11/06/2026,Intermediate Python,Packages,How to build your own package,,,,,,
-31,25/06/2026,Intermediate Python,Design patterns,"Using iterators, decorators, proxies and factories",SA21 : Python Proficiency (Advanced),,,,,
+17,04/12/2025,Tools,Git and GitHub,Source control and collaboration,DEC6 / DSC6: Programming,,,x,x,
+18,15/01/2026,Tools,Quarto,"Reproducible reports, documents and websites",SA13: Data Automation,,,x,x,
+19,29/01/2026,Intermediate Python,Webscraping and APIs,"How to use these techniques to import data in an automatic, programmatic way from the web",SA13: Data Automation,,,x,,x
+20,12/02/2026,Machine Learning,Introduction to Machine Learning,Demystifying the concept and introducing different kinds of models,SA12: Machine Learning,,,x,x,x
+21,26/02/2026,Machine Learning,Linear and Logistic Regression Machine Learning Models,A closer look at these models in a Machine Learning context,SA12: Machine Learning,,,x,x,x
+22,12/03/2026,Machine Learning,Machine Learning Workflows,What a typical end-to-end machine learning project workflow looks like,SA12: Machine Learning,,,x,x,x
+23,26/03/2026,Machine Learning,Unsupervised Machine Learning,When can this technique be useful and what are its shortcomings?,SA12: Machine Learning,,,x,x,x
+24,09/04/2026,Intermediate Python,Generators,"Pros, cons, practical applications",SA21 : Python Proficiency (Intermediate),,,x,,x
+25,23/04/2026,Intermediate Python,Decorators,Modify or extend functions with simple syntax,SA21 : Python Proficiency (Intermediate),,,x,,x
+26,07/05/2026,Intermediate Python,Asynchronous programming and callbacks,How to use and the differences between asynchronous and synchronous,SA21 : Python Proficiency (Intermediate),,,x,,x
+27,21/05/2026,Intermediate Python,Higher order functions,"How to use functions within functions, and why",SA21 : Python Proficiency (Intermediate),,,x,,x
+28,04/06/2026,Intermediate Python,"Map, filter, reduce",Extend your functional programming capabilities with these in-built higher order functions,SA21 : Python Proficiency (Advanced),,,x,,x
+29,18/06/2026,Intermediate Python,"Logging, debugging, exception handling",How to handle exceptions and how to eliminate errors in your programs,SA21 : Python Proficiency (Advanced),,,x,,x
+30,02/07/2026,Intermediate Python,Packages,How to build your own package,,,,x,,x
+31,16/07/2026,Intermediate Python,Design patterns,"Using iterators, decorators, proxies and factories",SA21 : Python Proficiency (Advanced),,,x,,x
