@@ -5,7 +5,7 @@ format:
   ipynb: default
 ---
 
-In conjunction with the tutorial on [webscraping and APIs]('intermediate-skills-sessions/18-webscraping-apis/index.qmd'), below is a walkthrough of  the `fingertips_py` package maintained by the Department of Health and Social Care, which simplifies importing data via the Fingertips API.
+In conjunction with the tutorial on [webscraping and APIs](/intermediate-skills-sessions/18-webscraping-apis/index.html), below is a walkthrough of  the `fingertips_py` package maintained by the Department of Health and Social Care, which simplifies importing data via the Fingertips API.
 
 ## Documentation
 
@@ -31,7 +31,7 @@ uv add fingertips_py
 
 ### pip
 
-To install using pip, activate your environmenment and enter the following in the terminal:
+To install using pip, activate your environment and enter the following in the terminal:
 
 ```
 python -m pip install fingertips_py
