@@ -112,8 +112,6 @@ website:
           contents: 
             - text: 18. Webscraping and APIs
             - file: intermediate-skills-sessions/18-webscraping-apis/index.qmd
-            - text: Bonus content - Fingertips package walkthrough
-            - file: intermediate-skills-sessions/18-webscraping-apis/fingertips_py.qmd
         - section: Machine Learning
           contents: 
             - text: 19. Introduction to Machine Learning
