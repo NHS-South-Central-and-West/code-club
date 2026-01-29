@@ -340,7 +340,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Ever wanted to automate the dowloading of data from external websites? Ever had a request where you need historic data from NHS publications where each .csv file is on its own web page and you are faced with negotiating dozens of clicks and dialogue boxes? Ever wanted to pipe public data directly into a report to provide wider context entirely fuss-free? Then you have come to the right tutorial. We are going to cover two methods for doing these very things, things that you can take away and apply today: no highfalutin concepts to digest, no need to hold out hope for a juicy data science project to get your teeth into. What’s more, we are going to give you some examples of public datasets that you can try these out on, giving you data with which to exercise your other Python skills.</p>
+<p>Ever wanted to automate the downloading of data from external websites? Ever had a request where you need historic data from NHS publications where each .csv file is on its own web page and you are faced with negotiating dozens of clicks and dialogue boxes? Ever wanted to pipe public data directly into a report to provide wider context entirely fuss-free? Then you have come to the right tutorial. We are going to cover two methods for doing these very things, things that you can take away and apply today: no highfalutin concepts to digest, no need to hold out hope for a juicy data science project to get your teeth into. What’s more, we are going to give you some examples of public datasets that you can try these out on, giving you data with which to exercise your other Python skills.</p>
 <p>The first method we are going to cover is webscraping, which is basically a way to retrieve elements on web pages by accessing them via the HTML tags (stay with us, there’s no need to become an expert in HTML, the Python package is going to do the hard work).</p>
 <p>The second method is to access data made available via APIs (Application Programming Interfaces). We will specifically be looking at APIs that provide the data in JSON format, something which only requires minimal manipulation to put it into a dataframe.</p>
 <p>However, before we get to the good stuff, there are a few things to touch on that will prove essential when using these two methods. They relate to accessing URLs (web links) dynamically and making requests to content via the web. We will give you a brief introduction to prime you for when they come up later.</p>
@@ -352,7 +352,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>This regular expression is intended to represent the changing part of a URL that points to the specific pages where monthly publications are hosted. Let’s look at the elements:</p>
 <ul>
-<li>The “r” in front of the string tells Python that it should handle whatever comes between the quotation marks as a <strong>raw</strong> string, which is to say that it should ignore any of Python’s conventions around special characters, such as “" being an escape character, and that it should pass the regex string to the <code>re</code> functions without manipulating it in any way.</li>
+<li>The “r” in front of the string tells Python that it should handle whatever comes between the quotation marks as a <strong>raw</strong> string, which is to say that it should ignore any of Python’s conventions around special characters, such as backslash being an escape character, and that it should pass the regex string to the <code>re</code> functions without manipulating it in any way.</li>
 <li>The “^” states that the following characters must come at the beginning of the string that you are searching, i.e.&nbsp;nothing should come before it.</li>
 <li>The “$” denotes the end of the string, i.e.&nbsp;nothing should come after it.</li>
 <li>The string must start with the sequence “england-”.</li>
@@ -864,7 +864,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>alerts.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Number of rows and columns in the dataset: (179, 10)</code></pre>
+<pre><code>Number of rows and columns in the dataset: (230, 10)</code></pre>
 </div>
 <div id="flood-data-results" class="cell-output cell-output-display" data-execution_count="8">
 <div>
@@ -896,12 +896,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>False</td>
 <td>Flood alert</td>
 <td>3</td>
-<td>2026-01-26T11:27:00</td>
-<td>2026-01-26T11:27:47</td>
+<td>2026-01-28T11:53:00</td>
+<td>2026-01-28T11:53:35</td>
 <td>2026-01-15T18:20:00</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>River Trent from Cromwell Weir to Gainsborough</td>
+<td>East Midlands</td>
+<td>034WAB424</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-01-29T09:20:00</td>
+<td>2026-01-29T09:20:43</td>
+<td>2026-01-27T16:50:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
 <td>http://environment.data.gov.uk/flood-monitorin...</td>
 <td>Lower River Soar in Leicestershire</td>
 <td>East Midlands</td>
@@ -909,12 +922,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>False</td>
 <td>Flood alert</td>
 <td>3</td>
-<td>2026-01-26T09:02:00</td>
-<td>2026-01-26T09:02:05</td>
+<td>2026-01-28T15:02:00</td>
+<td>2026-01-28T15:02:28</td>
 <td>2026-01-08T16:20:00</td>
 </tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
 <td>http://environment.data.gov.uk/flood-monitorin...</td>
 <td>River Churn and its tributaries</td>
 <td>Thames</td>
@@ -922,12 +935,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>False</td>
 <td>Flood alert</td>
 <td>3</td>
-<td>2026-01-26T07:17:00</td>
-<td>2026-01-26T07:17:53</td>
+<td>2026-01-29T09:55:00</td>
+<td>2026-01-29T09:55:50</td>
 <td>2026-01-15T21:04:00</td>
 </tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
 <td>http://environment.data.gov.uk/flood-monitorin...</td>
 <td>River Cherwell from Lower Heyford down to and ...</td>
 <td>Thames</td>
@@ -935,22 +948,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>False</td>
 <td>Flood alert</td>
 <td>3</td>
-<td>2026-01-26T07:23:00</td>
-<td>2026-01-26T07:23:24</td>
+<td>2026-01-28T08:51:00</td>
+<td>2026-01-28T08:51:21</td>
 <td>2026-01-11T08:41:00</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>http://environment.data.gov.uk/flood-monitorin...</td>
-<td>River Windrush from Bourton to Newbridge</td>
-<td>Thames</td>
-<td>061WAF10Windrush</td>
-<td>False</td>
-<td>Flood alert</td>
-<td>3</td>
-<td>2026-01-26T07:20:00</td>
-<td>2026-01-26T07:20:06</td>
-<td>2025-12-05T19:05:00</td>
 </tr>
 </tbody>
 </table>
@@ -1140,10 +1140,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Outages page currently unavailable: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[                        Date         Time                  Type
-0    Thursday 8&nbsp;January&nbsp;2026  6pm to 10pm  SUS+/DLP maintenance
-1  Wednesday 14 January&nbsp;2026  6pm to 10pm  SUS+/DLP maintenance
-2  Wednesday 28 January 2026  6pm to 10pm  SUS+/DLP maintenance]</code></pre>
+<pre><code>[                         Date         Time                  Type
+0   Wednesday 4 February 2026  6pm to 10pm  SUS+/DLP maintenance
+1  Wednesday 11 February 2026  6pm to 10pm  SUS+/DLP maintenance
+2  Wednesday 25 February&nbsp;2026  6pm to 10pm  SUS+/DLP maintenance]</code></pre>
 </div>
 </div>
 </div>
