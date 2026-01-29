@@ -181,3 +181,7 @@ cython_debug/
 # Data exploration for the Streamlit demo
 
 /sessions/10-streamlit/exploration
+
+# webscraping downloads
+
+/intermediate-skills-sessions/18-webscraping-apis/*.csv
