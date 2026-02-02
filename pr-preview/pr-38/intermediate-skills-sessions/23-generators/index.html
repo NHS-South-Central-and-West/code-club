@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Generators</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sessions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sessions</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-sessions">    
+        <li>
+    <a class="dropdown-item" href="../../sessions/schedule.html">
+ <span class="dropdown-text">Essential Skills</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intermediate-skills-sessions/intermediate_skills_schedule.html">
+ <span class="dropdown-text">Intermediate Skills</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../resources/glossary.html">
+ <span class="dropdown-text">Glossary</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/NHS-South-Central-and-West/code-club" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/23-generators/index.html">Intermediate Python</a></li><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/23-generators/index.html">23. Generators</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+ <span class="menu-text">Session Schedule</span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/intermediate_skills_schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code Club Intermediate Skills Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tools</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/16-git-github/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/17-quarto-intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Quarto</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Intermediate Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/18-webscraping-apis/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">18. Webscraping and APIs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Machine Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">19. Introduction to Machine Learning</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">20. Linear and Logistic Regression Machine Learning Models</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">21. Machine Learning Workflows</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">22. Unsupervised Machine Learning</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Intermediate Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/23-generators/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">23. Generators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">24. Decorators</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">25. Asynchronous programming and callbacks</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">26. Higher order functions</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">27. Map, filter, reduce</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">28. Logging, debugging, exception handling</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">29. Packages</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">30. Design patterns</span>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-are-generators" id="toc-what-are-generators" class="nav-link active" data-scroll-target="#what-are-generators">What are generators?</a>
+  <ul class="collapse">
+  <li><a href="#how-to-create-a-generator-function-the-yield-keyword." id="toc-how-to-create-a-generator-function-the-yield-keyword." class="nav-link" data-scroll-target="#how-to-create-a-generator-function-the-yield-keyword.">How to create a generator function: the <code>yield</code> keyword.</a></li>
+  <li><a href="#generator-comprehensions." id="toc-generator-comprehensions." class="nav-link" data-scroll-target="#generator-comprehensions.">Generator comprehensions.</a></li>
+  </ul></li>
+  <li><a href="#when-should-i-use-generators" id="toc-when-should-i-use-generators" class="nav-link" data-scroll-target="#when-should-i-use-generators">When should I use generators?</a>
+  <ul class="collapse">
+  <li><a href="#memory-burden" id="toc-memory-burden" class="nav-link" data-scroll-target="#memory-burden">Memory burden</a></li>
+  <li><a href="#speed" id="toc-speed" class="nav-link" data-scroll-target="#speed">Speed</a></li>
+  </ul></li>
+  <li><a href="#example-use-cases" id="toc-example-use-cases" class="nav-link" data-scroll-target="#example-use-cases">Example use cases</a>
+  <ul class="collapse">
+  <li><a href="#data-pipelines-pre-processing-.csv-data" id="toc-data-pipelines-pre-processing-.csv-data" class="nav-link" data-scroll-target="#data-pipelines-pre-processing-.csv-data">Data pipelines: pre-processing .csv data</a></li>
+  <li><a href="#api-calls-loading-large-volumes-of-real-time-data" id="toc-api-calls-loading-large-volumes-of-real-time-data" class="nav-link" data-scroll-target="#api-calls-loading-large-volumes-of-real-time-data">API calls: loading large volumes of real-time data</a></li>
+  <li><a href="#modelling-queueing-problems-and-pathways-discrete-event-simulation" id="toc-modelling-queueing-problems-and-pathways-discrete-event-simulation" class="nav-link" data-scroll-target="#modelling-queueing-problems-and-pathways-discrete-event-simulation">Modelling queueing problems and pathways: Discrete Event Simulation</a></li>
+  </ul></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/23-generators/index.html">Intermediate Python</a></li><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/23-generators/index.html">23. Generators</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Generators</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This is a concept listed in the NHS’s National Competency Framework as a requirement for intermediate Python Proficiency (SA21). In this tutorial, we are going to cover:</p>
+<ul>
+<li>What they are</li>
+<li>When it makes sense to use them and when not</li>
+<li>Example use cases:
+<ul>
+<li><strong>Data pipelines:</strong> pre-processing large volumes of data <em>before</em> they reach your dataframes</li>
+<li><strong>API calls:</strong> loading large volumes of real-time data without overloading memory</li>
+<li><strong>Modelling queuing problems and pathways:</strong> a simple introduction to how generators are used in Discrete Event Simulation</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Download
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We very much recommend downloading the Jupyter Notebook so that you can run the code cells and see how the outputs change. You can do this by clicking on the “Jupyter” link under “Other Formats” over on the right-hand side below the page contents.</p>
+</div>
+</div>
+<section id="what-are-generators" class="level2">
+<h2 class="anchored" data-anchor-id="what-are-generators">What are generators?</h2>
+<p>Simply put, a generator is something that allows us to tackle <em>step by step</em> a task that is either very large, open-ended or where we want to ensure that certain criteria are met before proceeding to the next step, without trying to complete the entire task in one go.</p>
+<p>With tasks processing very large amounts of data, we run the risk of overloading the computer’s memory.</p>
+<p>With open-ended tasks, i.e.&nbsp;when the final number of items in our output is not known at the start, we might need to set up an infinite loop (<code>while True:</code>) instead of defining a specific range to iterate over, and generators allow us to use these in a controlled manner.</p>
+<p>In programs where multiple iterative processes depend on the successful completion of each iteration of the others before proceeding, we can use generators. For example: complete step 1 of process A, return an output, complete step 1 of process B, return an output, and then pick up process A again at step 2, and so on. This is a bit more difficult to picture, but we will return to this when we have a look at Discrete Event Simulation.</p>
+<section id="how-to-create-a-generator-function-the-yield-keyword." class="level3">
+<h3 class="anchored" data-anchor-id="how-to-create-a-generator-function-the-yield-keyword.">How to create a generator function: the <code>yield</code> keyword.</h3>
+<p>Let’s now have a look at how to create a generator function and how they differ from ordinary functions.</p>
+<p>The main difference is that instead of using the <code>return</code> keyword, generator functions use the <code>yield</code> keyword.</p>
+<p>Consider the following infinite loop function, courtesy of <a href="https://realpython.com/videos/understanding-generators/">Real Python</a>. The intention is to return numbers incrementally and indefinitely (<code>while True:</code> creates an infinite loop). However, <code>return</code> will only produce the first value in the sequence before ending the execution of the function. No matter how many times you run the cell below, it will only return “0”.</p>
+<div id="cell-infinite-function" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> infinite_sequence():</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> num</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>infinite_sequence()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="infinite-function" class="cell-output cell-output-display" data-execution_count="1">
+<pre><code>0</code></pre>
+</div>
+</div>
+<p>Let’s now have a look at the same function, but this time replacing <code>return</code> with <code>yield</code>. Generators defined in this way create generator <em>objects</em>, which have to be assigned to a variable before they can be used.</p>
+<div id="infinite-generator" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> infinite_sequence_gen():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> num</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>infinite <span class="op">=</span> infinite_sequence_gen()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A generator object is an <em>iterable</em>, that is to say an object type that can be iterated over item by item (another example of an iterable would be a <em>list</em>). This means that we can use Python’s in-built <code>next</code> function to generate an output. Try running the following cell multiple times, as long as you like: it will keep incrementing the number up forever.</p>
+<div id="cell-next-demo" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(infinite)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="next-demo" class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>0</code></pre>
+</div>
+</div>
+<p>Generators return the next value in the sequence, remembering their place in that sequence. This means that they don’t have to produce the entire output in one go, and instead can return one element at a time.</p>
+<p>In contrast to normal functions, where once <code>return</code> is reached the function’s execution is terminated, generators can contain multiple <code>yield</code> expressions and the generator will “remember” which one it got to in the previous iteration and move onto the next one. Run the next code cell once to set up the definition of the generator, then run the subsequent cell until you get to the end of the song.</p>
+<div id="five-speckled-frogs" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>n_speckled_frogs <span class="op">=</span> <span class="dv">5</span> <span class="co"># the number of speckled frogs on the speckled log.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> frog_song():</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> n_speckled_frogs</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span> <span class="ss">f'</span><span class="sc">{</span>num<span class="sc">}</span><span class="ss"> little speckled frogs'</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> <span class="st">'Sat on a speckled log'</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> <span class="st">'Eating the most delicious bugs'</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> <span class="st">'YUM YUM!'</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> <span class="st">'One jumped into the pool'</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> <span class="st">'Where it was nice and cool'</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        num <span class="op">-=</span><span class="dv">1</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> num <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> <span class="st">'Then there were no more speckled frogs!'</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> num <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> <span class="st">'Then there was 1 more speckled frog. Glub glub.'</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> <span class="ss">f'</span><span class="sc">{</span>num<span class="sc">}</span><span class="ss"> little speckled frog'</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> <span class="ss">f'Then there were </span><span class="sc">{</span>num<span class="sc">}</span><span class="ss"> more speckled frogs. Glub glub.'</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> <span class="ss">f'</span><span class="sc">{</span>num<span class="sc">}</span><span class="ss"> little speckled frogs'</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>froggy_fun <span class="op">=</span> frog_song()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-frogs-by-line" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Run this cell and sing along!</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(froggy_fun)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="frogs-by-line" class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>'5 little speckled frogs'</code></pre>
+</div>
+</div>
+</section>
+<section id="generator-comprehensions." class="level3">
+<h3 class="anchored" data-anchor-id="generator-comprehensions.">Generator comprehensions.</h3>
+<p>It is also possible to create generators in a similar way to list comprehensions. To make it a generator, write the comprehension in parentheses: ( ). It can then be iterated over in the same way as with a generator defined as a function, using <code>next()</code>.</p>
+<section id="list-comprehension" class="level4">
+<h4 class="anchored" data-anchor-id="list-comprehension">List comprehension:</h4>
+<div id="cell-list-comprehension" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>square_numbers_lc <span class="op">=</span> [i<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>)]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>square_numbers_lc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="list-comprehension" class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>[0, 1, 4, 9, 16]</code></pre>
+</div>
+</div>
+</section>
+<section id="generator-comprehension" class="level4">
+<h4 class="anchored" data-anchor-id="generator-comprehension">Generator comprehension</h4>
+<div id="gen-comprehension" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>square_numbers_gc <span class="op">=</span> (i<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now to iterate over it, run this cell until the generator is used up.</p>
+<div id="cell-use-gen-comprehension" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(square_numbers_gc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="use-gen-comprehension" class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>0</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>StopIteration
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Did you see a StopIteration error? This happens when a generator is forced to go beyond the end of any finite range it has been given to work with. There are ways to handle these errors and we will return to them.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="when-should-i-use-generators" class="level2">
+<h2 class="anchored" data-anchor-id="when-should-i-use-generators">When should I use generators?</h2>
+<p>The main trade-off that comes with using generators is <strong>memory burden</strong> versus <strong>speed</strong>.</p>
+<p>We can create a quick comparison between the size and speed of generators that process information step-by-step versus approaches that process information all in one go by creating another pair of comprehensions, but this time encompassing a much greater range so that the differences are plainer to see.</p>
+<p>Let’s define them first:</p>
+<div id="comprehension-tests" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>lc_test <span class="op">=</span> [i<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>)]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>gc_test <span class="op">=</span> (i<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="memory-burden" class="level3">
+<h3 class="anchored" data-anchor-id="memory-burden">Memory burden</h3>
+<p>First of all, how much memory does each of these take up?</p>
+<div id="mem-test" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys <span class="co"># in-built Python library that can be used to access system information</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>list_size <span class="op">=</span> sys.getsizeof(lc_test)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>generator_size <span class="op">=</span> sys.getsizeof(gc_test)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'The list takes up </span><span class="sc">{</span>list_size<span class="sc">}</span><span class="ss"> bytes in memory'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'The generator takes up </span><span class="sc">{</span>generator_size<span class="sc">}</span><span class="ss"> bytes in memory'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The list takes up 800984 bytes in memory
+The generator takes up 200 bytes in memory</code></pre>
+</div>
+</div>
+<p>The list evidently takes up far more space in memory than the generator. That is because the list is being created all at once (all 99,999 intergers), whereas the generator is really just storing the <em>instructions</em> for the comprehension, plus its current <em>state</em> (i.e., which iteration it has got to).</p>
+<p>This is a very trivial example, but imagine if you are working with hundreds of thousands of <em>rows</em> of data. You would be dealing a much greater volume of data. Trying to process all of that data in one go would place a much greater burden on the computer’s memory than processing it row by row.</p>
+<p>The size of the generator remains roughly the same, despite the fact that we are dealing with much more data, but the size of the list grows with the volume of data.</p>
+<div id="csv-comprehensions" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> (<span class="st">'./data/ldahc.csv'</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>csv_list_comp <span class="op">=</span> [row <span class="cf">for</span> row <span class="kw">in</span> <span class="bu">open</span>(<span class="bu">file</span>)]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>csv_gen_comp <span class="op">=</span> (row <span class="cf">for</span> row <span class="kw">in</span> <span class="bu">open</span>(<span class="bu">file</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>csv_list_comp_size <span class="op">=</span> sys.getsizeof(csv_list_comp)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>csv_gen_comp_size <span class="op">=</span> sys.getsizeof(csv_gen_comp)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'The size of the list comprehension is </span><span class="sc">{</span>csv_list_comp_size<span class="sc">}</span><span class="ss"> bytes'</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'The size of the generator comprehension is </span><span class="sc">{</span>csv_gen_comp_size<span class="sc">}</span><span class="ss"> bytes'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>The size of the list comprehension is 800984 bytes
+The size of the generator comprehension is 192 bytes</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Data source
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To run this against the data yourself from a Jupyter Notebook, click <a href="https://files.digital.nhs.uk/96/B5B8AE/learning-disabilities-health-check-scheme-eng-Jul-2025.csv">here</a> to start the download from the NHS Digital Publications page. Place the file in a <code>data</code> folder in the same directory as you Jupyter Notebook file. Be sure to rename the file or change the name in the filepath above.</p>
+</div>
+</div>
+<section id="should-i-use-it-to-load-.csv-files-into-my-pandas-dataframes-then" class="level4">
+<h4 class="anchored" data-anchor-id="should-i-use-it-to-load-.csv-files-into-my-pandas-dataframes-then">Should I use it to load .csv files into my <code>pandas</code> DataFrames, then?</h4>
+<p>Since the <code>pandas</code> library has already been optimised to some degree<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, you won’t really gain much from using a generator to load data from a .csv directly into a Pandas dataframe. <code>pandas</code> already has a <code>chunksize=</code> keyword argument in its .read_csv() method for loading data from a .csv in batches. <strong>However</strong>, as we will see in the use cases section, you could still consider pre-processing your data <em>before it even reaches</em> <code>pandas</code> (think about how <code>pandas</code> often makes a best guess about things like data types, which may not always be correct).</p>
+</section>
+</section>
+<section id="speed" class="level3">
+<h3 class="anchored" data-anchor-id="speed">Speed</h3>
+<p>How do generators compare when it comes to speed? Let’s return to our two comprehensions. For this we are going to use the in-built Python profiler library <code>cProfile</code>. Instead of passing a variable name to it, we need to give it an instruction as a text string.</p>
+<div id="import-cprofile" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> cProfile</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The profiler will tell us how many function calls (operations) are being executed to complete the task and the time it has taken.</p>
+<p>First, the list comprehension:</p>
+<div id="list-speed-test" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cProfile.run(<span class="st">'sum([i**2 for i in range(100000)])'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         4 function calls in 0.021 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.017    0.017    0.020    0.020 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.000    0.000    0.020    0.020 {built-in method builtins.exec}
+        1    0.003    0.003    0.003    0.003 {built-in method builtins.sum}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+</code></pre>
+</div>
+</div>
+<p>Then the generator comprehension:</p>
+<div id="gen-speed-test" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cProfile.run(<span class="st">'sum((i**2 for i in range(100000)))'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         100276 function calls (100272 primitive calls) in 0.035 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.000    0.000    0.000    0.000 &lt;frozen abc&gt;:121(__subclasscheck__)
+        3    0.000    0.000    0.000    0.000 &lt;frozen importlib._bootstrap&gt;:1390(_handle_fromlist)
+   100001    0.019    0.000    0.019    0.000 &lt;string&gt;:1(&lt;genexpr&gt;)
+        1    0.000    0.000    0.007    0.007 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.000    0.000    0.000    0.000 asyncio.py:231(add_callback)
+        3    0.000    0.000    0.000    0.000 attrsettr.py:43(__getattr__)
+        3    0.000    0.000    0.000    0.000 attrsettr.py:66(_get_attr_opt)
+        1    0.000    0.000    0.024    0.024 base_events.py:1909(_run_once)
+        1    0.000    0.000    0.000    0.000 base_events.py:2004(get_debug)
+        1    0.000    0.000    0.000    0.000 base_events.py:539(_check_closed)
+        2    0.000    0.000    0.000    0.000 base_events.py:734(time)
+        1    0.000    0.000    0.000    0.000 base_events.py:785(call_soon)
+        1    0.000    0.000    0.000    0.000 base_events.py:814(_call_soon)
+       17    0.000    0.000    0.000    0.000 enum.py:1129(__new__)
+       39    0.000    0.000    0.000    0.000 enum.py:1544(_get_value)
+        8    0.000    0.000    0.000    0.000 enum.py:1551(__or__)
+        5    0.000    0.000    0.000    0.000 enum.py:1562(__and__)
+       17    0.000    0.000    0.000    0.000 enum.py:726(__call__)
+        1    0.000    0.000    0.000    0.000 events.py:36(__init__)
+        1    0.000    0.000    0.014    0.014 events.py:86(_run)
+        1    0.000    0.000    0.014    0.014 ioloop.py:750(_run_callback)
+        1    0.000    0.000    0.013    0.013 iostream.py:157(_handle_event)
+        1    0.000    0.000    0.000    0.000 iostream.py:213(_is_master_process)
+        1    0.000    0.000    0.000    0.000 iostream.py:216(_check_mp_mode)
+        1    0.000    0.000    0.000    0.000 iostream.py:255(closed)
+        1    0.000    0.000    0.013    0.013 iostream.py:276(&lt;lambda&gt;)
+        1    0.000    0.000    0.013    0.013 iostream.py:278(_really_send)
+        2    0.000    0.000    0.000    0.000 queue.py:209(_qsize)
+        2    0.000    0.000    0.000    0.000 queue.py:97(empty)
+        1    0.000    0.000    0.000    0.000 selector_events.py:750(_process_events)
+        1    0.005    0.005    0.010    0.010 selectors.py:313(_select)
+        1    0.000    0.000    0.010    0.010 selectors.py:319(select)
+        7    0.000    0.000    0.000    0.000 socket.py:623(send)
+        1    0.006    0.006    0.013    0.013 socket.py:700(send_multipart)
+        1    0.000    0.000    0.000    0.000 socket.py:771(recv_multipart)
+        2    0.000    0.000    0.000    0.000 typing.py:1221(__instancecheck__)
+        2    0.000    0.000    0.000    0.000 typing.py:1285(__hash__)
+        2    0.000    0.000    0.000    0.000 typing.py:1492(__subclasscheck__)
+        1    0.000    0.000    0.000    0.000 typing.py:2182(cast)
+        3    0.000    0.000    0.000    0.000 typing.py:392(inner)
+        3    0.000    0.000    0.000    0.000 zmqstream.py:528(receiving)
+        2    0.000    0.000    0.000    0.000 zmqstream.py:532(sending)
+        1    0.000    0.000    0.013    0.013 zmqstream.py:546(_run_callback)
+        1    0.000    0.000    0.013    0.013 zmqstream.py:573(_handle_events)
+        1    0.000    0.000    0.013    0.013 zmqstream.py:614(_handle_recv)
+        2    0.000    0.000    0.000    0.000 zmqstream.py:653(_rebuild_io_state)
+        2    0.000    0.000    0.000    0.000 zmqstream.py:676(_update_handler)
+        1    0.000    0.000    0.013    0.013 zmqstream.py:684(&lt;lambda&gt;)
+        2    0.000    0.000    0.000    0.000 {built-in method _abc._abc_subclasscheck}
+        1    0.000    0.000    0.000    0.000 {built-in method _asyncio.get_running_loop}
+        1    0.000    0.000    0.000    0.000 {built-in method _contextvars.copy_context}
+        1    0.000    0.000    0.007    0.007 {built-in method builtins.exec}
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.hash}
+    81/77    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+        6    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.min}
+        1    0.003    0.003    0.007    0.007 {built-in method builtins.sum}
+        1    0.000    0.000    0.000    0.000 {built-in method nt.getpid}
+        1    0.000    0.000    0.000    0.000 {built-in method select.select}
+        2    0.000    0.000    0.000    0.000 {built-in method time.monotonic}
+        2    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        2    0.000    0.000    0.000    0.000 {method 'popleft' of 'collections.deque' objects}
+        1    0.000    0.000    0.014    0.014 {method 'run' of '_contextvars.Context' objects}
+        3    0.000    0.000    0.000    0.000 {method 'upper' of 'str' objects}
+
+</code></pre>
+</div>
+</div>
+<p>So using the list comprehension is faster and is making far fewer function calls. This makes sense, because the generator comprehension is taking things step by step, whereas the list comprehension is doing things with fewer leaps and bounds.</p>
+<p>In conclusion, generators are useful when the importance of staying within memory constraints outweighs the need for speed.</p>
+</section>
+</section>
+<section id="example-use-cases" class="level2">
+<h2 class="anchored" data-anchor-id="example-use-cases">Example use cases</h2>
+<p>What, then, are some practical uses for generators?</p>
+<section id="data-pipelines-pre-processing-.csv-data" class="level3">
+<h3 class="anchored" data-anchor-id="data-pipelines-pre-processing-.csv-data">Data pipelines: pre-processing .csv data</h3>
+<p>A little earlier, it was mentioned that there is not much to be gained from using a generator to read large amounts of data directly into a <code>pandas</code> dataframe. However, a generator could be used to perform some pre-processing <em>before</em> the data gets fed into <code>pandas</code>. We may want to do this, if we want to ensure that we do not have mixed data types in a column, which would be interpreted by <code>pandas</code> as an <code>object</code>, which is a bit of a catch-all.</p>
+<p>For example, we may receive a data file with a column that is meant to contain numeric data, but missing values have been filled with the text string “NULL”. We may want to ensure that such “missing-like” values get removed.</p>
+<p>Here the generator function processes the data line by line to replace the “NULL” values with empty values and this is passed into a <code>pandas</code> DataFrame. We can then use <code>pandas</code> to treat the column as numeric without running into data type errors.</p>
+<div id="cell-missing-head" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> <span class="st">'./data/missing-like.csv'</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="bu">file</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="missing-head" class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th">Category</th>
+<th data-quarto-table-cell-role="th">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>01/04/2025</td>
+<td>A</td>
+<td>673.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>01/04/2025</td>
+<td>B</td>
+<td>663.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>01/05/2025</td>
+<td>A</td>
+<td>550.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>01/05/2025</td>
+<td>B</td>
+<td>565.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>01/06/2025</td>
+<td>A</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-preprocess-missing" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> preprocess_nulls(<span class="bu">file</span>):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="bu">file</span>, newline<span class="op">=</span><span class="st">''</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        reader <span class="op">=</span> csv.reader(f)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        headers <span class="op">=</span> <span class="bu">next</span>(reader)  <span class="co"># column headers are the first iteration in the rows</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> headers           <span class="co"># yield this separately so that any preprocessing steps don't get applied.</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> row <span class="kw">in</span> reader:</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>            row[<span class="dv">2</span>] <span class="op">=</span> row[<span class="dv">2</span>].replace(<span class="st">'NULL'</span>,<span class="st">''</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> row</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(preprocess_nulls(<span class="bu">file</span><span class="op">=</span><span class="bu">file</span>))</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.iloc[<span class="dv">0</span>] <span class="co"># set first row as column headings.</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.drop(<span class="dv">0</span>).reset_index(drop<span class="op">=</span><span class="va">True</span>) <span class="co"># drop the row that contained the headings.</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="preprocess-missing" class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">﻿Date</th>
+<th data-quarto-table-cell-role="th">Category</th>
+<th data-quarto-table-cell-role="th">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>01/04/2025</td>
+<td>A</td>
+<td>673</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>01/04/2025</td>
+<td>B</td>
+<td>663</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>01/05/2025</td>
+<td>A</td>
+<td>550</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>01/05/2025</td>
+<td>B</td>
+<td>565</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>01/06/2025</td>
+<td>A</td>
+<td></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>01/06/2025</td>
+<td>B</td>
+<td>849</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>01/07/2025</td>
+<td>A</td>
+<td>199</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>01/07/2025</td>
+<td>B</td>
+<td>336</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>01/08/2025</td>
+<td>A</td>
+<td>918</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>01/08/2025</td>
+<td>B</td>
+<td>963</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10</th>
+<td>01/09/2025</td>
+<td>A</td>
+<td>533</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">11</th>
+<td>01/09/2025</td>
+<td>B</td>
+<td>306</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12</th>
+<td>01/10/2025</td>
+<td>A</td>
+<td></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">13</th>
+<td>01/10/2025</td>
+<td>B</td>
+<td>298</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14</th>
+<td>01/11/2025</td>
+<td>A</td>
+<td>654</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">15</th>
+<td>01/11/2025</td>
+<td>B</td>
+<td>672</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">16</th>
+<td>01/12/2025</td>
+<td>A</td>
+<td>587</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">17</th>
+<td>01/12/2025</td>
+<td>B</td>
+<td>404</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">18</th>
+<td>01/01/2026</td>
+<td>A</td>
+<td>738</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">19</th>
+<td>01/01/2026</td>
+<td>B</td>
+<td>295</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">20</th>
+<td>01/02/2026</td>
+<td>A</td>
+<td></td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">21</th>
+<td>01/02/2026</td>
+<td>B</td>
+<td>900</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">22</th>
+<td>01/03/2026</td>
+<td>A</td>
+<td>967</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">23</th>
+<td>01/03/2026</td>
+<td>B</td>
+<td>370</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Of course, this is just a demonstration. It would really come into its own when you are creating a pipeline that pre-processes multiple columns and 100,000+ rows.</p>
+</section>
+<section id="api-calls-loading-large-volumes-of-real-time-data" class="level3">
+<h3 class="anchored" data-anchor-id="api-calls-loading-large-volumes-of-real-time-data">API calls: loading large volumes of real-time data</h3>
+<p>Another, even more likely scenario for making use of generators for importing data is when accessing large amounts of real-time data via an API. With real-time data, it is not always known how much data will be coming through and this has the potential to overload memory if processed in one go.</p>
+<p>For this example, we are going to access the Environment Agency’s real-time <a href="https://environment.data.gov.uk/flood-monitoring/doc/reference">flood warning data</a>. We will just use a small example, flood alerts with a minimum severity of 3, but this could be applied to a much larger dataset.</p>
+<div id="cell-api-generator" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># import pandas as pd</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_flood_alerts():</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    request_url <span class="op">=</span> <span class="st">'https://environment.data.gov.uk/flood-monitoring/id/floods?min-severity=3'</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> requests.get(request_url)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    results_json <span class="op">=</span> response.json()[<span class="st">'items'</span>]</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> json <span class="kw">in</span> results_json:</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> {</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>            <span class="st">'id'</span>: json[<span class="st">'@id'</span>],</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'description'</span>: json[<span class="st">'description'</span>],</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">'area_name'</span>: json[<span class="st">'eaAreaName'</span>],</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">'flood_area_id'</span>: json[<span class="st">'floodAreaID'</span>],</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">'is_tidal'</span>: json[<span class="st">'isTidal'</span>],</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">'severity'</span>: json[<span class="st">'severity'</span>],</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">'severity_level'</span>: json[<span class="st">'severityLevel'</span>],</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'time_message_changed'</span>: json[<span class="st">'timeMessageChanged'</span>],</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">'time_raised'</span>: json[<span class="st">'timeRaised'</span>],</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">'time_severity_changed'</span>: json[<span class="st">'timeSeverityChanged'</span>]</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>alerts <span class="op">=</span> pd.DataFrame(get_flood_alerts())</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>alerts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="api-generator" class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">description</th>
+<th data-quarto-table-cell-role="th">area_name</th>
+<th data-quarto-table-cell-role="th">flood_area_id</th>
+<th data-quarto-table-cell-role="th">is_tidal</th>
+<th data-quarto-table-cell-role="th">severity</th>
+<th data-quarto-table-cell-role="th">severity_level</th>
+<th data-quarto-table-cell-role="th">time_message_changed</th>
+<th data-quarto-table-cell-role="th">time_raised</th>
+<th data-quarto-table-cell-role="th">time_severity_changed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Upper Bristol Avon area</td>
+<td>Wessex</td>
+<td>112WAFTUBA</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-02-01T10:27:00</td>
+<td>2026-02-01T10:27:46</td>
+<td>2026-01-15T18:20:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>River Trent from Cromwell Weir to Gainsborough</td>
+<td>East Midlands</td>
+<td>034WAB424</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-02-02T08:59:00</td>
+<td>2026-02-02T08:59:25</td>
+<td>2026-01-27T16:50:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Lower River Soar in Leicestershire</td>
+<td>East Midlands</td>
+<td>034WAF428</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-02-01T10:26:00</td>
+<td>2026-02-01T10:26:31</td>
+<td>2026-01-08T16:20:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>River Churn and its tributaries</td>
+<td>Thames</td>
+<td>061WAF02Churn</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-02-01T10:33:00</td>
+<td>2026-02-01T10:33:44</td>
+<td>2026-01-15T21:04:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>River Cherwell from Lower Heyford down to and ...</td>
+<td>Thames</td>
+<td>061WAF14LChrwell</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-02-01T11:16:00</td>
+<td>2026-02-01T11:16:06</td>
+<td>2026-01-11T08:41:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">192</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Hermitage Stream</td>
+<td>Solent and South Downs</td>
+<td>065WAF131</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-02-01T19:33:00</td>
+<td>2026-02-01T19:33:49</td>
+<td>2026-02-01T19:33:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">193</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Monktonmead Brook at St Johns</td>
+<td>Solent and South Downs</td>
+<td>065FWF7201</td>
+<td>False</td>
+<td>Flood warning</td>
+<td>2</td>
+<td>2026-02-02T08:08:00</td>
+<td>2026-02-02T08:08:59</td>
+<td>2026-02-01T19:37:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">194</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Mead End Stream, Denmead</td>
+<td>Solent and South Downs</td>
+<td>065WAF129</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-02-01T19:54:00</td>
+<td>2026-02-01T19:54:39</td>
+<td>2026-02-01T19:54:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">195</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Titchfield on the River Meon</td>
+<td>Solent and South Downs</td>
+<td>065FWF4003</td>
+<td>False</td>
+<td>Flood warning</td>
+<td>2</td>
+<td>2026-02-02T08:17:00</td>
+<td>2026-02-02T08:17:38</td>
+<td>2026-02-02T02:41:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">196</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Sandown, Brading and Bembridge on the Eastern Yar</td>
+<td>Solent and South Downs</td>
+<td>065FWF7102</td>
+<td>False</td>
+<td>Flood warning</td>
+<td>2</td>
+<td>2026-02-02T09:29:00</td>
+<td>2026-02-02T09:29:48</td>
+<td>2026-02-02T09:29:00</td>
+</tr>
+</tbody>
+</table>
+
+<p>197 rows × 10 columns</p>
+</div>
+</div>
+</div>
+<p><br>
+The <code>for</code> loop in the non-generator version would look like this:</p>
+<div id="api-non-generator" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>    alerts <span class="op">=</span> [{</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">'id'</span> : json[<span class="st">'@id'</span>],</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># etc.</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">for</span> json <span class="kw">in</span> results_json]</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> alerts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Using a generator is particularly useful when the data is <em>paginated</em>, that is to say when a huge volume of data (millions of rows) is made available via an API endpoint across multiple pages, rather than all in one block.</p>
+<p><code>https://api.example.com/data?page=1</code><br>
+<code>https://api.example.com/data?page=2</code></p>
+<p>Iterating over each page <em>without</em> using a generator would return everything in one huge list sitting in memory. Here is a generic example to illustrate:</p>
+<div id="paginated-non-generator" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_all_data():</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> []</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    page <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>        resp <span class="op">=</span> requests.get(<span class="st">"https://api.example.com/data"</span>, params<span class="op">=</span>{<span class="st">"page"</span>: page}).json()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> resp[<span class="st">"results"</span>]:</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        data.extend(resp[<span class="st">"results"</span>])    </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        page <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><em>With</em> a generator, you can <em>stream</em> the data, processing the items as they arrive.</p>
+<div id="paginated-generator" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_all_data_gen():</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    page <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>        resp <span class="op">=</span> requests.get(<span class="st">"https://api.example.com/data"</span>, params<span class="op">=</span>{<span class="st">"page"</span>: page}).json()</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        results <span class="op">=</span> resp[<span class="st">"results"</span>]</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> results:</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> item <span class="kw">in</span> results:</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">yield</span> item</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        page <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> get_all_data_gen():</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    process(record)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="modelling-queueing-problems-and-pathways-discrete-event-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="modelling-queueing-problems-and-pathways-discrete-event-simulation">Modelling queueing problems and pathways: Discrete Event Simulation</h3>
+<p>Discrete Event Simulation (DES) is a fantastic technique for modelling systems where entities move along a pathway (or pathways) and those entities queue at different points on a given pathway until resources become available to perform some kind of task with those entities. One typical use case is modelling manufacturing production lines, where an analyst might use DES to determine whether there are any bottlenecks in the process, meaning that downstream processes are held up, or conversely where cost savings could be made by removing excess resources that do not contribute enough of a productivity gain to justify their deployment. In a healthcare setting, DES models can be used to model wards or clinics to understand how patients flow through, and different “what-if” scenarios can be tested out (what if we had one more nurse on the ward; what if we were able to reduce consultation times by five minutes), all without risking harm to patients. We can use them to model branching pathways (e.g.&nbsp;as a result of triage assessments) and to model resources in terms of staff and “stuff”, that is to say things like beds and cubicles.</p>
+<p>In Python, the package that is typically used for building DES models is <code>simpy</code>. This is used to create an <code>Environment</code> object which co-ordinates and keeps track of the various resources, processes and the entities subject to those processes.</p>
+<p>Generators come into play when we want to simulate patient arrivals. Imagine we have a pool of patients booked in to attend a clinic within a 2-hour window. It is very unlikely that all of the patients would arrive at exactly the same time at the beginning of the time window. In a real-life situation, we would expect people to arrive at different times (even if it was stipulated that everyone had to arrive punctually, there would still be people who get held up trying to get to the clinic and arrive late). Generators allow us to simulate this natual <em>variability</em>. The same applies to the processes at each step in the pathway: we use the <code>yield</code> keyword to release a resource after the simulated amount of time for the process has elapsed. We can string together processes that depend on each other and evaluate the impact of changes made to different parts of the system.</p>
+<p>There is a lot more to Discrete Event Simulation, but we will return to it when we cover the topic in its own session.</p>
+<p>Now let’s have a look at a simple model to see generators in action in this context.</p>
+<section id="setting-the-scene-a-flu-jab-clinic" class="level4">
+<h4 class="anchored" data-anchor-id="setting-the-scene-a-flu-jab-clinic">Setting the scene: A flu jab clinic</h4>
+<p>A commissioner wants to see how many receptionists and nurses would be required to vaccinate a target number of patients during a clinic on a given day. They want to know how long the clinic would have to run for to see all the patients as well as the the average and maximum waiting times.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/model_diagram.png" class="img-fluid figure-img"></p>
+<figcaption>Our simple vaccination clinic</figcaption>
+</figure>
+</div>
+</section>
+<section id="clinic-parameters" class="level4">
+<h4 class="anchored" data-anchor-id="clinic-parameters">Clinic parameters</h4>
+<p>Below are the parameters for our clinic. Try changing them to see what effect that has on the outcome. Remember that you want to try to balance things at each stage of the process to minimise queueing times. Do you need more nurses or more receptionists? What is the best ratio? Can you cut the total clinic time and still see the patients? How far can you increase the target number of patients seen?</p>
+<p>Most of these parameters should be self-explanatory, but the one you may not be familiar with is “INTERARRIVAL_TIME”. The interarrival time is the amount of time between patients arriving at the clinic and joining the queue for registration with the receptionist. The <em>average</em> interarrival time would then be used to inform the model.</p>
+<div id="des-parameters" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>TARGET_PATIENTS_SEEN <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>RECEPTIONISTS_AVAILABLE <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>VACCINATION_NURSES_AVAILABLE <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>MAX_CLINIC_TIME <span class="op">=</span> <span class="dv">450</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>AVG_REGISTRATION_TIME <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>AVG_VACCINATION_TIME <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>INTERARRIVAL_TIME <span class="op">=</span> <span class="dv">3</span>         </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Data collection
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you were modelling a healthcare system with Discrete Event Simulation in real life, it is likely that you would have to collect some of this data yourself by sitting in on real clinics and/or with the help of administrative and medical staff. For example, it would involve using a stopwatch to record patient interarrival times before finding the average.</p>
+</div>
+</div>
+</section>
+<section id="the-model-itself" class="level4">
+<h4 class="anchored" data-anchor-id="the-model-itself">The model itself</h4>
+<p>The model has been split into sections to make it easier to understand. We have also stuck to a functional programming structure to keep things simple, given that we want to keep the focus on the generator functions. Discrete Event Simulations are normally great examples of object-oriented programming, because it is suited to modelling entities interacting with each other.</p>
+<section id="creating-generator-functions-to-model-the-patient-movements" class="level5">
+<h5 class="anchored" data-anchor-id="creating-generator-functions-to-model-the-patient-movements">Creating generator functions to model the patient movements</h5>
+<p>We won’t go into all the details; we can go over those when we do a session on Discrete Event Simulation. The main things to understand are:</p>
+<ul>
+<li><p>The <code>patient_arrival_generator()</code> function will generate as many patients as defined above in the <code>TARGET_PATIENTS_SEEN</code> parameter. (If we weren’t interested in a set number of patients, we could create an infinite loop with <code>while True</code>)</p></li>
+<li><p>After each patient has arrived at the clinic, an interarrival time <code>t</code> is randomly sampled. It is based on <code>INTERARRIVAL_TIME</code> being the average of those sampled values.</p></li>
+<li><p>Generation of patients is paused until that time has passed, and then the next patient in the sequence gets generated.</p></li>
+<li><p>The <code>activity_generator()</code> function is split into two. Each step in the process (registration, getting vaccinated) is contained within a <code>with</code> block. When a <code>with</code> block ends, the resource is automatically freed up.</p></li>
+<li><p><code>env.now</code> is used to collect timestamps at different points to allow us to calculate the length of time spent in each queue.</p></li>
+<li><p>A random amount of time is sampled to represent the amount of time each patient spends at registration and getting vaccinated, and therefore <em>how much time they are occupying those resources</em>.</p></li>
+<li><p>The <code>.request()</code> method creates an event object representing a request for one unit of capacity of the resource (1 receptionist, 1 nurse). If capacity is available, the request can be fulfilled and the process continues; if not, the process is frozen for that patient (i.e.&nbsp;the patient joins the queue for the resource) until SimPy is able to give access to the resource and the process can continue.</p></li>
+<li><p>The fact that generators with <code>yield</code> are being used enables us to move on to the next step in a sequence for each individual patient.</p></li>
+</ul>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Queueing outputs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To see the printout of the times patients joined queues and started each process, un-comment lines <strong>42, 45, 57, 66, 69</strong> where you see the <code>print()</code> statements. They have been commented out for display on the web page since the output is quite long!</p>
+</div>
+</div>
+<div id="des-generators" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="im">import</span> simpy</span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="im">import</span> random</span>
+<span id="cb31-3"><a href="#cb31-3"></a></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># Arrivals generator function</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="kw">def</span> patient_arrival_generator(env, INTERARRIVAL_TIME, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME,receptionist,nurse):</span>
+<span id="cb31-7"><a href="#cb31-7"></a>    patient_id <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a></span>
+<span id="cb31-9"><a href="#cb31-9"></a>    <span class="cf">for</span> patient_id <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(TARGET_PATIENTS_SEEN)):</span>
+<span id="cb31-10"><a href="#cb31-10"></a>        <span class="co"># create an instance of the activity generator</span></span>
+<span id="cb31-11"><a href="#cb31-11"></a>        patient_act <span class="op">=</span> activity_generator(env,AVG_REGISTRATION_TIME,AVG_VACCINATION_TIME,receptionist,nurse,patient_id)</span>
+<span id="cb31-12"><a href="#cb31-12"></a></span>
+<span id="cb31-13"><a href="#cb31-13"></a>        <span class="co"># run the activity generator for this patient</span></span>
+<span id="cb31-14"><a href="#cb31-14"></a>        env.process(patient_act)</span>
+<span id="cb31-15"><a href="#cb31-15"></a></span>
+<span id="cb31-16"><a href="#cb31-16"></a>        <span class="co"># sample the time until next patient</span></span>
+<span id="cb31-17"><a href="#cb31-17"></a>        t <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> INTERARRIVAL_TIME)</span>
+<span id="cb31-18"><a href="#cb31-18"></a></span>
+<span id="cb31-19"><a href="#cb31-19"></a>        <span class="co"># freeze the arrival generator until that time has passed</span></span>
+<span id="cb31-20"><a href="#cb31-20"></a>        <span class="cf">yield</span> env.timeout(t)</span>
+<span id="cb31-21"><a href="#cb31-21"></a></span>
+<span id="cb31-22"><a href="#cb31-22"></a>        <span class="co"># increment the patient ID number for the next patient</span></span>
+<span id="cb31-23"><a href="#cb31-23"></a>        patient_id <span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb31-24"><a href="#cb31-24"></a></span>
+<span id="cb31-25"><a href="#cb31-25"></a><span class="co"># Activity generator function</span></span>
+<span id="cb31-26"><a href="#cb31-26"></a></span>
+<span id="cb31-27"><a href="#cb31-27"></a><span class="kw">def</span> activity_generator(env, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME, receptionist, nurse, patient_id):</span>
+<span id="cb31-28"><a href="#cb31-28"></a></span>
+<span id="cb31-29"><a href="#cb31-29"></a>    <span class="co"># reference some global variables, i.e. ones that exist outside of this function.</span></span>
+<span id="cb31-30"><a href="#cb31-30"></a>    <span class="co"># we want to pass the waiting times out to these buckets so that we can use them later.</span></span>
+<span id="cb31-31"><a href="#cb31-31"></a>    <span class="kw">global</span> list_of_queueing_times_registration</span>
+<span id="cb31-32"><a href="#cb31-32"></a>    <span class="kw">global</span> list_of_queueing_times_nurse</span>
+<span id="cb31-33"><a href="#cb31-33"></a>    </span>
+<span id="cb31-34"><a href="#cb31-34"></a>    <span class="co"># record the time a patient arrives and enters the queue for registration</span></span>
+<span id="cb31-35"><a href="#cb31-35"></a>    time_entered_queue_for_registration <span class="op">=</span> env.now</span>
+<span id="cb31-36"><a href="#cb31-36"></a></span>
+<span id="cb31-37"><a href="#cb31-37"></a>    <span class="cf">with</span> receptionist.request() <span class="im">as</span> req:</span>
+<span id="cb31-38"><a href="#cb31-38"></a>        <span class="co"># freeze until the request can be met, i.e. when a receptionist is available.</span></span>
+<span id="cb31-39"><a href="#cb31-39"></a>        <span class="cf">yield</span> req</span>
+<span id="cb31-40"><a href="#cb31-40"></a></span>
+<span id="cb31-41"><a href="#cb31-41"></a>        time_left_queue_for_registration <span class="op">=</span> env.now</span>
+<span id="cb31-42"><a href="#cb31-42"></a>        <span class="co"># print(f'Patient {patient_id} left the queue for the receptionist at {time_left_queue_for_registration:.2f}')</span></span>
+<span id="cb31-43"><a href="#cb31-43"></a></span>
+<span id="cb31-44"><a href="#cb31-44"></a>        time_in_queue_for_registration <span class="op">=</span> time_left_queue_for_registration <span class="op">-</span> time_entered_queue_for_registration</span>
+<span id="cb31-45"><a href="#cb31-45"></a>        <span class="co"># print(f'Patient {patient_id} queued for registration for {time_in_queue_for_registration:.2f} minutes')</span></span>
+<span id="cb31-46"><a href="#cb31-46"></a></span>
+<span id="cb31-47"><a href="#cb31-47"></a>        <span class="co"># add the waiting time to the global list</span></span>
+<span id="cb31-48"><a href="#cb31-48"></a>        list_of_queueing_times_registration.append(time_in_queue_for_registration)</span>
+<span id="cb31-49"><a href="#cb31-49"></a></span>
+<span id="cb31-50"><a href="#cb31-50"></a>        <span class="co"># sampled time spent with with receptionist during registration</span></span>
+<span id="cb31-51"><a href="#cb31-51"></a>        sampled_registration_time <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> AVG_REGISTRATION_TIME)</span>
+<span id="cb31-52"><a href="#cb31-52"></a></span>
+<span id="cb31-53"><a href="#cb31-53"></a>        <span class="co"># freeze the activity generator until that time has passed</span></span>
+<span id="cb31-54"><a href="#cb31-54"></a>        <span class="cf">yield</span> env.timeout(sampled_registration_time)</span>
+<span id="cb31-55"><a href="#cb31-55"></a></span>
+<span id="cb31-56"><a href="#cb31-56"></a>    time_entered_queue_for_nurse <span class="op">=</span> env.now</span>
+<span id="cb31-57"><a href="#cb31-57"></a>    <span class="co"># print(f'Patient {patient_id} joined the queue for the nurse at {time_entered_queue_for_nurse:.2f}')</span></span>
+<span id="cb31-58"><a href="#cb31-58"></a></span>
+<span id="cb31-59"><a href="#cb31-59"></a>    <span class="co"># request a nurse</span></span>
+<span id="cb31-60"><a href="#cb31-60"></a>    <span class="cf">with</span> nurse.request() <span class="im">as</span> req:</span>
+<span id="cb31-61"><a href="#cb31-61"></a>        <span class="co"># freeze until the request can be met, i.e. when a nurse is available.</span></span>
+<span id="cb31-62"><a href="#cb31-62"></a>        <span class="cf">yield</span> req</span>
+<span id="cb31-63"><a href="#cb31-63"></a></span>
+<span id="cb31-64"><a href="#cb31-64"></a>        <span class="co"># calculate the time the patient was queuing</span></span>
+<span id="cb31-65"><a href="#cb31-65"></a>        time_left_queue_for_nurse <span class="op">=</span> env.now</span>
+<span id="cb31-66"><a href="#cb31-66"></a>        <span class="co"># print(f'Patient {patient_id} left the queue for the nurse at {time_left_queue_for_nurse:.2f}')</span></span>
+<span id="cb31-67"><a href="#cb31-67"></a></span>
+<span id="cb31-68"><a href="#cb31-68"></a>        time_in_queue_for_nurse <span class="op">=</span> time_left_queue_for_nurse <span class="op">-</span> time_entered_queue_for_nurse</span>
+<span id="cb31-69"><a href="#cb31-69"></a>        <span class="co"># print(f'Patient {patient_id} queued for the nurse for {time_in_queue_for_nurse:.2f} minutes')</span></span>
+<span id="cb31-70"><a href="#cb31-70"></a></span>
+<span id="cb31-71"><a href="#cb31-71"></a>        <span class="co"># add the waiting time to the global list</span></span>
+<span id="cb31-72"><a href="#cb31-72"></a>        list_of_queueing_times_nurse.append(time_in_queue_for_nurse)</span>
+<span id="cb31-73"><a href="#cb31-73"></a></span>
+<span id="cb31-74"><a href="#cb31-74"></a>        <span class="co"># sampled time spent with nurse receiving the vaccination</span></span>
+<span id="cb31-75"><a href="#cb31-75"></a>        sampled_vaccination_time <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> AVG_VACCINATION_TIME)</span>
+<span id="cb31-76"><a href="#cb31-76"></a></span>
+<span id="cb31-77"><a href="#cb31-77"></a>        <span class="co"># freeze the activity generator until that time has passed</span></span>
+<span id="cb31-78"><a href="#cb31-78"></a>        <span class="cf">yield</span> env.timeout(sampled_vaccination_time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="setting-up-the-simpy-simulation-environment" class="level5">
+<h5 class="anchored" data-anchor-id="setting-up-the-simpy-simulation-environment">Setting up the SimPy simulation environment</h5>
+<p>In this section, we create an environment inside which the processes take place, and define <code>nurse</code> and <code>receptionist</code> as SimPy <code>Resource</code> objects. We also set up our lists that will log the queueing times so that the <code>max</code> and <code>mean</code> of each can be calculated.</p>
+<div id="des-setup" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># instantiate SimPy simulation environment</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>env <span class="op">=</span> simpy.Environment()</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set up resources:</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Nurses and receptionists inhabit our simulated clinic environment "env".</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co"># "Capacity" relates to the number of units of each resource.</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>nurse <span class="op">=</span> simpy.Resource(env, capacity<span class="op">=</span>VACCINATION_NURSES_AVAILABLE)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>receptionist <span class="op">=</span> simpy.Resource(env, capacity<span class="op">=</span>RECEPTIONISTS_AVAILABLE)</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co"># initiate lists to collect waiting times</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>list_of_queueing_times_registration <span class="op">=</span> []</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>list_of_queueing_times_nurse <span class="op">=</span> []</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Global variables
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Do you recall seeing the waiting lists referred to as <code>global</code> variables within the <code>activity_generator()</code> function? Ordinarily, variables defined inside functions cannot be accessed from outside them. Using the <code>global</code> keyword means that values assigned to these variables can be accessed by other parts of the program.</p>
+</div>
+</div>
+</section>
+<section id="running-the-simulation" class="level5">
+<h5 class="anchored" data-anchor-id="running-the-simulation">Running the simulation</h5>
+<p>We set off the patient arrivals generator function and tell SimPy to run the simulation for the number of time units defined in our clinic parameters. In this example, we are trying to see what resources are needed to treat the target number of patients within a fixed time period. However, you could also run the simulation without using the <code>until</code> argument and it will run until all of the patients have been treated.</p>
+<p>Was the vaccination team able to get through the target number of patients within the permitted clinic time?</p>
+<div id="run-des" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># start the arrivals generator</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>env.process(patient_arrival_generator(env, INTERARRIVAL_TIME, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME,receptionist,nurse))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># run the simulation for TOTAL_CLINIC_TIME units of time ("minutes")</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>env.run(until<span class="op">=</span>MAX_CLINIC_TIME) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="calculate-some-metrics-relating-to-the-queueing-times" class="level5">
+<h5 class="anchored" data-anchor-id="calculate-some-metrics-relating-to-the-queueing-times">Calculate some metrics relating to the queueing times</h5>
+<p>Now we can do something with those global variables to derive the metrics we can use to evaluate the configuration of our vaccination clinic. Would you say that the waiting times for both stages of the clinic are acceptable?</p>
+<div id="des-metrics" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statistics <span class="im">import</span> mean</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate and print mean/max queueing times for registration</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>mean_queue_time_registration <span class="op">=</span> mean(list_of_queueing_times_registration)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>max_queue_time_registration <span class="op">=</span> <span class="bu">max</span>(list_of_queueing_times_registration)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean queuing time for registration (mins) : </span><span class="sc">{</span>mean_queue_time_registration<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Max queuing time for registration (mins) : </span><span class="sc">{</span>max_queue_time_registration<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate and print mean/max queueing time for the nurses</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>mean_queue_time_nurse <span class="op">=</span> mean(list_of_queueing_times_nurse)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>max_queue_time_nurse <span class="op">=</span> <span class="bu">max</span>(list_of_queueing_times_nurse)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean queuing time for the nurses (mins) : </span><span class="sc">{</span>mean_queue_time_nurse<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Max queuing time for the nurses (mins) : </span><span class="sc">{</span>max_queue_time_nurse<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mean queuing time for registration (mins) : 143.59
+Max queuing time for registration (mins) : 358.29
+Mean queuing time for the nurses (mins) : 0.00
+Max queuing time for the nurses (mins) : 0.19</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li>What is the difference between using the <code>return</code> keyword and the <code>yield</code> keyword?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>When the <code>return</code> keyword is reached, the execution of the function is terminated, so it only produces one output. That often means that the entirety of an iterable gets produced, or it can mean that only the first item in the iterable gets produced before the function ends (depending on how you have constructed your function).</p>
+<p>With the <code>yield</code> keyword, each item in the iterable can be produced, item-by-item, over multiple function calls until the iterable is used up.</p>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>What are the differences between writing a list comprehension and a generator comprehension? How about returning values from each of those?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>A list comprehension is written in square brackets e.g.&nbsp;<code>[n**2 for n in numbers]</code></p>
+<p>A generator comprehension is written in parentheses e.g.&nbsp;<code>(n**2 for n in numbers)</code></p>
+<p>Generator comprehensions also need to be iterated over in some way. The following code will just return the address of the generator object in memory.</p>
+<div id="a2" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>squares <span class="op">=</span> (n<span class="op">**</span><span class="dv">2</span> <span class="cf">for</span> n <span class="kw">in</span> numbers)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(squares)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You need to use some kind of function that will iterate over the values, e.g.&nbsp;<code>next(squares)</code> or <code>for i in squares:...</code></p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Can you fix the following generator function so that it will alternate between counting numbers and returning “Mississippi”?</li>
+</ol>
+<div id="q-mississippi-1" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> counting_seconds():</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span> num</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> <span class="st">'Mississippi'</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>seconds <span class="op">=</span> counting_seconds()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-q-mississippi-2" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(seconds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="q-mississippi-2" class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>1</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="a-mississippi-1" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> counting_seconds():</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">yield</span> num</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> <span class="st">'Mississippi'</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>        num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> num</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>seconds <span class="op">=</span> counting_seconds()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="a-mississippi-2" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">next</span>(seconds)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Why are generators good for working with <em>paginated</em> data via API endpoints?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Generators can return potentially vast amounts of data page by page as needed, rather than loading the entirety in one go.</p>
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>If we wanted to see the <em>total</em> number of patients who could be vaccinated in our example clinic, without changing the resources or the clinic length, how would we modify our patient arrivals generator function?</li>
+</ol>
+<div id="q5" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> patient_arrival_generator(env, INTERARRIVAL_TIME, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME,receptionist,nurse):</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    patient_id <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> patient_id <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(TARGET_PATIENTS_SEEN)):</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>        patient_act <span class="op">=</span> activity_generator(env,AVG_REGISTRATION_TIME,AVG_VACCINATION_TIME,receptionist,nurse,patient_id)</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>        env.process(patient_act)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> INTERARRIVAL_TIME)</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> env.timeout(t)</span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a>        patient_id <span class="op">+=</span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="a5" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> patient_arrival_generator(env, INTERARRIVAL_TIME, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME,receptionist,nurse):</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    patient_id <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>        patient_act <span class="op">=</span> activity_generator(env,AVG_REGISTRATION_TIME,AVG_VACCINATION_TIME,receptionist,nurse,patient_id)</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>        env.process(patient_act)</span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> INTERARRIVAL_TIME)</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">yield</span> env.timeout(t)</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>        patient_id <span class="op">+=</span><span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><code>while True</code> creates an infinite loop that will continue to generate patients until the the time set for the length of the simulation has elapsed (i.e.&nbsp;the value passed to <code>env.run(until=...)</code>)</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>While <code>pandas</code> is reasonably good at handling large volumes of data, there are other options that are even more memory efficient. The <code>polars</code> library, for example, is much more memory-efficient. We tend to use <code>pandas</code> in our tutorials, because it is a much better developed, feature-rich library with a relatively straightforward syntax.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Created and maintained by the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page was built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

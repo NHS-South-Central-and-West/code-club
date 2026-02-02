@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Webscraping and APIs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo light-content">
+    <img src="../../images/code_club_text.png" alt="" class="navbar-logo dark-content">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sessions" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sessions</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-sessions">    
+        <li>
+    <a class="dropdown-item" href="../../sessions/schedule.html">
+ <span class="dropdown-text">Essential Skills</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../intermediate-skills-sessions/intermediate_skills_schedule.html">
+ <span class="dropdown-text">Intermediate Skills</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-resources" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Resources</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-resources">    
+        <li>
+    <a class="dropdown-item" href="../../resources/glossary.html">
+ <span class="dropdown-text">Glossary</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+    <a href="https://github.com/NHS-South-Central-and-West/code-club" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/18-webscraping-apis/index.html">Intermediate Python</a></li><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/18-webscraping-apis/index.html">18. Webscraping and APIs</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+ <span class="menu-text">Session Schedule</span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/intermediate_skills_schedule.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Code Club Intermediate Skills Schedule</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Tools</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/16-git-github/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">16. Git and GitHub</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/17-quarto-intro/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">17. Quarto</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Intermediate Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/18-webscraping-apis/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">18. Webscraping and APIs</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Machine Learning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+ <span class="menu-text">19. Introduction to Machine Learning</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">20. Linear and Logistic Regression Machine Learning Models</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">21. Machine Learning Workflows</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">22. Unsupervised Machine Learning</span>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Intermediate Python</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../intermediate-skills-sessions/23-generators/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">23. Generators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+ <span class="menu-text">24. Decorators</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">25. Asynchronous programming and callbacks</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">26. Higher order functions</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">27. Map, filter, reduce</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">28. Logging, debugging, exception handling</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">29. Packages</span>
+  </li>
+          <li class="sidebar-item">
+ <span class="menu-text">30. Design patterns</span>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#regular-expressions" id="toc-regular-expressions" class="nav-link active" data-scroll-target="#regular-expressions">Regular Expressions</a></li>
+  <li><a href="#the-rest-standard-and-get-requests" id="toc-the-rest-standard-and-get-requests" class="nav-link" data-scroll-target="#the-rest-standard-and-get-requests">The REST standard and GET requests</a></li>
+  <li><a href="#webscraping" id="toc-webscraping" class="nav-link" data-scroll-target="#webscraping">Webscraping</a>
+  <ul class="collapse">
+  <li><a href="#html-tags" id="toc-html-tags" class="nav-link" data-scroll-target="#html-tags">HTML tags</a></li>
+  <li><a href="#beautiful-soup" id="toc-beautiful-soup" class="nav-link" data-scroll-target="#beautiful-soup">Beautiful Soup</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">Examples</a></li>
+  </ul></li>
+  <li><a href="#apis" id="toc-apis" class="nav-link" data-scroll-target="#apis">APIs</a></li>
+  <li><a href="#api-request-etiquette" id="toc-api-request-etiquette" class="nav-link" data-scroll-target="#api-request-etiquette">API request etiquette</a></li>
+  <li><a href="#the-fingertips_py-package" id="toc-the-fingertips_py-package" class="nav-link" data-scroll-target="#the-fingertips_py-package">The <code>fingertips_py</code> package</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/18-webscraping-apis/index.html">Intermediate Python</a></li><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/18-webscraping-apis/index.html">18. Webscraping and APIs</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Webscraping and APIs</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Ever wanted to automate the downloading of data from external websites? Ever had a request where you need historic data from NHS publications where each .csv file is on its own web page and you are faced with negotiating dozens of clicks and dialogue boxes? Ever wanted to pipe public data directly into a report to provide wider context entirely fuss-free? Then you have come to the right tutorial. We are going to cover two methods for doing these very things, things that you can take away and apply today: no highfalutin concepts to digest, no need to hold out hope for a juicy data science project to get your teeth into. What’s more, we are going to give you some examples of public datasets that you can try these out on, giving you data with which to exercise your other Python skills.</p>
+<p>The first method we are going to cover is webscraping, which is basically a way to retrieve elements on web pages by accessing them via the HTML tags (stay with us, there’s no need to become an expert in HTML, the Python package is going to do the hard work).</p>
+<p>The second method is to access data made available via APIs (Application Programming Interfaces). We will specifically be looking at APIs that provide the data in JSON format, something which only requires minimal manipulation to put it into a dataframe.</p>
+<p>However, before we get to the good stuff, there are a few things to touch on that will prove essential when using these two methods. They relate to accessing URLs (web links) dynamically and making requests to content via the web. We will give you a brief introduction to prime you for when they come up later.</p>
+<section id="regular-expressions" class="level2">
+<h2 class="anchored" data-anchor-id="regular-expressions">Regular Expressions</h2>
+<p>This is a very important part of webscraping and making API calls since you are often interested in accessing web pages, hosted files and API endpoints based on a URL pattern. Where it becomes useful is when you want to programmatically access any URLs or file names that match a pattern, but contain an element that can vary: for example, when there are monthly editions of a publication, where the file name or URL contains the name of the month. Take the example below:</p>
+<div id="regex-example" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dynamic_section <span class="op">=</span> <span class="vs">r'</span><span class="dv">^</span><span class="vs">england-</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">-202</span><span class="pp">[0-9]</span><span class="dv">$</span><span class="vs">'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This regular expression is intended to represent the changing part of a URL that points to the specific pages where monthly publications are hosted. Let’s look at the elements:</p>
+<ul>
+<li>The “r” in front of the string tells Python that it should handle whatever comes between the quotation marks as a <strong>raw</strong> string, which is to say that it should ignore any of Python’s conventions around special characters, such as backslash being an escape character, and that it should pass the regex string to the <code>re</code> functions without manipulating it in any way.</li>
+<li>The “^” states that the following characters must come at the beginning of the string that you are searching, i.e.&nbsp;nothing should come before it.</li>
+<li>The “$” denotes the end of the string, i.e.&nbsp;nothing should come after it.</li>
+<li>The string must start with the sequence “england-”.</li>
+<li>It must end with the sequence “-202x”, where x is any digit from 0 to 9.</li>
+<li>And the “[a-z]+” means that the string will contain one or more (the “+”) lower case alphabetical characters (“[a-z]”, i.e.&nbsp;any lower case letter in the range between the square brackets).</li>
+</ul>
+<p>Taking the following as the base URL…</p>
+<p><code>'https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme'</code></p>
+<p>The following would be valid URLs matching the pattern of <code>dynamic_section</code>:</p>
+<p><code>https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme/england-january-2024</code></p>
+<p><code>https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme/england-may-2021</code></p>
+<p>But the following would be ignored:</p>
+<p><code>https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme/england-quarter-4-2020-21</code></p>
+<p>If you want a hand with creating a regular expression that does the job for your situation, <a href="https://pythex.org">https://pythex.org</a> has an interface that can be used to test regex patterns against text springs, as well as a regex cheatsheet. The <a href="https://www.geeksforgeeks.org/python/python-regex/">Geeks for Geeks</a> tutorial has a good set of examples of what each regex character sequence could be used to target.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Choose the right library
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The Python library to use when constructing regular expressions is <code>re</code>. There is also a library called <code>regex</code>, but it is an older library with less functionality. You do not need to explicitly <em>install</em> <code>re</code> since it comes with Python when that is installed, but you still need to <em>import</em> it.</p>
+</div>
+</div>
+</section>
+<section id="the-rest-standard-and-get-requests" class="level2">
+<h2 class="anchored" data-anchor-id="the-rest-standard-and-get-requests">The REST standard and GET requests</h2>
+<p>When it comes to making requests for data online, it is important to understand a little about how they are made and the standard that underpins them. The requests that we are concerned with follow the <strong>REST</strong> (<strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer) standard. REST guides the design of processes, standardising and simplifying the communication of requests for data hosted on web servers. As a result, operations are made using a standard set of terms. The most common ones are listed below:</p>
+<ul>
+<li><strong>GET</strong>: is used when you want to <strong>read</strong> data on the server.</li>
+<li><strong>POST</strong>: is used to <strong>create</strong> data.</li>
+<li><strong>PATCH</strong> (or PUT): is used to <strong>update</strong> data.</li>
+<li><strong>DELETE</strong>: no surprise, is used to <strong>delete</strong> data.</li>
+</ul>
+<p>Since this tutorial is teaching you to be a consumer of this data, we are really only interested in GET requests. Whether you are webscraping or making a request to an API endpoint, you will be making a GET request. The first step of each is to make a GET request using the <code>request</code> library and checking which response is returned:</p>
+<ul>
+<li>A response of <strong>200</strong> is positive, i.e.&nbsp;there is data to be had via the supplied URL.</li>
+<li><strong>400</strong> is a negative response.</li>
+<li><strong>304</strong> is a “not modified” or “no new data” reponse, which will come up again later when we cover API call etiquette.</li>
+<li>These codes are often built into try/except or if/else blocks to govern what happens when there is / isn’t any available data.</li>
+<li>There are <a href="https://restfulapi.net/http-status-codes/">many other codes</a> that you may wish to handle, particularly if you want to generate informative error messages, but the three listed above should be enough to get you started.</li>
+</ul>
+<div id="get-response-example" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> request <span class="im">as</span> req</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> [...] <span class="co"># the target URL</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> req.get(url)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># do something with the data</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f'Failed to fetch webpage: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Now that we have introduced those concepts, we can start having a look at the things you were promised.</p>
+</section>
+<section id="webscraping" class="level2">
+<h2 class="anchored" data-anchor-id="webscraping">Webscraping</h2>
+<p>This is a really handy tool for automating the extraction from a web page of anything that is encoded with HTML tags. It can be used to:</p>
+<ul>
+<li>Download files hosted on the web server and made available via hyperlinks; for example, monthly / annual data publications.</li>
+<li>Copy down data tables appearing on a web page and converting them to a Pandas dataframe; for example, data collection deadlines / data dissemination dates.</li>
+<li>Copy text from the page title, headers or the body of the page.</li>
+<li>Copy images, hyperlinks, mailto links, iframes…</li>
+</ul>
+<section id="html-tags" class="level3">
+<h3 class="anchored" data-anchor-id="html-tags">HTML tags</h3>
+<p>These are important since they encode the structure of a web page. Understanding these gives you an idea of what is possible when it comes to accessing elements of the structure of a web page.</p>
+<p>There’s a nice compact HTML cheatsheet from <a href="https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf">Stanford University</a>, but if you are not into the whole brevity thing, <a href="https://www.geeksforgeeks.org/html/html-cheat-sheet/">Geeks for Geeks</a> has got you covered again with a nicely laid-out explanation of each.</p>
+</section>
+<section id="beautiful-soup" class="level3">
+<h3 class="anchored" data-anchor-id="beautiful-soup">Beautiful Soup</h3>
+<p>One of the most commonly used libraries for webscraping is Beautiful Soup. It parses the HTML and allows the user to access the elements using familiar Python syntax. The <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">documentation</a> is very comprehensive, and the Quick Start section provides plenty of useful, simple examples.</p>
+<p>To install it in your Python environment, enter <code>uv add beautifulsoup4</code> into your terminal.</p>
+<p>Note that when you import it into your script, you write: <code>from bs4 import BeautifulSoup</code>.</p>
+</section>
+<section id="examples" class="level3">
+<h3 class="anchored" data-anchor-id="examples">Examples</h3>
+<p>Let’s see how this is used in practise. First of all, we will install the packages that we are going to be using.</p>
+<div id="import-packages" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup <span class="co"># the webscraping library</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> req <span class="co"># the web request library</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re <span class="co"># the regular expressions library that comes with the Python installation.</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># this will help us construct dynamic URLs from different elements joined together.</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># it can also be used to make HTTP requests.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># it is installed by entering "uv add urllib3" into your terminal</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.parse <span class="im">import</span> urljoin </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># used for converting files into binary data, which can then be converted into </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># other formats.</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># it comes as part of the Python installation.</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd <span class="co"># so that we can store our data in a dataframe</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os <span class="co"># operating system functions, such as accessing file directories</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="a-simple-request-to-retrieve-a-web-page-title" class="level4">
+<h4 class="anchored" data-anchor-id="a-simple-request-to-retrieve-a-web-page-title">A simple request to retrieve a web page title</h4>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Instantiation
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that it is conventional to instantiate a BeautifulSoup parser object as “soup”.</p>
+</div>
+</div>
+<div id="page-title" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://www.scwcsu.nhs.uk/about/our-values'</span> <span class="co"># define the url in question</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> req.get(url) <span class="co"># define the response as a GET request to the URL</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># if there is a positive reponse to the request, create a BeautifulSoup parser object</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># that collects the parsed content of the response.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Then print the web page "title" element.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># The parser library being used is Python's in-built "html.parser"</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">'html.parser'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Webpage title:'</span>, soup.title.string)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># otherwise, return a helpful error message</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Failed to fetch webpage: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Webpage title: Our values - NHS SCW Support and Transformation for Health and Care</code></pre>
+</div>
+</div>
+<p>For a list of alternative parser libraries, see <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-a-parser">this</a> section of the BeautifulSoup documentation.</p>
+</section>
+<section id="display-the-full-html-of-a-web-page." class="level4">
+<h4 class="anchored" data-anchor-id="display-the-full-html-of-a-web-page.">Display the full HTML of a web page.</h4>
+<p>If you want to inspect all of the HTML code for a given page, so that you can get an idea of what is available, you can use the <code>prettify()</code> method. This re-uses the same <code>soup</code> object defined above. The output of the code will not be produced since it has been deactivated so that it does not take up too much space on our website. We recommend that you run it in a downloaded copy of the accompanying Jupyter Notebook.</p>
+<div id="full-html" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(soup.prettify())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="scrape-information-from-a-table-on-a-web-page." class="level4">
+<h4 class="anchored" data-anchor-id="scrape-information-from-a-table-on-a-web-page.">Scrape information from a table on a web page.</h4>
+<div id="cell-scrape-table" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> (<span class="st">'https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/mental-health-services-data-set/submit-data'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> req.get(url)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">"html.parser"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>tables <span class="op">=</span> soup.find_all(<span class="st">'table'</span>) <span class="co"># if you are sure there is only one, use "soup.find()"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(tables))</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># get the first item in the BeautifulSoup ResultSet, convert it into a string, </span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co"># and read the html into a pandas DataFrame</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>table_df <span class="op">=</span> pd.read_html(<span class="bu">str</span>(tables))[<span class="dv">0</span>]     <span class="co"># if you are sure there is just one, no need to select by index "[0]"</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>table_df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'bs4.element.ResultSet'&gt;</code></pre>
+</div>
+<div id="scrape-table" class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Performance month</th>
+<th data-quarto-table-cell-role="th">Updates/Resubmissions</th>
+<th data-quarto-table-cell-role="th">Cut of data taken at 11:59:59pm</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>October 2025</td>
+<td>April, May, June, July, August September</td>
+<td>25 November 2025</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>November 2025</td>
+<td>April, May, June, July, August, September, Oct...</td>
+<td>22 December 2025</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>December 2025</td>
+<td>April, May, June, July, August,&nbsp;September, Oct...</td>
+<td>26 January 2025</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>January 2026</td>
+<td>April, May, June, July, August, September, Oct...</td>
+<td>24 February 2026</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>February 2026</td>
+<td>April, May, June, July, August, September, Oct...</td>
+<td>24 March 2026</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>March 2026</td>
+<td>April, May, June, July, August,&nbsp;September, Oct...</td>
+<td>27 April 2026</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>April 2026</td>
+<td>April, May, June, July, August,&nbsp;September, Oct...</td>
+<td>27 May 2026 (end of year for resubmissions)</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>May 2026</td>
+<td>April</td>
+<td>24 June 2026</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>June 2026</td>
+<td>April, May</td>
+<td>23 July 2026</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>July 2026</td>
+<td>April, May, June</td>
+<td>25 August 2026</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10</th>
+<td>August 2026</td>
+<td>April, May, June, July</td>
+<td>23 September 2026</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">11</th>
+<td>September 2026</td>
+<td>April, May, June, July, August</td>
+<td>26 October 2026</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12</th>
+<td>October 2026</td>
+<td>April, May, June, July, August, September</td>
+<td>24 November 2026</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="locate-a-.csv-file-on-a-webpage." class="level4">
+<h4 class="anchored" data-anchor-id="locate-a-.csv-file-on-a-webpage.">Locate a .csv file on a webpage.</h4>
+<p>Most of the code is the same as the “title” example, but this time we are looking for a hyperlink on the page that points to a .csv file (that is to say, the URL ends with the .csv file extension).</p>
+<div id="locate-csv" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> (<span class="st">'https://digital.nhs.uk/data-and-information/publications/statistical/out-of-area-placements-in-mental-health-services/march-2024'</span>) </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> req.get(url)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">'html.parser'</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># find a hyperlink element (has the tag "a") where the hyperlink element</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ends with "csv".</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    csv_link <span class="op">=</span> soup.find(<span class="st">"a"</span>, href<span class="op">=</span><span class="kw">lambda</span> href: href <span class="kw">and</span> href.endswith(<span class="st">'csv'</span>))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    file_url <span class="op">=</span> csv_link[<span class="st">"href"</span>] <span class="co"># just return the URL from within the HTML statement</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Found .csv file:"</span>, file_url)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Failed to fetch webpage: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Found .csv file: https://files.digital.nhs.uk/32/0B358C/oaps-open-data-mar-2024.csv</code></pre>
+</div>
+</div>
+</section>
+<section id="download-the-file-via-the-discovered-hyperlink." class="level4">
+<h4 class="anchored" data-anchor-id="download-the-file-via-the-discovered-hyperlink.">Download the file via the discovered hyperlink.</h4>
+<p>First of all, we need to check whether the file is available for us to download, so we also need to check the reponse here, too.</p>
+<div id="download-csv" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>file_name <span class="op">=</span> file_url.split(<span class="st">"/"</span>)[<span class="op">-</span><span class="dv">1</span>]  <span class="co"># extract the file name from the URL i.e. the bit after the last "/"</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>file_response <span class="op">=</span> req.get(file_url)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> file_response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># save the file to the current directory</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f'</span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">'</span>, <span class="st">"wb"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">file</span>.write(file_response.content)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Downloaded: </span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Failed to download: </span><span class="sc">{</span>file_url<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Downloaded: oaps-open-data-mar-2024.csv</code></pre>
+</div>
+</div>
+</section>
+<section id="read-.csv-data-directly-into-a-pandas-dataframe" class="level4">
+<h4 class="anchored" data-anchor-id="read-.csv-data-directly-into-a-pandas-dataframe">Read .csv data directly into a Pandas dataframe</h4>
+<p>Using the <code>StringIO()</code> class from the <code>io</code> library, create an in-memory stream of the data that can be operated on like a file, without having first saved it down as one. The .csv data is treated like a long string of text where fields are separated by delimiters (commas by default) and rows are separated by newline characters (typically <code>\n</code>). The <code>.read_csv()</code> method in Pandas converts this string into a DataFrame.</p>
+<div id="cell-csv-to-df" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> io <span class="im">import</span> StringIO </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>csv_content <span class="op">=</span> StringIO(file_response.text)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(csv_content)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="csv-to-df" class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Grouping</th>
+<th data-quarto-table-cell-role="th">PublicationPeriod</th>
+<th data-quarto-table-cell-role="th">PublicationDate</th>
+<th data-quarto-table-cell-role="th">Question</th>
+<th data-quarto-table-cell-role="th">Breakdown1</th>
+<th data-quarto-table-cell-role="th">Breakdown1Code</th>
+<th data-quarto-table-cell-role="th">Breakdown1Description</th>
+<th data-quarto-table-cell-role="th">Breakdown2</th>
+<th data-quarto-table-cell-role="th">Breakdown2Code</th>
+<th data-quarto-table-cell-role="th">Breakdown2Description</th>
+<th data-quarto-table-cell-role="th">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Month</td>
+<td>01/03/2024-31/03/2024</td>
+<td>2024/06</td>
+<td>Average recorded daily cost over the period</td>
+<td>BedType</td>
+<td>10</td>
+<td>Acute adult mental health care</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>695</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Month</td>
+<td>01/03/2024-31/03/2024</td>
+<td>2024/06</td>
+<td>Lower quartile daily cost over the period</td>
+<td>BedType</td>
+<td>10</td>
+<td>Acute adult mental health care</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>576</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Month</td>
+<td>01/03/2024-31/03/2024</td>
+<td>2024/06</td>
+<td>Number of OAPs active during the period with a...</td>
+<td>BedType</td>
+<td>10</td>
+<td>Acute adult mental health care</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>280</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="using-a-regular-expression-and-urljoin-to-locate-files-on-multiple-web-pages." class="level4">
+<h4 class="anchored" data-anchor-id="using-a-regular-expression-and-urljoin-to-locate-files-on-multiple-web-pages.">Using a regular expression and <code>urljoin</code> to locate files on multiple web pages.</h4>
+<p>This is a hefty bit of code with multiple <code>for</code> loops and <code>if</code> statements. Hopefully, the inline comments explain what is going on at each stage. The great thing about using Python code is that you can easily re-use this code, simply replacing the base URL and the dynamic section. You can also specify the file type, in case you want to use it to download .xlsx files, for example.</p>
+<p>When defining the “dynamic_section”, you need to make sure that you have identified a regular expression that matches the pattern of all the target URLs that you are interested in.</p>
+<p>While the regular expression in the example above ended with <code>202[0-9]$</code>, it has been set to <code>2024$</code> here so that it doesn’t download too many files in one go.</p>
+<div id="multiple-pages" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://digital.nhs.uk/data-and-information/publications/statistical/learning-disabilities-health-check-scheme'</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>target_urls <span class="op">=</span> []                           <span class="co"># empty list that will later get filled with target URLs in a for loop.</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>dynamic_section <span class="op">=</span> <span class="vs">r'</span><span class="dv">^</span><span class="vs">england-</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">-2024</span><span class="dv">$</span><span class="vs">'</span> <span class="co"># the regular expression for the URLs we are interested in. note that the $ implies that you don't want anything else to follow.</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> req.get(url)                    <span class="co"># get the response from the base URL</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>ext <span class="op">=</span> <span class="st">'.csv'</span>                               <span class="co"># specify the file type</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">"html.parser"</span>)     <span class="co"># if there is a successful response, create a BeautifulSoup object.</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> link <span class="kw">in</span> soup.find_all(<span class="st">'a'</span>, href <span class="op">=</span> <span class="va">True</span>):                <span class="co"># for each of the instances of the pattern we are looking for...</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        sublink <span class="op">=</span> link[<span class="st">"href"</span>]</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> re.match(dynamic_section,sublink.split(<span class="st">'/'</span>)[<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            full_url <span class="op">=</span> urljoin(url, sublink)                   </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>            target_urls.append(full_url)                        <span class="co"># ... add the constructed full URL to a list of target URLs</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> link <span class="kw">in</span> target_urls:                                    <span class="co"># check for a successful response (code 200) from each URL...</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> req.get(link)                                </span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>            soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">"html.parser"</span>) <span class="co"># ... and create a BeautifulSoup object for each.</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> link <span class="kw">in</span> soup.find_all(<span class="st">"a"</span>, href<span class="op">=</span><span class="va">True</span>):          <span class="co"># for each URL found on each of the pages in target_urls...</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>                file_url <span class="op">=</span> link[<span class="st">'href'</span>]                         </span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> file_url.endswith((ext)):                    <span class="co"># ... check for .csv file extensions</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">"Found .csv file:"</span>, file_url)</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>                    file_name <span class="op">=</span> file_url.split(<span class="st">"/"</span>)[<span class="op">-</span><span class="dv">1</span>]         <span class="co"># extract the file name from the URL i.e. everything after the last /</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>                    file_response <span class="op">=</span> req.get(file_url)           <span class="co"># check the response for each file</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> file_response.status_code <span class="op">==</span> <span class="dv">200</span>:        <span class="co"># if there's a successful response...</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">with</span> <span class="bu">open</span>(file_name, <span class="st">"wb"</span>) <span class="im">as</span> <span class="bu">file</span>:     <span class="co"># ... save the file to the current directory</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>                            <span class="bu">file</span>.write(file_response.content)</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(<span class="ss">f"Downloaded: </span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(<span class="ss">f"Failed to download: </span><span class="sc">{</span>file_url<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Failed to fetch webpage: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)   <span class="co"># this else statement pairs with the original response code check for the base URL</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>                                                                <span class="co"># (see the first "if" in this code block)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+</section>
+<section id="apis" class="level2">
+<h2 class="anchored" data-anchor-id="apis">APIs</h2>
+<p>The second method we are going to cover in this tutorial is making requests to data that has been made available via a web API endpoint. API stands for <strong>A</strong>pplication <strong>P</strong>rogramming <strong>I</strong>nterface, and these are used to extend the functionality of an application allowing it to communicate with another.</p>
+<p>We will specifically be looking at web APIs that return their data in JSON format<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. For a very simple explanation of what JSON data is, have a look at the <a href="https://www.w3schools.com/whatis/whatis_json.asp">W3 Schools</a> page. In short, it is a format that is typically used for sending data from a server to a web page. The key thing to understand about them is that each record takes the form of a list of key : value pairs, looking just like a Python dictionary, and multiple records are contained in an array denoted by square brackets. You will see this structure reflected in the Python code below.</p>
+<p>For this demonstration, we are going to pull in flood alerts with at least a severity score of 3 from the Environment Agency’s live flood alert data<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. If you want to see the data that we will be extracting in its original JSON format, follow this <a href="https://environment.data.gov.uk/flood-monitoring/id/floods?min-severity=3">URL</a>. It is the same URL as will be used in the the Python-based request.</p>
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The options available for querying the data is determined by the way in which the API endpoint has been constructed by the developers. For example, the data may be aggregated by default, meaning that an unfiltered request returns the data aggregated to the highest level. This may well be intended to stop people from requesting masses of granular data by default, but it can be difficult to get an idea of what the available categories are in the data breakdown, if there isn’t a dedicated part of the API that allows for the breakdown categories to be returned in a list. It is important to read the API documentation thoroughly to get an undestanding of what your options are.</p>
+</div>
+</div>
+</div>
+<p>Now for the code itself. As was mentioned in the section above on REST and GET requests, we need to import the <code>requests</code> library to make the GET request. We also need to import the <code>json</code> library, which decodes the JSON format, converting the JSON data types into Python data types. A table of these conversions can be found <a href="https://docs.python.org/3/library/json.html#encoders-and-decoders">here</a>.</p>
+<p>The example below has been placed inside a function. This isn’t essential, but it can prove useful if you want to expand the function to take inputs that make it reusable and apply it to different extracts of the data. You will also see that placing the code inside a function becomes necessary when using Python <strong>generators</strong>, which is another topic <a href="../../intermediate-skills-sessions/xx-generators/index.html">covered later on</a> in our Intermediate Skills curriculum.</p>
+<div id="flood-data-function" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> req</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_flood_alerts():</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    request_url <span class="op">=</span> <span class="st">'https://environment.data.gov.uk/flood-monitoring/id/floods?min-severity=3'</span> <span class="co"># Step 1</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> req.get(request_url) <span class="co"># Step 2</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>: <span class="co"># Step 3</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        results_json <span class="op">=</span> response.json()[<span class="st">'items'</span>] <span class="co"># Step 4</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        alerts <span class="op">=</span> [{   <span class="co"># Step 5</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'id'</span> : json[<span class="st">'@id'</span>], <span class="co"># Step 6</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">'description'</span> : json[<span class="st">'description'</span>],</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">'area_name'</span> : json[<span class="st">'eaAreaName'</span>],</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">'flood_area_id'</span> : json[<span class="st">'floodAreaID'</span>],</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">'is_tidal'</span> : json[<span class="st">'isTidal'</span>],</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">'severity'</span> : json[<span class="st">'severity'</span>],</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'severity_level'</span> : json[<span class="st">'severityLevel'</span>],</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">'time_message_changed'</span> : json[<span class="st">'timeMessageChanged'</span>],</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">'time_raised'</span> : json[<span class="st">'timeRaised'</span>],</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">'time_severity_changed'</span> : json[<span class="st">'timeSeverityChanged'</span>]</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">for</span> json <span class="kw">in</span> results_json] <span class="co"># Step 5 continued</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> alerts <span class="co"># Step 7</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Failed to fetch data. Response status: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>) <span class="co"># Step 3 continued</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><strong>The steps below are labelled in the code above:</strong></p>
+<ol type="1">
+<li>The first step is to define the request URL, which points to the API endpoint. If you follow the link in a web browser, you will see all of the relevant records laid out in JSON format. Note that in the example below there is the section <code>"min-severity=3"</code> which comes after a question mark <code>?</code>. The question mark indicates that everything after it relates to an <strong>optional filter</strong>, which is to say that you can get a cut of the data based on specific criteria. You can add multiple filters by joining them together with “&amp;”.</li>
+<li>Then a GET request is made and assigned to the variable “response”.</li>
+<li>Then, as with the webscraping, we want to handle the response from the webserver gracefully, in case the data is not available. This means placing details of what we are requesting in an if/else conditional statement. If we get a positive response of 200, proceed with retrieving the data; otherwise, return the error code.</li>
+<li>The results of the JSON data request are returned as a dictionary (remember that data in JSON format is very similar to Python dictionaries). In the flood data API, <code>'items'</code> is the key in the dictionary, and the values are all of the data records<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. In the line <code>results_json = response.json()['items']</code>, we are accessing all of the records stored against “items”.</li>
+<li>The values corresponding to the key “items” are held in an array (in square brackets). We give the results that we want to return the variable name <code>alerts</code>. We then create a <code>for</code> loop to create a Python list of all of the records, and for each record there is a key : value pair for each field in the data, replicating the array / JSON record object structure. Think of each key in the dictionary as being a column name, each value as the record value and each item in the <code>alerts</code> list as being a row.</li>
+<li>In the dictionary, we give the key a name of our choosing. It is what <em>we</em> want the column name to be. On the value side of the dictionary, we are accessing the value corresponding to each key in the JSON reponse. In the line <code>for json in results_json</code>, each <code>json</code> is it’s own dictionary containing a record, for example <code>"@id" : "http://environment.data.gov.uk/flood-monitoring/id/floods/112WAFTUBA",</code> <code>"description" : "Upper Bristol Avon area", "eaAreaName" : "Wessex"...</code>. We want to access the value corresponding to each key in the JSON data and store it against <em>our</em> key.</li>
+<li>The list of records is returned in a format that can be used by other Python packages.</li>
+</ol>
+<p>Let’s put the results of the query into a Pandas DataFrame and view the results. For this we call the function we defined above and have Pandas convert that list into a DataFrame, with column names that we have given it and rows that correspond to each record.</p>
+<div id="cell-flood-data-results" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>alerts <span class="op">=</span> pd.DataFrame(get_flood_alerts())</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Number of rows and columns in the dataset: </span><span class="sc">{</span>alerts<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>alerts.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of rows and columns in the dataset: (216, 10)</code></pre>
+</div>
+<div id="flood-data-results" class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">id</th>
+<th data-quarto-table-cell-role="th">description</th>
+<th data-quarto-table-cell-role="th">area_name</th>
+<th data-quarto-table-cell-role="th">flood_area_id</th>
+<th data-quarto-table-cell-role="th">is_tidal</th>
+<th data-quarto-table-cell-role="th">severity</th>
+<th data-quarto-table-cell-role="th">severity_level</th>
+<th data-quarto-table-cell-role="th">time_message_changed</th>
+<th data-quarto-table-cell-role="th">time_raised</th>
+<th data-quarto-table-cell-role="th">time_severity_changed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Upper Bristol Avon area</td>
+<td>Wessex</td>
+<td>112WAFTUBA</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-01-28T11:53:00</td>
+<td>2026-01-28T11:53:35</td>
+<td>2026-01-15T18:20:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>River Trent from Cromwell Weir to Gainsborough</td>
+<td>East Midlands</td>
+<td>034WAB424</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-01-29T09:20:00</td>
+<td>2026-01-29T09:20:43</td>
+<td>2026-01-27T16:50:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>Lower River Soar in Leicestershire</td>
+<td>East Midlands</td>
+<td>034WAF428</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-01-29T10:38:00</td>
+<td>2026-01-29T10:38:52</td>
+<td>2026-01-08T16:20:00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>River Churn and its tributaries</td>
+<td>Thames</td>
+<td>061WAF02Churn</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-01-29T09:55:00</td>
+<td>2026-01-29T09:55:50</td>
+<td>2026-01-15T21:04:00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>http://environment.data.gov.uk/flood-monitorin...</td>
+<td>River Cherwell from Lower Heyford down to and ...</td>
+<td>Thames</td>
+<td>061WAF14LChrwell</td>
+<td>False</td>
+<td>Flood alert</td>
+<td>3</td>
+<td>2026-01-29T10:52:00</td>
+<td>2026-01-29T10:52:46</td>
+<td>2026-01-11T08:41:00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="api-request-etiquette" class="level2">
+<h2 class="anchored" data-anchor-id="api-request-etiquette">API request etiquette</h2>
+<p>These are particularly important if you are making requests to free, public APIs, such as those provided by the government and NHS. These considerations are a little more advanced, and are probably only required if you are intending to develop something that supplies data with frequent updates, but it is worth being aware of them: You may start with a project that is small and simple, but it might then develop into something more data-hungry</p>
+<section id="respect-rate-limits" class="level4">
+<h4 class="anchored" data-anchor-id="respect-rate-limits">Respect rate limits</h4>
+<p>APIs typically define:</p>
+<ul>
+<li>Requests per second/minute</li>
+<li>Daily/monthly quotas</li>
+<li>Burst versus sustained limits</li>
+</ul>
+<p>They may not be stated explicitly, but you should assume that these limits exist and throttle your calls appropriately. For more information on throttling techniques, have a look at this <a href="https://medium.com/@datajournal/how-to-throttle-requests-c1f9dcd8508f">Medium post</a>.</p>
+</section>
+<section id="use-caching" class="level4">
+<h4 class="anchored" data-anchor-id="use-caching">Use caching</h4>
+<p>If the API isn’t subject to frequent changes, cache results locally so that you do not need to make repeated requests for the same data. Here’s a <a href="https://www.geeksforgeeks.org/python/how-to-implement-file-caching-in-python/">Geeks for Geeks tutorial</a> on different types of caching in Python to get you started.</p>
+<p>If you intend to create your own web app that is pulling in data from other sources, it is likely that you will be using a particular web app framework, and these will provide their own tools for web caching. For example, we have introduced <a href="../../sessions/10-streamlit/index.html">Steamlit</a> in another tutorial and their overview of caching can be found <a href="https://docs.streamlit.io/develop/concepts/architecture/caching">here</a>. Another framework for creating web apps is <a href="https://flask.palletsprojects.com/en/stable/">Flask</a> and a simple introduction to web caching using that framework can be found on <a href="https://pyquesthub.com/implementing-web-caching-in-python-for-enhanced-performance">PyQuestHub</a>.</p>
+</section>
+<section id="avoid-polling-too-aggressively" class="level4">
+<h4 class="anchored" data-anchor-id="avoid-polling-too-aggressively">Avoid polling too aggressively</h4>
+<ul>
+<li>Make requests at a reasonable rate: do you really need to check for updates every second?. You can find out more about polling in this <a href="https://medium.com/@sankalpa115/what-is-polling-b1ff70e87001">Medium blog post</a>.</li>
+<li>Make use of webhooks: these allow for automatic communication between systems, eliminating the need for one system to constantly check another for updates. Data is pushed automatically whenever an event occurs. You can find another trusty Geek’s for Geek’s tutorial on webhooks <a href="https://www.geeksforgeeks.org/blogs/what-is-a-webhook-and-how-to-use-it/">here</a>.</li>
+</ul>
+</section>
+<section id="use-conditional-requests" class="level4">
+<h4 class="anchored" data-anchor-id="use-conditional-requests">Use conditional requests</h4>
+<p>If supported, you can use <code>ETag</code> and <code>If-Modified-Since</code>, which return a <code>304 Not Modfied</code> reponse instead of a full JSON payload. In essence, this response is saying that no changes have been made to the content made available via the endpoint. You could build in some logic that handles the error without crashing the program, and also notifies the end user that there is no new data since the last update.</p>
+<p>Examples of each, plus a combined approach, can be found in this <a href="https://www.pythonlore.com/handling-http-conditional-requests-with-requests/">Python Lore tutorial</a>.</p>
+</section>
+<section id="select-only-what-you-need" class="level4">
+<h4 class="anchored" data-anchor-id="select-only-what-you-need">Select only what you need</h4>
+<p>Just as you would with a SQL query, try to select only what you need. Some APIs support field selection in the optional filters part of the URL (e.g <code>?fields=metric,value</code>). Similarly, try not to request all of the records made available via the API. Would having a rolling 12 months’ data be sufficient? Could you store historic data locally? Try to use any filters available in the API to exclude any data that you do not need.</p>
+</section>
+<section id="identify-yourself" class="level4">
+<h4 class="anchored" data-anchor-id="identify-yourself">Identify yourself</h4>
+<p>Some APIs require users to provide a <code>User-Agent</code> string. Failure to do so could mean that your request gets blocked by the web server. Web servers use the information to serve appropriate content, implement rate-limiting or block automated requests<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>. You can even add some kind of contact information or a link to the repository for your application so that you can be contacted if there is an issue (only include contact information you are willing to share publicly!). Below is an example of some Python that could be used to generate a <code>User-Agent</code> string:</p>
+<div id="user-agent-builder" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> platform     <span class="co"># to get operating system information</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys          <span class="co"># to get Python version information</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>APP_NAME <span class="op">=</span> <span class="st">"MyApiProject"</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>APP_VERSION <span class="op">=</span> <span class="st">"1.0"</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>GITHUB_PAGE <span class="op">=</span> <span class="st">"https://github.com/NHS-South-Central-and-West/code-club"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_user_agent():</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    python_version <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>sys<span class="sc">.</span>version_info<span class="sc">.</span>major<span class="sc">}</span><span class="ss">.</span><span class="sc">{</span>sys<span class="sc">.</span>version_info<span class="sc">.</span>minor<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    os_info <span class="op">=</span> platform.system()</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>APP_NAME<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>APP_VERSION<span class="sc">}</span><span class="ss"> (Python </span><span class="sc">{</span>python_version<span class="sc">}</span><span class="ss">; </span><span class="sc">{</span>os_info<span class="sc">}</span><span class="ss">); </span><span class="sc">{</span>GITHUB_PAGE<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"User-Agent"</span>: build_user_agent()</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="co"># let's see what that looks like:</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(headers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'User-Agent': 'MyApiProject/1.0 (Python 3.12; Windows); https://github.com/NHS-South-Central-and-West/code-club'}</code></pre>
+</div>
+</div>
+<p>Then, when you make the request, you pass the <code>User-Agent</code> string to the “headers” keyword argument:</p>
+<div id="user-agent-request" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> requests.get(<span class="st">"https://environment.data.gov.uk/flood-monitoring/id/floods"</span>, headers<span class="op">=</span>headers)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-simple callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Caution</span>Read the smallprint
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is advisable that you read any Terms of Service applied to the use of an API. Providers of free APIs may forbid commercial use (and you need to be sure what is meant by this), redistribution of the data and automated, high-frequency usage.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="the-fingertips_py-package" class="level2">
+<h2 class="anchored" data-anchor-id="the-fingertips_py-package">The <code>fingertips_py</code> package</h2>
+<p>This is a package that was originally developed by Public Health England to make it easy to import data via the Fingertips API endpoint. It’s an example of what the possibilities are, hopefully serving as inspiration for your own Python projects. It’s also pretty useful, if you want to make use of Fingertips data yourself!</p>
+<p>We have created a walkthrough of using the <code>fingertips_py</code> package <a href="../../intermediate-skills-sessions/18-webscraping-apis/fingertips_py.html">here</a>.</p>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
+<ol type="1">
+<li>Write a regular expression that could be used to identify all of the Excel files on the following web page:<a href="https://digital.nhs.uk/data-and-information/data-collections-and-data-sets/data-sets/mental-health-services-data-set/mental-health-services-data-set-mhsds-submission-update">Mental Health Services Data Set Submission Reports</a>.</li>
+</ol>
+<p><strong>Note:</strong> The displayed document titles may not reflect the actual file URLs.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="answer-1" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r'</span><span class="dv">.</span><span class="op">*</span><span class="vs">mswm-submission-tracker</span><span class="dv">.</span><span class="op">*</span><span class="dv">.</span><span class="vs">xlsm'</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># . matches any character; * means any number of those.</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># That pattern can occur before or after "mswm-submission-tracker".</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Which REST API response code means a positive result, i.e.&nbsp;that data is available?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>200</code></p>
+</div>
+</div>
+</div>
+<ol start="3" type="1">
+<li>Which REST API response code means that no new data is available?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>304</code></p>
+</div>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Write some Python code to return the planned outages table on the <a href="https://digital.nhs.uk/services/secondary-uses-service-sus/secondary-uses-service-sus-what-s-new/service-announcements-and-outages">SUS Service Announcements and Outages page</a> to a Pandas DataFrame and then print the result. Make sure that you handle any error raised due to the web page being unavailable.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="answer-4" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://digital.nhs.uk/services/secondary-uses-service-sus/secondary-uses-service-sus-what-s-new/service-announcements-and-outages'</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> req.get(url)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">"html.parser"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    table <span class="op">=</span> soup.find(<span class="st">'table'</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    table_df <span class="op">=</span> pd.read_html(<span class="bu">str</span>(table))</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(table_df)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Outages page currently unavailable: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[                         Date         Time                  Type
+0   Wednesday 4 February 2026  6pm to 10pm  SUS+/DLP maintenance
+1  Wednesday 11 February 2026  6pm to 10pm  SUS+/DLP maintenance
+2  Wednesday 25 February&nbsp;2026  6pm to 10pm  SUS+/DLP maintenance]</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<ol start="5" type="1">
+<li>Which BeautifulSoup method can you use to return the HTML in a nicely laid out format?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>print(soup.prettify())</code></p>
+</div>
+</div>
+</div>
+<ol start="6" type="1">
+<li>Using the example under “Using a regular expression and <code>urljoin</code> to locate files on multiple web pages.” as a template, write some Python code that will download all of the NHS Talking Therapies Data Quality Reports for 2025 accessible via the <a href="https://digital.nhs.uk/data-and-information/publications/statistical/nhs-talking-therapies-monthly-statistics-including-employment-advisors">official statistics page</a>.</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="answer-6" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> bs4 <span class="im">import</span> BeautifulSoup</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">'https://digital.nhs.uk/data-and-information/publications/statistical/nhs-talking-therapies-monthly-statistics-including-employment-advisors'</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>target_urls <span class="op">=</span> []                           </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>dynamic_section <span class="op">=</span> <span class="vs">r'</span><span class="dv">^</span><span class="vs">performance-</span><span class="pp">[a-z]</span><span class="op">+</span><span class="vs">-2025</span><span class="dv">$</span><span class="vs">'</span> </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> req.get(url)                    </span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>ext <span class="op">=</span> <span class="st">'.csv'</span>                               </span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>    soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">"html.parser"</span>)     </span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> link <span class="kw">in</span> soup.find_all(<span class="st">'a'</span>, href <span class="op">=</span> <span class="va">True</span>):                </span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>        sublink <span class="op">=</span> link[<span class="st">"href"</span>]</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> re.match(dynamic_section,sublink.split(<span class="st">'/'</span>)[<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>            full_url <span class="op">=</span> urljoin(url, sublink)                   </span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>            target_urls.append(full_url)                        </span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> link <span class="kw">in</span> target_urls:                                    </span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> req.get(link)                                </span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>            soup <span class="op">=</span> BeautifulSoup(response.content, <span class="st">"html.parser"</span>) </span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> link <span class="kw">in</span> soup.find_all(<span class="st">"a"</span>, href<span class="op">=</span><span class="va">True</span>):          </span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>                file_url <span class="op">=</span> link[<span class="st">'href'</span>]                         </span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> file_url.endswith((ext)):                   </span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>                    <span class="bu">print</span>(<span class="st">"Found .csv file:"</span>, file_url)</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>                    file_name <span class="op">=</span> file_url.split(<span class="st">"/"</span>)[<span class="op">-</span><span class="dv">1</span>]        </span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>                    file_response <span class="op">=</span> req.get(file_url)          </span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">if</span> file_response.status_code <span class="op">==</span> <span class="dv">200</span>:       </span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>                        </span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>                        <span class="cf">with</span> <span class="bu">open</span>(file_name, <span class="st">"wb"</span>) <span class="im">as</span> <span class="bu">file</span>:     </span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>                            <span class="bu">file</span>.write(file_response.content)</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(<span class="ss">f"Downloaded: </span><span class="sc">{</span>file_name<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">else</span>:</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>                        <span class="bu">print</span>(<span class="ss">f"Failed to download: </span><span class="sc">{</span>file_url<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'Failed to fetch webpage: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)   </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<ol start="7" type="1">
+<li>Which character designates the beginning of the filter section of a URL when filtering a JSON API request? Which character is used to join multiple filters together?</li>
+</ol>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Designates the beginning of the filter section: <code>?</code></p>
+<p>Joins multiple filters together: <code>&amp;</code></p>
+</div>
+</div>
+</div>
+<ol start="8" type="1">
+<li>Write a Python function that will return a dataframe of the daily number of patients admitted to hospital with COVID-19 in 2025 via the <a href="https://ukhsa-dashboard.data.gov.uk/access-our-data">UKHSA data dashboard API</a>. You will need to read the API documentation, making use of the examples. The <a href="https://ukhsa-dashboard.data.gov.uk/">UKHSA data dashboard page</a>.</li>
+</ol>
+<ul>
+<li>Filter the data to just <strong>2025</strong>.</li>
+<li>The <code>geography_type</code> should be <strong>Nation</strong>.</li>
+<li>The <code>geography</code> should be <strong>England</strong>.</li>
+<li>Return the following columns:
+<ul>
+<li><code>theme</code></li>
+<li><code>sub_theme</code></li>
+<li><code>topic</code></li>
+<li><code>geography</code></li>
+<li><code>metric</code></li>
+<li><code>year</code></li>
+<li><code>date</code></li>
+<li><code>metric_value</code></li>
+</ul></li>
+</ul>
+<p><strong>HINT:</strong> Instead of “items” (as in the flood alerts example), the records are contained in a list called “results”.</p>
+<div class="callout callout-style-simple callout-note callout-titled" title="Solution">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Solution
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div id="cell-answer-8" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests <span class="im">as</span> req</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_covid_admissions():</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    request_url <span class="op">=</span> <span class="st">'https://api.ukhsa-dashboard.data.gov.uk/themes/infectious_disease/sub_themes/respiratory/topics/COVID-19/geography_types/Nation/geographies/England/metrics/COVID-19_healthcare_admissionByDay?year=2025'</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    response <span class="op">=</span> req.get(request_url)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">200</span>:</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        results_json <span class="op">=</span> response.json()[<span class="st">"results"</span>]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        records <span class="op">=</span> [{   </span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">'theme'</span>: json[<span class="st">'theme'</span>],</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>            <span class="st">'sub_theme'</span>: json[<span class="st">'sub_theme'</span>],</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">'topic'</span>: json[<span class="st">'topic'</span>],</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">'geography'</span>: json[<span class="st">'geography'</span>],</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">'metric'</span>: json[<span class="st">'metric'</span>],</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">'year'</span>: json[<span class="st">'year'</span>],</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">'date'</span>: json[<span class="st">'date'</span>],</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">'metric_value'</span>: json[<span class="st">'metric_value'</span>],</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">for</span> json <span class="kw">in</span> results_json</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> records</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'Failed to fetch data. Response status: </span><span class="sc">{</span>response<span class="sc">.</span>status_code<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> pd.DataFrame(get_covid_admissions())</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Number of rows and columns in the dataset: </span><span class="sc">{</span>records<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>records.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of rows and columns in the dataset: (5, 8)</code></pre>
+</div>
+<div id="answer-8" class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">theme</th>
+<th data-quarto-table-cell-role="th">sub_theme</th>
+<th data-quarto-table-cell-role="th">topic</th>
+<th data-quarto-table-cell-role="th">geography</th>
+<th data-quarto-table-cell-role="th">metric</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">date</th>
+<th data-quarto-table-cell-role="th">metric_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>infectious_disease</td>
+<td>respiratory</td>
+<td>COVID-19</td>
+<td>England</td>
+<td>COVID-19_healthcare_admissionByDay</td>
+<td>2025</td>
+<td>2025-01-01</td>
+<td>144.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>infectious_disease</td>
+<td>respiratory</td>
+<td>COVID-19</td>
+<td>England</td>
+<td>COVID-19_healthcare_admissionByDay</td>
+<td>2025</td>
+<td>2025-01-02</td>
+<td>132.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>infectious_disease</td>
+<td>respiratory</td>
+<td>COVID-19</td>
+<td>England</td>
+<td>COVID-19_healthcare_admissionByDay</td>
+<td>2025</td>
+<td>2025-01-03</td>
+<td>119.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>infectious_disease</td>
+<td>respiratory</td>
+<td>COVID-19</td>
+<td>England</td>
+<td>COVID-19_healthcare_admissionByDay</td>
+<td>2025</td>
+<td>2025-01-04</td>
+<td>120.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>infectious_disease</td>
+<td>respiratory</td>
+<td>COVID-19</td>
+<td>England</td>
+<td>COVID-19_healthcare_admissionByDay</td>
+<td>2025</td>
+<td>2025-01-05</td>
+<td>121.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>XML is another common format for data made available via an API endpoint.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://environment.data.gov.uk/flood-monitoring/doc/reference">Environment Agency real-time flood-monitoring API documentation</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>In actual fact, the format that the flood alert data is provided in is a little more complex and is more like a nested dictionary, where you have a top-level set of key-value pairs and one of those keys has values that are themselves dictionaries. In the case of the flood alert data, there are some metadata fields that are defined in the top level alongside “items”, and then the value against the “items” key is then itself an array of key-value pairs.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>See (https://webscraping.ai/faq/requests/how-do-i-set-a-user-agent-string-for-requests)<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Created and maintained by the <a href="mailto:scwcsu.analytics.specialist@nhs.net">Specialist Analytics Team</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page was built with <a href="https://quarto.org/">Quarto</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
