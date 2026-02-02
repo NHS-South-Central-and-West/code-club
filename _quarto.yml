@@ -121,6 +121,7 @@ website:
         - section: Intermediate Python
           contents: 
             - text: 23. Generators
+              file: intermediate-skills-sessions/23-generators/index.qmd
             - text: 24. Decorators
             - text: 25. Asynchronous programming and callbacks
             - text: 26. Higher order functions
