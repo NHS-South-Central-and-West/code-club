@@ -1,5 +1,5 @@
 ---
-title: "Schedule"
+title: "Code Club Essentials Schedule"
 format:
   html:
     page-layout: full
@@ -7,7 +7,7 @@ execute:
     echo: false
 ---
 
-This is the schedule for Code Club in FY25/26.
+This is the schedule and contents page for Code Club's coding and data science essentials for FY25/26.
 
 The **Demonstration**, **Presentation**, and **Notebook** columns indicate the content to be expected for each session:
 
@@ -33,6 +33,9 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 # import .csv
 df = pl.read_csv('../data/schedule.csv')
 
+# essentials series only
+
+df = df[:16,:]
 
 # replace 'x' with emojis and create hyperlink markdown
 df_processed = df.with_columns(

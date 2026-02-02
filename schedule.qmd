@@ -3,5 +3,8 @@ title: "Redirecting..."
 format: html
 page-layout: full
 ---
+<!-- Redirect page was added since the website structure changed resulting in the original
+link to the Schedule becoming invalid. It is being left here in case anyone has bookmarked
+the invalid link -->
 
 <meta http-equiv="refresh" content="0; url=sessions/schedule.html" />
