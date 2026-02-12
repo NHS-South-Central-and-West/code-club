@@ -115,9 +115,10 @@ website:
         - section: Machine Learning
           contents: 
             - text: 19. Introduction to Machine Learning
-            - text: 20. Linear and Logistic Regression Machine Learning Models
-            - text: 21. Machine Learning Workflows
-            - text: 22. Unsupervised Machine Learning
+              file: intermediate-skills-sessions/19-introduction-to-machine-learning/index.qmd
+            - text: 20. Supervised Learning
+            - text: 21. Machine Learning Landscape
+            - text: 22. Machine Learning Workflow
         - section: Intermediate Python
           contents: 
             - text: 23. Generators
