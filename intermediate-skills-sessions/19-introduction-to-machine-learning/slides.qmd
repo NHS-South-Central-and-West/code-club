@@ -1,0 +1,112 @@
+---
+title: Introduction to Machine Learning
+subtitle: Learning Patterns from Data
+footer: '**SAT //** Introduction to ML **//** February 2026'
+format: revealjs
+execute: 
+    echo: false
+---
+
+# A Familiar Problem {data-background-color="#425563"}
+
+Predicting the Future Using Only the Past
+
+## The Challenge of Prediction {.center}
+
+- Prediction is a fundamental part of data science and analytics.
+- Using what happened in the past can help inform us about the future.
+- But data, on its own, can only tell us about the past.
+
+## The NHS Dashboard Obsession {.center}
+
+- In the NHS, we often rely on dashboards describing the past to inform decisions about the future.
+- This is inherently limited.
+    - Many factors cause the future to differ from the past
+    - Decision-making relies heavily on human judgment
+    - Difficult to scale across thousands of cases
+- **We need better approaches to prediction**
+
+## Traditional Approaches {.center}
+
+- **Rules-based systems** - Predictions based on explicit rules (IF condition THEN action).
+    - If diabetes AND age > 65 AND previous admission, flag as high risk
+    - Works well when rules are known and context is simple, but struggles with complexity and scale.
+- **Statistical methods** - Traditional statistical methods like regression.
+    - Model readmission probability based on patient characteristics.
+    - We need something that can be automated and applied at scale.
+
+# Enter Machine Learning {data-background-color="#425563"}
+
+Blending Statistics & Software Development
+
+## What is Machine Learning? {.center}
+
+- Machine learning builds systems that learn patterns from data to make predictions about the future.
+- It blends statistical methods and software development principles to solve problems of complexity and scale.
+- It can produce highly effective predictions, applicable at scale, and deployable in the real world.
+
+## Why Use Machine Learning {.center}
+
+- Handles complexity 
+    - Many variables, non-linear relationships
+    - Finds interactions you wouldn't think to test
+- Scales effectively
+    - Same approach works with 10 or 10,000 features
+    - Predictions can be automated and applied widely
+- Improves with data
+    - More examples = better performance
+    - Adapts to changing patterns
+
+## What Machine Learning Is Not {.center}
+
+- **ML is not magic** - It still requires good data and domain knowledge.
+- **ML is not always better** - Sometimes traditional approaches work fine.
+- **ML is not (necessarily) a black box** - Many models are interpretable, and we can understand why they make their predictions.
+- **ML not replacing analysts** - It's a tool that extends what you can do. Human judgment still matters.
+
+## Healthcare Applications {.center}
+
+- ML works with structured data across many contexts:
+    - Predicting future admissions from past admissions and primary care data
+    - Allocating resources efficiently by forecasting future demand
+- ML also works well with unstructured data:
+    - Diagnosing diabetic retinopathy using eye scans
+    - Extracting predictions from handwritten clinician notes
+
+## How Does Machine Learning Work? {.center}
+
+- The core idea:
+    - Show the system labeled examples
+    - The system learns patterns from these examples
+    - Then predicts outcomes for new examples
+- This is called **supervised learning**.
+
+## Supervised Learning {.center}
+
+- Training a model on data where the outcome is already known and labeled, to predict outcomes on new data.
+- You provide: 
+    - **Features** (input variables): age, diagnosis, lab results
+    - **Target** (what to predict): readmitted yes/no
+- The model learns the relationship between the features and the target.
+
+## The Basic Workflow {.center}
+
+1. Get data with examples and labels
+2. Split into training and testing sets
+3. Train a model on training data
+4. Make predictions on test data
+5. Evaluate how well it performed
+
+# Let's Write Some Code... {data-background-color="#425563"}
+
+## Thank You! {.center}
+
+Contact:
+
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+
+Code & Slides:
+
+{{< fa brands github >}} [/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
