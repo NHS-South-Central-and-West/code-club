@@ -1,0 +1,75 @@
+---
+title: Supervised Learning
+subtitle: Understanding How Models Learn
+footer: '**SAT //** Introduction to ML **//** February 2026'
+format: revealjs
+execute: 
+    echo: false
+---
+
+# Supervised Learning Fundamentals {data-background-color="#425563"}
+
+Core Concepts and Terminology
+
+## What is Supervised Learning? {.center}
+
+- Learning from labelled examples to predict outcomes on new data.
+- You provide **features** (X), the input variables describing each observation, and the **target** (y), the outcome you want to predict.
+- The model learns the relationship between X and y, and predicts the value of y given X.
+
+## Two Types of Supervised Learning {.center}
+
+- **Classification** - Predicting categories
+  - Will this patient be readmitted? (Yes/No)
+  - Which diagnosis code applies? (A, B, C, or D)
+  - Binary or multi-class outcomes
+
+- **Regression** - Predicting continuous numbers
+  - How long will this patient stay in hospital? (days)
+  - What will next month's A&E attendances be? (count)
+  - Numerical outcomes
+
+## Classification vs Regression {.center}
+
+| Aspect         | Classification                      | Regression                        |
+|----------------|-------------------------------------|-----------------------------------|
+| **Output**     | Categories                          | Numbers                           |
+| **Example**    | Survived: Yes/No                    | Length of stay: 4.2 days          |
+| **Algorithms** | Logistic regression, decision trees | Linear regression, decision trees |
+| **Evaluation** | Accuracy, precision                 | RMSE, MAE                         |
+
+**Note** - Some algorithms work for both (e.g., decision trees)
+
+## The Generalisation Challenge {.center}
+
+- The goal of supervised learning is to learn patterns that work on new data, not just training data.
+- But this is difficult. Models can underfit and overfit, and will not generalise well.
+  - **Underfitting** - Model too simple, misses patterns, performs poorly on training and test data.
+  - **Overfitting** - Model too complex, memorises training data, performs well on training but poorly on test data.
+- The sweet spot is a model that captrues real patterns/signal but ignores noise.
+
+# How Do Models Learn? {data-background-color="#425563"}
+
+Sorting the Signal from the Noise
+
+## The Learning Process {.center}
+
+- Models don't interpret or understand data like humans do.
+- They find mathematical patterns that connect features to outcomes.
+- Different algorithms find different types of patterns.
+- There is no single "best" algorithm.
+  - This is known as the No Free Lunch Theorem.
+
+# Let's Write Some Code... {data-background-color="#425563"}
+
+## Thank You! {.center}
+
+Contact:
+
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+
+Code & Slides:
+
+{{< fa brands github >}} [/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
