@@ -1100,14 +1100,49 @@
     "href": "intermediate-skills-sessions/20-supervised-learning/slides.html#the-generalisation-challenge",
     "title": "Supervised Learning",
     "section": "The Generalisation Challenge",
-    "text": "The Generalisation Challenge\n\nThe goal of supervised learning is to learn patterns that work on new data, not just training data.\nBut this is difficult. Models can underfit and overfit, and will not generalise well.\n\nUnderfitting - Model too simple, misses patterns, performs poorly on training and test data.\nOverfitting - Model too complex, memorises training data, performs well on training but poorly on test data.\n\nThe sweet spot is a model that captrues real patterns/signal but ignores noise."
+    "text": "The Generalisation Challenge\n\nThe goal of supervised learning is to learn patterns that work on new data, not just training data.\nBut this is difficult. Models can underfit and overfit, and will not generalise well.\n\nUnderfitting - Model too simple, misses patterns, performs poorly on training and test data.\nOverfitting - Model too complex, memorises training data, performs well on training but poorly on test data.\n\nThe sweet spot is a model that captures real patterns/signal but ignores noise."
   },
   {
     "objectID": "intermediate-skills-sessions/20-supervised-learning/slides.html#the-learning-process",
     "href": "intermediate-skills-sessions/20-supervised-learning/slides.html#the-learning-process",
     "title": "Supervised Learning",
     "section": "The Learning Process",
-    "text": "The Learning Process\n\nModels don’t interpret or understand data like humans do.\nThey find mathematical patterns that connect features to outcomes.\nDifferent algorithms find different types of patterns.\nThere is no single “best” algorithm.\n\nThis is known as the No Free Lunch Theorem."
+    "text": "The Learning Process\n\nModels learn by optimising a mathematical objective during training.\nThis involves finding patterns that minimise the prediction error in training.\nWhat happens during .fit():\n\nModel makes predictions on training data\nCalculates how wrong those predictions are\nAdjusts internal parameters to reduce errors\nRepeats until errors stop decreasing"
+  },
+  {
+    "objectID": "intermediate-skills-sessions/20-supervised-learning/slides.html#no-free-lunch-theorem",
+    "href": "intermediate-skills-sessions/20-supervised-learning/slides.html#no-free-lunch-theorem",
+    "title": "Supervised Learning",
+    "section": "No Free Lunch Theorem",
+    "text": "No Free Lunch Theorem\n\nDifferent algorithms use different strategies to find patterns and optimise the mathematical objective.\nSome algorithms deal well with simplicity, others work well with sparse data, some can handle incredibly complexity.\nBut there is no single “best” algorithm.\n\nThis is known as the No Free Lunch Theorem."
+  },
+  {
+    "objectID": "intermediate-skills-sessions/20-supervised-learning/slides.html#algorithms-vs-models",
+    "href": "intermediate-skills-sessions/20-supervised-learning/slides.html#algorithms-vs-models",
+    "title": "Supervised Learning",
+    "section": "Algorithms vs Models",
+    "text": "Algorithms vs Models\n\nThe algorithm is the learning approach (the recipe).\n\nLogistic regression, decision tree, random forest\n\nThe model is the trained result (applying the recipe to your data).\n\nA random forest algorithm trained on Titanic data becomes a model\n\nYou can use many different algorithms, but the workflow remains the same."
+  },
+  {
+    "objectID": "intermediate-skills-sessions/20-supervised-learning/slides.html#many-algorithms-to-choose-from",
+    "href": "intermediate-skills-sessions/20-supervised-learning/slides.html#many-algorithms-to-choose-from",
+    "title": "Supervised Learning",
+    "section": "Many Algorithms to Choose From",
+    "text": "Many Algorithms to Choose From\n\nLinear methods\n\nLinear Regression, Logistic Regression, Ridge, Lasso\n\nTree-based methods\n\nDecision Trees, Random Forests, Gradient Boosting (XGBoost, LightGBM, CatBoost)\n\nAnd many other approaches\n\nK-Nearest Neighbours, Support Vector Machines, Neural Networks"
+  },
+  {
+    "objectID": "intermediate-skills-sessions/20-supervised-learning/slides.html#the-workflow-is-plug-play",
+    "href": "intermediate-skills-sessions/20-supervised-learning/slides.html#the-workflow-is-plug-play",
+    "title": "Supervised Learning",
+    "section": "The Workflow is Plug & Play",
+    "text": "The Workflow is Plug & Play\n\n# swap algorithms, keep the workflow\nclf = LogisticRegression()      # or\nclf = DecisionTreeClassifier()  # or\nclf = RandomForestClassifier()  # or\nclf = GradientBoostingClassifier()\n\n# same workflow regardless\nclf.fit(X_train, y_train)\npredictions = clf.predict(X_test)\naccuracy = accuracy_score(y_test, predictions)"
+  },
+  {
+    "objectID": "intermediate-skills-sessions/20-supervised-learning/slides.html#choosing-the-right-model",
+    "href": "intermediate-skills-sessions/20-supervised-learning/slides.html#choosing-the-right-model",
+    "title": "Supervised Learning",
+    "section": "Choosing the Right Model",
+    "text": "Choosing the Right Model\n\nConsider interpretability:\n\nModel/predictions needs to be easy to explain - Simpler models\nPredictive performance matters most - Complex models\n\nConsider your data:\n\nSmall datasets (&lt; 1000 rows) - Simpler models, less overfitting risk\nLarge datasets - Complex models can find subtle patterns\n\nConsider constraints:\n\nLimited compute - Faster algorithms\nDeploying to production - Consider training/prediction time\n\nBest practice - Try multiple models, compare on hold-out (testing) data"
   },
   {
     "objectID": "intermediate-skills-sessions/20-supervised-learning/slides.html#thank-you",
