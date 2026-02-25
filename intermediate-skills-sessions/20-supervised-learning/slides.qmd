@@ -1,7 +1,7 @@
 ---
 title: Supervised Learning
 subtitle: Understanding How Models Learn
-footer: '**SAT //** Introduction to ML **//** February 2026'
+footer: '**SAT //** Supervised Learning **//** February 2026'
 format: revealjs
 ---
 
