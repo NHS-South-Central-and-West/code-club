@@ -255,6 +255,9 @@ comparison = comparison.sort_values('Accuracy', ascending=False).reset_index(dro
 print(comparison.to_string(index=False))
 ```
 
+It's worth noting that all four models have similar accuracy scores. This is primarily because the dataset is pretty simple so the simple models (logistic regression and decision trees) can easily compete with more complex models. 
+
+It's also because we are not tuning the model hyperparameters to optimise performance. We will cover this in a future session.
 
 ```{python}
 #| label: feature-importance
@@ -280,6 +283,7 @@ g.set_titles(col_template='{col_name}')
 plt.tight_layout()
 plt.show()
 ```
+The feaure importance plots confirm that the simplicity of the dataset results in all of the models converging on the same findings.
 
 ## Overfitting and Model Complexity
 
