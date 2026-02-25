@@ -197,7 +197,7 @@ The process works as follows:
 
 1. Train the first tree on the original data
 2. Identify where it makes prediction errors
-3. Ttrain the second tree to correct those errors
+3. Train the second tree to correct those errors
 4. Repeat
 
 Each tree contributes to the final prediction, with later trees typically having more influence because they've learned from more mistakes.
