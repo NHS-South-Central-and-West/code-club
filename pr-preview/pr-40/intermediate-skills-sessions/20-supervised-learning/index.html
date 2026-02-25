@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Supervised Learning</title>
+<title>Understanding Supervised Learning</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -75,7 +75,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-f1ba2a22d65df99d9611e3dca3b1a6a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-3f7093b32262dae94df6af3cc5865a54.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -326,7 +326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/19-introduction-to-machine-learning/index.html">Machine Learning</a></li><li class="breadcrumb-item"><a href="../../intermediate-skills-sessions/20-supervised-learning/index.html">20. Supervised Learning</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Supervised Learning</h1>
+<h1 class="title">Understanding Supervised Learning</h1>
 </div>
 
 
@@ -584,6 +584,8 @@ Logistic Regression  0.817164
       Decision Tree  0.809701</code></pre>
 </div>
 </div>
+<p>It’s worth noting that all four models have similar accuracy scores. This is primarily because the dataset is pretty simple so the simple models (logistic regression and decision trees) can easily compete with more complex models.</p>
+<p>It’s also because we are not tuning the model hyperparameters to optimise performance. We will cover this in a future session.</p>
 <div id="cell-feature-importance" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create dataframe for plotting</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> X_train.columns</span>
@@ -613,6 +615,7 @@ Logistic Regression  0.817164
 </div>
 </div>
 </div>
+<p>The feaure importance plots confirm that the simplicity of the dataset results in all of the models converging on the same findings.</p>
 </section>
 <section id="overfitting-and-model-complexity" class="level2">
 <h2 class="anchored" data-anchor-id="overfitting-and-model-complexity">Overfitting and Model Complexity</h2>
