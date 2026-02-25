@@ -1,5 +1,5 @@
 ---
-title: Supervised Learning
+title: Understanding Supervised Learning
 format:
   html: default
   ipynb: default
@@ -77,7 +77,7 @@ We will use the same data preparation steps as used in the first session.
 df = sns.load_dataset('titanic')
 
 # select features and target
-X = df[['pclass', 'sex', 'age', 'fare']]
+X = df[['pclass', 'sex', 'age', 'sibsp', 'parch', 'fare', 'alone', 'embark_town']]
 y = df['survived']
 
 # split into train and test sets
@@ -88,8 +88,20 @@ X_train, X_test, y_train, y_test = train_test_split(
 # prepare features
 def prepare_features(data):
     data = data.copy()
-    data['age'] = data['age'].fillna(data['age'].median())
+
+    # convert sex to integer
     data['sex'] = (data['sex'] == 'female').astype(int)
+
+    # fill missing age with median values by sex/passenger class
+    data['age'] = (data.groupby(['sex','pclass'])['age'].transform(lambda x: x.fillna(x.median())))
+
+    # create dummy variables for embark town
+    data['embark_town'] = data['embark_town'].str.lower()
+    data = pd.get_dummies(data, columns=['embark_town'], prefix="embark")
+    
+    # keep only Southampton and Cherbourg for simplicity
+    data = data.drop(['embark_queenstown'], axis=1)
+
     return data
 
 X_train = prepare_features(X_train)
@@ -174,7 +186,7 @@ When making predictions, each tree votes for a class, and the forest returns the
 
 # train random forest
 rf_model = RandomForestClassifier(
-    n_estimators=100,  # number of trees
+    n_estimators=1000,  # number of trees
     max_depth=3,       # keep trees shallow to match single tree
     random_state=42
 )
@@ -207,9 +219,10 @@ Each tree contributes to the final prediction, with later trees typically having
 
 # train gradient boosting model
 gb_model = GradientBoostingClassifier(
-    n_estimators=100,
+    n_estimators=500,
     max_depth=3,
-    learning_rate=0.1,  # how much each tree contributes
+    learning_rate=0.01,  # how much each tree contributes
+    min_samples_leaf=30,
     random_state=42
 )
 gb_model.fit(X_train, y_train)
