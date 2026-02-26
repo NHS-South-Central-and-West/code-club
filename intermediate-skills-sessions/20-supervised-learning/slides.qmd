@@ -1,0 +1,131 @@
+---
+title: Supervised Learning
+subtitle: Understanding How Models Learn
+footer: '**SAT //** Supervised Learning **//** February 2026'
+format: revealjs
+---
+
+# Supervised Learning Fundamentals {data-background-color="#425563"}
+
+Core Concepts and Terminology
+
+## What is Supervised Learning? {.center}
+
+- Learning from labelled examples to predict outcomes on new data.
+- You provide **features** (X), the input variables describing each observation, and the **target** (y), the outcome you want to predict.
+- The model learns the relationship between X and y, and predicts the value of y given X.
+
+## Two Types of Supervised Learning {.center}
+
+- **Classification** - Predicting categories
+  - Will this patient be readmitted? (Yes/No)
+  - Which diagnosis code applies? (A, B, C, or D)
+  - Binary or multi-class outcomes
+
+- **Regression** - Predicting continuous numbers
+  - How long will this patient stay in hospital? (days)
+  - What will next month's A&E attendances be? (count)
+  - Numerical outcomes
+
+## Classification vs Regression {.center}
+
+| Aspect         | Classification                      | Regression                        |
+|----------------|-------------------------------------|-----------------------------------|
+| **Output**     | Categories                          | Numbers                           |
+| **Example**    | Survived: Yes/No                    | Length of stay: 4.2 days          |
+| **Algorithms** | Logistic regression, decision trees | Linear regression, decision trees |
+| **Evaluation** | Accuracy, precision                 | RMSE, MAE                         |
+
+**Note** - Some algorithms work for both (e.g., decision trees)
+
+## The Generalisation Challenge {.center}
+
+- The goal of supervised learning is to learn patterns that work on new data, not just training data.
+- But this is difficult. Models can underfit and overfit, and will not generalise well.
+  - **Underfitting** - Model too simple, misses patterns, performs poorly on training and test data.
+  - **Overfitting** - Model too complex, memorises training data, performs well on training but poorly on test data.
+- The sweet spot is a model that captures real patterns/signal but ignores noise.
+
+# How Do Models Learn? {data-background-color="#425563"}
+
+Sorting the Signal from the Noise
+
+## The Learning Process {.center}
+
+- Models learn by optimising a mathematical objective during training. 
+- This involves finding patterns that minimise the prediction error in training.
+- What happens during `.fit()`:
+  1. Model makes predictions on training data
+  2. Calculates how wrong those predictions are
+  3. Adjusts internal parameters to reduce errors
+  4. Repeats until errors stop decreasing
+
+## No Free Lunch Theorem {.center}
+
+- Different algorithms use different strategies to find patterns and optimise the mathematical objective.
+- Some algorithms deal well with simplicity, others work well with sparse data, some can handle incredibly complexity.
+- But there is no single "best" algorithm.
+  - This is known as the **No Free Lunch Theorem**.
+
+## Algorithms vs Models {.center}
+
+- The **algorithm** is the learning approach (the recipe).
+  - Logistic regression, decision tree, random forest
+- The **model** is the trained result (applying the recipe to your data).
+  - A random forest *algorithm* trained on Titanic data becomes a *model*
+- You can use many different algorithms, but the workflow remains the same.
+
+## Many Algorithms to Choose From {.center}
+
+- Linear methods
+  - Linear Regression, Logistic Regression, Ridge, Lasso
+- Tree-based methods
+  - Decision Trees, Random Forests, Gradient Boosting (XGBoost, LightGBM, CatBoost)
+- And many other approaches
+  - K-Nearest Neighbours, Support Vector Machines, Neural Networks
+
+## The Workflow is Plug & Play {.center}
+
+```{python}
+#| label: workflow
+#| eval: false
+#| output-location: default
+
+# swap algorithms, keep the workflow
+clf = LogisticRegression()      # or
+clf = DecisionTreeClassifier()  # or
+clf = RandomForestClassifier()  # or
+clf = GradientBoostingClassifier()
+
+# same workflow regardless
+clf.fit(X_train, y_train)
+predictions = clf.predict(X_test)
+accuracy = accuracy_score(y_test, predictions)
+```
+
+## Choosing the Right Model {.center}
+
+- Consider interpretability:
+  - Model/predictions needs to be easy to explain - Simpler models
+  - Predictive performance matters most - Complex models
+- Consider your data:
+  - Small datasets (< 1000 rows) - Simpler models, less overfitting risk
+  - Large datasets - Complex models can find subtle patterns
+- Consider constraints:
+  - Limited compute - Faster algorithms
+  - Deploying to production - Consider training/prediction time
+- Best practice - Try multiple models, compare on hold-out (testing) data
+
+# Let's Write Some Code... {data-background-color="#425563"}
+
+## Thank You! {.center}
+
+Contact:
+
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+
+Code & Slides:
+
+{{< fa brands github >}} [/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
