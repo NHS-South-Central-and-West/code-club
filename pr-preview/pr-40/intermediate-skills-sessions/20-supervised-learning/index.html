@@ -506,7 +506,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="random-forests" class="level3">
 <h3 class="anchored" data-anchor-id="random-forests">Random Forests</h3>
-<p>Random forests address the overfitting problem with decision trees by training many trees and combining their predictions. Each tree in the forest is trained on a random subset of the training data (called a bootstrap sample), and at each split, only a random subset of features is considered. This randomness ensures each tree learns slightly different patterns.</p>
+<p>Decision trees are extremely effective at learning patterns from data. Too effective, in fact. The problem with decision trees is that they have a tendency to follow a rabbit hole and miss all the other signal in the data. But what if you could combine lots of decision trees together? This is a method called <strong>ensemble learning</strong>, which relies on the principle of “the wisdom of the crowds”. Ensembling combines multiple models, and the idea is that each model should contribute something different, making the final model stronger than the sum of its parts.</p>
+<p>Random forests are a type of ensemble learning called <strong>bagging</strong>, which addresses the overfitting problem with decision trees by training many trees and averaging their predictions<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. Each tree in the forest is trained on a random subset of the training data (called a bootstrap sample), and at each split, only a random subset of features is considered. This randomness ensures each tree learns slightly different patterns.</p>
 <p>When making predictions, each tree votes for a class, and the forest returns the majority vote. Because individual trees make different mistakes, averaging across trees produces more reliable predictions that generalise better to new data.</p>
 <div id="random-forest" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># train random forest</span></span>
@@ -527,10 +528,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Random forests typically outperform single decision trees because the ensemble smooths out individual tree errors. The trade-off is reduced interpretability. You can’t easily visualise 100 trees or explain a prediction as a single decision path.</p>
+<p>The other risk with random forests is that they reduce variance (overfitting) but increase bias (underfitting)<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Random forests reduce variance by training many high-variance decision trees (complex trees that each overft on something different) and averaging their predictions. However, if not tuned correctly, this can lead to random forests missing important patterns in the data.</p>
 </section>
 <section id="gradient-boosting" class="level3">
 <h3 class="anchored" data-anchor-id="gradient-boosting">Gradient Boosting</h3>
-<p>Gradient boosting takes a different approach to combining trees. Instead of training trees independently and averaging, it trains them sequentially. This is an ensembling method called boosting. Each new tree focuses on the mistakes made by previous trees, gradually improving the model’s performance.</p>
+<p>Gradient boosting takes a different approach to ensemble learning. Instead of training trees independently and averaging, it trains them sequentially. This is an ensembling method called <strong>boosting</strong>. Each new tree focuses on the mistakes made by previous trees, gradually improving the model’s performance.</p>
 <p>The process works as follows:</p>
 <ol type="1">
 <li>Train the first tree on the original data</li>
@@ -559,7 +561,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Gradient Boosting Accuracy: 82.1%</code></pre>
 </div>
 </div>
-<p>Gradient boosting often outperforms other algorithms, particularly on tabular data. There are lots of different gradient boosting algorithms, the most popular of which are <a href="https://xgboost.readthedocs.io/en/release_3.2.0/python/index.html">XGBoost</a>, <a href="https://lightgbm.readthedocs.io/en/stable/">LightGBM</a>, and <a href="https://catboost.ai/docs/en/">CatBoost</a>. The sequential learning process allows it to capture complex patterns that other models miss. Like random forests, the trade-off is reduced interpretability compared to single trees.</p>
+<p>Gradient boosting often outperforms other algorithms, particularly on tabular data. There are lots of different gradient boosting algorithms, the most popular of which are <a href="https://xgboost.readthedocs.io/en/release_3.2.0/python/index.html">XGBoost</a>, <a href="https://lightgbm.readthedocs.io/en/stable/">LightGBM</a>, and <a href="https://catboost.ai/docs/en/">CatBoost</a>. The sequential learning process allows it to capture complex patterns that other models miss<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
+<p>While random forests are designed to reduce the variance (overfitting) that can occur with decision trees, gradient boosting comes at the problem from the other angle: bias. Gradient boosting trains lots of simple, high-bias trees that on their own will underfit the data, but each tree correcting the previous mistakes means the final model should benefit from the sequential process gradually reducing systematic errors. However, this does mean that gradient boosting models are prone to overfitting the training data if they are not tuned correctly.</p>
 </section>
 </section>
 <section id="comparing-model-performance" class="level2">
@@ -586,6 +589,7 @@ Logistic Regression  0.817164
 </div>
 <p>It’s worth noting that all four models have similar accuracy scores. This is primarily because the dataset is pretty simple so the simple models (logistic regression and decision trees) can easily compete with more complex models.</p>
 <p>It’s also because we are not tuning the model hyperparameters to optimise performance. We will cover this in a future session.</p>
+<p>We can use methods like feature importance plots to understand tree-base models. This tells us which features are contributing the most to the model’s predictions.</p>
 <div id="cell-feature-importance" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create dataframe for plotting</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>feature_names <span class="op">=</span> X_train.columns</span>
@@ -615,7 +619,7 @@ Logistic Regression  0.817164
 </div>
 </div>
 </div>
-<p>The feaure importance plots confirm that the simplicity of the dataset results in all of the models converging on the same findings.</p>
+<p>The feaure importance plots confirm that the simplicity of the dataset results in all of the models converging on the same findings. Features are approximately equally important across all three models.</p>
 </section>
 <section id="overfitting-and-model-complexity" class="level2">
 <h2 class="anchored" data-anchor-id="overfitting-and-model-complexity">Overfitting and Model Complexity</h2>
@@ -657,6 +661,7 @@ Logistic Regression  0.817164
 </div>
 </div>
 </div>
+<p>This overfitting problem is the reason that decision trees on their own tend to struggle with complex tasks, but it’s also a problem with lots of models, and it’s something you always have to look out for when building a machine learning model.</p>
 </section>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
@@ -671,6 +676,9 @@ Logistic Regression  0.817164
 
 <ol>
 <li id="fn1"><p>Gini impurity measures how mixed the classes are in a node. A pure node (all survivors or all deaths) has Gini = 0. A 50/50 split has Gini = 0.5. The algorithm chooses splits that minimise Gini impurity.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The way random forests combine predictions from each decision tree depends on the task. If it is a classification problem, each individual tree votes on the prediction and the majority vote wins. For regression problems, it is the mean predictions across all trees.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The bias-variance tradeoff is the idea that a model needs to balance the two types of errors that weaken model performance: bias and variance. Bias occurs when models are too simplistic and miss important patterns in the data, causing underfitting. Variance occurs when models are too complex and learn from noise, causing overfitting on the taraining data. The ideal model finds the balance between the two in order to minimise prediction error (and it’s not always true that there is a tradeoff between them).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Like random forests, the trade-off is reduced interpretability compared to single trees.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
