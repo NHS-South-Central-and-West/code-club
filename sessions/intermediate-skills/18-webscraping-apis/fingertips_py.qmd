@@ -5,7 +5,7 @@ format:
   ipynb: default
 ---
 
-In conjunction with the tutorial on [webscraping and APIs](/intermediate-skills-sessions/18-webscraping-apis/index.html), below is a walkthrough of  the `fingertips_py` package maintained by the Department of Health and Social Care, which simplifies importing data via the Fingertips API.
+In conjunction with the tutorial on [webscraping and APIs](sessions/intermediate-skills/18-webscraping-apis/index.html), below is a walkthrough of  the `fingertips_py` package maintained by the Department of Health and Social Care, which simplifies importing data via the Fingertips API.
 
 ## Documentation
 

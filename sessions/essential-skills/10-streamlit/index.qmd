@@ -46,7 +46,7 @@ If you would like to make use of the data used in the demonstration, please cont
 
 ### Installation
 
-- Start a new project as outlined in the [Project Setup](https://nhs-south-central-and-west.github.io/code-club/sessions/01-onboarding/#project-setup) section of the "Python Onboarding" materials.
+- Start a new project as outlined in the [Project Setup](https://nhs-south-central-and-west.github.io/code-club/sessions/essential-skills/01-onboarding/#project-setup) section of the "Python Onboarding" materials.
 - You will need to install the Streamlit package with the Powershell command `uv add streamlit`. You will probably also want to install a package for handling dataframes such as `pandas` or `polars`, and a visualisation package such as `seaborn` or `altair`[^Packages].
 
 [^Packages]:

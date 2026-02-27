@@ -7,7 +7,7 @@ format:
 
 Python has a rich ecosystem of libraries for data visualisation, each with different strengths. Some popular options include matplotlib for fine control over plots, plotly for interactive visualisations, and bokeh for web-ready dashboards. In this session, we’ll be using seaborn. It's built on top of matplotlib but offers a simpler, high-level interface and nice looking default styles — it's therefore a good choice when you who want to quickly create clear and informative plots without needing to tweak every detail.
 
-![Python (and R) visualisation libraries.](../../images/python_visual_libraries.png)
+![Python (and R) visualisation libraries.](images/python_visual_libraries.png)
 
 We are using [Australian weather data](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package), taken from [Kaggle](https://kaggle.com). This dataset is used to build machine learning models that predict whether it will rain tomorrow, using data about the weather every day from 2007 to 2017. To download the data, click [here](data/weatherAUS.csv).
 

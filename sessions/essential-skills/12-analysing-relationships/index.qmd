@@ -7,7 +7,7 @@ format:
 
 This is the second in our series of sessions that builds the regression foundations. Here we will look at how to explore relationships in data, using both quantitative measures such as correlation and a range of visualisations methods.
 
-This session discusses what it means to analyse relationships between variables, what is possible with different types of variables (and how this links to the previous session that looked at [comparing samples](/sessions/11-comparing-samples)), and what these methods can and cannot tell us.
+This session discusses what it means to analyse relationships between variables, what is possible with different types of variables (and how this links to the previous session that looked at [comparing samples](/sessions/essential-skills/11-comparing-samples)), and what these methods can and cannot tell us.
 
 We will use the [**Palmer Penguins**](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-04-15/readme.md) dataset throughout this session, taken from the [TidyTuesday](https://github.com/rfordatascience/tidytuesday/) GitHub repository (originally from the [palmerpenguins](https://allisonhorst.github.io/palmerpenguins/) R package[^Datasets]). We will import the data directly from GitHub, but if you would prefer to download it instead, click <a href="https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-04-15/penguins.csv" download>here</a>.
 
@@ -17,7 +17,7 @@ And now a part of the Base R datasets package included as default in R installat
 
 ## Why Analyse Relationships?
 
-In the [first session](/sessions/11-comparing-samples) in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. We compared fatalities from car crashes between 4/20 and other days. But what if we wanted to examine how the number of fatalities changes as temperature increases or decreases? Or maybe we want to account for the number of cars on the road at different times of year? These questions require different tools.
+In the [first session](/sessions/essential-skills/11-comparing-samples) in the regression foundations series we considered how to compare samples, and what comparisons between groups can tell us. We compared fatalities from car crashes between 4/20 and other days. But what if we wanted to examine how the number of fatalities changes as temperature increases or decreases? Or maybe we want to account for the number of cars on the road at different times of year? These questions require different tools.
 
 ### From Categorical to Continuous
 

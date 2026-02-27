@@ -166,7 +166,7 @@ Notebook & Slides:
 <br>
 
 <ul >
-{{< fa brands github >}}[/NHS-South-Central-and-West/code-club](https://nhs-south-central-and-west.github.io/code-club/sessions/09-object-oriented-programming/)
+{{< fa brands github >}}[/NHS-South-Central-and-West/code-club](https://nhs-south-central-and-west.github.io/code-club/sessions/essential-skills/09-object-oriented-programming/)
 </ul>
 <br>
 

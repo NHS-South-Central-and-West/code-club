@@ -356,7 +356,7 @@ The options available for querying the data is determined by the way in which th
 
 Now for the code itself. As was mentioned in the section above on REST and GET requests, we need to import the `requests` library to make the GET request. We also need to import the `json` library, which decodes the JSON format, converting the JSON data types into Python data types. A table of these conversions can be found [here](https://docs.python.org/3/library/json.html#encoders-and-decoders).
 
-The example below has been placed inside a function. This isn't essential, but it can prove useful if you want to expand the function to take inputs that make it reusable and apply it to different extracts of the data. You will also see that placing the code inside a function becomes necessary when using Python **generators**, which is another topic [covered later on](/intermediate-skills-sessions/xx-generators/index.html) in our Intermediate Skills curriculum.
+The example below has been placed inside a function. This isn't essential, but it can prove useful if you want to expand the function to take inputs that make it reusable and apply it to different extracts of the data. You will also see that placing the code inside a function becomes necessary when using Python **generators**, which is another topic [covered later on](sessions/intermediate-skills/xx-generators/index.html) in our Intermediate Skills curriculum.
 
 ```{python}
 #| label: flood-data-function
@@ -431,7 +431,7 @@ They may not be stated explicitly, but you should assume that these limits exist
 
 If the API isn't subject to frequent changes, cache results locally so that you do not need to make repeated requests for the same data. Here's a [Geeks for Geeks tutorial](https://www.geeksforgeeks.org/python/how-to-implement-file-caching-in-python/) on different types of caching in Python to get you started. 
 
-If you intend to create your own web app that is pulling in data from other sources, it is likely that you will be using a particular web app framework, and these will provide their own tools for web caching. For example, we have introduced [Steamlit](/sessions/10-streamlit/index.html) in another tutorial and their overview of caching can be found [here](https://docs.streamlit.io/develop/concepts/architecture/caching). Another framework for creating web apps is [Flask](https://flask.palletsprojects.com/en/stable/) and a simple introduction to web caching using that framework can be found on [PyQuestHub](https://pyquesthub.com/implementing-web-caching-in-python-for-enhanced-performance).
+If you intend to create your own web app that is pulling in data from other sources, it is likely that you will be using a particular web app framework, and these will provide their own tools for web caching. For example, we have introduced [Steamlit](sessions/essential-skills/10-streamlit/index.html) in another tutorial and their overview of caching can be found [here](https://docs.streamlit.io/develop/concepts/architecture/caching). Another framework for creating web apps is [Flask](https://flask.palletsprojects.com/en/stable/) and a simple introduction to web caching using that framework can be found on [PyQuestHub](https://pyquesthub.com/implementing-web-caching-in-python-for-enhanced-performance).
 
 #### Avoid polling too aggressively
 
@@ -499,7 +499,7 @@ It is advisable that you read any Terms of Service applied to the use of an API.
 
 This is a package that was originally developed by Public Health England to make it easy to import data via the Fingertips API endpoint. It's an example of what the possibilities are, hopefully serving as inspiration for your own Python projects. It's also pretty useful, if you want to make use of Fingertips data yourself!
 
-We have created a walkthrough of using the `fingertips_py` package [here](/intermediate-skills-sessions/18-webscraping-apis/fingertips_py.html).
+We have created a walkthrough of using the `fingertips_py` package [here](sessions/intermediate-skills/18-webscraping-apis/fingertips_py.html).
 
 
 ## Exercises
