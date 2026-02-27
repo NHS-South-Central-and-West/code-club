@@ -6,7 +6,7 @@ format:
 execute:
     echo: false
 resources:
-    - ../data/glossary.csv
+    - data/glossary.csv
 ---
 
 This page will have a list of definitions for commonly used (and/or commonly misunderstood) terminology and acronyms relating to python or data analysis and manipulation in general.
@@ -21,7 +21,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # import .csv
-df = pl.read_csv('../data/glossary.csv')
+df = pl.read_csv('data/glossary.csv')
 
 
 # Column Widths for table.

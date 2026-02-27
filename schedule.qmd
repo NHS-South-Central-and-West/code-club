@@ -7,4 +7,4 @@ page-layout: full
 link to the Schedule becoming invalid. It is being left here in case anyone has bookmarked
 the invalid link -->
 
-<meta http-equiv="refresh" content="0; url=sessions/schedule.html" />
+<meta http-equiv="refresh" content="0; url=sessions/essential-skills/schedule.html" />
