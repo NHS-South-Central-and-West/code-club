@@ -499,7 +499,7 @@ It is advisable that you read any Terms of Service applied to the use of an API.
 
 This is a package that was originally developed by Public Health England to make it easy to import data via the Fingertips API endpoint. It's an example of what the possibilities are, hopefully serving as inspiration for your own Python projects. It's also pretty useful, if you want to make use of Fingertips data yourself!
 
-We have created a walkthrough of using the `fingertips_py` package [here](sessions/intermediate-skills/18-webscraping-apis/fingertips_py.html).
+We have created a walkthrough of using the `fingertips_py` package [here](fingertips_py.html).
 
 
 ## Exercises
