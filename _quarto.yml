@@ -113,6 +113,7 @@ website:
             - text: 20. Supervised Learning
               file: sessions/intermediate-skills/20-supervised-learning/index.qmd
             - text: 21. Machine Learning Landscape
+              file: sessions/intermediate-skills/21-machine-learning-landscape/index.qmd
             - text: 22. Machine Learning Workflow
         - section: Intermediate Python
           contents: 
