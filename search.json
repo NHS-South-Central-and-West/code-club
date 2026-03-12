@@ -1063,6 +1063,153 @@
     ]
   },
   {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#the-supervised-learning-requirement",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#the-supervised-learning-requirement",
+    "title": "The Machine Learning Landscape",
+    "section": "The Supervised Learning Requirement",
+    "text": "The Supervised Learning Requirement\n\nEverything we’ve done requires a target, a known outcome to train against.\n\nSurvived - Yes/No\nReadmitted - Yes/No\nLength of stay - 4.2 days\n\nBut what happens when you don’t have labels?\nAnd what if your data isn’t a table of rows and columns at all?"
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#theres-much-more-to-machine-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#theres-much-more-to-machine-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "There’s Much More to Machine Learning",
+    "text": "There’s Much More to Machine Learning\n\nSupervised learning is one tool in a larger toolkit.\nThe right tool depends on:\n\nQuestion\nData Type\nOutcome Type"
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#types-of-machine-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#types-of-machine-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "Types of Machine Learning",
+    "text": "Types of Machine Learning\n\nSupervised Learning - predict a labelled outcome\nUnsupervised Learning - find structure in unlabelled data\nRecommender Systems - predict what a user will want next\nTime Series Forecasting - predict future values from historical patterns\nDeep Learning - learn from complex, unstructured data (text, images, audio)\n\nNatural Language Processing (NLP)\nComputer Vision\nLarge Language Models (LLMs)\n\nReinforcement Learning - learn from actions and rewards\nThere is overlap between these different tpes of machine learning (and there are lots of other types too)."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#when-labels-dont-exist",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#when-labels-dont-exist",
+    "title": "The Machine Learning Landscape",
+    "section": "When Labels Don’t Exist",
+    "text": "When Labels Don’t Exist\n\nReal scenarios where there is no target column:\n\nYou have patient records with no outcome flagged, but want to know if there are distinct groups.\nYou have GP referral data and no one has defined what “high-need” looks like yet.\nYou have staff survey responses and want to find response patterns.\n\nYou are no longer trying to predict an outcome."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-unsupervised-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-unsupervised-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "What is Unsupervised Learning?",
+    "text": "What is Unsupervised Learning?\n\nUnsupervised Learning does not need a target variable.\nThe algorithm finds latent structure (groupings, patterns, relationships) in the features themselves.\nYou are not predicting an outcome; you are describing the data."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#types-of-unsupervised-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#types-of-unsupervised-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "Types of Unsupervised Learning",
+    "text": "Types of Unsupervised Learning\n\nClustering - group observations into clusters that are similar to each other and different from other clusters.\n\nK-means, hierarchical clustering, DBSCAN\n\nDimensionality reduction - find a lower-dimensional representation of the data that preserves its structure.\n\nPCA, t-SNE, UMAP"
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#clustering-in-healthcare",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#clustering-in-healthcare",
+    "title": "The Machine Learning Landscape",
+    "section": "Clustering in Healthcare",
+    "text": "Clustering in Healthcare\n\nThere are lots of examples where clustering in particular can be useful in healthcare.\n\nSegment patients by care needs - low-need, moderate, high-need, complex multimorbidity.\nGroup GP surgeries by demand profile - high-attender, stable, growing.\nIdentify similar hospitals for benchmarking.\n\nClusters emerge from the data - you don’t define them in advance."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-are-recommender-systems",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-are-recommender-systems",
+    "title": "The Machine Learning Landscape",
+    "section": "What Are Recommender Systems?",
+    "text": "What Are Recommender Systems?\n\nPredict what a user is likely to want, based on their behaviour and the behaviour of similar users.\nThis is a very common type of machine learning that everyone will have interacted with.\nThe technology behind Netflix recommendations, Amazon product suggestions, Spotify playlists.\nTwo main approaches:\n\nCollaborative filtering - users who liked X also liked Y\nContent-based filtering - recommend items similar to what you’ve already engaged with"
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#recommenders-in-healthcare",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#recommenders-in-healthcare",
+    "title": "The Machine Learning Landscape",
+    "section": "Recommenders in Healthcare",
+    "text": "Recommenders in Healthcare\n\nSurface relevant NICE guidelines based on a patient’s profile.\nMatch patients to clinical trials based on eligibility and prior enrolment patterns.\nStaff training recommendations based on role, grade, and learning history.\nRecommend clinical decision support resources to clinicians based on case type."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-time-series-forecasting",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-time-series-forecasting",
+    "title": "The Machine Learning Landscape",
+    "section": "What is Time Series Forecasting?",
+    "text": "What is Time Series Forecasting?\n\nTime series forecasting predicts future outcome values using (primarily) past outcome values.\nData indexed by time - A&E attendances by week, bed occupancy by day, prescribing volumes by month.\nA primary challenge is separating trend, seasonality, and noise from each other."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#common-approaches",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#common-approaches",
+    "title": "The Machine Learning Landscape",
+    "section": "Common Approaches",
+    "text": "Common Approaches\n\nTraditional, Statistical Methods - ARIMA, exponential smoothing\n\nWell-established, interpretable, good for single series\n\nMachine Learning Approaches - gradient boosting or neural networks applied to time-indexed features\n\nOften best on large collections of related series\n\nProphet - designed by Meta for demand forecasting, blending the traditional with the modern\n\nHandles seasonality and holiday effects simply\nRobust to missing data, trend shifts, and outliers\n\nNHS examples - elective recovery planning, workforce demand modelling, medicine supply forecasting."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-deep-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-deep-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "What is Deep Learning?",
+    "text": "What is Deep Learning?\n\nA class of machine learning models built from neural networks with many layers.\nEach layer learns progressively more abstract representations of the input.\nExcels where traditional methods struggle - raw text, images, audio, video.\nRequires much more data and compute than classical methods, but has transformed what’s possible."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#natural-language-processing",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#natural-language-processing",
+    "title": "The Machine Learning Landscape",
+    "section": "Natural Language Processing",
+    "text": "Natural Language Processing\n\nNatural Language Processing applies deep learning to text.\nCore tasks:\n\nClassification - is this feedback negative?\nNamed entity recognition - find names, entities, organistions etc. in free text\nSummarisation - condense a long, complex text to key points\n\nNHS examples - automated clinical coding, patient experience analysis, discharge summary review."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#computer-vision",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#computer-vision",
+    "title": "The Machine Learning Landscape",
+    "section": "Computer Vision",
+    "text": "Computer Vision\n\nComputer vision applies deep learning to image data.\nCore tasks:\n\nClassification - is this scan normal or abnormal?\nDetection - locate and flag an abnormality\nSegmentation - outline a tumour or organ boundary at the pixel level\n\nNHS examples - diabetic retinopathy screening, chest X-ray triage, skin lesion detection."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#large-language-models",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#large-language-models",
+    "title": "The Machine Learning Landscape",
+    "section": "Large Language Models",
+    "text": "Large Language Models\n\nLLMs (ChatGPT, Claude, Gemini) are deep learning models trained on vast amounts of text.\nThey learn to predict the next token and in doing so, develop broad language understanding and reasoning capability.\nBuilt on the transformer architecture, which processes entire sequences simultaneously using attention mechanisms.\nLLMs are not a separate category - they are the current frontier of NLP within deep learning."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#llms-in-healthcare",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#llms-in-healthcare",
+    "title": "The Machine Learning Landscape",
+    "section": "LLMs in Healthcare",
+    "text": "LLMs in Healthcare\n\nThere are lots of areas where LLMs could be usedd in healthcare.\n\nDrafting and summarising clinical correspondence.\nAnswering questions about guidelines and pathways.\nCoding clinical text to ICD-10 or SNOMED CT.\nPatient-facing chatbots and triage support.\n\nHowever, it’s important to recognise the risks involved with these tools too .\n\nHallucination risk, data governance, clinical liability - none of which are solved problems."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-reinforcement-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#what-is-reinforcement-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "What is Reinforcement Learning?",
+    "text": "What is Reinforcement Learning?\n\nAn agent learns by taking actions in an environment and receiving rewards or penalties.\nNot trained on a fixed dataset - learns through trial and error over many interactions.\nThe goal of reinforcement learning is to learn a policy (a decision rule) that maximises cumulative reward.\nThe technology behind AlphaGo, game-playing AI, and robotics (such as self-driving cars)."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#reinforcement-learning-in-healthcare",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#reinforcement-learning-in-healthcare",
+    "title": "The Machine Learning Landscape",
+    "section": "Reinforcement Learning in Healthcare",
+    "text": "Reinforcement Learning in Healthcare\n\nTreatment sequencing - which therapy to give next, given a patient’s response history.\nSepsis treatment protocols - learning dosing strategies from outcome data.\nAppointment and theatre scheduling optimisation.\nLess common than supervised or unsupervised methods, but it is a growing research area."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#match-the-method-to-the-question",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#match-the-method-to-the-question",
+    "title": "The Machine Learning Landscape",
+    "section": "Match the Method to the Question",
+    "text": "Match the Method to the Question\n\n\n\n\n\n\n\n\n\nQuestion\nData type\nMethod\n\n\n\n\nPredict an outcome\nTabular\nSupervised learning\n\n\nFind hidden groups\nTabular, unlabelled\nUnsupervised learning\n\n\nWhat will users want?\nInteraction history\nRecommender systems\n\n\nWhat will happen next?\nTime-indexed\nTime series forecasting\n\n\nWhat does this text mean?\nText\nNLP / LLMs\n\n\nWhat’s in this image?\nImages\nComputer vision\n\n\nWhat’s the best action?\nSequential decisions\nReinforcement learning"
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#summary",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#summary",
+    "title": "The Machine Learning Landscape",
+    "section": "Summary",
+    "text": "Summary\n\nThere is more to machine learning than supervised learning.\nMachine learning can be applied to a wide range of questions, data types, and outcome types.\nKnowing what is possible is half the battle!\nIdentify the question first, and then the data/outcome type. You can then pick the method you need."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#thank-you",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/slides.html#thank-you",
+    "title": "The Machine Learning Landscape",
+    "section": "Thank You!",
+    "text": "Thank You!\nContact:\n scwcsu.analytics.specialist at nhs dot net\nCode & Slides:\n /NHS-South-Central-and-West/code-club\n… And don’t forget to give us your feedback."
+  },
+  {
     "objectID": "sessions/intermediate-skills/18-webscraping-apis/fingertips_py.html",
     "href": "sessions/intermediate-skills/18-webscraping-apis/fingertips_py.html",
     "title": "Walkthrough of fingertips_py",
@@ -1194,6 +1341,116 @@
     "crumbs": [
       "Intermediate Python",
       "18. Webscraping and APIs"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html",
+    "title": "The Machine Learning Landscape",
+    "section": "",
+    "text": "This is the third session in our machine learning series. The first two sessions focused on supervised learning: training models on labelled data to predict a known target, evaluating those predictions on a held-out test set, and understanding why different algorithms behave differently. That framework is powerful and widely applicable, but it represents only one corner of what machine learning can do. This session zooms out.\nThe goal is to build a clearer picture of the broader machine learning landscape; what other types of ML exist, what kinds of problems they address, and how they differ from what we’ve covered so far.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#slides",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#slides",
+    "title": "The Machine Learning Landscape",
+    "section": "Slides",
+    "text": "Slides\nUse the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, follow this link.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#beyond-supervised-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#beyond-supervised-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "Beyond Supervised Learning",
+    "text": "Beyond Supervised Learning\nSupervised learning generalises well across many practical problems, but it has a prerequisite that limits where it can be applied: you need labelled training data. Someone must have recorded not just the inputs but the outcomes for a large enough sample that a model can learn from them. That’s often achievable, but it’s not always available, and even when it is, prediction is not always the right framing for the question being asked.\nThere is a lot more to machine learning than just the structured supervised learning that we have covered so far. Different problems call for different approaches, and understanding what’s available — even at a high level — helps you frame analytical questions more effectively.\n\nTypes of Machine Learning\n\nSupervised Learning - predict a labelled outcome\nUnsupervised Learning - find structure in unlabelled data\nRecommender Systems - predict what a user will want next\nTime Series Forecasting - predict future values from historical patterns\nDeep Learning - learn from complex, unstructured data (text, images, audio)\n\nNatural Language Processing (NLP)\nComputer Vision\nLarge Language Models (LLMs)\n\nReinforcement Learning - learn from actions and rewards",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#unsupervised-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#unsupervised-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "Unsupervised Learning",
+    "text": "Unsupervised Learning\n\nThe Core Idea\nUnsupervised learning removes the target variable entirely. Rather than predicting an outcome, the goal is to find structure in the features themselves: clusters of similar observations, lower-dimensional representations that reveal hidden patterns, or anomalies that stand out from the rest of the data. The algorithm is given no labels, instead learning solely from the geometry of the data.\nAn unsupervised task is more descriptive than predictive. You are not asking “what will happen?”, you are asking “what’s in here?”\n\n\nTypes of Unsupervised Learning\nThe two main unsupervised tasks are clustering and dimensionality reduction:\n\nClustering groups observations into sets that are similar internally and distinct from each other. Common algorithms include K-means, hierarchical clustering, and DBSCAN. Clusters emerge from the data. You do not define them in advance.\n\nIn healthcare, clustering is useful wherever distinct patient or service groups are suspected but not yet formally defined. For example, segmenting patients by care complexity, grouping GP surgeries by demand profile, or identifying comparable hospitals for benchmarking.\n\nDimensionality reduction finds a lower-dimensional representation of the data while preserving as much structure as possible. Common methods include PCA, t-SNE, and UMAP.\n\nThis is useful when datasets have many features, making them difficult to visualise or model directly. Dimensionality reduction compresses those features into a smaller set of components that capture most of the meaningful variation.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#recommender-systems",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#recommender-systems",
+    "title": "The Machine Learning Landscape",
+    "section": "Recommender Systems",
+    "text": "Recommender Systems\nRecommender systems are built to predict preferences rather than outcomes. They work from interaction history, such as the products a user bought, articles they read, or treatments a clinician selected. They learn patterns of similarity between users or items to surface relevant suggestions.\nRecommender systems are the technology behind Netflix recommendations, Amazon product suggestions, and Spotify playlists, and they are one of the most common types of machine learning.\nThere are two main approaches:\n\nCollaborative filtering identifies users with similar behaviour and recommends what those users engaged with (for example, “users who liked X also liked Y”).\nContent-based filtering recommends items similar to those a user has already engaged with, based on the properties of the items themselves.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#time-series-forecasting",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#time-series-forecasting",
+    "title": "The Machine Learning Landscape",
+    "section": "Time Series Forecasting",
+    "text": "Time Series Forecasting\n\nWhat Makes Time Series Different\nTime series forecasting handles data indexed by time: A&E attendances by week, bed occupancy by day, prescribing volumes by month. The goal is to forecast future values from historical patterns.\nWhat makes this different from standard supervised learning is the need to separate three components from one another: trend (the long-run direction), seasonality (repeating patterns such as winter pressures or weekly cycles), and noise (random variation).\nGetting this decomposition right is more important than algorithm choice in most time series problems.\n\n\nApproaches\nStatistical methods like ARIMA and exponential smoothing have a long track record for single series and are well understood and interpretable. Prophet, developed at Meta, simplifies seasonal decomposition and handles missing data, trend shifts, and outliers robustly. It was designed specifically for demand forecasting contexts and is widely used in practice. ML-based approaches using gradient boosting or neural networks often outperform classical methods when applied to large collections of related series, where shared patterns across series can be exploited.\nNHS applications include elective recovery planning, workforce demand modelling, and medicine supply forecasting.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#deep-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#deep-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "Deep Learning",
+    "text": "Deep Learning\n\nWhat is Deep Learning?\nDeep learning is a class of machine learning built from neural networks with many layers. Each layer learns progressively more abstract representations of the input. Early layers might detect simple patterns, deeper layers build on those to detect more complex structure.\nTraditional machine learning excels on structured tabular data, but deep learning excels where inputs are complex and unstructured, such as text, images, audio, video.\n\n\nNatural Language Processing\nNatural language processing (NLP) applies deep learning to text: clinical notes, discharge summaries, referral letters, patient feedback. Core tasks include classification (is this feedback negative?), named entity recognition (find drug names, diagnoses, or procedures in free text), and summarisation (condense a long clinical note to key points). NHS applications include automated clinical coding, patient experience analysis, and discharge summary review.\n\n\nComputer Vision\nComputer vision applies deep learning to image data: X-rays, histology slides, retinal scans, ECG traces. Core tasks include classification (is this scan normal or abnormal?), detection (locating and flagging an abnormality), and segmentation (outlining a tumour or organ boundary at the pixel level). Several NICE-approved clinical AI tools now exist in this space, including tools for diabetic retinopathy screening, chest X-ray triage, and skin lesion detection.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#reinforcement-learning",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#reinforcement-learning",
+    "title": "The Machine Learning Landscape",
+    "section": "Reinforcement Learning",
+    "text": "Reinforcement Learning\nReinforcement learning works differently from all of the above. Rather than learning from a fixed dataset, an agent learns by taking actions in an environment and receiving rewards or penalties, gradually discovering a policy (a decision rule) that maximises cumulative reward over time. It is the technology behind AlphaGo and robotics.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#which-tool-when",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#which-tool-when",
+    "title": "The Machine Learning Landscape",
+    "section": "Which Tool When?",
+    "text": "Which Tool When?\nKnowing what is possible is only useful if you can match the method to the problem. The choice follows from three things: the question you are asking, the type of data you have, and the type of output you need.\n\n\n\n\n\n\n\n\nQuestion\nData type\nMethod\n\n\n\n\nPredict an outcome\nTabular\nSupervised learning\n\n\nFind hidden groups\nTabular, unlabelled\nUnsupervised learning\n\n\nWhat will users want?\nInteraction history\nRecommender systems\n\n\nWhat will happen next?\nTime-indexed\nTime series forecasting\n\n\nWhat does this text mean?\nText\nNLP / LLMs\n\n\nWhat’s in this image?\nImages\nComputer vision\n\n\nWhat’s the best action?\nSequential decisions\nReinforcement learning",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#summary",
+    "href": "sessions/intermediate-skills/21-machine-learning-landscape/index.html#summary",
+    "title": "The Machine Learning Landscape",
+    "section": "Summary",
+    "text": "Summary\nSupervised learning is one type of machine learning, well suited to prediction problems where labelled training data is available. The broader landscape includes unsupervised learning for structure discovery, recommender systems for preference prediction, time series methods for forecasting, deep learning for unstructured data (text, images), and reinforcement learning for sequential decision problems.\nThe right approach depends on the question, the data type, and the practical constraints. In many cases, the right answer is a simpler analytical method rather than machine at all. The most important skill is not knowing how to train a gradient boosting model, it is knowing which tool to use and why.",
+    "crumbs": [
+      "Machine Learning",
+      "21. Machine Learning Landscape"
     ]
   },
   {
