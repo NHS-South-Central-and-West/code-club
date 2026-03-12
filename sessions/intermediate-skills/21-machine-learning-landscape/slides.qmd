@@ -1,0 +1,221 @@
+---
+title: The Machine Learning Landscape
+subtitle: (Almost) Anything is Possible
+footer: '**SAT //** ML Landscape **//** March 2026'
+format: revealjs
+---
+
+# Beyond Supervised Learning {data-background-color="#425563"}
+
+Not All Problems are Supervised, Not All Data Structured
+
+## The Supervised Learning Requirement {.center}
+
+- Everything we've done requires a **target**, a known outcome to train against.
+  - Survived - Yes/No
+  - Readmitted - Yes/No
+  - Length of stay - 4.2 days
+- But what happens when you don't have labels?
+- And what if your data isn't a table of rows and columns at all?
+
+## There's Much More to Machine Learning {.center}
+
+- Supervised learning is one tool in a larger toolkit.
+- The right tool depends on:
+  - Question
+  - Data Type
+  - Outcome Type
+
+# What Else is Possible? {data-background-color="#425563"}
+
+An Overview of the Toolkit
+
+## Types of Machine Learning {.center}
+
+- **Supervised Learning** - predict a labelled outcome
+- **Unsupervised Learning** - find structure in unlabelled data
+- **Recommender Systems** - predict what a user will want next
+- **Time Series Forecasting** - predict future values from historical patterns
+- **Deep Learning** - learn from complex, unstructured data (text, images, audio)
+  - Natural Language Processing (NLP)
+  - Computer Vision
+  - Large Language Models (LLMs)
+- **Reinforcement Learning** - learn from actions and rewards
+- There is overlap between these different tpes of machine learning (and there are lots of other types too).
+
+# Unsupervised Learning {data-background-color="#425563"}
+
+Finding Structure Without Labels
+
+## When Labels Don't Exist {.center}
+
+- Real scenarios where there is no target column:
+  - You have patient records with no outcome flagged, but want to know if there are distinct groups.
+  - You have GP referral data and no one has defined what "high-need" looks like yet.
+  - You have staff survey responses and want to find response patterns.
+- You are no longer trying to predict an outcome.
+
+## What is Unsupervised Learning? {.center}
+
+- Unsupervised Learning does not need a target variable.
+- The algorithm finds latent structure (groupings, patterns, relationships) in the features themselves.
+- You are not predicting an outcome; you are **describing the data**.
+
+## Types of Unsupervised Learning {.center}
+
+- **Clustering** - group observations into clusters that are similar to each other and different from other clusters.
+  - K-means, hierarchical clustering, DBSCAN
+- **Dimensionality reduction** - find a lower-dimensional representation of the data that preserves its structure.
+  - PCA, t-SNE, UMAP
+
+## Clustering in Healthcare {.center}
+
+- There are lots of examples where clustering in particular can be useful in healthcare.
+  - Segment patients by care needs - low-need, moderate, high-need, complex multimorbidity.
+  - Group GP surgeries by demand profile - high-attender, stable, growing.
+  - Identify similar hospitals for benchmarking.
+- Clusters emerge from the data - you don't define them in advance.
+
+# Recommender Systems {data-background-color="#425563"}
+
+Predicting User Preferences
+
+## What Are Recommender Systems? {.center}
+
+- Predict what a user is likely to want, based on their behaviour and the behaviour of similar users.
+- This is a very common type of machine learning that everyone will have interacted with.
+- The technology behind Netflix recommendations, Amazon product suggestions, Spotify playlists.
+- Two main approaches:
+  - **Collaborative filtering** - users who liked X also liked Y
+  - **Content-based filtering** - recommend items similar to what you've already engaged with
+
+## Recommenders in Healthcare {.center}
+
+- Surface relevant NICE guidelines based on a patient's profile.
+- Match patients to clinical trials based on eligibility and prior enrolment patterns.
+- Staff training recommendations based on role, grade, and learning history.
+- Recommend clinical decision support resources to clinicians based on case type.
+
+# Time Series Forecasting {data-background-color="#425563"}
+
+Predicting the Future from the Past
+
+## What is Time Series Forecasting? {.center}
+
+- Time series forecasting predicts future outcome values using (primarily) past outcome values.
+- Data indexed by time - A&E attendances by week, bed occupancy by day, prescribing volumes by month.
+- A primary challenge is separating **trend**, **seasonality**, and **noise** from each other.
+
+## Common Approaches {.center}
+
+- **Traditional, Statistical Methods** - ARIMA, exponential smoothing
+  - Well-established, interpretable, good for single series
+- **Machine Learning Approaches** - gradient boosting or neural networks applied to time-indexed features
+  - Often best on large collections of related series
+- [**Prophet**](https://facebook.github.io/prophet/) - designed by Meta for demand forecasting, blending the traditional with the modern
+  - Handles seasonality and holiday effects simply
+  - Robust to missing data, trend shifts, and outliers
+- NHS examples - elective recovery planning, workforce demand modelling, medicine supply forecasting.
+
+# Deep Learning {data-background-color="#425563"}
+
+Learning from Complex Data
+
+## What is Deep Learning? {.center}
+
+- A class of machine learning models built from **neural networks** with many layers.
+- Each layer learns progressively more abstract representations of the input.
+- Excels where traditional methods struggle - raw text, images, audio, video.
+- Requires **much more data** and **compute** than classical methods, but has transformed what's possible.
+
+## Natural Language Processing {.center}
+
+- Natural Language Processing applies deep learning to text.
+- Core tasks:
+  - **Classification** - is this feedback negative?
+  - **Named entity recognition** - find names, entities, organistions etc. in free text
+  - **Summarisation** - condense a long, complex text to key points
+- NHS examples - automated clinical coding, patient experience analysis, discharge summary review.
+
+## Computer Vision {.center}
+
+- Computer vision applies deep learning to image data.
+- Core tasks:
+  - **Classification** - is this scan normal or abnormal?
+  - **Detection** - locate and flag an abnormality
+  - **Segmentation** - outline a tumour or organ boundary at the pixel level
+- NHS examples - diabetic retinopathy screening, chest X-ray triage, skin lesion detection.
+
+## Large Language Models {.center}
+
+- LLMs (ChatGPT, Claude, Gemini) are deep learning models trained on vast amounts of text.
+- They learn to predict the next token and in doing so, develop broad language understanding and reasoning capability.
+- Built on the **transformer** architecture, which processes entire sequences simultaneously using attention mechanisms.
+- LLMs are not a separate category - they are the current frontier of NLP within deep learning.
+
+## LLMs in Healthcare {.center}
+
+- There are lots of areas where LLMs could be usedd in healthcare. 
+  - Drafting and summarising clinical correspondence.
+  - Answering questions about guidelines and pathways.
+  - Coding clinical text to ICD-10 or SNOMED CT.
+  - Patient-facing chatbots and triage support.
+- However, it's important to recognise the risks involved with these tools too . 
+  - Hallucination risk, data governance, clinical liability - none of which are solved problems.
+
+# Reinforcement Learning {data-background-color="#425563"}
+
+Learning from Actions and Rewards
+
+## What is Reinforcement Learning? {.center}
+
+- An **agent** learns by taking actions in an environment and receiving rewards or penalties.
+- Not trained on a fixed dataset - learns through trial and error over many interactions.
+- The goal of reinforcement learning is to learn a **policy** (a decision rule) that maximises cumulative reward.
+- The technology behind AlphaGo, game-playing AI, and robotics (such as self-driving cars).
+
+## Reinforcement Learning in Healthcare {.center}
+
+- Treatment sequencing - which therapy to give next, given a patient's response history.
+- Sepsis treatment protocols - learning dosing strategies from outcome data.
+- Appointment and theatre scheduling optimisation.
+- Less common than supervised or unsupervised methods, but it is a growing research area.
+
+# Which Tool When? {data-background-color="#425563"}
+
+A Decision Framework
+
+## Match the Method to the Question {.center}
+
+::: {style="font-size: 0.75em;"}
+
+| Question                   | Data type            | Method                  |
+|----------------------------|----------------------|-------------------------|
+| Predict an outcome         | Tabular              | Supervised learning     |
+| Find hidden groups         | Tabular, unlabelled  | Unsupervised learning   |
+| What will users want?      | Interaction history  | Recommender systems     |
+| What will happen next?     | Time-indexed         | Time series forecasting |
+| What does this text mean?  | Text                 | NLP / LLMs              |
+| What's in this image?      | Images               | Computer vision         |
+| What's the best action?    | Sequential decisions | Reinforcement learning  |
+
+:::
+
+## Summary {.center}
+
+- There is more to machine learning than supervised learning.
+- Machine learning can be applied to a wide range of questions, data types, and outcome types.
+- Knowing what is possible is half the battle!
+- Identify the question first, and then the data/outcome type. You can then pick the method you need.
+
+## Thank You! {.center}
+
+Contact:
+
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+
+Code & Slides:
+
+{{< fa brands github >}} [/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
