@@ -1,0 +1,119 @@
+---
+title: The Machine Learning Landscape
+format:
+  html: default
+  ipynb: default
+---
+
+This is the third session in our machine learning series. The first two sessions focused on supervised learning: training models on labelled data to predict a known target, evaluating those predictions on a held-out test set, and understanding why different algorithms behave differently. That framework is powerful and widely applicable, but it represents only one corner of what machine learning can do. This session zooms out.
+
+The goal is to build a clearer picture of the broader machine learning landscape; what other types of ML exist, what kinds of problems they address, and how they differ from what we've covered so far.
+
+## Slides
+
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
+
+<iframe src="slides.html" height="500" width="100%"></iframe>
+
+## Beyond Supervised Learning
+
+Supervised learning generalises well across many practical problems, but it has a prerequisite that limits where it can be applied: you need labelled training data. Someone must have recorded not just the inputs but the outcomes for a large enough sample that a model can learn from them. That's often achievable, but it's not always available, and even when it is, prediction is not always the right framing for the question being asked.
+
+There is a lot more to machine learning than just the structured supervised learning that we have covered so far. Different problems call for different approaches, and understanding what's available — even at a high level — helps you frame analytical questions more effectively.
+
+### Types of Machine Learning
+
+- **Supervised Learning** - predict a labelled outcome
+- **Unsupervised Learning** - find structure in unlabelled data
+- **Recommender Systems** - predict what a user will want next
+- **Time Series Forecasting** - predict future values from historical patterns
+- **Deep Learning** - learn from complex, unstructured data (text, images, audio)
+  - Natural Language Processing (NLP)
+  - Computer Vision
+  - Large Language Models (LLMs)
+- **Reinforcement Learning** - learn from actions and rewards
+
+## Unsupervised Learning
+
+### The Core Idea
+
+Unsupervised learning removes the target variable entirely. Rather than predicting an outcome, the goal is to find structure in the features themselves: clusters of similar observations, lower-dimensional representations that reveal hidden patterns, or anomalies that stand out from the rest of the data. The algorithm is given no labels, instead learning solely from the geometry of the data.
+
+An unsupervised task is more descriptive than predictive. You are not asking "what will happen?", you are asking "what's in here?"
+
+### Types of Unsupervised Learning
+
+The two main unsupervised tasks are clustering and dimensionality reduction:
+
+- **Clustering** groups observations into sets that are similar internally and distinct from each other. Common algorithms include K-means, hierarchical clustering, and DBSCAN. Clusters emerge from the data. You do not define them in advance.
+  - In healthcare, clustering is useful wherever distinct patient or service groups are suspected but not yet formally defined. For example, segmenting patients by care complexity, grouping GP surgeries by demand profile, or identifying comparable hospitals for benchmarking. 
+- **Dimensionality reduction** finds a lower-dimensional representation of the data while preserving as much structure as possible. Common methods include PCA, t-SNE, and UMAP.
+  - This is useful when datasets have many features, making them difficult to visualise or model directly. Dimensionality reduction compresses those features into a smaller set of components that capture most of the meaningful variation.
+
+## Recommender Systems
+
+Recommender systems are built to predict preferences rather than outcomes. They work from interaction history, such as the products a user bought, articles they read, or treatments a clinician selected. They learn patterns of similarity between users or items to surface relevant suggestions.
+
+Recommender systems are the technology behind Netflix recommendations, Amazon product suggestions, and Spotify playlists, and they are one of the most common types of machine learning.
+
+There are two main approaches:
+
+- Collaborative filtering identifies users with similar behaviour and recommends what those users engaged with (for example, "users who liked X also liked Y").
+- Content-based filtering recommends items similar to those a user has already engaged with, based on the properties of the items themselves.
+
+## Time Series Forecasting
+
+### What Makes Time Series Different
+
+Time series forecasting handles data indexed by time: A&E attendances by week, bed occupancy by day, prescribing volumes by month. The goal is to forecast future values from historical patterns. 
+
+What makes this different from standard supervised learning is the need to separate three components from one another: trend (the long-run direction), seasonality (repeating patterns such as winter pressures or weekly cycles), and noise (random variation).
+
+Getting this decomposition right is more important than algorithm choice in most time series problems.
+
+### Approaches
+
+Statistical methods like ARIMA and exponential smoothing have a long track record for single series and are well understood and interpretable. Prophet, developed at Meta, simplifies seasonal decomposition and handles missing data, trend shifts, and outliers robustly. It was designed specifically for demand forecasting contexts and is widely used in practice. ML-based approaches using gradient boosting or neural networks often outperform classical methods when applied to large collections of related series, where shared patterns across series can be exploited.
+
+NHS applications include elective recovery planning, workforce demand modelling, and medicine supply forecasting.
+
+## Deep Learning
+
+### What is Deep Learning?
+
+Deep learning is a class of machine learning built from neural networks with many layers. Each layer learns progressively more abstract representations of the input. Early layers might detect simple patterns, deeper layers build on those to detect more complex structure. 
+
+Traditional machine learning excels on structured tabular data, but deep learning excels where inputs are complex and unstructured, such as text, images, audio, video.
+
+### Natural Language Processing
+
+Natural language processing (NLP) applies deep learning to text: clinical notes, discharge summaries, referral letters, patient feedback. Core tasks include classification (is this feedback negative?), named entity recognition (find drug names, diagnoses, or procedures in free text), and summarisation (condense a long clinical note to key points). NHS applications include automated clinical coding, patient experience analysis, and discharge summary review.
+
+### Computer Vision
+
+Computer vision applies deep learning to image data: X-rays, histology slides, retinal scans, ECG traces. Core tasks include classification (is this scan normal or abnormal?), detection (locating and flagging an abnormality), and segmentation (outlining a tumour or organ boundary at the pixel level). Several NICE-approved clinical AI tools now exist in this space, including tools for diabetic retinopathy screening, chest X-ray triage, and skin lesion detection.
+
+## Reinforcement Learning
+
+Reinforcement learning works differently from all of the above. Rather than learning from a fixed dataset, an agent learns by taking actions in an environment and receiving rewards or penalties, gradually discovering a policy (a decision rule) that maximises cumulative reward over time. It is the technology behind AlphaGo and robotics. 
+
+## Which Tool When?
+
+Knowing what is possible is only useful if you can match the method to the problem. The choice follows from three things: the question you are asking, the type of data you have, and the type of output you need.
+
+
+| Question                   | Data type            | Method                  |
+|----------------------------|----------------------|-------------------------|
+| Predict an outcome         | Tabular              | Supervised learning     |
+| Find hidden groups         | Tabular, unlabelled  | Unsupervised learning   |
+| What will users want?      | Interaction history  | Recommender systems     |
+| What will happen next?     | Time-indexed         | Time series forecasting |
+| What does this text mean?  | Text                 | NLP / LLMs              |
+| What's in this image?      | Images               | Computer vision         |
+| What's the best action?    | Sequential decisions | Reinforcement learning  |
+
+## Summary
+
+Supervised learning is one type of machine learning, well suited to prediction problems where labelled training data is available. The broader landscape includes unsupervised learning for structure discovery, recommender systems for preference prediction, time series methods for forecasting, deep learning for unstructured data (text, images), and reinforcement learning for sequential decision problems.
+
+The right approach depends on the question, the data type, and the practical constraints. In many cases, the right answer is a simpler analytical method rather than machine at all. The most important skill is not knowing how to train a gradient boosting model, it is knowing which tool to use and why.
