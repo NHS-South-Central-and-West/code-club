@@ -1,0 +1,129 @@
+---
+title: "Machine Learning Workflow"
+format:
+  html: default
+  ipynb: default
+---
+
+This is the final session in our machine learning series. This session shifts attention to the workflow itself, showing what an end-to-end workflow actually looks like from problem definition through to deployment.
+
+We will use the Titanic dataset again, for familiarity, but the goal here is not the model, it is the process. We will learn about feature engineering, cross-validation, pipelines, and hyperparameter tuning.
+
+## Slides
+
+Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, [follow this link](slides.html){target="_blank"}.
+
+<iframe src="slides.html" height="500" width="100%"></iframe>
+
+## The Full Workflow
+
+A complete machine learning project has six stages: 
+
+1. **Problem definition** - what are you actually trying to predict, and why?
+2. **Data** - what do you have, what's missing, what needs fixing?
+3. **Feature engineering** - transforming raw data into useful model inputs
+4. **Modelling** - selecting and training a model
+5. **Validation** - honestly evaluating whether it works
+6. **Deployment** - putting the model to use and keeping it working
+
+Many tutorials focus almost entirely on modelling. In practice, data preparation and feature engineering account for 60–80% of project time. Model training is the smallest part of the work. The sessions so far have covered data preparation and modelling in isolation. This session puts them together in the right order, with the right safeguards.
+
+## Problem Definition
+
+A baseline estimate is essential before modelling. If 62% of passengers did not survive, a model that always predicts "did not survive" achieves 62% accuracy while being completely useless. Any model we build must outperform this to demonstrate it has learned something.
+
+## Setup
+
+```{python}
+#| label: setup
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+from sklearn.dummy import DummyClassifier
+
+np.random.seed(42)
+```
+
+## Load and Explore
+
+```{python}
+#| label: load-data
+
+df = sns.load_dataset('titanic')
+
+print(f"Shape: {df.shape}")
+print(f"\nSurvival rate: {df['survived'].mean():.1%}")
+print(f"\nMissing values:\n{df.isnull().sum()[df.isnull().sum() > 0]}")
+```
+
+Age has a meaningful number of missing values. Deck is almost entirely missing and not worth using. Embarked has two missing values, which is negligible but needs handling.
+
+## Feature Engineering
+
+In previous sessions, features were prepared with a function applied to the train and test data. Here we will be more deliberate, to demonstrate why each transformation is carried out and what information each feature carries.
+
+```{python}
+#| label: feature-engineering
+
+# select the columns we want to work with
+df = df[['survived', 'pclass', 'sex', 'age', 'sibsp', 'parch', 'fare', 'alone', 'embark_town']].copy()
+
+# encode sex as a binary integer
+df['sex'] = (df['sex'] == 'female').astype(int)
+
+# create dummy variables for embark town
+df['embark_town'] = df['embark_town'].str.lower()
+df = pd.get_dummies(df, columns=['embark_town'], prefix="embark")
+
+df.head()
+```
+
+Age and fare still have missing values. These will be handled inside a Pipeline rather than here, the reason for this is explained below.
+
+## Train-Test Split
+
+The split comes before any imputation or scaling. This is deliberate. Preprocessing steps must be fit only on training data, never on the full dataset.
+
+```{python}
+#| label: train-test-split
+
+X = df.drop(columns='survived')
+y = df['survived']
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+print(f"Training set: {X_train.shape[0]} rows")
+print(f"Test set:     {X_test.shape[0]} rows")
+```
+
+## Baseline Performance
+
+```{python}
+#| label: baseline-model
+
+dummy_clf = DummyClassifier(strategy='most_frequent')
+dummy_clf.fit(X_train, y_train)
+baseline_accuracy = accuracy_score(y_test, dummy_clf.predict(X_test))
+print(f"Baseline accuracy: {baseline_accuracy:.1%}")
+```
+
+## Building a Pipeline
+
+## Cross-Validation
+
+## Hyperparameter Tuning
+
+## Final Evaluation
+
+## Deployment
+
+## Where Next?
+
+## Summary
