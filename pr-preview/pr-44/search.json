@@ -1001,7 +1001,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#setup",
     "title": "Machine Learning Workflow",
     "section": "Setup",
-    "text": "Setup\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.metrics import accuracy_score\nfrom sklearn.dummy import DummyClassifier\n\nnp.random.seed(42)",
+    "text": "Setup\n\nimport numpy as np\nimport pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nfrom sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV\nfrom sklearn.metrics import accuracy_score, classification_report\nfrom sklearn.dummy import DummyClassifier\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.impute import SimpleImputer\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.ensemble import RandomForestClassifier\n\nnp.random.seed(42)",
     "crumbs": [
       "Machine Learning",
       "22. Machine Learning Workflow"
@@ -1030,22 +1030,22 @@
     ]
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#train-test-split",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#train-test-split",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#traintest-split",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#traintest-split",
     "title": "Machine Learning Workflow",
-    "section": "Train-Test Split",
-    "text": "Train-Test Split\nThe split comes before any imputation or scaling. This is deliberate. Preprocessing steps must be fit only on training data, never on the full dataset.\n\nX = df.drop(columns='survived')\ny = df['survived']\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42, stratify=y\n)\n\nprint(f\"Training set: {X_train.shape[0]} rows\")\nprint(f\"Test set:     {X_test.shape[0]} rows\")\n\nTraining set: 712 rows\nTest set:     179 rows",
+    "section": "Train/Test Split",
+    "text": "Train/Test Split\nThe split comes before any imputation or scaling. This is deliberate. Preprocessing steps must be fit only on training data, never on the full dataset.\n\nX = df.drop(columns='survived')\ny = df['survived']\n\nX_train, X_test, y_train, y_test = train_test_split(\n    X, y, test_size=0.2, random_state=42, stratify=y\n)\n\nprint(f\"Training set: {X_train.shape[0]} rows\")\nprint(f\"Test set:     {X_test.shape[0]} rows\")\n\nTraining set: 712 rows\nTest set:     179 rows",
     "crumbs": [
       "Machine Learning",
       "22. Machine Learning Workflow"
     ]
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#baseline-performance",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#baseline-performance",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#baseline-model",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#baseline-model",
     "title": "Machine Learning Workflow",
-    "section": "Baseline Performance",
-    "text": "Baseline Performance\n\ndummy_clf = DummyClassifier(strategy='most_frequent')\ndummy_clf.fit(X_train, y_train)\nbaseline_accuracy = accuracy_score(y_test, dummy_clf.predict(X_test))\nprint(f\"Baseline accuracy: {baseline_accuracy:.1%}\")\n\nBaseline accuracy: 61.5%",
+    "section": "Baseline Model",
+    "text": "Baseline Model\n\ndummy_clf = DummyClassifier(strategy='most_frequent')\ndummy_clf.fit(X_train, y_train)\nbaseline_accuracy = accuracy_score(y_test, dummy_clf.predict(X_test))\nprint(f\"Baseline accuracy: {baseline_accuracy:.1%}\")\n\nBaseline accuracy: 61.5%",
     "crumbs": [
       "Machine Learning",
       "22. Machine Learning Workflow"
@@ -1056,7 +1056,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#building-a-pipeline",
     "title": "Machine Learning Workflow",
     "section": "Building a Pipeline",
-    "text": "Building a Pipeline",
+    "text": "Building a Pipeline\n\npipe = Pipeline([\n    # fill missing age and fare with training medians\n    ('imputer', SimpleImputer(strategy='median')),\n    # scale all features to zero mean, unit variance\n    ('scaler', StandardScaler()),\n    ('model', RandomForestClassifier(random_state=42))\n])",
     "crumbs": [
       "Machine Learning",
       "22. Machine Learning Workflow"
@@ -1067,7 +1067,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#cross-validation",
     "title": "Machine Learning Workflow",
     "section": "Cross-Validation",
-    "text": "Cross-Validation",
+    "text": "Cross-Validation\n\ncv_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='accuracy')\n\nprint(f\"Cross-validated accuracy scores: {cv_scores.round(2)}\")\nprint(f\"Mean: {cv_scores.mean():.2f}  (+/- {cv_scores.std():.2f})\")\n\nCross-validated accuracy scores: [0.79 0.71 0.82 0.85 0.81]\nMean: 0.80  (+/- 0.05)",
     "crumbs": [
       "Machine Learning",
       "22. Machine Learning Workflow"
@@ -1078,7 +1078,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#hyperparameter-tuning",
     "title": "Machine Learning Workflow",
     "section": "Hyperparameter Tuning",
-    "text": "Hyperparameter Tuning",
+    "text": "Hyperparameter Tuning\n\nparam_grid = {\n    'model__n_estimators': [100, 300],\n    'model__max_depth': [3, 5, None],\n    'model__min_samples_leaf': [1, 5],\n}\n\ngrid_search = GridSearchCV(\n    pipe,\n    param_grid,\n    cv=5,\n    scoring='accuracy'\n)\n\ngrid_search.fit(X_train, y_train)\n\nprint(f\"Best parameters:  {grid_search.best_params_}\")\nprint(f\"Best CV accuracy: {grid_search.best_score_:.2f}\")\n\nBest parameters:  {'model__max_depth': 3, 'model__min_samples_leaf': 1, 'model__n_estimators': 100}\nBest CV accuracy: 0.84",
     "crumbs": [
       "Machine Learning",
       "22. Machine Learning Workflow"
@@ -1089,7 +1089,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/index.html#final-evaluation",
     "title": "Machine Learning Workflow",
     "section": "Final Evaluation",
-    "text": "Final Evaluation",
+    "text": "Final Evaluation\n\nbest_model = grid_search.best_estimator_\ny_pred = best_model.predict(X_test)\nfinal_accuracy = accuracy_score(y_test, y_pred)\n\nprint(f\"Baseline accuracy: {baseline_accuracy:.1%}\")\nprint(f\"Final model accuracy: {final_accuracy:.1%}\")\nprint(f\"Improvement over baseline: {final_accuracy - baseline_accuracy:+.1%}\")\n\nprint(\"\\nClassification report:\")\nprint(classification_report(y_test, y_pred, target_names=['Did not survive', 'Survived']))\n\nBaseline accuracy: 61.5%\nFinal model accuracy: 79.3%\nImprovement over baseline: +17.9%\n\nClassification report:\n                 precision    recall  f1-score   support\n\nDid not survive       0.77      0.94      0.85       110\n       Survived       0.85      0.57      0.68        69\n\n       accuracy                           0.79       179\n      macro avg       0.81      0.75      0.76       179\n   weighted avg       0.80      0.79      0.78       179",
     "crumbs": [
       "Machine Learning",
       "22. Machine Learning Workflow"
