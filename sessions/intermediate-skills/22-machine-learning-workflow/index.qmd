@@ -7,7 +7,7 @@ format:
 
 This is the final session in our machine learning series. This session shifts attention to the workflow itself, showing what an end-to-end workflow actually looks like from problem definition through to deployment.
 
-We will use the Titanic dataset again, for familiarity, but the goal here is not the model, it is the process. We will learn about feature engineering, cross-validation, pipelines, and hyperparameter tuning.
+We will use the Titanic dataset again, for familiarity, but the goal here is not the model, it is the process. We will build on the machine learning workflow we explored in the first two sessions, adding to the workflow by doing more preprocessing of the data and feature engineering, and building more robust, generalisable models using cross validation, and hyperparameter tuning. We will also look at how to build pipelines that support this process and avoid data leakage.
 
 ## Slides
 
@@ -15,24 +15,32 @@ Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides b
 
 <iframe src="slides.html" height="500" width="100%"></iframe>
 
-## The Full Workflow
+## An Overview of the Machine Learning Workflow
 
-A complete machine learning project has six stages: 
+Any end-to-end machine learning project will follow a a broadly similar workflow. It should include the following steps:
 
-1. **Problem definition** - what are you actually trying to predict, and why?
-2. **Data** - what do you have, what's missing, what needs fixing?
-3. **Feature engineering** - transforming raw data into useful model inputs
-4. **Modelling** - selecting and training a model
-5. **Validation** - honestly evaluating whether it works
-6. **Deployment** - putting the model to use and keeping it working
+1. **Problem Definition** - what are you actually trying to predict, and why?
+2. **Data Collection** - what do you have, what's missing, what needs fixing?
+3. **Data Preparation** - transforming raw data into useful model inputs
+4. **Model Training** - selecting and training a model
+5. **Model Validation** - honestly evaluating whether it works
+6. **Model Deployment** - putting the model to use and keeping it working
 
-Many tutorials focus almost entirely on modelling. In practice, data preparation and feature engineering account for 60–80% of project time. Model training is the smallest part of the work. The sessions so far have covered data preparation and modelling in isolation. This session puts them together in the right order, with the right safeguards.
+What each of these steps should look like will depend on what you are trying to achieve and the data you are working with. The steps in the workflow that we will build on today are primarily focused on the data preparation and the model training and validation.
 
-## Problem Definition
+While the focus here is on building the model, it's important to highlight that this is just a small part of the full workflow. In practice, data exploration (which is an iterative step that informs both the data collection and data preparation steps) will often take up the majority of the time spent on the project, and model deployment is perhaps the most important part of the process[^Deployment]. The model training step is, in reality, usually the smallest part of the project[^Learning].
 
-A baseline estimate is essential before modelling. If 62% of passengers did not survive, a model that always predicts "did not survive" achieves 62% accuracy while being completely useless. Any model we build must outperform this to demonstrate it has learned something.
+[^Deployment]:
 
-## Setup
+If you can't get the model into production and use the model's outputs, it doesn't really matter how good the model is.
+
+[^Learning]:
+
+The reason so many learning resources, this session included, focus so heavily on the model training, is because, while it may not be the most intensive part of the process when you are familiar with building machine learning models, a lot of the concepts are relatively (or completely) new to learners, and it is easy to build a bad model! The exploratory phase will be familiar to a lot of analysts, so requires less attention when learning.
+
+## Building Better Models
+
+### Setup
 
 ```{python}
 #| label: setup
@@ -53,7 +61,7 @@ from sklearn.ensemble import RandomForestClassifier
 np.random.seed(42)
 ```
 
-## Load and Explore
+### Data Collection & Exploration
 
 ```{python}
 #| label: load-data
@@ -67,12 +75,10 @@ print(f"\nMissing values:\n{df.isnull().sum()[df.isnull().sum() > 0]}")
 
 Age has a meaningful number of missing values. Deck is almost entirely missing and not worth using. Embarked has two missing values, which is negligible but needs handling.
 
-## Feature Engineering
-
-In previous sessions, features were prepared with a function applied to the train and test data. Here we will be more deliberate, to demonstrate why each transformation is carried out and what information each feature carries.
+### Data Preparation
 
 ```{python}
-#| label: feature-engineering
+#| label: data-preparation
 
 # select the columns we want to work with
 df = df[['survived', 'pclass', 'sex', 'age', 'sibsp', 'parch', 'fare', 'alone', 'embark_town']].copy()
@@ -82,14 +88,12 @@ df['sex'] = (df['sex'] == 'female').astype(int)
 
 # create dummy variables for embark town
 df['embark_town'] = df['embark_town'].str.lower()
-df = pd.get_dummies(df, columns=['embark_town'], prefix="embark")
-
-df.head()
+df = pd.get_dummies(df, columns=['embark_town'], prefix="embark", dtype=int)
 ```
 
 Age and fare still have missing values. These will be handled inside a Pipeline rather than here, the reason for this is explained below.
 
-## Train/Test Split
+#### Train/Test Split
 
 The split comes before any imputation or scaling. This is deliberate. Preprocessing steps must be fit only on training data, never on the full dataset.
 
@@ -107,7 +111,30 @@ print(f"Training set: {X_train.shape[0]} rows")
 print(f"Test set:     {X_test.shape[0]} rows")
 ```
 
-## Baseline Model
+For a reminder of why it is important to split the data before training a model, check out MLU-Explain's [Train, Test, and Validation Sets](https://mlu-explain.github.io/train-test-validation/) article.
+
+#### Data Preprocessing
+
+We can use [scikit-learn](https://scikit-learn.org/)'s `Pipeline` to build a process for carrying out the data preprocessing and applying it to the train and test sets separetely. This reduces the risk of data leaking from the test set into the model training.
+
+```{python}
+#| label: preprocessing
+
+preprocessor = Pipeline([
+    # fill missing age and fare with training medians
+    ('imputer', SimpleImputer(strategy='median')),
+    # scale all features to zero mean, unit variance
+    ('scaler', StandardScaler())
+])
+```
+
+While we have carried out these simple steps to make the data easier to model, there are many ways we might transform the data to amplify the signal for the model training. We haven't carried out any feature engineering, but for ideas and inspiration for feature engineering, try [Feature Engineering A-Z](https://feaz-book.com/).
+
+### Model Training
+
+#### Baseline Model
+
+A baseline estimate is essential before modelling. If 62% of passengers did not survive, a model that always predicts "did not survive" achieves 62% accuracy while being completely useless. Any model we build must outperform this to demonstrate it has learned something.
 
 ```{python}
 #| label: baseline-model
@@ -118,44 +145,69 @@ baseline_accuracy = accuracy_score(y_test, dummy_clf.predict(X_test))
 print(f"Baseline accuracy: {baseline_accuracy:.1%}")
 ```
 
-## Building a Pipeline
+The baseline model doesn't use the preprocessor pipeline created earlier because it is just identifying the most frequent outcome in the training data and predicting this is the outcome for each test observation.
+
+#### Building a Model Pipeline
+
+We can create a pipeline that feeds the transformed data from the `preprocessor` pipeline we created earlier to a random forest model, in a nested pipeline.
 
 ```{python}
-#| label: pipeline
+#| label: nested-pipeline
 
-pipe = Pipeline([
-    # fill missing age and fare with training medians
-    ('imputer', SimpleImputer(strategy='median')),
-    # scale all features to zero mean, unit variance
-    ('scaler', StandardScaler()),
-    ('model', RandomForestClassifier(random_state=42))
+model = Pipeline(steps=[
+    ("preprocessor", preprocessor), 
+    ("classifier", RandomForestClassifier(random_state=42))
 ])
 ```
 
-## Cross-Validation
+Alternatively, the simpler approach would be to create a model pipeline that includes the preprocessing steps.
+
+```{python}
+#| label: model-pipeline
+
+model = Pipeline(steps=[
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler', StandardScaler()),
+    ('classifier', RandomForestClassifier(random_state=42))
+])
+```
+
+Random forests and other tree-based models are scale invariant, which means that it is unnecessary to scale the data to improve model performance. However, we will keep this step in the pipeline for illustrative purposes (scaling can be very valuable with other models).
+
+#### Cross Validation
+
+The first two sessions evaluated models on a single held-out test set. This is vulnerable to noise in the training data and variance between the training and test data. The solution is to use cross validation. Cross validation splits the training data into $k$ "folds" and evaluating the model across each split. Each fold takes a turn as the test set and then the scores are averaged. No data is wasted, and the variance across folds indicates how stable the estimate is.
+
+For a visual demonstration of what cross validation does and why it is so valuable, try MLU-Explain's [Cross Validation](https://mlu-explain.github.io/cross-validation/) article.
 
 ```{python}
 #| label: cross-validation
 
-cv_scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='accuracy')
+cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring='accuracy')
 
-print(f"Cross-validated accuracy scores: {cv_scores.round(2)}")
+print(f"Fold Accuracy Scores: {cv_scores.round(2)}")
 print(f"Mean: {cv_scores.mean():.2f}  (+/- {cv_scores.std():.2f})")
 ```
 
-## Hyperparameter Tuning
+The accuracy scores for each cross validated fold are more generalisable than using the entire training data, but we can also tune the random forest model to maximise performance.
+
+#### Hyperparameter Tuning
+
+Every algorithm will have settings (hyperparameters) that aren't learned from data (e.g. max_depth, n_estimators). These need to be set before training the model. More complex algorithms, like random forests and gradient boosting models, have many hyperparameters, and their values can have a significant impact on model performance. The best approach is to tune the hyperparameters by testing multiple values and finding the combination of hyperparameter values that produce the best model performance.
+
+`GridSearchCV` searches over a specified grid of values, evaluating each combination using cross validation. Because it uses cross validation internally, the selection process does not touch the held-out test set. This reduces the risk of the model overfitting.
 
 ```{python}
-#| label: tuning
+#| label: hyperparameter-tuning
 
 param_grid = {
-    'model__n_estimators': [100, 300],
-    'model__max_depth': [3, 5, None],
-    'model__min_samples_leaf': [1, 5],
+    'classifier__n_estimators': [100, 300],
+    'classifier__max_depth': [3, 5, None],
+    'classifier__min_samples_leaf': [1, 5],
 }
 
 grid_search = GridSearchCV(
-    pipe,
+    model,
     param_grid,
     cv=5,
     scoring='accuracy'
@@ -167,10 +219,18 @@ print(f"Best parameters:  {grid_search.best_params_}")
 print(f"Best CV accuracy: {grid_search.best_score_:.2f}")
 ```
 
-## Final Evaluation
+Grid Search is a simple approach to hyperparameter tuning, but there are lots of different methods. For more information about hyperparameter tuning, check out Saket Jain's overview, [Hyperparameter Tuning in Machine Learning](https://saketjain.github.io/posts/hyperparameter-tuning/)[^Tuning].
+
+[^Tuning]:
+
+For an in-depth discussion about hyperparameter tuning, I would recommend Jeremy Jordan's blog post, [Hyperparameter Tuning for Maching Learning Models](https://www.jeremyjordan.me/hyperparameter-tuning/).
+
+### Model Validation
+
+The test set has been held out through the entire process. We can now use it to evaluate the model's performance. This gives an unbiased estimate of how the model should perform on new data.
 
 ```{python}
-#| label: evaluation
+#| label: model-evaluation
 
 best_model = grid_search.best_estimator_
 y_pred = best_model.predict(X_test)
@@ -184,7 +244,7 @@ print("\nClassification report:")
 print(classification_report(y_test, y_pred, target_names=['Did not survive', 'Survived']))
 ```
 
-## Deployment
+## Model Deployment
 
 ## Where Next?
 

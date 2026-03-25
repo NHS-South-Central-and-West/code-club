@@ -5,25 +5,25 @@ footer: '**SAT //** ML Workflow **//** March 2026'
 format: revealjs
 ---
 
-# The Full Workflow {data-background-color="#425563"}
+# End-to-End Machine Learning {data-background-color="#425563"}
 
 From Problem Definition to Deployment
 
-## The Stages {.center}
+## The Steps in the Workflow {.center}
 
-1. **Problem definition** - what are you actually trying to predict, and why?
-2. **Data** - what do you have, what's missing, what needs fixing?
-3. **Feature engineering** - transforming raw data into useful model inputs
-4. **Modelling** - selecting and training a model
-5. **Validation** - honestly evaluating whether it works
-6. **Deployment** - putting the model to use and keeping it working
+1. **Problem Definition** - what are you actually trying to predict, and why?
+2. **Data Collection** - what do you have, what's missing, what needs fixing?
+3. **Data Preparation** - transforming raw data into useful model inputs
+4. **Model Training** - selecting and training a model
+5. **Model Validation** - honestly evaluating whether it works
+6. **Model Deployment** - putting the model to use and keeping it working
 
 ## Where Time Actually Goes {.center}
 
-- **Data and feature engineering: 60-80% of project time**
-- Modelling and tuning: 10-20%
-- Validation and iteration: 5-15%
-- Deployment: ongoing
+- **Data Exploration & Preparation - 60-80% of project time**
+- Modelling and tuning - 10-20%
+- Validation and iteration - 5-15%
+- Deployment - ongoing
 
 # Problem Definition {data-background-color="#425563"}
 
@@ -98,9 +98,9 @@ Honest Performance Estimates
 - This gives one performance estimate, which may be lucky or unlucky.
 - On small-to-medium datasets, single-split estimates have high variance.
 
-## Cross-Validation {.center}
+## Cross Validation {.center}
 
-- **K-fold cross-validation** splits data into K folds (typically five).
+- **K-fold cross validation** splits data into K folds (typically five).
 - The model trains K times. Each time, one fold is held out as the test set.
 - Every observation is used for testing exactly once.
 - The K scores are averaged to give a more stable estimate.
@@ -126,7 +126,7 @@ Optimising Model Performance
 
 ## Grid Search {.center}
 
-- `GridSearchCV` searches over a grid of hyperparameter values using cross-validation.
+- `GridSearchCV` searches over a grid of hyperparameter values using cross validation.
 - The best combination is selected based on cross-validated performance (not the test set).
 
 ```{python}
