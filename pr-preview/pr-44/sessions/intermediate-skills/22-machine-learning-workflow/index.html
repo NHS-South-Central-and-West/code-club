@@ -61,7 +61,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -105,10 +105,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
 
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -315,18 +341,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#slides" id="toc-slides" class="nav-link active" data-scroll-target="#slides">Slides</a></li>
-  <li><a href="#the-full-workflow" id="toc-the-full-workflow" class="nav-link" data-scroll-target="#the-full-workflow">The Full Workflow</a></li>
-  <li><a href="#problem-definition" id="toc-problem-definition" class="nav-link" data-scroll-target="#problem-definition">Problem Definition</a></li>
+  <li><a href="#an-overview-of-the-machine-learning-workflow" id="toc-an-overview-of-the-machine-learning-workflow" class="nav-link" data-scroll-target="#an-overview-of-the-machine-learning-workflow">An Overview of the Machine Learning Workflow</a></li>
+  <li><a href="#building-better-models" id="toc-building-better-models" class="nav-link" data-scroll-target="#building-better-models">Building Better Models</a>
+  <ul class="collapse">
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
-  <li><a href="#load-and-explore" id="toc-load-and-explore" class="nav-link" data-scroll-target="#load-and-explore">Load and Explore</a></li>
-  <li><a href="#feature-engineering" id="toc-feature-engineering" class="nav-link" data-scroll-target="#feature-engineering">Feature Engineering</a></li>
-  <li><a href="#traintest-split" id="toc-traintest-split" class="nav-link" data-scroll-target="#traintest-split">Train/Test Split</a></li>
-  <li><a href="#baseline-model" id="toc-baseline-model" class="nav-link" data-scroll-target="#baseline-model">Baseline Model</a></li>
-  <li><a href="#building-a-pipeline" id="toc-building-a-pipeline" class="nav-link" data-scroll-target="#building-a-pipeline">Building a Pipeline</a></li>
-  <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link" data-scroll-target="#cross-validation">Cross-Validation</a></li>
-  <li><a href="#hyperparameter-tuning" id="toc-hyperparameter-tuning" class="nav-link" data-scroll-target="#hyperparameter-tuning">Hyperparameter Tuning</a></li>
-  <li><a href="#final-evaluation" id="toc-final-evaluation" class="nav-link" data-scroll-target="#final-evaluation">Final Evaluation</a></li>
-  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a></li>
+  <li><a href="#data-collection-exploration" id="toc-data-collection-exploration" class="nav-link" data-scroll-target="#data-collection-exploration">Data Collection &amp; Exploration</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data Preparation</a></li>
+  <li><a href="#model-training" id="toc-model-training" class="nav-link" data-scroll-target="#model-training">Model Training</a></li>
+  <li><a href="#model-validation" id="toc-model-validation" class="nav-link" data-scroll-target="#model-validation">Model Validation</a></li>
+  </ul></li>
+  <li><a href="#model-deployment" id="toc-model-deployment" class="nav-link" data-scroll-target="#model-deployment">Model Deployment</a></li>
   <li><a href="#where-next" id="toc-where-next" class="nav-link" data-scroll-target="#where-next">Where Next?</a></li>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
@@ -355,32 +379,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>This is the final session in our machine learning series. This session shifts attention to the workflow itself, showing what an end-to-end workflow actually looks like from problem definition through to deployment.</p>
-<p>We will use the Titanic dataset again, for familiarity, but the goal here is not the model, it is the process. We will learn about feature engineering, cross-validation, pipelines, and hyperparameter tuning.</p>
+<p>We will use the Titanic dataset again, for familiarity, but the goal here is not the model, it is the process. We will build on the machine learning workflow we explored in the first two sessions, adding to the workflow by doing more preprocessing of the data and feature engineering, and building more robust, generalisable models using cross validation, and hyperparameter tuning. We will also look at how to build pipelines that support this process and avoid data leakage.</p>
 <section id="slides" class="level2">
 <h2 class="anchored" data-anchor-id="slides">Slides</h2>
 <p>Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides below. To view in a separate tab/window, <a href="slides.html" target="_blank">follow this link</a>.</p>
 <iframe src="slides.html" height="500" width="100%">
 </iframe>
 </section>
-<section id="the-full-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="the-full-workflow">The Full Workflow</h2>
-<p>A complete machine learning project has six stages:</p>
+<section id="an-overview-of-the-machine-learning-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="an-overview-of-the-machine-learning-workflow">An Overview of the Machine Learning Workflow</h2>
+<p>Any end-to-end machine learning project will follow a a broadly similar workflow. It should include the following steps:</p>
 <ol type="1">
-<li><strong>Problem definition</strong> - what are you actually trying to predict, and why?</li>
-<li><strong>Data</strong> - what do you have, what’s missing, what needs fixing?</li>
-<li><strong>Feature engineering</strong> - transforming raw data into useful model inputs</li>
-<li><strong>Modelling</strong> - selecting and training a model</li>
-<li><strong>Validation</strong> - honestly evaluating whether it works</li>
-<li><strong>Deployment</strong> - putting the model to use and keeping it working</li>
+<li><strong>Problem Definition</strong> - what are you actually trying to predict, and why?</li>
+<li><strong>Data Collection</strong> - what do you have, what’s missing, what needs fixing?</li>
+<li><strong>Data Preparation</strong> - transforming raw data into useful model inputs</li>
+<li><strong>Model Training</strong> - selecting and training a model</li>
+<li><strong>Model Validation</strong> - honestly evaluating whether it works</li>
+<li><strong>Model Deployment</strong> - putting the model to use and keeping it working</li>
 </ol>
-<p>Many tutorials focus almost entirely on modelling. In practice, data preparation and feature engineering account for 60–80% of project time. Model training is the smallest part of the work. The sessions so far have covered data preparation and modelling in isolation. This session puts them together in the right order, with the right safeguards.</p>
+<p>What each of these steps should look like will depend on what you are trying to achieve and the data you are working with. The steps in the workflow that we will build on today are primarily focused on the data preparation and the model training and validation.</p>
+<p>While the focus here is on building the model, it’s important to highlight that this is just a small part of the full workflow. In practice, data exploration (which is an iterative step that informs both the data collection and data preparation steps) will often take up the majority of the time spent on the project, and model deployment is perhaps the most important part of the process<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The model training step is, in reality, usually the smallest part of the project<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>.</p>
 </section>
-<section id="problem-definition" class="level2">
-<h2 class="anchored" data-anchor-id="problem-definition">Problem Definition</h2>
-<p>A baseline estimate is essential before modelling. If 62% of passengers did not survive, a model that always predicts “did not survive” achieves 62% accuracy while being completely useless. Any model we build must outperform this to demonstrate it has learned something.</p>
-</section>
-<section id="setup" class="level2">
-<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<section id="building-better-models" class="level2">
+<h2 class="anchored" data-anchor-id="building-better-models">Building Better Models</h2>
+<section id="setup" class="level3">
+<h3 class="anchored" data-anchor-id="setup">Setup</h3>
 <div id="setup" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
@@ -398,8 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="load-and-explore" class="level2">
-<h2 class="anchored" data-anchor-id="load-and-explore">Load and Explore</h2>
+<section id="data-collection-exploration" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection-exploration">Data Collection &amp; Exploration</h3>
 <div id="load-data" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'titanic'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -421,10 +444,9 @@ dtype: int64</code></pre>
 </div>
 <p>Age has a meaningful number of missing values. Deck is almost entirely missing and not worth using. Embarked has two missing values, which is negligible but needs handling.</p>
 </section>
-<section id="feature-engineering" class="level2">
-<h2 class="anchored" data-anchor-id="feature-engineering">Feature Engineering</h2>
-<p>In previous sessions, features were prepared with a function applied to the train and test data. Here we will be more deliberate, to demonstrate why each transformation is carried out and what information each feature carries.</p>
-<div id="cell-feature-engineering" class="cell" data-execution_count="3">
+<section id="data-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="data-preparation">Data Preparation</h3>
+<div id="data-preparation" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># select the columns we want to work with</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">'survived'</span>, <span class="st">'pclass'</span>, <span class="st">'sex'</span>, <span class="st">'age'</span>, <span class="st">'sibsp'</span>, <span class="st">'parch'</span>, <span class="st">'fare'</span>, <span class="st">'alone'</span>, <span class="st">'embark_town'</span>]].copy()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -433,111 +455,11 @@ dtype: int64</code></pre>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create dummy variables for embark town</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'embark_town'</span>] <span class="op">=</span> df[<span class="st">'embark_town'</span>].<span class="bu">str</span>.lower()</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.get_dummies(df, columns<span class="op">=</span>[<span class="st">'embark_town'</span>], prefix<span class="op">=</span><span class="st">"embark"</span>)</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div id="feature-engineering" class="cell-output cell-output-display" data-execution_count="3">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">survived</th>
-<th data-quarto-table-cell-role="th">pclass</th>
-<th data-quarto-table-cell-role="th">sex</th>
-<th data-quarto-table-cell-role="th">age</th>
-<th data-quarto-table-cell-role="th">sibsp</th>
-<th data-quarto-table-cell-role="th">parch</th>
-<th data-quarto-table-cell-role="th">fare</th>
-<th data-quarto-table-cell-role="th">alone</th>
-<th data-quarto-table-cell-role="th">embark_cherbourg</th>
-<th data-quarto-table-cell-role="th">embark_queenstown</th>
-<th data-quarto-table-cell-role="th">embark_southampton</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>0</td>
-<td>3</td>
-<td>0</td>
-<td>22.0</td>
-<td>1</td>
-<td>0</td>
-<td>7.2500</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>38.0</td>
-<td>1</td>
-<td>0</td>
-<td>71.2833</td>
-<td>False</td>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>1</td>
-<td>3</td>
-<td>1</td>
-<td>26.0</td>
-<td>0</td>
-<td>0</td>
-<td>7.9250</td>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-<td>True</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>35.0</td>
-<td>1</td>
-<td>0</td>
-<td>53.1000</td>
-<td>False</td>
-<td>False</td>
-<td>False</td>
-<td>True</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>0</td>
-<td>3</td>
-<td>0</td>
-<td>35.0</td>
-<td>0</td>
-<td>0</td>
-<td>8.0500</td>
-<td>True</td>
-<td>False</td>
-<td>False</td>
-<td>True</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.get_dummies(df, columns<span class="op">=</span>[<span class="st">'embark_town'</span>], prefix<span class="op">=</span><span class="st">"embark"</span>, dtype<span class="op">=</span><span class="bu">int</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Age and fare still have missing values. These will be handled inside a Pipeline rather than here, the reason for this is explained below.</p>
-</section>
-<section id="traintest-split" class="level2">
-<h2 class="anchored" data-anchor-id="traintest-split">Train/Test Split</h2>
+<section id="traintest-split" class="level4">
+<h4 class="anchored" data-anchor-id="traintest-split">Train/Test Split</h4>
 <p>The split comes before any imputation or scaling. This is deliberate. Preprocessing steps must be fit only on training data, never on the full dataset.</p>
 <div id="train-test-split" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df.drop(columns<span class="op">=</span><span class="st">'survived'</span>)</span>
@@ -554,83 +476,117 @@ dtype: int64</code></pre>
 Test set:     179 rows</code></pre>
 </div>
 </div>
+<p>For a reminder of why it is important to split the data before training a model, check out MLU-Explain’s <a href="https://mlu-explain.github.io/train-test-validation/">Train, Test, and Validation Sets</a> article.</p>
 </section>
-<section id="baseline-model" class="level2">
-<h2 class="anchored" data-anchor-id="baseline-model">Baseline Model</h2>
-<div id="baseline-model" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>dummy_clf <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">'most_frequent'</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dummy_clf.fit(X_train, y_train)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>baseline_accuracy <span class="op">=</span> accuracy_score(y_test, dummy_clf.predict(X_test))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="data-preprocessing" class="level4">
+<h4 class="anchored" data-anchor-id="data-preprocessing">Data Preprocessing</h4>
+<p>We can use <a href="https://scikit-learn.org/">scikit-learn</a>’s <code>Pipeline</code> to build a process for carrying out the data preprocessing and applying it to the train and test sets separetely. This reduces the risk of data leaking from the test set into the model training.</p>
+<div id="preprocessing" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>preprocessor <span class="op">=</span> Pipeline([</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fill missing age and fare with training medians</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'imputer'</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">'median'</span>)),</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale all features to zero mean, unit variance</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'scaler'</span>, StandardScaler())</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>While we have carried out these simple steps to make the data easier to model, there are many ways we might transform the data to amplify the signal for the model training. We haven’t carried out any feature engineering, but for ideas and inspiration for feature engineering, try <a href="https://feaz-book.com/">Feature Engineering A-Z</a>.</p>
+</section>
+</section>
+<section id="model-training" class="level3">
+<h3 class="anchored" data-anchor-id="model-training">Model Training</h3>
+<section id="baseline-model" class="level4">
+<h4 class="anchored" data-anchor-id="baseline-model">Baseline Model</h4>
+<p>A baseline estimate is essential before modelling. If 62% of passengers did not survive, a model that always predicts “did not survive” achieves 62% accuracy while being completely useless. Any model we build must outperform this to demonstrate it has learned something.</p>
+<div id="baseline-model" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dummy_clf <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">'most_frequent'</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dummy_clf.fit(X_train, y_train)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>baseline_accuracy <span class="op">=</span> accuracy_score(y_test, dummy_clf.predict(X_test))</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Baseline accuracy: 61.5%</code></pre>
 </div>
 </div>
+<p>The baseline model doesn’t use the preprocessor pipeline created earlier because it is just identifying the most frequent outcome in the training data and predicting this is the outcome for each test observation.</p>
 </section>
-<section id="building-a-pipeline" class="level2">
-<h2 class="anchored" data-anchor-id="building-a-pipeline">Building a Pipeline</h2>
-<div id="pipeline" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> Pipeline([</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># fill missing age and fare with training medians</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'imputer'</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">'median'</span>)),</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale all features to zero mean, unit variance</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'scaler'</span>, StandardScaler()),</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'model'</span>, RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>))</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="building-a-model-pipeline" class="level4">
+<h4 class="anchored" data-anchor-id="building-a-model-pipeline">Building a Model Pipeline</h4>
+<p>We can create a pipeline that feeds the transformed data from the <code>preprocessor</code> pipeline we created earlier to a random forest model, in a nested pipeline.</p>
+<div id="nested-pipeline" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Pipeline(steps<span class="op">=</span>[</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"preprocessor"</span>, preprocessor), </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">"classifier"</span>, RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>Alternatively, the simpler approach would be to create a model pipeline that includes the preprocessing steps.</p>
+<div id="model-pipeline" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Pipeline(steps<span class="op">=</span>[</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'imputer'</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">'median'</span>)),</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'scaler'</span>, StandardScaler()),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'classifier'</span>, RandomForestClassifier(random_state<span class="op">=</span><span class="dv">42</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Random forests and other tree-based models are scale invariant, which means that it is unnecessary to scale the data to improve model performance. However, we will keep this step in the pipeline for illustrative purposes (scaling can be very valuable with other models).</p>
 </section>
-<section id="cross-validation" class="level2">
-<h2 class="anchored" data-anchor-id="cross-validation">Cross-Validation</h2>
-<div id="cross-validation" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>cv_scores <span class="op">=</span> cross_val_score(pipe, X_train, y_train, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Cross-validated accuracy scores: </span><span class="sc">{</span>cv_scores<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean: </span><span class="sc">{</span>cv_scores<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">  (+/- </span><span class="sc">{</span>cv_scores<span class="sc">.</span>std()<span class="sc">:.2f}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="cross-validation" class="level4">
+<h4 class="anchored" data-anchor-id="cross-validation">Cross Validation</h4>
+<p>The first two sessions evaluated models on a single held-out test set. This is vulnerable to noise in the training data and variance between the training and test data. The solution is to use cross validation. Cross validation splits the training data into <span class="math inline">\(k\)</span> “folds” and evaluating the model across each split. Each fold takes a turn as the test set and then the scores are averaged. No data is wasted, and the variance across folds indicates how stable the estimate is.</p>
+<p>For a visual demonstration of what cross validation does and why it is so valuable, try MLU-Explain’s <a href="https://mlu-explain.github.io/cross-validation/">Cross Validation</a> article.</p>
+<div id="cross-validation" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cv_scores <span class="op">=</span> cross_val_score(model, X_train, y_train, cv<span class="op">=</span><span class="dv">5</span>, scoring<span class="op">=</span><span class="st">'accuracy'</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Fold Accuracy Scores: </span><span class="sc">{</span>cv_scores<span class="sc">.</span><span class="bu">round</span>(<span class="dv">2</span>)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean: </span><span class="sc">{</span>cv_scores<span class="sc">.</span>mean()<span class="sc">:.2f}</span><span class="ss">  (+/- </span><span class="sc">{</span>cv_scores<span class="sc">.</span>std()<span class="sc">:.2f}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Cross-validated accuracy scores: [0.79 0.71 0.82 0.85 0.81]
+<pre><code>Fold Accuracy Scores: [0.79 0.71 0.82 0.85 0.81]
 Mean: 0.80  (+/- 0.05)</code></pre>
 </div>
 </div>
+<p>The accuracy scores for each cross validated fold are more generalisable than using the entire training data, but we can also tune the random forest model to maximise performance.</p>
 </section>
-<section id="hyperparameter-tuning" class="level2">
-<h2 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter Tuning</h2>
-<div id="tuning" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'model__n_estimators'</span>: [<span class="dv">100</span>, <span class="dv">300</span>],</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'model__max_depth'</span>: [<span class="dv">3</span>, <span class="dv">5</span>, <span class="va">None</span>],</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'model__min_samples_leaf'</span>: [<span class="dv">1</span>, <span class="dv">5</span>],</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    pipe,</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    param_grid,</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span><span class="dv">5</span>,</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">'accuracy'</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best parameters:  </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best CV accuracy: </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_score_<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="hyperparameter-tuning" class="level4">
+<h4 class="anchored" data-anchor-id="hyperparameter-tuning">Hyperparameter Tuning</h4>
+<p>Every algorithm will have settings (hyperparameters) that aren’t learned from data (e.g.&nbsp;max_depth, n_estimators). These need to be set before training the model. More complex algorithms, like random forests and gradient boosting models, have many hyperparameters, and their values can have a significant impact on model performance. The best approach is to tune the hyperparameters by testing multiple values and finding the combination of hyperparameter values that produce the best model performance.</p>
+<p><code>GridSearchCV</code> searches over a specified grid of values, evaluating each combination using cross validation. Because it uses cross validation internally, the selection process does not touch the held-out test set. This reduces the risk of the model overfitting.</p>
+<div id="hyperparameter-tuning" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'classifier__n_estimators'</span>: [<span class="dv">100</span>, <span class="dv">300</span>],</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'classifier__max_depth'</span>: [<span class="dv">3</span>, <span class="dv">5</span>, <span class="va">None</span>],</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">'classifier__min_samples_leaf'</span>: [<span class="dv">1</span>, <span class="dv">5</span>],</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    model,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    param_grid,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    cv<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    scoring<span class="op">=</span><span class="st">'accuracy'</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best parameters:  </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best CV accuracy: </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_score_<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Best parameters:  {'model__max_depth': 3, 'model__min_samples_leaf': 1, 'model__n_estimators': 100}
+<pre><code>Best parameters:  {'classifier__max_depth': 3, 'classifier__min_samples_leaf': 1, 'classifier__n_estimators': 100}
 Best CV accuracy: 0.84</code></pre>
 </div>
 </div>
+<p>Grid Search is a simple approach to hyperparameter tuning, but there are lots of different methods. For more information about hyperparameter tuning, check out Saket Jain’s overview, <a href="https://saketjain.github.io/posts/hyperparameter-tuning/">Hyperparameter Tuning in Machine Learning</a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
 </section>
-<section id="final-evaluation" class="level2">
-<h2 class="anchored" data-anchor-id="final-evaluation">Final Evaluation</h2>
-<div id="evaluation" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="op">=</span> grid_search.best_estimator_</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>final_accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Final model accuracy: </span><span class="sc">{</span>final_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Improvement over baseline: </span><span class="sc">{</span>final_accuracy <span class="op">-</span> baseline_accuracy<span class="sc">:+.1%}</span><span class="ss">"</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Classification report:"</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred, target_names<span class="op">=</span>[<span class="st">'Did not survive'</span>, <span class="st">'Survived'</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="model-validation" class="level3">
+<h3 class="anchored" data-anchor-id="model-validation">Model Validation</h3>
+<p>The test set has been held out through the entire process. We can now use it to evaluate the model’s performance. This gives an unbiased estimate of how the model should perform on new data.</p>
+<div id="model-evaluation" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>best_model <span class="op">=</span> grid_search.best_estimator_</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>final_accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Final model accuracy: </span><span class="sc">{</span>final_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Improvement over baseline: </span><span class="sc">{</span>final_accuracy <span class="op">-</span> baseline_accuracy<span class="sc">:+.1%}</span><span class="ss">"</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Classification report:"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred, target_names<span class="op">=</span>[<span class="st">'Did not survive'</span>, <span class="st">'Survived'</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Baseline accuracy: 61.5%
 Final model accuracy: 79.3%
@@ -649,8 +605,9 @@ Did not survive       0.77      0.94      0.85       110
 </div>
 </div>
 </section>
-<section id="deployment" class="level2">
-<h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
+</section>
+<section id="model-deployment" class="level2">
+<h2 class="anchored" data-anchor-id="model-deployment">Model Deployment</h2>
 </section>
 <section id="where-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-next">Where Next?</h2>
@@ -661,7 +618,15 @@ Did not survive       0.77      0.94      0.85       110
 
 </section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>If you can’t get the model into production and use the model’s outputs, it doesn’t really matter how good the model is.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The reason so many learning resources, this session included, focus so heavily on the model training, is because, while it may not be the most intensive part of the process when you are familiar with building machine learning models, a lot of the concepts are relatively (or completely) new to learners, and it is easy to build a bad model! The exploratory phase will be familiar to a lot of analysts, so requires less attention when learning.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>For an in-depth discussion about hyperparameter tuning, I would recommend Jeremy Jordan’s blog post, <a href="https://www.jeremyjordan.me/hyperparameter-tuning/">Hyperparameter Tuning for Maching Learning Models</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
