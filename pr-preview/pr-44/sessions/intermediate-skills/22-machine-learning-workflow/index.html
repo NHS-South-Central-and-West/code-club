@@ -352,7 +352,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#model-deployment" id="toc-model-deployment" class="nav-link" data-scroll-target="#model-deployment">Model Deployment</a></li>
   <li><a href="#where-next" id="toc-where-next" class="nav-link" data-scroll-target="#where-next">Where Next?</a></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -427,14 +426,14 @@ window.Quarto = {
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">'titanic'</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>df<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Survival rate: </span><span class="sc">{</span>df[<span class="st">'survived'</span>]<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Missing values:</span><span class="ch">\n</span><span class="sc">{</span>df<span class="sc">.</span>isnull()<span class="sc">.</span><span class="bu">sum</span>()[df.isnull().<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Survival Rate: </span><span class="sc">{</span>df[<span class="st">'survived'</span>]<span class="sc">.</span>mean()<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Missing Values:</span><span class="ch">\n</span><span class="sc">{</span>df<span class="sc">.</span>isnull()<span class="sc">.</span><span class="bu">sum</span>()[df.isnull().<span class="bu">sum</span>() <span class="op">&gt;</span> <span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Shape: (891, 15)
 
-Survival rate: 38.4%
+Survival Rate: 38.4%
 
-Missing values:
+Missing Values:
 age            177
 embarked         2
 deck           688
@@ -469,11 +468,11 @@ dtype: int64</code></pre>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    X, y, test_size<span class="op">=</span><span class="fl">0.2</span>, random_state<span class="op">=</span><span class="dv">42</span>, stratify<span class="op">=</span>y</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training set: </span><span class="sc">{</span>X_train<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows"</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test set:     </span><span class="sc">{</span>X_test<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Training Set: </span><span class="sc">{</span>X_train<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> Rows"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Test Set:     </span><span class="sc">{</span>X_test<span class="sc">.</span>shape[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> Rows"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Training set: 712 rows
-Test set:     179 rows</code></pre>
+<pre><code>Training Set: 712 Rows
+Test Set:     179 Rows</code></pre>
 </div>
 </div>
 <p>For a reminder of why it is important to split the data before training a model, check out MLU-Explain’s <a href="https://mlu-explain.github.io/train-test-validation/">Train, Test, and Validation Sets</a> article.</p>
@@ -501,9 +500,9 @@ Test set:     179 rows</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dummy_clf <span class="op">=</span> DummyClassifier(strategy<span class="op">=</span><span class="st">'most_frequent'</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>dummy_clf.fit(X_train, y_train)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>baseline_accuracy <span class="op">=</span> accuracy_score(y_test, dummy_clf.predict(X_test))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline Accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Baseline accuracy: 61.5%</code></pre>
+<pre><code>Baseline Accuracy: 61.5%</code></pre>
 </div>
 </div>
 <p>The baseline model doesn’t use the preprocessor pipeline created earlier because it is just identifying the most frequent outcome in the training data and predicting this is the outcome for each test observation.</p>
@@ -563,11 +562,11 @@ Mean: 0.80  (+/- 0.05)</code></pre>
 <span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
 <span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best parameters:  </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best CV accuracy: </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_score_<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best Parameters:  </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Best CV Accuracy: </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_score_<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Best parameters:  {'classifier__max_depth': 3, 'classifier__min_samples_leaf': 1, 'classifier__n_estimators': 100}
-Best CV accuracy: 0.84</code></pre>
+<pre><code>Best Parameters:  {'classifier__max_depth': 3, 'classifier__min_samples_leaf': 1, 'classifier__n_estimators': 100}
+Best CV Accuracy: 0.84</code></pre>
 </div>
 </div>
 <p>Grid Search is a simple approach to hyperparameter tuning, but there are lots of different methods. For more information about hyperparameter tuning, check out Saket Jain’s overview, <a href="https://saketjain.github.io/posts/hyperparameter-tuning/">Hyperparameter Tuning in Machine Learning</a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
@@ -581,39 +580,59 @@ Best CV accuracy: 0.84</code></pre>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> best_model.predict(X_test)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>final_accuracy <span class="op">=</span> accuracy_score(y_test, y_pred)</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Final model accuracy: </span><span class="sc">{</span>final_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Improvement over baseline: </span><span class="sc">{</span>final_accuracy <span class="op">-</span> baseline_accuracy<span class="sc">:+.1%}</span><span class="ss">"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Baseline Accuracy: </span><span class="sc">{</span>baseline_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Final Model Accuracy: </span><span class="sc">{</span>final_accuracy<span class="sc">:.1%}</span><span class="ss">"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Improvement Over Baseline: </span><span class="sc">{</span>final_accuracy <span class="op">-</span> baseline_accuracy<span class="sc">:+.1%}</span><span class="ss">"</span>)</span>
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Classification report:"</span>)</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred, target_names<span class="op">=</span>[<span class="st">'Did not survive'</span>, <span class="st">'Survived'</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">Classification Report:"</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(classification_report(y_test, y_pred, target_names<span class="op">=</span>[<span class="st">'Died'</span>, <span class="st">'Survived'</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Baseline accuracy: 61.5%
-Final model accuracy: 79.3%
-Improvement over baseline: +17.9%
+<pre><code>Baseline Accuracy: 61.5%
+Final Model Accuracy: 79.3%
+Improvement Over Baseline: +17.9%
 
-Classification report:
-                 precision    recall  f1-score   support
+Classification Report:
+              precision    recall  f1-score   support
 
-Did not survive       0.77      0.94      0.85       110
-       Survived       0.85      0.57      0.68        69
+        Died       0.77      0.94      0.85       110
+    Survived       0.85      0.57      0.68        69
 
-       accuracy                           0.79       179
-      macro avg       0.81      0.75      0.76       179
-   weighted avg       0.80      0.79      0.78       179
+    accuracy                           0.79       179
+   macro avg       0.81      0.75      0.76       179
+weighted avg       0.80      0.79      0.78       179
 </code></pre>
 </div>
 </div>
+<p>This series of machine learning sessions has relied on accuracy to evaluate model performance, but it’s important to remember that there are lots of different evaluation metrics, all of which serve slightly different purposes. The metric you use to evaluate your model depends, much like other choices in the machine learning workflow, on what you are trying to achieve and the data you are working with.</p>
+<p>We have used accuracy because it is a more familiar concept for new users, but accuracy is a limited metric and it is often better to use other approaches to evaluate a classification model. The MLU-Explain <a href="https://mlu-explain.github.io/precision-recall/">visual explanation of classification metrics</a> is a great place to start when learning more about the metrics you should choose for specific tasks<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>.</p>
 </section>
 </section>
 <section id="model-deployment" class="level2">
 <h2 class="anchored" data-anchor-id="model-deployment">Model Deployment</h2>
+<p>A model that performs well on the held-out test set is a good start, but that doesn’t mean it is ready to be released into the wild and used in anger. Getting a model into production, where it changes decisions and has a real-world impact, requires greater scrutiny and significant thought about the pipeline that will feed the model and how the outputs will be served to users.</p>
+<p>This is out of scope for these sessions. It is a complex topic that deserves multiple sesions of its own. Still, I wanted to highlight that the model workflow doesn’t end when you’ve created a model that performs well on the test data.</p>
+<p>Some of the questions that you need to answer when deploying a machine learning model include:</p>
+<ul>
+<li>How will it receive data and how will it return prediction?</li>
+<li>Who sees the model outputs and what will they do with them?</li>
+<li>What happens when the model goes wrong?</li>
+<li>How will you detect when its performance degrades<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> over time (for example, as the underlying population changes)?</li>
+</ul>
+<p>There are lots of good resources for learning about model deployment. Christian Kästner’s <a href="https://mlip-cmu.github.io/book/index.html">Machine Learning in Production</a> is a very thorough overview of the topic, while Anyscale’s <a href="https://madewithml.com/">Made with ML</a> is a great place to start for thinking about the wider workflow all in the context of getting models into production. I would also recommend Naeem Ul Haq’s guide for <a href="https://grokkingthesystemdesign.com/guides/machine-learning-system-design/">Machine Learning System Design</a> and, for anyone looking to go into greater detail, Chip Huyen’s <a href="https://www.amazon.co.uk/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969">Designing Machine Learning Systems</a>, for starting to think about machine learning in terms of wider systems beyond the model itself.</p>
 </section>
 <section id="where-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-next">Where Next?</h2>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>This series of machine learning sessions has only scratched the surface. The goal throughout this series is only to introduce the wider world of machine learning and give learners the tools to start their journey. There is a lot that hasn’t been covered here, or that has been covered only briefly.</p>
+<p>Below are some resources that can help you get started on the next steps in that journey:</p>
+<ul>
+<li><a href="https://github.com/ageron/handson-ml3">Hands-On Machine Learning</a> (the print edition of the book is available <a href="https://www.amazon.co.uk/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1098125975">here</a>) - This book is a common starting point for many when they first explore machine learning. It is a really good applied overview, though it’s worth noting that Tensorflow is less popular nowadays (PyTorch is more common).</li>
+<li><a href="https://github.com/abhishekkrthakur/approachingalmost">Approaching (Almost) Any Machine Learning Problem</a> - This is another great starting point for exploring machine learning in an applied context.</li>
+<li><a href="https://www.statlearning.com/">An Introduction to Statistical Learning</a> - For a more theoretical, statistically-grounded approach, ISL is excellent. <a href="https://mlstory.org">Patterns, Predictions, and Actions</a> is also a good theoretical resource.</li>
+<li>StatQuest’s <a href="https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF">Machine Learning</a> YouTube playlist - If you prefer to learn visually, StatQuest is an extremely thorough but accessible resource for everything statistics and machine learning. The machine learning playlist starts with the very basics and also does a great job explaining more complex topics later in the playlist.</li>
+<li><a href="https://developers.google.com/machine-learning/crash-course/">Machine Learning Crash Course</a> - For an online course, Google’s crash course on machine learning is a solid resource that covers a lot.</li>
+<li><a href="https://christophm.github.io/interpretable-ml-book">Interpretable Machine Learning</a> - Finally, Christoph Molinar’s Interpretable Machine Learning is a great book for learning about machine learning outputs and thinking about producing systems that are accessible to non-experts.</li>
+</ul>
+<p>These resources will help you take the next step and continue exploring machine learning, but there is no better education than just building things. The best way to gain greater understanding of machine learnig and build on what we’ve covered here is to try it out or yourself. This doesn’t necessarily have to be a work project. It could be a side project instead<a href="#fn6" class="footnote-ref" id="fnref6" role="doc-noteref"><sup>6</sup></a>. But machine learning is a topic that is best learned by doing.</p>
 
 
 </section>
@@ -625,6 +644,9 @@ Did not survive       0.77      0.94      0.85       110
 <li id="fn1"><p>If you can’t get the model into production and use the model’s outputs, it doesn’t really matter how good the model is.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>The reason so many learning resources, this session included, focus so heavily on the model training, is because, while it may not be the most intensive part of the process when you are familiar with building machine learning models, a lot of the concepts are relatively (or completely) new to learners, and it is easy to build a bad model! The exploratory phase will be familiar to a lot of analysts, so requires less attention when learning.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>For an in-depth discussion about hyperparameter tuning, I would recommend Jeremy Jordan’s blog post, <a href="https://www.jeremyjordan.me/hyperparameter-tuning/">Hyperparameter Tuning for Maching Learning Models</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>I would also recommend their post exploring <a href="https://mlu-explain.github.io/roc-auc/">ROC &amp; AUC</a>, which can be used to evaluate model performance across the range of outcome values, helping to find the right threshold (the probability at which observations are classified as positive classes) for your model.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>All models will degrade over time, as the world and the context being modeled changes. A fundamental part of deploying the model is planning how to monitor its performance and identify when the model has degraded enough that it needs retraining.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>In fact, it can often be better to learn using low-stakes side projects. When you get to make all the choices about data, infrastructure, process, and outputs, this gives you the opportunity to think about designing a system without constraints. And when the project has no real-world risks (like information governance and ethical concerns around model performance), it is easier to play around and explore what works without fear of consequences.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
