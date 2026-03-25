@@ -69,8 +69,8 @@ np.random.seed(42)
 df = sns.load_dataset('titanic')
 
 print(f"Shape: {df.shape}")
-print(f"\nSurvival rate: {df['survived'].mean():.1%}")
-print(f"\nMissing values:\n{df.isnull().sum()[df.isnull().sum() > 0]}")
+print(f"\nSurvival Rate: {df['survived'].mean():.1%}")
+print(f"\nMissing Values:\n{df.isnull().sum()[df.isnull().sum() > 0]}")
 ```
 
 Age has a meaningful number of missing values. Deck is almost entirely missing and not worth using. Embarked has two missing values, which is negligible but needs handling.
@@ -107,8 +107,8 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42, stratify=y
 )
 
-print(f"Training set: {X_train.shape[0]} rows")
-print(f"Test set:     {X_test.shape[0]} rows")
+print(f"Training Set: {X_train.shape[0]} Rows")
+print(f"Test Set:     {X_test.shape[0]} Rows")
 ```
 
 For a reminder of why it is important to split the data before training a model, check out MLU-Explain's [Train, Test, and Validation Sets](https://mlu-explain.github.io/train-test-validation/) article.
@@ -142,7 +142,7 @@ A baseline estimate is essential before modelling. If 62% of passengers did not 
 dummy_clf = DummyClassifier(strategy='most_frequent')
 dummy_clf.fit(X_train, y_train)
 baseline_accuracy = accuracy_score(y_test, dummy_clf.predict(X_test))
-print(f"Baseline accuracy: {baseline_accuracy:.1%}")
+print(f"Baseline Accuracy: {baseline_accuracy:.1%}")
 ```
 
 The baseline model doesn't use the preprocessor pipeline created earlier because it is just identifying the most frequent outcome in the training data and predicting this is the outcome for each test observation.
@@ -215,8 +215,8 @@ grid_search = GridSearchCV(
 
 grid_search.fit(X_train, y_train)
 
-print(f"Best parameters:  {grid_search.best_params_}")
-print(f"Best CV accuracy: {grid_search.best_score_:.2f}")
+print(f"Best Parameters:  {grid_search.best_params_}")
+print(f"Best CV Accuracy: {grid_search.best_score_:.2f}")
 ```
 
 Grid Search is a simple approach to hyperparameter tuning, but there are lots of different methods. For more information about hyperparameter tuning, check out Saket Jain's overview, [Hyperparameter Tuning in Machine Learning](https://saketjain.github.io/posts/hyperparameter-tuning/)[^Tuning].
@@ -236,16 +236,56 @@ best_model = grid_search.best_estimator_
 y_pred = best_model.predict(X_test)
 final_accuracy = accuracy_score(y_test, y_pred)
 
-print(f"Baseline accuracy: {baseline_accuracy:.1%}")
-print(f"Final model accuracy: {final_accuracy:.1%}")
-print(f"Improvement over baseline: {final_accuracy - baseline_accuracy:+.1%}")
+print(f"Baseline Accuracy: {baseline_accuracy:.1%}")
+print(f"Final Model Accuracy: {final_accuracy:.1%}")
+print(f"Improvement Over Baseline: {final_accuracy - baseline_accuracy:+.1%}")
 
-print("\nClassification report:")
-print(classification_report(y_test, y_pred, target_names=['Did not survive', 'Survived']))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred, target_names=['Died', 'Survived']))
 ```
+
+This series of machine learning sessions has relied on accuracy to evaluate model performance, but it's important to remember that there are lots of different evaluation metrics, all of which serve slightly different purposes. The metric you use to evaluate your model depends, much like other choices in the machine learning workflow, on what you are trying to achieve and the data you are working with.
+
+We have used accuracy because it is a more familiar concept for new users, but accuracy is a limited metric and it is often better to use other approaches to evaluate a classification model. The MLU-Explain [visual explanation of classification metrics](https://mlu-explain.github.io/precision-recall/) is a great place to start when learning more about the metrics you should choose for specific tasks[^ROC-AUC].
+
+[^ROC-AUC]:
+
+I would also recommend their post exploring [ROC & AUC](https://mlu-explain.github.io/roc-auc/), which can be used to evaluate model performance across the range of outcome values, helping to find the right threshold (the probability at which observations are classified as positive classes) for your model.
 
 ## Model Deployment
 
+A model that performs well on the held-out test set is a good start, but that doesn't mean it is ready to be released into the wild and used in anger. Getting a model into production, where it changes decisions and has a real-world impact, requires greater scrutiny and significant thought about the pipeline that will feed the model and how the outputs will be served to users. 
+
+This is out of scope for these sessions. It is a complex topic that deserves multiple sesions of its own. Still, I wanted to highlight that the model workflow doesn't end when you've created a model that performs well on the test data.
+
+Some of the questions that you need to answer when deploying a machine learning model include:
+
+- How will it receive data and how will it return prediction?
+- Who sees the model outputs and what will they do with them?
+- What happens when the model goes wrong?
+- How will you detect when its performance degrades[^Monitoring] over time (for example, as the underlying population changes)?
+
+There are lots of good resources for learning about model deployment. Christian Kästner's [Machine Learning in Production](https://mlip-cmu.github.io/book/index.html) is a very thorough overview of the topic, while Anyscale's [Made with ML](https://madewithml.com/) is a great place to start for thinking about the wider workflow all in the context of getting models into production. I would also recommend Naeem Ul Haq's guide for [Machine Learning System Design](https://grokkingthesystemdesign.com/guides/machine-learning-system-design/) and, for anyone looking to go into greater detail, Chip Huyen's [Designing Machine Learning Systems](https://www.amazon.co.uk/Designing-Machine-Learning-Systems-Production-Ready/dp/1098107969), for starting to think about machine learning in terms of wider systems beyond the model itself.
+
+[^Monitoring]:
+
+All models will degrade over time, as the world and the context being modeled changes. A fundamental part of deploying the model is planning how to monitor its performance and identify when the model has degraded enough that it needs retraining.
+
 ## Where Next?
 
-## Summary
+This series of machine learning sessions has only scratched the surface. The goal throughout this series is only to introduce the wider world of machine learning and give learners the tools to start their journey. There is a lot that hasn't been covered here, or that has been covered only briefly.
+
+Below are some resources that can help you get started on the next steps in that journey:
+
+- [Hands-On Machine Learning](https://github.com/ageron/handson-ml3) (the print edition of the book is available [here](https://www.amazon.co.uk/Hands-Machine-Learning-Scikit-Learn-TensorFlow/dp/1098125975)) - This book is a common starting point for many when they first explore machine learning. It is a really good applied overview, though it's worth noting that Tensorflow is less popular nowadays (PyTorch is more common).
+- [Approaching (Almost) Any Machine Learning Problem](https://github.com/abhishekkrthakur/approachingalmost) - This is another great starting point for exploring machine learning in an applied context.
+- [An Introduction to Statistical Learning](https://www.statlearning.com/) - For a more theoretical, statistically-grounded approach, ISL is excellent. [Patterns, Predictions, and Actions](https://mlstory.org) is also a good theoretical resource.
+- StatQuest's [Machine Learning](https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF) YouTube playlist - If you prefer to learn visually, StatQuest is an extremely thorough but accessible resource for everything statistics and machine learning. The machine learning playlist starts with the very basics and also does a great job explaining more complex topics later in the playlist.
+- [Machine Learning Crash Course](https://developers.google.com/machine-learning/crash-course/) - For an online course, Google's crash course on machine learning is a solid resource that covers a lot.
+- [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book) - Finally, Christoph Molinar's Interpretable Machine Learning is a great book for learning about machine learning outputs and thinking about producing systems that are accessible to non-experts.
+
+These resources will help you take the next step and continue exploring machine learning, but there is no better education than just building things. The best way to gain greater understanding of machine learnig and build on what we've covered here is to try it out or yourself. This doesn't necessarily have to be a work project. It could be a side project instead[^Projects]. But machine learning is a topic that is best learned by doing. 
+
+[^Projects]:
+
+In fact, it can often be better to learn using low-stakes side projects. When you get to make all the choices about data, infrastructure, process, and outputs, this gives you the opportunity to think about designing a system without constraints. And when the project has no real-world risks (like information governance and ethical concerns around model performance), it is easier to play around and explore what works without fear of consequences.
