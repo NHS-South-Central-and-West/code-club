@@ -50,7 +50,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV
+from sklearn.model_selection import train_test_split, cross_val_score, GridSearchCV, RandomizedSearchCV
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.dummy import DummyClassifier
 from sklearn.pipeline import Pipeline
@@ -193,12 +193,12 @@ The accuracy scores for each cross validated fold are more generalisable than us
 
 #### Hyperparameter Tuning
 
-Every algorithm will have settings (hyperparameters) that aren't learned from data (e.g. max_depth, n_estimators). These need to be set before training the model. More complex algorithms, like random forests and gradient boosting models, have many hyperparameters, and their values can have a significant impact on model performance. The best approach is to tune the hyperparameters by testing multiple values and finding the combination of hyperparameter values that produce the best model performance.
+Every algorithm will have settings (hyperparameters) that aren't learned from data (e.g. max_depth, n_estimators). These need to be set before training the model. More complex algorithms, like random forests and gradient boosting models, have many hyperparameters, and their values can have a significant impact on model performance. The best approach is to tune the hyperparameters by testing multiple values and finding the combination of hyperparameter values that produce the best model performance. There are lots of different methods for hyperparameter optimisation, but the most common are Grid Search, Randomised Search, and Bayesian Optimisation[^Bayesian].
 
-`GridSearchCV` searches over a specified grid of values, evaluating each combination using cross validation. Because it uses cross validation internally, the selection process does not touch the held-out test set. This reduces the risk of the model overfitting.
+Grid Search (`GridSearchCV()` in scikit-learn) searches over a specified grid of values, evaluating each combination using cross validation. Because it uses cross validation internally, the selection process does not touch the held-out test set. This reduces the risk of the model overfitting.
 
 ```{python}
-#| label: hyperparameter-tuning
+#| label: grid-search
 
 param_grid = {
     'classifier__n_estimators': [100, 300],
@@ -219,7 +219,45 @@ print(f"Best Parameters:  {grid_search.best_params_}")
 print(f"Best CV Accuracy: {grid_search.best_score_:.2f}")
 ```
 
-Grid Search is a simple approach to hyperparameter tuning, but there are lots of different methods. For more information about hyperparameter tuning, check out Saket Jain's overview, [Hyperparameter Tuning in Machine Learning](https://saketjain.github.io/posts/hyperparameter-tuning/)[^Tuning].
+Grid Search is exhaustive, but it is computationally expensive, and as the hyperparameter values Grid Search has to test increases, the time it will take increases exponentially. The more efficient approach is to use Randomised Search.
+
+Randomised Search (`RandomizedSearchCV()` in scikit-learn) samples $n$ combinations (the `n_iter` argument in `RandomizedSearchCV()`) at random from the parameter distributions specified by the user.
+
+```{python}
+#| label: randomised-search
+
+param_dist = {
+    'classifier__n_estimators': [100, 200, 300, 500],
+    'classifier__max_depth': [3, 5, 10, None],
+    'classifier__min_samples_leaf': [1, 2, 5, 10],
+    'classifier__max_features': ['sqrt', 'log2', 0.5],
+}
+
+random_search = RandomizedSearchCV(
+    model,
+    param_dist,
+    # number of random combinations to try
+    n_iter=20,
+    cv=5,
+    scoring='accuracy',
+    random_state=42
+)
+
+random_search.fit(X_train, y_train)
+
+print(f"Best Parameters:  {random_search.best_params_}")
+print(f"Best CV Accuracy: {random_search.best_score_:.2f}")
+```
+
+This is much faster than the exhaustive approach, and generally you will find that the randomised search will produce comparable results. 
+
+However, nowadays these two approaches are better served as tools for learning how hyperparameter tuning works, because Bayesian Optimisation has replaced them as the industry standard, with [Optuna](https://optuna.org/) being the most popular library for this more sophisticated approach to tuning. Bayesian Optimisation finds the best hyperparameter values by sampling from the range or list provided by the user and using the results to identify the values to test next, sequentially learning from each trial. This is a more efficient approach and reduces time wasted searching any parameter space that is not producing good results.
+
+Bayesian Optimisation and Optuna is a step too far for this session. The goal here is just to understand how hyperparameter tuning works generally, and why it is valuable in a machine learning workflow. But Optuna provides plenty of [examples](https://github.com/optuna/optuna-examples/) for using Optuna with common machine learning libraries, including [scikit-learn](https://github.com/optuna/optuna-examples/tree/main/sklearn). For more information about hyperparameter tuning, check out Saket Jain's overview, [Hyperparameter Tuning in Machine Learning](https://saketjain.github.io/posts/hyperparameter-tuning/)[^Tuning].
+
+[^Bayesian]:
+
+Bayesian Optimisation is a broad term that describes the strategy that lots of modern tuning frameworks use, but the specific algorithm they use varies. The most common algorithm is the Tree-Structured Parzen Estimator (TPE), which is a very fancy method that is well out of scope for this session and which you don't really need to understand yet (but if you really want to, I'd recommend this very thorough [blog post](https://anna-ssi.github.io/blog/tpe/) by Anna Hakhverdyan).
 
 [^Tuning]:
 
