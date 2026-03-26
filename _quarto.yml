@@ -115,6 +115,7 @@ website:
             - text: 21. Machine Learning Landscape
               file: sessions/intermediate-skills/21-machine-learning-landscape/index.qmd
             - text: 22. Machine Learning Workflow
+              file: sessions/intermediate-skills/22-machine-learning-workflow/index.qmd
         - section: Intermediate Python
           contents: 
             - text: 23. Generators

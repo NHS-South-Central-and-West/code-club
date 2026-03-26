@@ -1,0 +1,175 @@
+---
+title: Machine Learning Workflow
+subtitle: From Problem to Production
+footer: '**SAT //** ML Workflow **//** March 2026'
+format: revealjs
+---
+
+# Building Real-World Models {data-background-color="#425563"}
+
+When Theory Meets Reality
+
+## Reality is Messy {.center}
+
+- So far we've used clean datasets with minimal preparation.
+- But real-world machine learning is much messier.
+    - Fragmented data sources
+    - Missing values, inconsistent formats
+    - Hidden data leakage
+    - Target imbalance
+- Today we will explore the real-world workflow.
+
+## The Complete Workflow {.center}
+
+1. **Problem Definition** - What are you actually trying to predict, and why?
+2. **Data Collection** - What do you have, what's missing, what needs fixing?
+3. **Data Preparation** - Transforming raw data into useful model inputs
+4. **Model Training** - Selecting and training a model
+5. **Model Validation** - Honestly evaluating whether it works
+6. **Model Deployment** - Putting the model to use and keeping it working
+
+## Each Step is Complex {.center}
+
+- The steps in the workflow can be more or less complicated and involved depending on the task.
+- Even the workflow itself is not as simple as stated.
+- These steps are not as distinct and separate as the previous slide suggests.
+- There is overlap and iteration throughout.
+
+# The Problem Phase {data-background-color="#425563"}
+
+Understanding Before Building
+
+## Asking the Right Questions {.center}
+
+- Before writing any code, you need to be able to answer:
+    - What decision will this prediction inform?
+    - What does success look like?
+    - What are the costs of different types of errors?
+    - Do we actually need machine learning for this?
+- Predicting something that doesn't add insight and inform decisions is not useful.
+- Defining the target ambiguously causes problems downstream.
+
+## Example - Predicting Readmissions {.center}
+
+- Decision - Which patients get follow-up calls?
+- Success - Reduce readmissions without overwhelming staff
+- Error costs - Missing high-risk patient vs wasting resources
+
+## Don't Skip this Step {.center}
+
+- It's easy to skip ahead and focus on the data and the model, but this is a mistake.
+- Take the time to think through what you are trying to achieve and what will change, for who, and how, if the model performs well.
+- This will make the rest of the workflow and future decisions much easier.
+- It also avoids getting ahead of yourself and wasting time on ideas that have no legs.
+
+# The Data Phase {data-background-color="#425563"}
+
+Amplifying Signal, Reducing Noise
+
+## From Raw Data to Insight {.center}
+
+- **Data Collection** - Build a dataset of relevant features, understand what that data looks like and what you might be missing.
+- **Data Preparation** - Turn that dataset into training and test data that can be fed to the model.
+    - Test/Train Splits
+    - Preprocessing - Formatting and cleaning data so it is compatible with the model.
+    - Feature Engineering - Creating new features or transforming existing ones to improve model performace.
+- **Data Exploration** - This will occur at various stages in this phase, across both steps.
+
+## The Workhorse of the Workflow {.center}
+
+- This is often the most time-consuming part of the workflow.
+- But it is also where the most value can be derived. 
+    - There are usually bigger gains in careful feature engineering than spending hours fine-tuning a complex algorithm.
+- Domain expertise is still the most important part of all!
+
+## Preprocessing Examples {.center}
+
+- Scaling numerical features
+    - Standardisation (mean=0, std=1)
+    - Normalisation (min=0, max=1)
+- Encoding categorical variables 
+    - One-hot encoding
+    - Label encoding
+- Handling outliers
+    - Capping or flooring extreme values
+- Imputing missing values
+
+## Missing Values Are Not Just Noise {.center}
+
+- Missing data is rarely random. It often carries information.
+- You can drop columns, impute missing values, or create a "missing" indicator flag.
+- But you should actively choose how you will deal with missing values.
+- **Never impute before the train-test split.**
+- The imputer must be fit only on training data, otherwise test data leaks into training.
+
+## Feature Engineering Examples {.center}
+
+- Creating interactions
+    - Combining features - For example, age x number of conditions.
+- Domain-specific calculations
+    - Temporal Features
+    - Aggregations
+    - Binning - Grouping continuous values into meaningful categories.
+
+# The Modelling Phase {data-background-color="#425563"}
+
+Turning Data into Predictive Power
+
+## From Data to Model Performance {.center}
+
+- **Baseline Model** - Establish a minimum performance floor the model needs to beat.
+- **Training & Tuning** - Fitting the model and tuning hyperparameters to maximise performance.
+- **Cross Validation** - Rotating through subsets of the data to ensure the model generalises well.
+- **Evaluation** - Assessing performance on the held-out test set.
+- **Iteration** - Using insights to go back to feature engineering or try different algorithms.
+
+## Cross Validation {.center}
+
+- **Single train/test splits have a problem**
+    - This gives one performance estimate, which may be lucky or unlucky, depending on which data points ended up where.
+- **K-fold cross validation** splits data into K folds (typically 5 or 10).
+- The model trains K times. Each time, one fold is held out as the test set.
+- Every observation is used for testing exactly once.
+- The K scores are averaged to give a more stable estimate.
+
+## Hyperparameter Tuning {.center}
+
+- Hyperparameters are model settings chosen before the model trains, not learned from the data.
+    - Decision tree depth
+    - Number of trees in random forest
+    - Learning rate for neural networks
+- These settings can have a significant impact on model performance, especially more complex models.
+- The solution is to tune the hyperparameters to find the best values.
+
+## Tuning Methods {.center}
+
+- **Grid Search** - Exhaustively searches over a manually specified subset of hyperparameter values.
+    - The best combination is selected based on cross-validated performance.
+    - This is computationally expensive.
+- **Random Search** - Randomly selects hyperparameter values from a specified distribution.
+    - This is much faster than Grid Search but is not guaranteed to find the optimal value.
+- **Bayesian Optimisation** - Runs trials and uses previous trials to inform which hyperparameter values will improve the model.
+    - The Python package `Optuna` is the modern standard for hyperparameter optimisation, producing strong performance but efficient tuning.
+
+## A Note on Deployment {.center}
+
+- A model that performs well on the test data is only the start.
+- Getting a model into production, where it changes decisions and has a real-world impact, requires greater scrutiny and thought.
+    - How will the model receive data and how will it serve outputs?
+    - What happens when the model goes wrong and how will performance issues be detected?
+- While this is out of scope for this session, **deployment is possibly the most important consideration in the workflow**.
+- A model that stays in a Jupyter notebook serves no purpose.
+
+# Let's Write Some Code... {data-background-color="#425563"}
+
+## Thank You! {.center}
+
+Contact:
+
+{{< fa solid envelope >}} [scwcsu.analytics.specialist@nhs.net](mailto:scwcsu.analytics.specialist@nhs.net)
+
+Code & Slides:
+
+{{< fa brands github >}} [/NHS-South-Central-and-West/code-club](https://github.com/nhs-south-central-and-west/code-club)
+
+... And don't forget to give us your [feedback](https://forms.office.com/e/g9fnSVPRwE).
