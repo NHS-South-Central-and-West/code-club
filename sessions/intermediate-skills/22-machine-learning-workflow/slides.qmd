@@ -5,59 +5,93 @@ footer: '**SAT //** ML Workflow **//** March 2026'
 format: revealjs
 ---
 
-# End-to-End Machine Learning {data-background-color="#425563"}
+# Building Models for the Real World {data-background-color="#425563"}
 
 From Problem Definition to Deployment
 
-## The Steps in the Workflow {.center}
+## Reality is Messy {.center}
 
-1. **Problem Definition** - what are you actually trying to predict, and why?
-2. **Data Collection** - what do you have, what's missing, what needs fixing?
-3. **Data Preparation** - transforming raw data into useful model inputs
-4. **Model Training** - selecting and training a model
-5. **Model Validation** - honestly evaluating whether it works
-6. **Model Deployment** - putting the model to use and keeping it working
+- So far we've used clean datasets with minimal preparation.
+- But real-world machine learning is much messier:
+    - Missing values, inconsistent formats
+    - Choosing and creating the right features
+    - Validating performance honestly
+    - Avoiding common traps
+- Today we tackle the real workflow.
 
-## Where Time Actually Goes {.center}
+## The Complete Workflow {.center}
 
-- **Data Exploration & Preparation - 60-80% of project time**
-- Modelling and tuning - 10-20%
-- Validation and iteration - 5-15%
-- Deployment - ongoing
+1. **Problem Definition** - What are you actually trying to predict, and why?
+2. **Data Collection** - What do you have, what's missing, what needs fixing?
+3. **Data Preparation** - Transforming raw data into useful model inputs
+4. **Model Training** - Selecting and training a model
+5. **Model Validation** - Honestly evaluating whether it works
+6. **Model Deployment** - Putting the model to use and keeping it working
 
-# Problem Definition {data-background-color="#425563"}
+## Each Step Includes Complexity {.center}
+
+- The steps in the workflow can be more or less complicated and involved depending on the task.
+- Even the workflow itself is not as simple as stated
+- These steps are not as distinct and separate as the previous slide suggests.
+- There is overlap and iteration throughout.
+
+# The Problem Phase {data-background-color="#425563"}
 
 Formulating the Right Question
 
-## Asking the Right Question {.center}
+## Asking the Right Questions {.center}
 
-- Before writing any code, you be able to answer:
-    - **"If this model works perfectly, what changes, for who, and how?"**
-- Predicting something that doesn't change decisions is not useful.
+- Before writing any code, you need to be able to answer:
+    - What decision will this prediction inform?
+    - What does success look like?
+    - What are the costs of different types of errors?
+    - Do we actually need machine learning for this?
+- Predicting something that doesn't add insight and inform decisions is not useful.
 - Defining the target ambiguously causes problems downstream.
-- Ignoring what happens when the model is wrong is a mistake.
 
-## Always Establish a Baseline {.center}
+## Example - Predicting Readmissions {.center}
 
-- The simplest baseline predicts the majority class.
-- A model that adds no value over this baseline is useless regardless of its accuracy.
-- In imbalanced datasets, accuracy alone is a misleading metric.
-- **Always establish and report your baseline before building anything.**
+- Decision - Which patients get follow-up calls?
+- Success - Reduce readmissions without overwhelming staff
+- Error costs - Missing high-risk patient vs wasting resources
 
-# Feature Engineering {data-background-color="#425563"}
+## Don't Skip this Step {.center}
 
-Creating Better Inputs
+- It's easy to skip ahead and focus on the data and the model, but this is a mistake.
+- Take the time to think through what you are trying to achieve and what will change, for who, and how, if the model performs well.
+- This will make the rest of the workflow and future decisions much easier.
+- It also avoids getting ahead of yourself and wasting time on ideas that have no legs.
 
-## What is Feature Engineering? {.center}
+# The Data Phase {data-background-color="#425563"}
 
-- Raw data rarely arrives in the right form for a model.
-- Feature engineering transforms raw variables into more informative inputs.
-- Often the highest-leverage activity in a project.
-- Examples:
-    - Encoding categorical variables (one-hot encoding, label encoding)
-    - Imputing missing values
-    - Creating new features from existing ones (e.g., family size from `sibsp` + `parch`)
-    - Scaling numerical features
+Amplifying Signal, Reducing Noise
+
+## From Raw Data to Insight {.center}
+
+- **Data Collection** - Build a dataset of relevant features, understand what that data looks like and what you might be missing.
+- **Data Preparation** - Turn that dataset into training and test data that can be fed to the model.
+    - Test/Train Splits
+    - Preprocessing - Formatting and cleaning data so it is compatible with the model.
+    - Feature Engineering - Creating new features or transforming existing ones to improve model performace.
+- **Data Exploration** - This will occur at various stages in this phase, across both steps.
+
+## The Workhorse of the Workflow {.center}
+
+- This is often the most time-consuming part of the workflow.
+- But it is also where the most value can be derived. There is usually bigger gains in careful feature engineering than spending hours fine-tuning a complex algorithm.
+- Domain expertise is still the most important part of all!
+
+## Preprocessing Examples {.center}
+
+- Scaling numerical features
+    - Standardisation (mean=0, std=1)
+    - Normalisation (min=0, max=1)
+- Encoding categorical variables 
+    - One-hot encoding
+    - Label encoding
+- Handling outliers
+    - Capping or flooring extreme values
+- Imputing missing values
 
 ## Missing Values Are Not Just Noise {.center}
 
@@ -66,83 +100,63 @@ Creating Better Inputs
 - **Never impute before the train-test split.**
 - The imputer must be fit only on training data, otherwise test data leaks into training.
 
-## Pipelines Prevent Leakage {.center}
+## Feature Engineering Examples {.center}
 
-- The most common mistake is fitting preprocessing on the whole dataset before splitting.
-- If you scale or impute on the full dataset, test data has contaminated training.
-- Your evaluation will be too optimistic.
-- Scikit-learn's `Pipeline` chains preprocessing and modelling so everything is fit only on training data.
+- Creating interactions
+    - Combining features - For example, age x number of conditions.
+- Domain-specific calculations
+    - Temporal Features
+    - Aggregations
+    - Binning - Grouping continuous values into meaningful categories.
 
-```{python}
-#| eval: false
-#| output-location: default
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestClassifier
+# The Modelling Phase {data-background-color="#425563"}
 
-pipe = Pipeline([
-    ('scaler', StandardScaler()),
-    ('model', RandomForestClassifier())
-])
+Turning Data into Predictive Power
 
-pipe.fit(X_train, y_train)  # scaler only sees training data
-```
+## From Data to Model Performance {.center}
 
-# Validation {data-background-color="#425563"}
-
-Honest Performance Estimates
-
-## The Problem with a Single Split {.center}
-
-- Previous sessions used a single train-test split.
-- This gives one performance estimate, which may be lucky or unlucky.
-- On small-to-medium datasets, single-split estimates have high variance.
+- **Baseline Model** - Establish a minimum performance floor the model needs to beat.
+- **Training & Tuning** - Fitting the model and tuning hyperparameters to maximise performance.
+- **Cross Validation** - Rotating through subsets of the data to ensure the model generalises well.
+- **Evaluation** - Assessing performance on the held-out test set.
+- **Iteration** - Using insights to go back to feature engineering or try different algorithms.
 
 ## Cross Validation {.center}
 
-- **K-fold cross validation** splits data into K folds (typically five).
+- **Single train/test splits have a problem**
+    - This gives one performance estimate, which may be lucky or unlucky, depending on which data points ended up where.
+- **K-fold cross validation** splits data into K folds (typically 5 or 10).
 - The model trains K times. Each time, one fold is held out as the test set.
 - Every observation is used for testing exactly once.
 - The K scores are averaged to give a more stable estimate.
 
-```{python}
-#| eval: false
-#| output-location: default
-from sklearn.model_selection import cross_val_score
+# Hyperparameter Tuning {.center}
 
-scores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='accuracy')
-print(f"Mean accuracy: {scores.mean():.3f} (+/- {scores.std():.3f})")
-```
+- Hyperparameters are model settings chosen before the model trains, not learned from the data.
+    - Decision tree depth
+    - Number of trees in random forest
+    - Learning rate for neural networks
+- These settings can have a significant impact on model performance, especially more complex models.
+- The solution is to tune the hyperparameters to find the best values.
 
-# Hyperparameter Tuning {data-background-color="#425563"}
+## Tuning Methods {.center}
 
-Optimising Model Performance
+- **Grid Search** - Exhaustively searches over a manually specified subset of hyperparameter values.
+    - The best combination is selected based on cross-validated performance.
+    - This is computationally expensive.
+- **Random Search** - Randomly selects hyperparameter values from a specified distribution.
+    - This is much faster than Grid Search but is not guaranteed to find the optimal value.
+- **Bayesian Optimisation** - Runs trials and uses previous trials to inform which hyperparameter values will improve the model.
+    - The Python package `Optuna` is the modern standard for hyperparameter optimisation, producing strong performance but efficient tuning.
 
-## Hyperparameters vs Parameters {.center}
+## A Note on Deployment {.center}
 
-- **Parameters** are learned during training (e.g., decision tree split values).
-- **Hyperparameters** are set before training and control how the model learns (e.g., tree depth, number of trees).
-- Choosing them by hand and evaluating on the test set is a form of overfitting.
-
-## Grid Search {.center}
-
-- `GridSearchCV` searches over a grid of hyperparameter values using cross validation.
-- The best combination is selected based on cross-validated performance (not the test set).
-
-```{python}
-#| eval: false
-#| output-location: default
-from sklearn.model_selection import GridSearchCV
-
-param_grid = {
-    'model__n_estimators': [100, 300],
-    'model__max_depth': [3, 5, None],
-}
-
-grid_search = GridSearchCV(pipe, param_grid, cv=5, scoring='accuracy')
-grid_search.fit(X_train, y_train)
-print(grid_search.best_params_)
-```
+- A model that performs well on the test data is only the start.
+- Getting a model into production, where it changes decisions and has a real-world impact, requires greater scrutiny and thought.
+    - How will the model receive data and how will it serve outputs?
+    - What happens when the model goes wrong and how will performance issues be detected?
+- While this is out of scope for this session, **deployment is possibly the most important consideration in the workflow**.
+- A model that stays in a Jupyter notebook serves no purpose.
 
 # Let's Write Some Code... {data-background-color="#425563"}
 
