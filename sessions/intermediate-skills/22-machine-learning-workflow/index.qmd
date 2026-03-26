@@ -17,7 +17,7 @@ Use the left ⬅️ and right ➡️ arrow keys to navigate through the slides b
 
 ## An Overview of the Machine Learning Workflow
 
-Any end-to-end machine learning project will follow a a broadly similar workflow. It should include the following steps:
+Any end-to-end machine learning project will follow a broadly similar workflow. It should include the following steps:
 
 1. **Problem Definition** - what are you actually trying to predict, and why?
 2. **Data Collection** - what do you have, what's missing, what needs fixing?
@@ -223,7 +223,7 @@ Grid Search is a simple approach to hyperparameter tuning, but there are lots of
 
 [^Tuning]:
 
-For an in-depth discussion about hyperparameter tuning, I would recommend Jeremy Jordan's blog post, [Hyperparameter Tuning for Maching Learning Models](https://www.jeremyjordan.me/hyperparameter-tuning/).
+For an in-depth discussion about hyperparameter tuning, I would recommend Jeremy Jordan's blog post, [Hyperparameter Tuning for Machine Learning Models](https://www.jeremyjordan.me/hyperparameter-tuning/).
 
 ### Model Validation
 
