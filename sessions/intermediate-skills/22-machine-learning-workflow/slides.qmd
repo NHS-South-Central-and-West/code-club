@@ -5,19 +5,19 @@ footer: '**SAT //** ML Workflow **//** March 2026'
 format: revealjs
 ---
 
-# Building Models for the Real World {data-background-color="#425563"}
+# Building Real-World Models {data-background-color="#425563"}
 
-From Problem Definition to Deployment
+When Theory Meets Reality
 
 ## Reality is Messy {.center}
 
 - So far we've used clean datasets with minimal preparation.
-- But real-world machine learning is much messier:
+- But real-world machine learning is much messier.
+    - Fragmented data sources
     - Missing values, inconsistent formats
-    - Choosing and creating the right features
-    - Validating performance honestly
-    - Avoiding common traps
-- Today we tackle the real workflow.
+    - Hidden data leakage
+    - Target imbalance
+- Today we will explore the real-world workflow.
 
 ## The Complete Workflow {.center}
 
@@ -28,16 +28,16 @@ From Problem Definition to Deployment
 5. **Model Validation** - Honestly evaluating whether it works
 6. **Model Deployment** - Putting the model to use and keeping it working
 
-## Each Step Includes Complexity {.center}
+## Each Step is Complex {.center}
 
 - The steps in the workflow can be more or less complicated and involved depending on the task.
-- Even the workflow itself is not as simple as stated
+- Even the workflow itself is not as simple as stated.
 - These steps are not as distinct and separate as the previous slide suggests.
 - There is overlap and iteration throughout.
 
 # The Problem Phase {data-background-color="#425563"}
 
-Formulating the Right Question
+Understanding Before Building
 
 ## Asking the Right Questions {.center}
 
@@ -78,7 +78,8 @@ Amplifying Signal, Reducing Noise
 ## The Workhorse of the Workflow {.center}
 
 - This is often the most time-consuming part of the workflow.
-- But it is also where the most value can be derived. There is usually bigger gains in careful feature engineering than spending hours fine-tuning a complex algorithm.
+- But it is also where the most value can be derived. 
+    - There are usually bigger gains in careful feature engineering than spending hours fine-tuning a complex algorithm.
 - Domain expertise is still the most important part of all!
 
 ## Preprocessing Examples {.center}
@@ -96,7 +97,8 @@ Amplifying Signal, Reducing Noise
 ## Missing Values Are Not Just Noise {.center}
 
 - Missing data is rarely random. It often carries information.
-- Options - drop the column, impute (mean, median), create a "missing" indicator flag.
+- You can drop columns, impute missing values, or create a "missing" indicator flag.
+- But you should actively choose how you will deal with missing values.
 - **Never impute before the train-test split.**
 - The imputer must be fit only on training data, otherwise test data leaks into training.
 
@@ -130,7 +132,7 @@ Turning Data into Predictive Power
 - Every observation is used for testing exactly once.
 - The K scores are averaged to give a more stable estimate.
 
-# Hyperparameter Tuning {.center}
+## Hyperparameter Tuning {.center}
 
 - Hyperparameters are model settings chosen before the model trains, not learned from the data.
     - Decision tree depth
