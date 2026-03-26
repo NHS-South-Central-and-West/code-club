@@ -1702,7 +1702,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#reality-is-messy",
     "title": "Machine Learning Workflow",
     "section": "Reality is Messy",
-    "text": "Reality is Messy\n\nSo far we’ve used clean datasets with minimal preparation.\nBut real-world machine learning is much messier:\n\nMissing values, inconsistent formats\nChoosing and creating the right features\nValidating performance honestly\nAvoiding common traps\n\nToday we tackle the real workflow."
+    "text": "Reality is Messy\n\nSo far we’ve used clean datasets with minimal preparation.\nBut real-world machine learning is much messier.\n\nFragmented data sources\nMissing values, inconsistent formats\nHidden data leakage\nTarget imbalance\n\nToday we will explore the real-world workflow."
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-complete-workflow",
@@ -1712,11 +1712,11 @@
     "text": "The Complete Workflow\n\nProblem Definition - What are you actually trying to predict, and why?\nData Collection - What do you have, what’s missing, what needs fixing?\nData Preparation - Transforming raw data into useful model inputs\nModel Training - Selecting and training a model\nModel Validation - Honestly evaluating whether it works\nModel Deployment - Putting the model to use and keeping it working"
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#each-step-includes-complexity",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#each-step-includes-complexity",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#each-step-is-complex",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#each-step-is-complex",
     "title": "Machine Learning Workflow",
-    "section": "Each Step Includes Complexity",
-    "text": "Each Step Includes Complexity\n\nThe steps in the workflow can be more or less complicated and involved depending on the task.\nEven the workflow itself is not as simple as stated\nThese steps are not as distinct and separate as the previous slide suggests.\nThere is overlap and iteration throughout."
+    "section": "Each Step is Complex",
+    "text": "Each Step is Complex\n\nThe steps in the workflow can be more or less complicated and involved depending on the task.\nEven the workflow itself is not as simple as stated.\nThese steps are not as distinct and separate as the previous slide suggests.\nThere is overlap and iteration throughout."
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#asking-the-right-questions",
@@ -1751,7 +1751,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-workhorse-of-the-workflow",
     "title": "Machine Learning Workflow",
     "section": "The Workhorse of the Workflow",
-    "text": "The Workhorse of the Workflow\n\nThis is often the most time-consuming part of the workflow.\nBut it is also where the most value can be derived. There is usually bigger gains in careful feature engineering than spending hours fine-tuning a complex algorithm.\nDomain expertise is still the most important part of all!"
+    "text": "The Workhorse of the Workflow\n\nThis is often the most time-consuming part of the workflow.\nBut it is also where the most value can be derived.\n\nThere are usually bigger gains in careful feature engineering than spending hours fine-tuning a complex algorithm.\n\nDomain expertise is still the most important part of all!"
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#preprocessing-examples",
@@ -1765,7 +1765,7 @@
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#missing-values-are-not-just-noise",
     "title": "Machine Learning Workflow",
     "section": "Missing Values Are Not Just Noise",
-    "text": "Missing Values Are Not Just Noise\n\nMissing data is rarely random. It often carries information.\nOptions - drop the column, impute (mean, median), create a “missing” indicator flag.\nNever impute before the train-test split.\nThe imputer must be fit only on training data, otherwise test data leaks into training."
+    "text": "Missing Values Are Not Just Noise\n\nMissing data is rarely random. It often carries information.\nYou can drop columns, impute missing values, or create a “missing” indicator flag.\nBut you should actively choose how you will deal with missing values.\nNever impute before the train-test split.\nThe imputer must be fit only on training data, otherwise test data leaks into training."
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#feature-engineering-examples",
@@ -1787,6 +1787,13 @@
     "title": "Machine Learning Workflow",
     "section": "Cross Validation",
     "text": "Cross Validation\n\nSingle train/test splits have a problem\n\nThis gives one performance estimate, which may be lucky or unlucky, depending on which data points ended up where.\n\nK-fold cross validation splits data into K folds (typically 5 or 10).\nThe model trains K times. Each time, one fold is held out as the test set.\nEvery observation is used for testing exactly once.\nThe K scores are averaged to give a more stable estimate."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#hyperparameter-tuning",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#hyperparameter-tuning",
+    "title": "Machine Learning Workflow",
+    "section": "Hyperparameter Tuning",
+    "text": "Hyperparameter Tuning\n\nHyperparameters are model settings chosen before the model trains, not learned from the data.\n\nDecision tree depth\nNumber of trees in random forest\nLearning rate for neural networks\n\nThese settings can have a significant impact on model performance, especially more complex models.\nThe solution is to tune the hyperparameters to find the best values."
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#tuning-methods",
