@@ -1698,39 +1698,67 @@
     "text": "Thank You!\nContact:\n scwcsu.analytics.specialist at nhs dot net\nCode & Slides:\n /NHS-South-Central-and-West/code-club\n… And don’t forget to give us your feedback."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-steps-in-the-workflow",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-steps-in-the-workflow",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#reality-is-messy",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#reality-is-messy",
     "title": "Machine Learning Workflow",
-    "section": "The Steps in the Workflow",
-    "text": "The Steps in the Workflow\n\nProblem Definition - what are you actually trying to predict, and why?\nData Collection - what do you have, what’s missing, what needs fixing?\nData Preparation - transforming raw data into useful model inputs\nModel Training - selecting and training a model\nModel Validation - honestly evaluating whether it works\nModel Deployment - putting the model to use and keeping it working"
+    "section": "Reality is Messy",
+    "text": "Reality is Messy\n\nSo far we’ve used clean datasets with minimal preparation.\nBut real-world machine learning is much messier:\n\nMissing values, inconsistent formats\nChoosing and creating the right features\nValidating performance honestly\nAvoiding common traps\n\nToday we tackle the real workflow."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#where-time-actually-goes",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#where-time-actually-goes",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-complete-workflow",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-complete-workflow",
     "title": "Machine Learning Workflow",
-    "section": "Where Time Actually Goes",
-    "text": "Where Time Actually Goes\n\nData Exploration & Preparation - 60-80% of project time\nModelling and tuning - 10-20%\nValidation and iteration - 5-15%\nDeployment - ongoing"
+    "section": "The Complete Workflow",
+    "text": "The Complete Workflow\n\nProblem Definition - What are you actually trying to predict, and why?\nData Collection - What do you have, what’s missing, what needs fixing?\nData Preparation - Transforming raw data into useful model inputs\nModel Training - Selecting and training a model\nModel Validation - Honestly evaluating whether it works\nModel Deployment - Putting the model to use and keeping it working"
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#asking-the-right-question",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#asking-the-right-question",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#each-step-includes-complexity",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#each-step-includes-complexity",
     "title": "Machine Learning Workflow",
-    "section": "Asking the Right Question",
-    "text": "Asking the Right Question\n\nBefore writing any code, you be able to answer:\n\n“If this model works perfectly, what changes, for who, and how?”\n\nPredicting something that doesn’t change decisions is not useful.\nDefining the target ambiguously causes problems downstream.\nIgnoring what happens when the model is wrong is a mistake."
+    "section": "Each Step Includes Complexity",
+    "text": "Each Step Includes Complexity\n\nThe steps in the workflow can be more or less complicated and involved depending on the task.\nEven the workflow itself is not as simple as stated\nThese steps are not as distinct and separate as the previous slide suggests.\nThere is overlap and iteration throughout."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#always-establish-a-baseline",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#always-establish-a-baseline",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#asking-the-right-questions",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#asking-the-right-questions",
     "title": "Machine Learning Workflow",
-    "section": "Always Establish a Baseline",
-    "text": "Always Establish a Baseline\n\nThe simplest baseline predicts the majority class.\nA model that adds no value over this baseline is useless regardless of its accuracy.\nIn imbalanced datasets, accuracy alone is a misleading metric.\nAlways establish and report your baseline before building anything."
+    "section": "Asking the Right Questions",
+    "text": "Asking the Right Questions\n\nBefore writing any code, you need to be able to answer:\n\nWhat decision will this prediction inform?\nWhat does success look like?\nWhat are the costs of different types of errors?\nDo we actually need machine learning for this?\n\nPredicting something that doesn’t add insight and inform decisions is not useful.\nDefining the target ambiguously causes problems downstream."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#what-is-feature-engineering",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#what-is-feature-engineering",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#example---predicting-readmissions",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#example---predicting-readmissions",
     "title": "Machine Learning Workflow",
-    "section": "What is Feature Engineering?",
-    "text": "What is Feature Engineering?\n\nRaw data rarely arrives in the right form for a model.\nFeature engineering transforms raw variables into more informative inputs.\nOften the highest-leverage activity in a project.\nExamples:\n\nEncoding categorical variables (one-hot encoding, label encoding)\nImputing missing values\nCreating new features from existing ones (e.g., family size from sibsp + parch)\nScaling numerical features"
+    "section": "Example - Predicting Readmissions",
+    "text": "Example - Predicting Readmissions\n\nDecision - Which patients get follow-up calls?\nSuccess - Reduce readmissions without overwhelming staff\nError costs - Missing high-risk patient vs wasting resources"
+  },
+  {
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#dont-skip-this-step",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#dont-skip-this-step",
+    "title": "Machine Learning Workflow",
+    "section": "Don’t Skip this Step",
+    "text": "Don’t Skip this Step\n\nIt’s easy to skip ahead and focus on the data and the model, but this is a mistake.\nTake the time to think through what you are trying to achieve and what will change, for who, and how, if the model performs well.\nThis will make the rest of the workflow and future decisions much easier.\nIt also avoids getting ahead of yourself and wasting time on ideas that have no legs."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#from-raw-data-to-insight",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#from-raw-data-to-insight",
+    "title": "Machine Learning Workflow",
+    "section": "From Raw Data to Insight",
+    "text": "From Raw Data to Insight\n\nData Collection - Build a dataset of relevant features, understand what that data looks like and what you might be missing.\nData Preparation - Turn that dataset into training and test data that can be fed to the model.\n\nTest/Train Splits\nPreprocessing - Formatting and cleaning data so it is compatible with the model.\nFeature Engineering - Creating new features or transforming existing ones to improve model performace.\n\nData Exploration - This will occur at various stages in this phase, across both steps."
+  },
+  {
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-workhorse-of-the-workflow",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-workhorse-of-the-workflow",
+    "title": "Machine Learning Workflow",
+    "section": "The Workhorse of the Workflow",
+    "text": "The Workhorse of the Workflow\n\nThis is often the most time-consuming part of the workflow.\nBut it is also where the most value can be derived. There is usually bigger gains in careful feature engineering than spending hours fine-tuning a complex algorithm.\nDomain expertise is still the most important part of all!"
+  },
+  {
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#preprocessing-examples",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#preprocessing-examples",
+    "title": "Machine Learning Workflow",
+    "section": "Preprocessing Examples",
+    "text": "Preprocessing Examples\n\nScaling numerical features\n\nStandardisation (mean=0, std=1)\nNormalisation (min=0, max=1)\n\nEncoding categorical variables\n\nOne-hot encoding\nLabel encoding\n\nHandling outliers\n\nCapping or flooring extreme values\n\nImputing missing values"
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#missing-values-are-not-just-noise",
@@ -1740,39 +1768,39 @@
     "text": "Missing Values Are Not Just Noise\n\nMissing data is rarely random. It often carries information.\nOptions - drop the column, impute (mean, median), create a “missing” indicator flag.\nNever impute before the train-test split.\nThe imputer must be fit only on training data, otherwise test data leaks into training."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#pipelines-prevent-leakage",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#pipelines-prevent-leakage",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#feature-engineering-examples",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#feature-engineering-examples",
     "title": "Machine Learning Workflow",
-    "section": "Pipelines Prevent Leakage",
-    "text": "Pipelines Prevent Leakage\n\nThe most common mistake is fitting preprocessing on the whole dataset before splitting.\nIf you scale or impute on the full dataset, test data has contaminated training.\nYour evaluation will be too optimistic.\nScikit-learn’s Pipeline chains preprocessing and modelling so everything is fit only on training data.\n\n\nfrom sklearn.pipeline import Pipeline\nfrom sklearn.preprocessing import StandardScaler\nfrom sklearn.ensemble import RandomForestClassifier\n\npipe = Pipeline([\n    ('scaler', StandardScaler()),\n    ('model', RandomForestClassifier())\n])\n\npipe.fit(X_train, y_train)  # scaler only sees training data"
+    "section": "Feature Engineering Examples",
+    "text": "Feature Engineering Examples\n\nCreating interactions\n\nCombining features - For example, age x number of conditions.\n\nDomain-specific calculations\n\nTemporal Features\nAggregations\nBinning - Grouping continuous values into meaningful categories."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-problem-with-a-single-split",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#the-problem-with-a-single-split",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#from-data-to-model-performance",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#from-data-to-model-performance",
     "title": "Machine Learning Workflow",
-    "section": "The Problem with a Single Split",
-    "text": "The Problem with a Single Split\n\nPrevious sessions used a single train-test split.\nThis gives one performance estimate, which may be lucky or unlucky.\nOn small-to-medium datasets, single-split estimates have high variance."
+    "section": "From Data to Model Performance",
+    "text": "From Data to Model Performance\n\nBaseline Model - Establish a minimum performance floor the model needs to beat.\nTraining & Tuning - Fitting the model and tuning hyperparameters to maximise performance.\nCross Validation - Rotating through subsets of the data to ensure the model generalises well.\nEvaluation - Assessing performance on the held-out test set.\nIteration - Using insights to go back to feature engineering or try different algorithms."
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#cross-validation",
     "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#cross-validation",
     "title": "Machine Learning Workflow",
-    "section": "Cross-Validation",
-    "text": "Cross-Validation\n\nK-fold cross-validation splits data into K folds (typically five).\nThe model trains K times. Each time, one fold is held out as the test set.\nEvery observation is used for testing exactly once.\nThe K scores are averaged to give a more stable estimate.\n\n\nfrom sklearn.model_selection import cross_val_score\n\nscores = cross_val_score(pipe, X_train, y_train, cv=5, scoring='accuracy')\nprint(f\"Mean accuracy: {scores.mean():.3f} (+/- {scores.std():.3f})\")"
+    "section": "Cross Validation",
+    "text": "Cross Validation\n\nSingle train/test splits have a problem\n\nThis gives one performance estimate, which may be lucky or unlucky, depending on which data points ended up where.\n\nK-fold cross validation splits data into K folds (typically 5 or 10).\nThe model trains K times. Each time, one fold is held out as the test set.\nEvery observation is used for testing exactly once.\nThe K scores are averaged to give a more stable estimate."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#hyperparameters-vs-parameters",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#hyperparameters-vs-parameters",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#tuning-methods",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#tuning-methods",
     "title": "Machine Learning Workflow",
-    "section": "Hyperparameters vs Parameters",
-    "text": "Hyperparameters vs Parameters\n\nParameters are learned during training (e.g., decision tree split values).\nHyperparameters are set before training and control how the model learns (e.g., tree depth, number of trees).\nChoosing them by hand and evaluating on the test set is a form of overfitting."
+    "section": "Tuning Methods",
+    "text": "Tuning Methods\n\nGrid Search - Exhaustively searches over a manually specified subset of hyperparameter values.\n\nThe best combination is selected based on cross-validated performance.\nThis is computationally expensive.\n\nRandom Search - Randomly selects hyperparameter values from a specified distribution.\n\nThis is much faster than Grid Search but is not guaranteed to find the optimal value.\n\nBayesian Optimisation - Runs trials and uses previous trials to inform which hyperparameter values will improve the model.\n\nThe Python package Optuna is the modern standard for hyperparameter optimisation, producing strong performance but efficient tuning."
   },
   {
-    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#grid-search",
-    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#grid-search",
+    "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#a-note-on-deployment",
+    "href": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#a-note-on-deployment",
     "title": "Machine Learning Workflow",
-    "section": "Grid Search",
-    "text": "Grid Search\n\nGridSearchCV searches over a grid of hyperparameter values using cross-validation.\nThe best combination is selected based on cross-validated performance (not the test set).\n\n\nfrom sklearn.model_selection import GridSearchCV\n\nparam_grid = {\n    'model__n_estimators': [100, 300],\n    'model__max_depth': [3, 5, None],\n}\n\ngrid_search = GridSearchCV(pipe, param_grid, cv=5, scoring='accuracy')\ngrid_search.fit(X_train, y_train)\nprint(grid_search.best_params_)"
+    "section": "A Note on Deployment",
+    "text": "A Note on Deployment\n\nA model that performs well on the test data is only the start.\nGetting a model into production, where it changes decisions and has a real-world impact, requires greater scrutiny and thought.\n\nHow will the model receive data and how will it serve outputs?\nWhat happens when the model goes wrong and how will performance issues be detected?\n\nWhile this is out of scope for this session, deployment is possibly the most important consideration in the workflow.\nA model that stays in a Jupyter notebook serves no purpose."
   },
   {
     "objectID": "sessions/intermediate-skills/22-machine-learning-workflow/slides.html#thank-you",
