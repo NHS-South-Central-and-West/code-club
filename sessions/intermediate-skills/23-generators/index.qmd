@@ -187,7 +187,7 @@ print(f'The generator takes up {generator_size} bytes in memory')
 
 ```
 
-The list evidently takes up far more space in memory than the generator. That is because the list is being created all at once (all 99,999 intergers), whereas the generator is really just storing the _instructions_ for the comprehension, plus its current _state_ (i.e., which iteration it has got to).
+The list evidently takes up far more space in memory than the generator. That is because the list is being created all at once (all 99,999 integers), whereas the generator is really just storing the _instructions_ for the comprehension, plus its current _state_ (i.e., which iteration it has got to).
 
 This is a very trivial example, but imagine if you are working with hundreds of thousands of _rows_ of data. You would be dealing a much greater volume of data. Trying to process all of that data in one go would place a much greater burden on the computer's memory than processing it row by row.
 
