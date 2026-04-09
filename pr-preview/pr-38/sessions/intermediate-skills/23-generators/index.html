@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-51cc73bf0a090009b8c37fb6dba17480.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-05d23737f2e62e40541f77a0c9473c31.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -359,15 +359,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This is a concept listed in the NHS’s National Competency Framework as a requirement for intermediate Python Proficiency (SA21). In this tutorial, we are going to cover:</p>
+<p>Generators are a memory-efficient approach to iteration. They can be very useful when dealing with large amounts of data, and they are listed in the NHS’s National Competency Framework as a requirement for intermediate Python Proficiency (SA21). In this tutorial, we are going to cover:</p>
 <ul>
-<li>What they are</li>
-<li>When it makes sense to use them and when not</li>
-<li>Example use cases:
+<li>What generators are</li>
+<li>When it makes sense to use generators and when not</li>
+<li>Example use-cases:
 <ul>
-<li><strong>Data pipelines:</strong> pre-processing large volumes of data <em>before</em> they reach your dataframes</li>
-<li><strong>API calls:</strong> loading large volumes of real-time data without overloading memory</li>
-<li><strong>Modelling queuing problems and pathways:</strong> a simple introduction to how generators are used in Discrete Event Simulation</li>
+<li><strong>Data Pipelines</strong> - pre-processing large volumes of data <em>before</em> they reach your dataframes.</li>
+<li><strong>API Calls</strong> - loading large volumes of real-time data without overloading memory.</li>
+<li><strong>Modelling Queuing Problems and Pathways</strong> - a simple introduction to how generators are used in Discrete Event Simulation.</li>
 </ul></li>
 </ul>
 <div class="callout callout-style-simple callout-warning callout-titled">
@@ -575,14 +575,14 @@ The size of the generator comprehension is 192 bytes</code></pre>
 <div id="list-speed-test" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cProfile.run(<span class="st">'sum([i**2 for i in range(100000)])'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         4 function calls in 0.012 seconds
+<pre><code>         4 function calls in 0.013 seconds
 
    Ordered by: standard name
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.009    0.009    0.012    0.012 &lt;string&gt;:1(&lt;module&gt;)
-        1    0.000    0.000    0.012    0.012 {built-in method builtins.exec}
-        1    0.003    0.003    0.003    0.003 {built-in method builtins.sum}
+        1    0.010    0.010    0.013    0.013 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.000    0.000    0.013    0.013 {built-in method builtins.exec}
+        1    0.002    0.002    0.002    0.002 {built-in method builtins.sum}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 </code></pre>
@@ -592,15 +592,15 @@ The size of the generator comprehension is 192 bytes</code></pre>
 <div id="gen-speed-test" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cProfile.run(<span class="st">'sum((i**2 for i in range(100000)))'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         100005 function calls in 0.048 seconds
+<pre><code>         100005 function calls in 0.043 seconds
 
    Ordered by: standard name
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-   100001    0.024    0.000    0.024    0.000 &lt;string&gt;:1(&lt;genexpr&gt;)
-        1    0.000    0.000    0.048    0.048 &lt;string&gt;:1(&lt;module&gt;)
-        1    0.000    0.000    0.048    0.048 {built-in method builtins.exec}
-        1    0.024    0.024    0.048    0.048 {built-in method builtins.sum}
+   100001    0.022    0.000    0.022    0.000 &lt;string&gt;:1(&lt;genexpr&gt;)
+        1    0.000    0.000    0.043    0.043 &lt;string&gt;:1(&lt;module&gt;)
+        1    0.000    0.000    0.043    0.043 {built-in method builtins.exec}
+        1    0.021    0.021    0.043    0.043 {built-in method builtins.sum}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 </code></pre>
@@ -1263,8 +1263,8 @@ The <code>for</code> loop in the non-generator version would look like this:</p>
 <span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mean queuing time for the nurses (mins) : </span><span class="sc">{</span>mean_queue_time_nurse<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Max queuing time for the nurses (mins) : </span><span class="sc">{</span>max_queue_time_nurse<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Mean queuing time for registration (mins) : 173.50
-Max queuing time for registration (mins) : 323.95
+<pre><code>Mean queuing time for registration (mins) : 148.25
+Max queuing time for registration (mins) : 281.42
 Mean queuing time for the nurses (mins) : 0.00
 Max queuing time for the nurses (mins) : 0.00</code></pre>
 </div>
