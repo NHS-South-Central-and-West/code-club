@@ -19,6 +19,7 @@ dependencies = [
     "rsconnect-python>=1.25.2",
     "scikit-learn>=1.7.1",
     "seaborn>=0.13.2",
+    "simpy>=4.1.1",
     "skimpy>=0.0.18",
     "statsmodels>=0.14.5",
     "streamlit-pandas-profiling>=0.1.3",
