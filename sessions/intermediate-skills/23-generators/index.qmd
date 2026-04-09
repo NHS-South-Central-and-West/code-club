@@ -5,14 +5,14 @@ format:
   ipynb: default
 ---
 
-This is a concept listed in the NHS's National Competency Framework as a requirement for intermediate Python Proficiency (SA21). In this tutorial, we are going to cover:
+Generators are a memory-efficient approach to iteration. They can be very useful when dealing with large amounts of data, and they are listed in the NHS's National Competency Framework as a requirement for intermediate Python Proficiency (SA21). In this tutorial, we are going to cover:
 
--   What they are
--   When it makes sense to use them and when not
--   Example use cases:
-    -   **Data pipelines:** pre-processing large volumes of data *before* they reach your dataframes
-    -   **API calls:** loading large volumes of real-time data without overloading memory
-    -   **Modelling queuing problems and pathways:** a simple introduction to how generators are used in Discrete Event Simulation
+-   What generators are
+-   When it makes sense to use generators and when not
+-   Example use-cases:
+    -   **Data Pipelines** - pre-processing large volumes of data *before* they reach your dataframes.
+    -   **API Calls** - loading large volumes of real-time data without overloading memory.
+    -   **Modelling Queuing Problems and Pathways** - a simple introduction to how generators are used in Discrete Event Simulation.
 
 :::{.callout-warning}
 ## Download
