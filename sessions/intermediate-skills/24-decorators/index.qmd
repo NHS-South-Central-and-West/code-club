@@ -18,18 +18,20 @@ In this tutorial we will cover:
 -   Potential issues when working with decorators
 
 :::{.callout-warning}
+
 ## Download
 You can download the Jupyter Notebook with the completed examples by clicking the "Jupyter" link under "Other Formats". If following Code Club Live you may wish to download at the start of the session.
+
 :::
 
-## What are decorators?
+## What Are Decorators?
 
 Simply put, a decorator is a standalone function that takes another function or as it's input and performs operations around it without modifying the original function. It allows a programmer to add functionality to existing code without manually combining the code from the 2 functions and that doesn't change the function. 
 
 Decorators take advantage of the fact that Python treats functions as first-order objects that can be directly referred to just like simpler objects such as strings, lists and tuples. That is to say it is an object we can assign to a variable or pass to or return from another function. 
 
 ```{python}
-#|label: Functions as first order objects
+#|label: first-order-functions
 
 # define a simple function
 def stuff():
@@ -44,12 +46,15 @@ print(work)
 ```
 
 :::{.callout-warning}
+
 ## Note
 When we print the variable **hi** we do not see the message "hello", this is because we haven't yet called the function. To call the function we must insert closed brackets **()** after the function name. If trying to assign a function rather than its result you **must not** call it when assigning.
+
 :::
 
 ```{python}
-#|label: calling a function assigned to a variable
+#|label: print-function
+
 # print the called function 'work'
 print(work())
 ```
@@ -59,12 +64,12 @@ When we build a decorator we are building a closure, that is to say we are packa
 The following example demonstrates a simple decorator factory with an inner and outer function.
 
 ```{python}
-#|label: simple decorator factory
+#|label: factory
 
 # This is the outer function which closes the inner wrapper around another function
-def outer_function(func) # we could use any variable name but 'func' is the wrapped variable.
+def outer_function(func): # we could use any variable name but 'func' is the wrapped variable.
     # This is the function that will be wrapped around our function
-    def inner_wrapper() 
+    def inner_wrapper(): 
         # This code runs before the function
         print('Waking up')
         # This is when you want the function to run
@@ -80,7 +85,7 @@ def outer_function(func) # we could use any variable name but 'func' is the wrap
 Having created our decorator we now need to apply it to our function we can use the familiar syntax by assigning using '=' as we did to make 'stuff' into 'work':
 
 ```{python}
-#|label: assigning a decorated function to a variable using '='
+#|label: assign-equals
 
 # we can assign a wrapper to a function 
 stuff = outer_function(stuff)
@@ -92,7 +97,7 @@ Essentially we are taking advantage of the fact that we can re-assign the wrappe
 Once we remember this we can use shorthand notation using @ to assign a wrapped function to its own name (though this needs to be applied to the definition of the function):
 
 ```{python}
-#|label: assigning a decorated function to a variable using '@'
+#|label: assign-at
 
 # this is how we assign a decorator to a function using '@' notation
 @outer_function
@@ -104,33 +109,34 @@ print(more_stuff())
 
 It is worth noting that whilst decorating a function does not alter the decorated functions code it can lead to some interesting predicaments which we will discuss a little further down.
 
-### Dealing with arguments
+### Dealing With Arguments
 
 So far the examples have been fairly simple and not included any arguments, something that is very common. Note how the below code generates an error:
 
 ```{python}
-#|label: Decorator failing when trying to handle arguments
+#|label: failure
 
-@outer_function
-def drinks(drink, milk, sugar):
-    return f"I'd love a {drink} with {milk} and {sugar} sugars"
+# @outer_function
+# def drinks(drink, milk, sugar):
+#     return f"I'd love a {drink} with {milk} and {sugar} sugars"
 
-print(drinks('tea', 'plain', sugar=2))
+# print(drinks('tea', 'plain', sugar=2))
 ```
 
-The reason this fails is to do with the way our decorator is built, to handle the arguments we need to make sure our wrapper layer knows to expect them. We can do this by passing each argument individually to the wrapper, but this leaves us with a decorator that can only handle those specific variables and that will still break if we have a function with different arguments. The way we get round that in python is by using the notation **"*args, *kwargs"**, this essentially represents any number of positional arguments and key word arguments (if you would like to know more [Visually Explained](https://www.youtube.com/watch?v=FFpDsC6B2qw) does a really good job of explaining this).
+The reason this fails is to do with the way our decorator is built, to handle the arguments we need to make sure our wrapper layer knows to expect them. We can do this by passing each argument individually to the wrapper, but this leaves us with a decorator that can only handle those specific variables and that will still break if we have a function with different arguments. The way we get round that in python is by using the notation "*args, **kwargs", this essentially represents any number of positional arguments and key word arguments (if you would like to know more [Visually Explained](https://www.youtube.com/watch?v=FFpDsC6B2qw) does a really good job of explaining this).
 
 Lets build a new decorator that can handle this:
 
 ```{python}
-#|label: decorate with *args and **kwargs
-def drink_decorator(func)
-    # note the placement of *args, *kwargs in both the wrapper and then when we call the function.
-    def wrapper(*args, *kwargs)
+#|label: args-kwargs
+
+def drink_decorator(func):
+    # note the placement of *args, **kwargs in both the wrapper and then when we call the function.
+    def wrapper(*args, **kwargs):
         # This code runs before the function
         print("I went to the cafe")
         # This is when you want the function to run
-        result = func(*args, *kwargs)
+        result = func(*args, **kwargs)
         # This code runs after the function
         print("I decided what I want")
         # Now we return 
@@ -148,13 +154,14 @@ print(drinks('coffee', 'cream', 'no'))
 
 You can see this now runs.
 
-## Generalising decorators
+## Generalising Decorators
 
 So far we've used simple decorators that have had specific use cases but lets try decorating our 'stuff' function with our 'drink_decorator'
 
 ```{python}
-#|label: Drinks decorator with 'stuff' function
-@drinks_decorator
+#|label: drinks
+
+@drink_decorator
 def stuff():
     return 'doing stuff'
 
@@ -165,25 +172,26 @@ The real power of a decorator comes when we generalise it so we can use its func
 
 To achieve this we can bear the following in mind:
 
--   Always allow for differing arguments using "*args, *kwargs".
+-   Always allow for differing arguments using "*args, **kwargs".
 -   Make the name of your outer function as generic as you can whilst keeping it as meaningful as possible (if you are looking to time the execution of a function 'func_timer' is perfectly acceptable.)
 -   Use general names and terms within your function, sticking with convention where possible (for example the inner function is normally just called 'wrapper').
 -   Parameterise your decorators where it make sense to (we'll cover this in the third example below).
 
 When we move on to looking at our examples we wil hopefully see these principles at work.
 
-## Real world examples
+## Real World Examples
 
 In this section we are going to work through three real work related examples that are common use cases for decorators. Each of these is going to help us explore some of the potential upsides and issues that we might find with decorators.
 
-### Checking how long a function takes to run.
+### Measuring Time
 
 A common problem in coding is understanding how long elements of code take to run. It is possible to add markers to a function or script to time the execution, but decorators offer us a way to wrap this functionality around existing code.
 
 In this example we are going to  simulate a function with a longer execution time using time.sleep (which causes Python to wait at execution for a given number of seconds when called). We will also be using the time module to record start and stop times in our decorator.
 
 ```{python}
-#|label: building the func_time decorator
+#|label: func-time
+
 import time
 from functools import wraps # This line will be explained in example 2
 
@@ -202,8 +210,8 @@ def func_timer(func):
 
 # decorated function
 @func_timer
-def slow_function(run_time)
-    print("I'll get on that"
+def slow_function(run_time):
+    print("I'll get on that")
     time.sleep(run_time)
     print("I've done that")
     return run_time
@@ -211,18 +219,19 @@ def slow_function(run_time)
 slow_function(7)
 ```
 
-This is a generic decorator that uses the __name__ method of the decorated function to report back the time it took to run. This allows a more meaningful response to the user than simply reporting the runtime. you could take this decorator, copy it into your code and apply the tag @func_timer to any of your functions and it would report back in the same way. This is the key benefit of decorators, portability and generalisation.
+This is a generic decorator that uses the `__name__` method of the decorated function to report back the time it took to run. This allows a more meaningful response to the user than simply reporting the runtime. you could take this decorator, copy it into your code and apply the tag `@func_timer` to any of your functions and it would report back in the same way. This is the key benefit of decorators, portability and generalisation.
 
 There are alterations that we could make here, but we will demonstrate some further examples and then allow you to imagine how you might add further functionality to improve generalisation.
 
-### Logging runtime information to a separate file to allow coders and users to review situational data.
+### Generating Logs
 
 Debugging and resolving errors as well as looking for efficiencies and how to speed up slow  corner cases are all common scenarios for analysts to find themselves in. We know that a problem occurred but we don't always understand what caused an error or slow run-time. The decorator we are going to build here is a useful way of logging situational data such as the name of the function that ran, as well as the arguments that were used and potentially more.
 
 In this example we are going to create a log file into which the data is recorded the file is created when the decorated function is first defined and then updated each time that function is called.
 
 ```{python}
-#|label: Example of a log decorator
+#|label: log
+
 import os
 
 def log(func):
@@ -256,7 +265,8 @@ def log(func):
 This example code is looking more complex as we are now having our decorator write to an external file, but watch what happens when we apply this to multiple functions:
 
 ```{python}
-#|label: Applying the log decorator
+#|label: apply-log
+
 from datetime import date, timedelta
 
 @log
@@ -293,11 +303,12 @@ Note how our decorator has created separate files in the log folder for each of 
 Before we move to our third example, it's worth noting that we can stack decorators on functions, lets try this with a brief example below:
 
 ```{python}
-#|label: Stacking func_timer on log
+#|label: stacking
+
 @func_timer
 @log
-def slow_function(run_time)
-    print("I'll get on that"
+def slow_function(run_time):
+    print("I'll get on that")
     time.sleep(run_time)
     print("I've done that")
     return run_time
@@ -305,16 +316,17 @@ def slow_function(run_time)
 print(slow_function(5))
 ```
 
-Note how log has created a log for slow_function, but timer refers to wrapper. Essentially our timer function is seeing the wrapper from the log decorator and not the decorated function to enable our decorators to see the innermost function (in this case slow_function) we can to use the wraps decorator from the functools library to decorate our wrapper functions. this lets them inherit properties such as __name__ from the function they are wrapping.
+Note how log has created a log for slow_function, but timer refers to wrapper. Essentially our timer function is seeing the wrapper from the log decorator and not the decorated function to enable our decorators to see the innermost function (in this case slow_function) we can to use the wraps decorator from the functools library to decorate our wrapper functions. this lets them inherit properties such as `__name__` from the function they are wrapping.
 
-If you recall we used the @wraps in our timer function so lets see what happens if we stack them the other way round.
+If you recall we used the `@wraps` in our timer function so lets see what happens if we stack them the other way round.
 
 ```{python}
-#|label: Stacking func_timer on log
+#|label: func-timer-log
+
 @log
 @func_timer
-def slow_function_2(run_time)
-    print("I'll get on that"
+def slow_function_2(run_time):
+    print("I'll get on that")
     time.sleep(run_time)
     print("I've done that")
     return run_time
@@ -322,9 +334,9 @@ def slow_function_2(run_time)
 print(slow_function_2(8))
 ```
 
-It is recommended that before using the log function in other work you add the @wraps decorator, we will be using it in the last example as this is considered good practice. We recommend using it in all decorators.
+It is recommended that before using the log function in other work you add the `@wraps` decorator, we will be using it in the last example as this is considered good practice. We recommend using it in all decorators.
 
-### Parameterization of reporting for different areas, organisations or customers.
+### Parameterisation
 
 In analytics work, many reports share the same structure but differ in *parameters* such as:
 
@@ -365,28 +377,29 @@ notice how we pass the metadata in as arguments in the first layer. We pass thes
 
 
 ```{python}
-#|label: wrapping the function with parameters
-import pandas as pd
+#|label: parameters
 
-@report_metadata(org_code="R1F", report_name="Activity Summary")
-def generate_activity_report(df, metadata=None):
-    """
-    Example reporting function that receives metadata from the decorator.
-    """
-    summary = df.describe()
-    return {
-        "metadata": metadata,
-        "summary": summary
-    }
+# import pandas as pd
+
+# @report_metadata(org_code="R1F", report_name="Activity Summary")
+# def generate_activity_report(df, metadata=None):
+#     """
+#     Example reporting function that receives metadata from the decorator.
+#     """
+#     summary = df.describe()
+#     return {
+#         "metadata": metadata,
+#         "summary": summary
+#     }
 
 
-df = pd.DataFrame({
-    "activity": [10, 12, 9, 14, 11],
-    "cost": [200, 240, 180, 300, 220]
-})
+# df = pd.DataFrame({
+#     "activity": [10, 12, 9, 14, 11],
+#     "cost": [200, 240, 180, 300, 220]
+# })
 
-result = generate_activity_report(df)
-print(result["metadata"])
+# result = generate_activity_report(df)
+# print(result["metadata"])
 ```
 
 It is worth noting that for parameterisation to be effective in this example the function we wrap must be ready to accept the meta data we are passing it. We can give this a default value of **None** to ensure default handling.
@@ -429,21 +442,21 @@ def report_metadata(org_code: str, report_name: str):
         return wrapper
     return decorator
 ```
-## Potential issues when working with decorators
+## Potential Issues
 
 This section summarises five common issues with decorators and offers some hints to resolve these.
 
-### 1. Decorated functions lose their name, docstring, and signature
+### Decorated Functions Losing Metadata
 
-This is caused by the fact that the wrapper is not inheriting the decorated functions properties. it is resolved by importing "wraps" from "functools" and wrapping your wrapper with "@wraps(func)".
+This is caused by the fact that the wrapper is not inheriting the decorated functions properties. it is resolved by importing "wraps" from "functools" and wrapping your wrapper with `@wraps(func)`.
 
-### 2. Decorators break functions with arguments
+### Decorators Breaking Functions with Arguments
 
 The most likely cause here is that the wrapper cannot handle all the arguments of thefunction it is wrapping remember to always use "*args, **kwargs" in your wrapper and func calls, this will allow your decorator to handle any number of arguments.
 
-### 3. Decorators with arguments confuse people (three‑layer pattern)
+### Decorators With arguments Confuse People (Three‑Layer Pattern)
 
-if you are passing any arguments into the decorated function you may need to ensure you are following the correct syntax, this is the broad structure:
+If you are passing any arguments into the decorated function you may need to ensure you are following the correct syntax, this is the broad structure:
 
 ```python
 
@@ -456,15 +469,15 @@ def outer(param):
 
 ```
 
-### 4. Decorator order matters (and can cause unexpected behaviour)
+### Decorator Order Matters
 
 Ideally decorators should be generalised as possible however you should check how the decorators you plan to use interact. Some decorators to not stack on others and you may need to revise the order you stack decorators if they are causing issues. Remember when stacking 2 or more decorators, order makes a genuine difference.
 
-### 5. Decorators can hide side effects or make debugging harder
+### Hidden Side-Effects
 
 decorators can have additional side effects, see this [Educative site](https://www.educative.io/courses/clean-code-in-python/dealing-with-side-effects-in-decorators?utm_source=copilot.com) for more information on these. you should always test and debug functions (including decorators) before decorating them and then test the effects of adding the decorator(s) you are using.
 
-## A brief note to close
+## Conclusion
 
 This is an incredibly broad subject and there are endless interactions it is also worth noting that decorators can be applied to certain other contexts such as decorating methods in classes but these are well outside the scope of this session and if you wish to understand more we recommend reviewing some of the following sources:
 
