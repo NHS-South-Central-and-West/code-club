@@ -121,6 +121,7 @@ website:
             - text: 23. Generators
               file: sessions/intermediate-skills/23-generators/index.qmd
             - text: 24. Decorators
+              file: sessions/intermediate-skills/24-decorators/index.qmd
             - text: 25. Asynchronous programming and callbacks
             - text: 26. Higher order functions
             - text: 27. Map, filter, reduce
