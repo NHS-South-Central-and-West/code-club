@@ -185,3 +185,5 @@ cython_debug/
 # webscraping downloads
 
 /sessions/intermediate-skills/18-webscraping-apis/*.csv
+
+**/*.quarto_ipynb
