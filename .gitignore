@@ -178,12 +178,9 @@ cython_debug/
 /.quarto/
 /_site/
 
-# Data exploration for the Streamlit demo
-
+# Session outputs
 /sessions/essential-skills/10-streamlit/exploration
-
-# webscraping downloads
-
 /sessions/intermediate-skills/18-webscraping-apis/*.csv
 
+# Quarto temp files
 **/*.quarto_ipynb
