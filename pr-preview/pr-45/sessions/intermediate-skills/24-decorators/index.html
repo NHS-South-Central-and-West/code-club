@@ -323,19 +323,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#dealing-with-arguments" id="toc-dealing-with-arguments" class="nav-link" data-scroll-target="#dealing-with-arguments">Dealing With Arguments</a></li>
   </ul></li>
   <li><a href="#generalising-decorators" id="toc-generalising-decorators" class="nav-link" data-scroll-target="#generalising-decorators">Generalising Decorators</a></li>
-  <li><a href="#real-world-examples" id="toc-real-world-examples" class="nav-link" data-scroll-target="#real-world-examples">Real World Examples</a>
+  <li><a href="#real-world-examples" id="toc-real-world-examples" class="nav-link" data-scroll-target="#real-world-examples">Real-World Examples</a>
   <ul class="collapse">
-  <li><a href="#measuring-time" id="toc-measuring-time" class="nav-link" data-scroll-target="#measuring-time">Measuring Time</a></li>
+  <li><a href="#measuring-runtime" id="toc-measuring-runtime" class="nav-link" data-scroll-target="#measuring-runtime">Measuring Runtime</a></li>
   <li><a href="#generating-logs" id="toc-generating-logs" class="nav-link" data-scroll-target="#generating-logs">Generating Logs</a></li>
-  <li><a href="#parameterisation" id="toc-parameterisation" class="nav-link" data-scroll-target="#parameterisation">Parameterisation</a></li>
+  <li><a href="#parameterising-reports" id="toc-parameterising-reports" class="nav-link" data-scroll-target="#parameterising-reports">Parameterising Reports</a></li>
   </ul></li>
-  <li><a href="#example-using-a-decorator-to-parameterise-reporting" id="toc-example-using-a-decorator-to-parameterise-reporting" class="nav-link" data-scroll-target="#example-using-a-decorator-to-parameterise-reporting">Example: Using a Decorator to Parameterise Reporting</a></li>
-  <li><a href="#potential-issues" id="toc-potential-issues" class="nav-link" data-scroll-target="#potential-issues">Potential Issues</a>
+  <li><a href="#common-issues" id="toc-common-issues" class="nav-link" data-scroll-target="#common-issues">Common Issues</a>
   <ul class="collapse">
-  <li><a href="#decorated-functions-losing-metadata" id="toc-decorated-functions-losing-metadata" class="nav-link" data-scroll-target="#decorated-functions-losing-metadata">Decorated Functions Losing Metadata</a></li>
-  <li><a href="#decorators-breaking-functions-with-arguments" id="toc-decorators-breaking-functions-with-arguments" class="nav-link" data-scroll-target="#decorators-breaking-functions-with-arguments">Decorators Breaking Functions with Arguments</a></li>
-  <li><a href="#decorators-with-arguments-confuse-people-threelayer-pattern" id="toc-decorators-with-arguments-confuse-people-threelayer-pattern" class="nav-link" data-scroll-target="#decorators-with-arguments-confuse-people-threelayer-pattern">Decorators With arguments Confuse People (Three‑Layer Pattern)</a></li>
-  <li><a href="#decorator-order-matters" id="toc-decorator-order-matters" class="nav-link" data-scroll-target="#decorator-order-matters">Decorator Order Matters</a></li>
+  <li><a href="#loss-of-function-metadata" id="toc-loss-of-function-metadata" class="nav-link" data-scroll-target="#loss-of-function-metadata">Loss of Function Metadata</a></li>
+  <li><a href="#wrapper-not-handling-arguments" id="toc-wrapper-not-handling-arguments" class="nav-link" data-scroll-target="#wrapper-not-handling-arguments">Wrapper Not Handling Arguments</a></li>
+  <li><a href="#incorrect-order-when-stacking-decorators" id="toc-incorrect-order-when-stacking-decorators" class="nav-link" data-scroll-target="#incorrect-order-when-stacking-decorators">Incorrect Order When Stacking Decorators</a></li>
+  <li><a href="#passing-arguments-directly-to-decorators" id="toc-passing-arguments-directly-to-decorators" class="nav-link" data-scroll-target="#passing-arguments-directly-to-decorators">Passing Arguments Directly to Decorators</a></li>
   <li><a href="#hidden-side-effects" id="toc-hidden-side-effects" class="nav-link" data-scroll-target="#hidden-side-effects">Hidden Side-Effects</a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
@@ -367,15 +366,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Decorators are a way to add bolt on functionality to an existing function, without modifying the function’s code. Decorators are a ‘pythonic’ way to wrap (or decorate) functions, rather than having to write longer, complicated functions or manually repeat code. Instead, you can write concise, modular functions that do one thing well, and use decorators to adapt that functionality for different contexts.</p>
 <p>In this session, we will cover:</p>
 <ul>
-<li>The what, why, and how of simple decorators.</li>
-<li>How to write flexible, powerful decorators.</li>
+<li>The what, why, and how of simple decorators</li>
+<li>How to write flexible, powerful decorators</li>
 <li>Example use cases for decorators:
 <ul>
-<li><strong>Measuring Runtime</strong> - Check how long a function takes to run.</li>
-<li><strong>Writing Logs</strong> - Log runtime information for easy debugging and monitoring.</li>
-<li><strong>Parameterising Reports</strong> - Create reports for different areas, organisations or customers.</li>
+<li><strong>Measuring Runtime</strong> - Check how long a function takes to run</li>
+<li><strong>Generating Logs</strong> - Log runtime information for easy debugging and monitoring</li>
+<li><strong>Parameterising Reports</strong> - Create reports for different areas, organisations or customers</li>
 </ul></li>
-<li>Potential issues when working with decorators.</li>
+<li>Common issues when working with decorators</li>
 </ul>
 <div class="callout callout-style-simple callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -387,7 +386,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>You can download the Jupyter Notebook with the completed examples by clicking the “Jupyter” link under “Other Formats”. If following Code Club Live you may wish to download at the start of the session.</p>
+<p>You can download the Jupyter Notebook with the completed examples by clicking the “Jupyter” link under “Other Formats”.</p>
+<p>If following Code Club live you may wish to download at the start of the session.</p>
 </div>
 </div>
 <section id="what-are-decorators" class="level2">
@@ -398,18 +398,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="how-decorators-work" class="level3">
 <h3 class="anchored" data-anchor-id="how-decorators-work">How Decorators Work</h3>
 <p>Decorators take advantage of the fact that Python treats functions as first-order objects that can be directly referred to just like simpler objects such as strings, lists and tuples. It is an object we can assign to a variable or pass to or return from another function.</p>
-<div id="first-order-functions" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># define a simple function</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stuff():</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'doing stuff'</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># assign function to a variable        </span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>work <span class="op">=</span> stuff</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># print the variable 'work' to demonstrate it is an object</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(work)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="first-order-function" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stuff():</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'doing stuff'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># assign function to a variable        </span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>work <span class="op">=</span> stuff</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># work is a function object</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(work)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;function stuff at 0x00000202CACC68E0&gt;</code></pre>
+<pre><code>&lt;function stuff at 0x0000024DD8BE68E0&gt;</code></pre>
 </div>
 </div>
 <div class="callout callout-style-simple callout-warning callout-titled">
@@ -422,7 +421,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>When we print the variable <strong>hi</strong> we do not see the message “hello”, this is because we haven’t yet called the function. To call the function we must insert closed brackets <strong>()</strong> after the function name. If trying to assign a function rather than its result you <strong>must not</strong> call it when assigning.</p>
+<p>When we print the variable <code>hi</code> we do not see the message “hello”, this is because we haven’t yet called the function. To call the function we must insert closed brackets <code>()</code> after the function name.</p>
+<p>If trying to assign a function rather than its result you <strong>must not</strong> call it when assigning.</p>
 </div>
 </div>
 <div id="print-function" class="cell" data-execution_count="2">
@@ -450,100 +450,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Python creates a local scope containing <code>n = 2</code> when <code>make_multiplier(2)</code> runs, but <code>n = 2</code> is kept after <code>make_multiplier</code> is finished running because <code>n</code> is referenced in <code>multiply</code>. Python keeps <code>n</code> alive in the function’s <code>__closure__</code> attribute.</p>
 <p>Decorators leverage this principle to wrap functions and the decorator can be passed arguments that are needed for the inner functions. Decorators can also be applied to multiple other functions and more than one decorator can be applied to a given function.</p>
 <p>The following example demonstrates a simple decorator with an inner and outer function.</p>
-<div id="decorator" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is the outer function which closes the inner wrapper around another function</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> outer_function(func): <span class="co"># we could use any variable name but 'func' is the wrapped variable.</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is the function that will be wrapped around our function</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> inner_wrapper(): </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This code runs before the function</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Waking up'</span>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This is when you want the function to run</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func()</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This code runs after the function</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Going to sleep'</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Now we return 'result'</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this is where we return our decorated function</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> inner_wrapper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="simple-decorator" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_decorator(func):  <span class="co"># func is the function being decorated</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper():</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Waking up'</span>)  <span class="co"># runs before func</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Going to sleep'</span>)  <span class="co"># runs after func</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper  <span class="co"># returns the wrapped version of func</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>Having created our decorator we now need to apply it to our function we can use the familiar syntax by assigning using <code>=</code> as we did to make <code>stuff</code> into <code>work</code>:</p>
+<p>Having created our decorator, we can apply it to our earlier <code>stuff</code> function using <code>=</code>:</p>
 <div id="assign-equals" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we can assign a wrapper to a function </span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>stuff <span class="op">=</span> outer_function(stuff)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stuff())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stuff <span class="op">=</span> my_decorator(stuff)  <span class="co"># reassign stuff to its decorated version</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(stuff())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Waking up
 Going to sleep
 doing stuff</code></pre>
 </div>
 </div>
-<p>Essentially we are taking advantage of the fact that we can re-assign the wrapped function to a variable with the name <code>stuff</code>, the same name as our original function.</p>
-<p>Once we remember this we can use shorthand notation using <code>@</code> to assign a wrapped function to its own name (though this needs to be applied to the definition of the function):</p>
+<p>The decorated function is reassigned to the same variable name, replacing the original.</p>
+<p>The common convention for writing decorators is to use <code>@</code> instead of <code>=</code>. The <code>@</code> shorthand does the same thing, but must be placed above the function definition:</p>
 <div id="assign-at" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this is how we assign a decorator to a function using '@' notation</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="at">@outer_function</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> more_stuff():</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'Looks like there was more to do'</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(more_stuff())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="at">@my_decorator</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> more_stuff():</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'Looks like there was more to do'</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(more_stuff())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Waking up
 Going to sleep
 Looks like there was more to do</code></pre>
 </div>
 </div>
-<p>It is worth noting that whilst decorating a function does not alter the decorated functions code it can lead to some interesting predicaments which we will discuss at the end of the session.</p>
+<p>Decorating a function does not alter its code, but can have some unexpected side effects. We will cover these at the end of the session.</p>
 </section>
 <section id="dealing-with-arguments" class="level3">
 <h3 class="anchored" data-anchor-id="dealing-with-arguments">Dealing With Arguments</h3>
-<p>So far the examples have been fairly simple and not included any arguments, something that is very common. Note how the below code generates an error:</p>
-<div id="failure" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># @outer_function</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># def drinks(drink, milk, sugar):</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#     return f"I'd love a {drink} with {milk} and {sugar} sugars"</span></span>
+<p>So far our decorator has no arguments. For functions to be useful in practice, they need to handle arguments. You can include deocrators in arguments, but first the wrapper function needs to bet set up to expect them.</p>
+<p>The following fails because <code>wrapper</code> in <code>my_decorator</code> doesn’t expect any arguments:</p>
+<div id="args-failure" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="at">@my_decorator</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drinks(drink, milk, sugar):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"i'd love a </span><span class="sc">{</span>drink<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>milk<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>sugar<span class="sc">}</span><span class="ss"> sugars"</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># print(drinks('tea', 'plain', sugar=2))</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(drinks(<span class="st">'tea'</span>, <span class="st">'plain'</span>, sugar<span class="op">=</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
+<span class="ansi-cyan-fg">Cell</span><span class="ansi-cyan-fg"> </span><span class="ansi-green-fg">In[7]</span><span class="ansi-green-fg">, line 5</span>
+<span class="ansi-green-fg">      1</span> <span style="color:rgb(175,0,255)">@my_decorator</span>
+<span class="ansi-green-fg">      2</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span><span style="color:rgb(188,188,188)"> </span><span class="ansi-blue-fg">drinks</span>(drink, milk, sugar):
+<span class="ansi-green-fg">      3</span>     <span style="font-weight:bold;color:rgb(0,135,0)">return</span> <span class="ansi-yellow-fg">f</span><span class="ansi-yellow-fg">"</span><span class="ansi-yellow-fg">i</span><span class="ansi-yellow-fg">'</span><span class="ansi-yellow-fg">d love a </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>drink<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> with </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>milk<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> and </span><span style="font-weight:bold;color:rgb(175,95,135)">{</span>sugar<span style="font-weight:bold;color:rgb(175,95,135)">}</span><span class="ansi-yellow-fg"> sugars</span><span class="ansi-yellow-fg">"</span>
+<span class="ansi-green-fg">----&gt; </span><span class="ansi-green-fg">5</span> <span style="color:rgb(0,135,0)">print</span>(<span class="ansi-yellow-bg">drinks</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-fg ansi-yellow-bg">'</span><span class="ansi-yellow-fg ansi-yellow-bg">tea</span><span class="ansi-yellow-fg ansi-yellow-bg">'</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-fg ansi-yellow-bg">'</span><span class="ansi-yellow-fg ansi-yellow-bg">plain</span><span class="ansi-yellow-fg ansi-yellow-bg">'</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">sugar</span><span class="ansi-yellow-bg">=</span><span class="ansi-green-fg ansi-yellow-bg">2</span><span class="ansi-yellow-bg">)</span>)
+
+<span class="ansi-red-fg">TypeError</span>: my_decorator.&lt;locals&gt;.wrapper() got an unexpected keyword argument 'sugar'</pre>
 </div>
-<p>The reason this fails is to do with the way our decorator is built, to handle the arguments we need to make sure our wrapper layer knows to expect them. We can do this by passing each argument individually to the wrapper, but this leaves us with a decorator that can only handle those specific variables and that will still break if we have a function with different arguments. The way we get round that in python is by using the notation “*args, **kwargs”, this essentially represents any number of positional arguments and key word arguments (if you would like to know more <a href="https://www.youtube.com/watch?v=FFpDsC6B2qw">Visually Explained</a> does a really good job of explaining this).</p>
-<p>Let’s build a new decorator that can handle this:</p>
-<div id="args-kwargs" class="cell" data-execution_count="8">
+</div>
+</div>
+<p>To fix this, the wrapper needs to accept and pass through any arguments the decorated function expects. We use <code>*args</code> and <code>**kwargs</code> for this, which capture any number of positional and keyword arguments respectively (see <a href="https://www.youtube.com/watch?v=FFpDsC6B2qw">Visually Explained</a> for a good explanation).</p>
+<div id="args-fixed" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drink_decorator(func):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># note the placement of *args, **kwargs in both the wrapper and then when we call the function.</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This code runs before the function</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"I went to the cafe"</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This is when you want the function to run</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This code runs after the function</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"I decided what I want"</span>)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Now we return </span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># this is where we return our decorated function</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="at">@drink_decorator</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drinks(drink, milk, sugar):</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"I'd love a </span><span class="sc">{</span>drink<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>milk<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>sugar<span class="sc">}</span><span class="ss"> sugars"</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(drinks(<span class="st">'tea'</span>, <span class="st">'milk'</span>, sugar<span class="op">=</span><span class="dv">2</span>))</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(drinks(<span class="st">'coffee'</span>, <span class="st">'cream'</span>, <span class="st">'no'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):  <span class="co"># *args and **kwargs pass any arguments through to func</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'I went to the cafe'</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'I decided what I want'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="at">@drink_decorator</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drinks(drink, milk, sugar):</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"i'd love a </span><span class="sc">{</span>drink<span class="sc">}</span><span class="ss"> with </span><span class="sc">{</span>milk<span class="sc">}</span><span class="ss"> and </span><span class="sc">{</span>sugar<span class="sc">}</span><span class="ss"> sugars"</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(drinks(<span class="st">'tea'</span>, <span class="st">'milk'</span>, sugar<span class="op">=</span><span class="dv">2</span>))</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(drinks(<span class="st">'coffee'</span>, <span class="st">'cream'</span>, <span class="st">'no'</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>I went to the cafe
 I decided what I want
-I'd love a tea with milk and 2 sugars
+i'd love a tea with milk and 2 sugars
 I went to the cafe
 I decided what I want
-I'd love a coffee with cream and no sugars</code></pre>
+i'd love a coffee with cream and no sugars</code></pre>
 </div>
 </div>
-<p>You can see this now runs.</p>
 </section>
 </section>
 <section id="generalising-decorators" class="level2">
 <h2 class="anchored" data-anchor-id="generalising-decorators">Generalising Decorators</h2>
-<p>So far we’ve used simple decorators that have had specific use cases but let’s try decorating our ‘stuff’ function with our ‘drink_decorator’</p>
-<div id="drinks" class="cell" data-execution_count="9">
+<p>So far we’ve used simple decorators with specific use cases. Let’s see what happens when we apply <code>drink_decorator</code> to <code>stuff</code>:</p>
+<div id="drinks-decorator" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="at">@drink_decorator</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stuff():</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">'doing stuff'</span></span>
@@ -555,97 +551,86 @@ I decided what I want
 doing stuff</code></pre>
 </div>
 </div>
-<p>The real power of a decorator comes when we generalise it so we can use its functionality in many different situations. Decorators are at their most powerful when they can be applied to a broad scope of functions and you may find that once you’ve built a decorator in one project it has scope for use in others.</p>
-<p>To achieve this we can bear the following in mind:</p>
+<p>The real power of a decorator is in how broadly it can be applied. A well-built decorator can be reused across many functions and even across projects. To achieve this, keep the following in mind:</p>
 <ul>
-<li>Always allow for differing arguments using “*args, **kwargs”.</li>
-<li>Make the name of your outer function as generic as you can whilst keeping it as meaningful as possible (if you are looking to time the execution of a function ‘func_timer’ is perfectly acceptable.)</li>
-<li>Use general names and terms within your function, sticking with convention where possible (for example the inner function is normally just called ‘wrapper’).</li>
-<li>Parameterise your decorators where it make sense to (we’ll cover this in the third example below).</li>
+<li>Always allow for differing arguments using <code>*args, **kwargs</code>.</li>
+<li>Name your outer function generically but meaningfully. <code>func_timer</code> is fine for a timing decorator.</li>
+<li>Use conventional names internally, where possible. The inner function is normally just called <code>wrapper</code>.</li>
+<li>Parameterise your decorator where it makes sense to (we’ll cover this below).</li>
 </ul>
-<p>When we move on to looking at our examples we wil hopefully see these principles at work.</p>
+<p>The real-world examples below will demonstrate these principles at work.</p>
 </section>
 <section id="real-world-examples" class="level2">
-<h2 class="anchored" data-anchor-id="real-world-examples">Real World Examples</h2>
-<p>In this section we are going to work through three real work related examples that are common use cases for decorators. Each of these is going to help us explore some of the potential upsides and issues that we might find with decorators.</p>
-<section id="measuring-time" class="level3">
-<h3 class="anchored" data-anchor-id="measuring-time">Measuring Time</h3>
-<p>A common problem in coding is understanding how long elements of code take to run. It is possible to add markers to a function or script to time the execution, but decorators offer us a way to wrap this functionality around existing code.</p>
-<p>In this example we are going to simulate a function with a longer execution time using time.sleep (which causes Python to wait at execution for a given number of seconds when called). We will also be using the time module to record start and stop times in our decorator.</p>
-<div id="cell-func-time" class="cell" data-execution_count="10">
+<h2 class="anchored" data-anchor-id="real-world-examples">Real-World Examples</h2>
+<p>The following three examples cover common use cases for decorators and highlight some of the upsides and issues you may encounter.</p>
+<section id="measuring-runtime" class="level3">
+<h3 class="anchored" data-anchor-id="measuring-runtime">Measuring Runtime</h3>
+<p>A common problem is understanding how long code takes to run. Decorators give us a way to wrap timing functionality around existing functions without touching their code.</p>
+<p>In this example we simulate a slow function using <code>time.sleep</code> and use the <code>time</code> module to record start and stop times in the decorator.</p>
+<div id="cell-time-decorator" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> wraps <span class="co"># This line will be explained in example 2</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> wraps  <span class="co"># explained in example 2</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> func_timer(func):</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@wraps</span>(func) <span class="co"># This line will be explained in example 2</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@wraps</span>(func)  <span class="co"># explained in example 2</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> time.time() <span class="co"># assign the start time to a variable</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> time.time() <span class="co">#assign start time (and end time) to variable</span></span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        end <span class="op">=</span> time.time() <span class="co"># assign the end time to a variable</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This will print after the decorated function has run but before the result is returned</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"[TIME] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> took </span><span class="sc">{</span>end <span class="op">-</span> start<span class="sc">:.4f}</span><span class="ss"> seconds"</span>) <span class="co"># print the time taken.</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># func.__name__ gives the name of the decorated function.</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="co"># decorated function</span></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="at">@func_timer</span></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> slow_function(run_time):</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I'll get on that"</span>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    time.sleep(run_time)</span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I've done that"</span>)</span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> run_time</span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>slow_function(<span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        end <span class="op">=</span> time.time()</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print after the decorated function has run but before result is returned</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"[TIME] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> took </span><span class="sc">{</span>end <span class="op">-</span> start<span class="sc">:.4f}</span><span class="ss"> seconds"</span>)  <span class="co"># func.__name__ is the name of the decorated function</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="at">@func_timer</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> slow_function(run_time):</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"i'll get on that"</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    time.sleep(run_time)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"i've done that"</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> run_time</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>slow_function(<span class="dv">7</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>I'll get on that
-I've done that
-[TIME] slow_function took 6.9791 seconds</code></pre>
+<pre><code>i'll get on that
+i've done that
+[TIME] slow_function took 7.0008 seconds</code></pre>
 </div>
-<div id="func-time" class="cell-output cell-output-display" data-execution_count="10">
+<div id="time-decorator" class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>7</code></pre>
 </div>
 </div>
-<p>This is a generic decorator that uses the <code>__name__</code> method of the decorated function to report back the time it took to run. This allows a more meaningful response to the user than simply reporting the runtime. You could take this decorator, copy it into your code and apply the tag <code>@func_timer</code> to any of your functions and it would report back in the same way. This is the key benefit of decorators, portability and generalisation.</p>
+<p>This is a generic decorator that uses the <code>__name__</code> method of the decorated function to report back the time it took to run. <code>func_timer</code> uses <code>func.__name__</code> to report the name of the function that ran, making the output meaningful regardless of which function it’s applied to. Copy this decorator into any project, apply <code>@func_timer</code> to any function, and it works. That portability is the main benefit of writing generic decorators.</p>
 <p>There are alterations that we could make here, but we will demonstrate some further examples and then allow you to imagine how you might add further functionality to improve generalisation.</p>
 </section>
 <section id="generating-logs" class="level3">
 <h3 class="anchored" data-anchor-id="generating-logs">Generating Logs</h3>
-<p>Debugging and resolving errors as well as looking for efficiencies and how to speed up slow corner cases are all common scenarios for analysts to find themselves in. We know that a problem occurred but we don’t always understand what caused an error or slow run-time. The decorator we are going to build here is a useful way of logging situational data such as the name of the function that ran, as well as the arguments that were used and potentially more.</p>
-<p>In this example we are going to create a log file into which the data is recorded the file is created when the decorated function is first defined and then updated each time that function is called.</p>
-<div id="log" class="cell" data-execution_count="11">
+<p>A common scenario for analysts is knowing that a problem occurred but not understanding what caused it. This decorator logs the function name and arguments to a file each time a decorated function is called, giving you a record to investigate.</p>
+<p>The log file is created when the decorated function is first defined and updated on each call.</p>
+<div id="log-decorator" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> log(func):</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Ensure log folder exists</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="st">"log"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)    </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"log/</span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">.txt"</span>, mode<span class="op">=</span><span class="st">"a"</span>) <span class="im">as</span> file_obj:</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>        file_obj.write(<span class="ss">f"[Object defined] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Log call</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"log/</span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">.txt"</span>, mode<span class="op">=</span><span class="st">"a"</span>) <span class="im">as</span> file_obj:</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>            file_obj.write(</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"[Object called] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> "</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"with positional arguments </span><span class="sc">{</span>args<span class="sc">}</span><span class="ss"> "</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"and keyword arguments </span><span class="sc">{</span>kwargs<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Log completion</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"log/</span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">.txt"</span>, mode<span class="op">=</span><span class="st">"a"</span>) <span class="im">as</span> file_obj:</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>            file_obj.write(<span class="ss">f"[Object finished running] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>        <span class="co">## Use line below to test where log is</span></span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(os.path.abspath("log"))</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    os.makedirs(<span class="st">"log"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)  <span class="co"># create log folder if it doesn't exist</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"log/</span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">.txt"</span>, mode<span class="op">=</span><span class="st">"a"</span>) <span class="im">as</span> file_obj:</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        file_obj.write(<span class="ss">f"[defined] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"log/</span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">.txt"</span>, mode<span class="op">=</span><span class="st">"a"</span>) <span class="im">as</span> file_obj:</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>            file_obj.write(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"[called] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss"> "</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"with positional arguments </span><span class="sc">{</span>args<span class="sc">}</span><span class="ss"> "</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"and keyword arguments </span><span class="sc">{</span>kwargs<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>        result <span class="op">=</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="ss">f"log/</span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ss">.txt"</span>, mode<span class="op">=</span><span class="st">"a"</span>) <span class="im">as</span> file_obj:</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>            file_obj.write(<span class="ss">f"[finished] </span><span class="sc">{</span>func<span class="sc">.</span><span class="va">__name__</span><span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> result</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>This example code is looking more complex as we are now having our decorator write to an external file, but watch what happens when we apply this to multiple functions:</p>
-<div id="apply-log" class="cell" data-execution_count="12">
+<p>While this code now looks more complex than the code we’ve written before, it generalises well. Applying this to multiple functions shows how the decorator creates a separate log file for each:</p>
+<div id="apply-log-decorator" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> date, timedelta</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="at">@log</span></span>
@@ -653,28 +638,19 @@ I've done that
 <span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> n <span class="kw">in</span> names:</span>
 <span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(n)</span>
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="at">@log</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> next_code_club(current_date: date) <span class="op">-&gt;</span> date:</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    start_date <span class="op">=</span> date(<span class="dv">2025</span>, <span class="dv">5</span>, <span class="dv">1</span>) </span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_date <span class="op">&lt;=</span> start_date:</span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> start_date</span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Total days since start</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    days_since_start <span class="op">=</span> (current_date <span class="op">-</span> start_date).days</span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># cyc</span></span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    cycles <span class="op">=</span> days_since_start <span class="op">//</span> <span class="dv">14</span></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Next event is start_date + (cycles + 1)*14 days</span></span>
-<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    next_event <span class="op">=</span> start_date <span class="op">+</span> timedelta(days<span class="op">=</span>(cycles <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">14</span>)</span>
-<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> next_event</span>
-<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(next_code_club(date(<span class="dv">2026</span>,<span class="dv">4</span>,<span class="dv">29</span>)))</span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>list_recipients([<span class="st">'Michael B. Jordan'</span>, <span class="st">'Adrian Brody'</span>, <span class="st">'Cillian Murphy'</span>, <span class="st">'Brandon Fraser'</span>])</span>
-<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(next_code_club(date(<span class="dv">2023</span>,<span class="dv">1</span>,<span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="at">@log</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> next_code_club(current_date: date) <span class="op">-&gt;</span> date:</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    start_date <span class="op">=</span> date(<span class="dv">2025</span>, <span class="dv">5</span>, <span class="dv">1</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> current_date <span class="op">&lt;=</span> start_date:</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> start_date</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    days_since_start <span class="op">=</span> (current_date <span class="op">-</span> start_date).days</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    cycles <span class="op">=</span> days_since_start <span class="op">//</span> <span class="dv">14</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    next_event <span class="op">=</span> start_date <span class="op">+</span> timedelta(days<span class="op">=</span>(cycles <span class="op">+</span> <span class="dv">1</span>) <span class="op">*</span> <span class="dv">14</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> next_event</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(next_code_club(date(<span class="dv">2026</span>, <span class="dv">4</span>, <span class="dv">29</span>)))</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>list_recipients([<span class="st">'Michael B. Jordan'</span>, <span class="st">'Adrian Brody'</span>, <span class="st">'Cillian Murphy'</span>, <span class="st">'Brandon Fraser'</span>])</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(next_code_club(date(<span class="dv">2023</span>, <span class="dv">1</span>, <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2026-04-30
 Michael B. Jordan
@@ -684,185 +660,151 @@ Brandon Fraser
 2025-05-01</code></pre>
 </div>
 </div>
-<p>Note how our decorator has created separate files in the log folder for each of the functions that has been decorated.</p>
-<p>Before we move to our third example, it’s worth noting that we can stack decorators on functions, let’s try this with a brief example below:</p>
-<div id="stacking" class="cell" data-execution_count="13">
+<p>Each decorated function gets its own file in the <code>log</code> folder.</p>
+<p>It is also possible to stack decorators, which applies multiple decorators to a function. However, it is important to remember that the order matters. Decorators are applied from the inside out, so the bottom decorator wraps the function first.</p>
+<p>Here we apply both <code>func_timer</code> and <code>log</code> to the same function:</p>
+<div id="stacking-wrong-order" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="at">@func_timer</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="at">@log</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> slow_function(run_time):</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I'll get on that"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"i'll get on that"</span>)</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    time.sleep(run_time)</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I've done that"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"i've done that"</span>)</span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> run_time</span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slow_function(<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>I'll get on that
-I've done that
-[TIME] wrapper took 4.9912 seconds
+<pre><code>i'll get on that
+i've done that
+[TIME] wrapper took 5.0082 seconds
 5</code></pre>
 </div>
 </div>
-<p>Note how <code>log</code> has created a log for <code>slow_function</code>, but the timer refers to the wrapper. Essentially our timer function is seeing the wrapper from the <code>log</code> decorator and not the decorated function to enable our decorators to see the innermost function (in this case <code>slow_function</code>) we can to use the <code>wraps</code> decorator from the <code>functools</code> library to decorate our wrapper functions. This allows them to inherit properties such as <code>__name__</code> from the function they are wrapping.</p>
-<p>If you recall we used the <code>@wraps</code> in our timer function so let’s see what happens if we stack them the other way round.</p>
-<div id="func-timer-log" class="cell" data-execution_count="14">
+<p><code>log</code> wraps <code>slow_function</code> first, producing a <code>wrapper</code>. <code>func_timer</code> then wraps that <code>wrapper</code>. The timer reports <code>wrapper</code> rather than <code>slow_function</code>. This happens because <code>log</code> doesn’t use <code>@wraps</code>, so its <code>wrapper</code> doesn’t inherit <code>__name__</code> from <code>slow_function</code>.</p>
+<p><code>func_timer</code> does use <code>@wraps</code>. Reversing the order puts <code>func_timer</code> on the inside, so <code>log</code> now sees <code>slow_function</code> correctly:</p>
+<div id="stacking-right-order" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="at">@log</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="at">@func_timer</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> slow_function_2(run_time):</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I'll get on that"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"i'll get on that"</span>)</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    time.sleep(run_time)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"I've done that"</span>)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"i've done that"</span>)</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> run_time</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(slow_function_2(<span class="dv">8</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>I'll get on that
-I've done that
-[TIME] slow_function_2 took 7.9866 seconds
+<pre><code>i'll get on that
+i've done that
+[TIME] slow_function_2 took 8.0140 seconds
 8</code></pre>
 </div>
 </div>
-<p>It is recommended that before using the log function in other work you add the <code>@wraps</code> decorator, we will be using it in the last example as this is considered good practice. We recommend using it in all decorators.</p>
+<p>The cleaner fix is to add <code>@wraps</code> to every decorator you write so that order doesn’t affect metadata. We will do this in the final example below, and recommend it as standard practice.</p>
 </section>
-<section id="parameterisation" class="level3">
-<h3 class="anchored" data-anchor-id="parameterisation">Parameterisation</h3>
-<p>In analytics work, many reports share the same structure but differ in <em>parameters</em> such as:</p>
-<ul>
-<li>Organisation code<br>
-</li>
-<li>Report name<br>
-</li>
-<li>Run timestamp<br>
-</li>
-<li>Output metadata</li>
-</ul>
-<p>A decorator is a clean way to attach this metadata to any reporting function without repeating boilerplate. To do so we need to add an outer layer to our decorator factory:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report_metadata(org_code: <span class="bu">str</span>, report_name: <span class="bu">str</span>):</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Decorator that injects metadata into reporting functions.</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decorator(func):</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">@wraps</span>(func)</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>            metadata <span class="op">=</span> {</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"org_code"</span>: org_code,</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"report_name"</span>: report_name,</span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">"run_timestamp"</span>: datetime.now().isoformat(timespec<span class="op">=</span><span class="st">"seconds"</span>)</span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"[INFO] Running report '</span><span class="sc">{</span>report_name<span class="sc">}</span><span class="ss">' for </span><span class="sc">{</span>org_code<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"[INFO] Metadata: </span><span class="sc">{</span>metadata<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Pass metadata into the function</span></span>
-<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> func(<span class="op">*</span>args, metadata<span class="op">=</span>metadata, <span class="op">**</span>kwargs)</span>
-<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> wrapper</span>
-<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decorator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notice how we pass the metadata in as arguments in the first layer. We pass these to our inner layer via the decorator function which takes the function as its argument but exists in the same scope as the meta data meaning the wrapper function can inherit this.</p>
-<div id="parameters" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import pandas as pd</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># @report_metadata(org_code="R1F", report_name="Activity Summary")</span></span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># def generate_activity_report(df, metadata=None):</span></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#     """</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#     Example reporting function that receives metadata from the decorator.</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     """</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     summary = df.describe()</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     return {</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="co">#         "metadata": metadata,</span></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co">#         "summary": summary</span></span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co">#     }</span></span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="co"># df = pd.DataFrame({</span></span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a><span class="co">#     "activity": [10, 12, 9, 14, 11],</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="co">#     "cost": [200, 240, 180, 300, 220]</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="co"># })</span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a><span class="co"># result = generate_activity_report(df)</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="co"># print(result["metadata"])</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="parameterising-reports" class="level3">
+<h3 class="anchored" data-anchor-id="parameterising-reports">Parameterising Reports</h3>
+<p>Many reports share the same structure but differ in parameters such as organisation code, report name, or run timestamp. A parameterised decorator is a clean way to attach this metadata to any reporting function without repeating boilerplate.</p>
+<p>To pass arguments to the decorator itself, we add an outer layer.</p>
+<div id="report-metadata-decorator" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> wraps</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report_metadata(org_code: <span class="bu">str</span>, report_name: <span class="bu">str</span>):</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decorator(func):</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">@wraps</span>(func)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>            metadata <span class="op">=</span> {</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                <span class="st">"org_code"</span>: org_code,</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"report_name"</span>: report_name,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"run_timestamp"</span>: datetime.now().isoformat(timespec<span class="op">=</span><span class="st">"seconds"</span>)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>            }</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"[INFO] running report '</span><span class="sc">{</span>report_name<span class="sc">}</span><span class="ss">' for </span><span class="sc">{</span>org_code<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"[INFO] metadata: </span><span class="sc">{</span>metadata<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> func(<span class="op">*</span>args, metadata<span class="op">=</span>metadata, <span class="op">**</span>kwargs)</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> wrapper</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decorator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>It is worth noting that for parameterisation to be effective in this example the function we wrap must be ready to accept the meta data we are passing it. We can give this a default value of <strong>None</strong> to ensure default handling.</p>
+<p><code>org_code</code> and <code>report_name</code> are passed to the outermost layer. Because <code>decorator</code> and <code>wrapper</code> are defined inside that layer, they can access those variables via the enclosing scope (this is the closure mechanism from the start of the session).</p>
+<p>Applying it to a reporting function:</p>
+<div id="apply-report-metadata-decorator" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="at">@report_metadata</span>(org_code<span class="op">=</span><span class="st">"R1F"</span>, report_name<span class="op">=</span><span class="st">"Activity Summary"</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_activity_report(df, metadata<span class="op">=</span><span class="va">None</span>):  <span class="co"># metadata=None ensures safe default handling</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    summary <span class="op">=</span> df.describe()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">"metadata"</span>: metadata,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"summary"</span>: summary</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"activity"</span>: [<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">9</span>, <span class="dv">14</span>, <span class="dv">11</span>],</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cost"</span>: [<span class="dv">200</span>, <span class="dv">240</span>, <span class="dv">180</span>, <span class="dv">300</span>, <span class="dv">220</span>]</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> generate_activity_report(df)</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[<span class="st">"metadata"</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[INFO] running report 'Activity Summary' for R1F
+[INFO] metadata: {'org_code': 'R1F', 'report_name': 'Activity Summary', 'run_timestamp': '2026-05-07T13:19:45'}
+{'org_code': 'R1F', 'report_name': 'Activity Summary', 'run_timestamp': '2026-05-07T13:19:45'}</code></pre>
+</div>
+</div>
+<p>Note that the decorated function must be ready to accept the <code>metadata</code> argument the decorator passes in. The <code>metadata=None</code> default means the function still works if called without the decorator.</p>
 </section>
 </section>
-<section id="example-using-a-decorator-to-parameterise-reporting" class="level2">
-<h2 class="anchored" data-anchor-id="example-using-a-decorator-to-parameterise-reporting">Example: Using a Decorator to Parameterise Reporting</h2>
-<p>In analytics work, many reports share the same structure but differ in <em>parameters</em> such as:</p>
-<ul>
-<li>organisation code<br>
-</li>
-<li>report name<br>
-</li>
-<li>run timestamp<br>
-</li>
-<li>output metadata</li>
-</ul>
-<p>A decorator is a clean way to attach this metadata to any reporting function without repeating boilerplate.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report_metadata(org_code: <span class="bu">str</span>, report_name: <span class="bu">str</span>):</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">    Decorator that injects metadata into reporting functions.</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decorator(func):</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">@wraps</span>(func)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>            metadata <span class="op">=</span> {</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                <span class="st">"org_code"</span>: org_code,</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                <span class="st">"report_name"</span>: report_name,</span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>                <span class="st">"run_timestamp"</span>: datetime.now().isoformat(timespec<span class="op">=</span><span class="st">"seconds"</span>)</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"[INFO] Running report '</span><span class="sc">{</span>report_name<span class="sc">}</span><span class="ss">' for </span><span class="sc">{</span>org_code<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"[INFO] Metadata: </span><span class="sc">{</span>metadata<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Pass metadata into the function</span></span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> func(<span class="op">*</span>args, metadata<span class="op">=</span>metadata, <span class="op">**</span>kwargs)</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> wrapper</span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decorator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="common-issues" class="level2">
+<h2 class="anchored" data-anchor-id="common-issues">Common Issues</h2>
+<section id="loss-of-function-metadata" class="level3">
+<h3 class="anchored" data-anchor-id="loss-of-function-metadata">Loss of Function Metadata</h3>
+<p>When you wrap a function, the wrapper replaces it. This means that properties like <code>__name__</code> and <code>__doc__</code> point to <code>wrapper</code> instead of the original function. Use <code>functools</code> to fix this, importing <code>wraps</code> from <code>functools</code> and applying <code>@wraps(func)</code> to your wrapper:</p>
+<div id="wraps-example" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> functools <span class="im">import</span> wraps</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_decorator(func):</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">@wraps</span>(func)  <span class="co"># wrapper inherits __name__, __doc__ etc. from func</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> wrapper</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>It is important to remember to do this so that your decorators do not silently fail.</p>
 </section>
-<section id="potential-issues" class="level2">
-<h2 class="anchored" data-anchor-id="potential-issues">Potential Issues</h2>
-<p>This section summarises five common issues with decorators and offers some hints to resolve these.</p>
-<section id="decorated-functions-losing-metadata" class="level3">
-<h3 class="anchored" data-anchor-id="decorated-functions-losing-metadata">Decorated Functions Losing Metadata</h3>
-<p>This is caused by the fact that the wrapper is not inheriting the decorated functions properties. it is resolved by importing “wraps” from “functools” and wrapping your wrapper with <code>@wraps(func)</code>.</p>
+<section id="wrapper-not-handling-arguments" class="level3">
+<h3 class="anchored" data-anchor-id="wrapper-not-handling-arguments">Wrapper Not Handling Arguments</h3>
+<p>If a decorated function takes arguments but the wrapper doesn’t, it will fail. Always use <code>*args, **kwargs</code> in both the wrapper signature and the <code>func()</code> call. This lets the decorator handle any function regardless of its arguments.</p>
 </section>
-<section id="decorators-breaking-functions-with-arguments" class="level3">
-<h3 class="anchored" data-anchor-id="decorators-breaking-functions-with-arguments">Decorators Breaking Functions with Arguments</h3>
-<p>The most likely cause here is that the wrapper cannot handle all the arguments of thefunction it is wrapping remember to always use “*args, **kwargs” in your wrapper and func calls, this will allow your decorator to handle any number of arguments.</p>
+<section id="incorrect-order-when-stacking-decorators" class="level3">
+<h3 class="anchored" data-anchor-id="incorrect-order-when-stacking-decorators">Incorrect Order When Stacking Decorators</h3>
+<p>When stacking decorators, each one sees the layer directly beneath it. This affects <code>__name__</code>, execution order, and any decorator that inspects the function it’s wrapping. If something behaves unexpectedly, try reversing the order.</p>
 </section>
-<section id="decorators-with-arguments-confuse-people-threelayer-pattern" class="level3">
-<h3 class="anchored" data-anchor-id="decorators-with-arguments-confuse-people-threelayer-pattern">Decorators With arguments Confuse People (Three‑Layer Pattern)</h3>
-<p>If you are passing any arguments into the decorated function you may need to ensure you are following the correct syntax, this is the broad structure:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> outer(param):</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decorator(func):</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> wrapper</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decorator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="decorator-order-matters" class="level3">
-<h3 class="anchored" data-anchor-id="decorator-order-matters">Decorator Order Matters</h3>
-<p>Ideally decorators should be generalised as possible however you should check how the decorators you plan to use interact. Some decorators to not stack on others and you may need to revise the order you stack decorators if they are causing issues. Remember when stacking 2 or more decorators, order makes a genuine difference.</p>
+<section id="passing-arguments-directly-to-decorators" class="level3">
+<h3 class="anchored" data-anchor-id="passing-arguments-directly-to-decorators">Passing Arguments Directly to Decorators</h3>
+<p>If the decorator itself needs arguments (not the decorated function, but the decorator), you need a third layer:</p>
+<div id="decorator-factory" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> outer(param):       <span class="co"># accepts the decorator's arguments</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decorator(func):  <span class="co"># accepts the function to decorate</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> wrapper(<span class="op">*</span>args, <span class="op">**</span>kwargs):  <span class="co"># accepts the function's arguments</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> wrapper</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> decorator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="hidden-side-effects" class="level3">
 <h3 class="anchored" data-anchor-id="hidden-side-effects">Hidden Side-Effects</h3>
-<p>decorators can have additional side effects, see this <a href="https://www.educative.io/courses/clean-code-in-python/dealing-with-side-effects-in-decorators?utm_source=copilot.com">Educative site</a> for more information on these. you should always test and debug functions (including decorators) before decorating them and then test the effects of adding the decorator(s) you are using.</p>
+<p>Decorators can introduce unexpected behaviour. For example, logging, caching, or timing code that runs when you don’t expect it, or states that persists between calls. Always test your decorator in isolation before applying it, and test the decorated function afterwards. See <a href="https://www.educative.io/courses/clean-code-in-python/dealing-with-side-effects-in-decorators">Educative</a> for more details.</p>
 </section>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
-<p>This is an incredibly broad subject and there are endless interactions it is also worth noting that decorators can be applied to certain other contexts such as decorating methods in classes but these are well outside the scope of this session and if you wish to understand more we recommend reviewing some of the following sources:</p>
+<p>Decorators are a broad topic and they are conceptually complex for someone new to Python, but they are well worth learning. Once you are comfortable working with decorators, it is much easier to keep your code clean, modular, and readable.</p>
+<p>This session is a relatively brief introduction to decorators, but they can be applied to other contexts too, included decorating methods in classes. Though this is out of scope for this session, if you wish to understand more, the following resources are worth checking out:</p>
 <ul>
 <li><a href="https://www.educative.io/courses/clean-code-in-python/what-are-decorators-in-python">Educative course on decorators</a></li>
 <li><a href="https://www.youtube.com/watch?v=3tyaO-OE0K0">Python Decorators - Visually Explained</a></li>
 <li><a href="https://www.youtube.com/watch?v=FsAPt_9Bf3U">Corey Schaffers tutorial on Decorators</a></li>
 <li><a href="https://www.geeksforgeeks.org/python/decorators-in-python/">Geeks For Geeks - Decorators in Python</a></li>
 </ul>
-<p>And of course you can reach out to any of the Code Club team for support or drop a call in the <a href="https://teams.microsoft.com/l/channel/19%3Aaade66d3b9e542c28224d9c2f43519eb%40thread.tacv2/Code%20Help?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&amp;tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3">Code Club Help</a> channel.</p>
+<p>And of course you can reach out to any of the Code Club team for support or drop a message in the <a href="https://teams.microsoft.com/l/channel/19%3Aaade66d3b9e542c28224d9c2f43519eb%40thread.tacv2/Code%20Help?groupId=38d3487e-3bc5-4d3c-a710-5a9e895ab03d&amp;tenantId=37c354b2-85b0-47f5-b222-07b48d774ee3">Code Club Help</a> channel.</p>
 
 
 </section>
