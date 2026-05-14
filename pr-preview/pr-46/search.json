@@ -1380,14 +1380,22 @@
     "href": "sessions/intermediate-skills/25-asynchronous/index.html",
     "title": "Asynchronous programming and callbacks",
     "section": "",
-    "text": "Asynchronous programming …\nIn this session, we will cover:"
+    "text": "Asynchronous programming …\nIn this session, we will cover:",
+    "crumbs": [
+      "Intermediate Python",
+      "25. Asynchronous programming and callbacks"
+    ]
   },
   {
     "objectID": "sessions/intermediate-skills/25-asynchronous/index.html#what",
     "href": "sessions/intermediate-skills/25-asynchronous/index.html#what",
     "title": "Asynchronous programming and callbacks",
     "section": "What",
-    "text": "What"
+    "text": "What",
+    "crumbs": [
+      "Intermediate Python",
+      "25. Asynchronous programming and callbacks"
+    ]
   },
   {
     "objectID": "sessions/intermediate-skills/18-webscraping-apis/index.html",
