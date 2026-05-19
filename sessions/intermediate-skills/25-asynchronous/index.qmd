@@ -32,6 +32,21 @@ Because Jupyter is already an async environment under the bonnet, running our ex
 
 ## What does asynchronous (and synchronous) mean?
 
+In short, and oversimplifying, up to this point we've done all of our programing *synchronously*. The program runs one step at a time, and anything we do that takes a non-trivial time to run makes the whole program to wait until it completes. Broadly, *asynchronous* programming is a category of techniques that lets us do multiple things at the same time.
+
+> Chess master Judit Polgár hosts a chess exhibition in which she plays multiple amateur players. She has two ways of conducting the exhibition: synchronously and asynchronously.
+> 
+> Assumptions:
+> 
+> 24 opponents
+> Judit makes each chess move in 5 seconds
+> Opponents each take 55 seconds to make a move
+> Games average 30 pair-moves (60 moves total)
+> Synchronous version: Judit plays one game at a time, never two at the same time, until the game is complete. Each game takes (55 + 5) * 30 == 1800 seconds, or 30 minutes. The > entire exhibition takes 24 * 30 == 720 minutes, or 12 hours.
+> 
+> Asynchronous version: Judit moves from table to table, making one move at each table. She leaves the table and lets the opponent make their next move during the wait time. One > move on all 24 games takes Judit 24 * 5 == 120 seconds, or 2 minutes. The entire exhibition is now cut down to 120 * 30 == 3600 seconds, or just 1 hour. 
+([Source](https://realpython.com/async-io-python/#async-io-explained))
+
 ## Implementing asychronous methods
 
 The basic building block of asynchronous programming in python using `asyncio` is the **coroutine**. This is a [function](../../essential-skills/08-functions/index.qmd) defined similarly to a normal (synchronous) function except we use `async def` instead of `def`. We also can't call them normally (`func()`) - we need to use a method of the `asyncio` library such as `asyncio.run()` or `asyncio.gather()`.
@@ -93,10 +108,12 @@ This uses [the `gather()` method](https://docs.python.org/3/library/asyncio-task
 
 Calling an async coroutine *within* another coroutine using `await` will suspend the current coroutine until the result from that coroutine is available. It passes program control back to the main event loop and then comes back to the coroutine we used the `await` keyword in once the second coroutine has returned its result.
 
+## Async for loops and comprehensions
+
 ## Callbacks
 
 **Callbacks** are a related concept although they are not exclusively used in asynchronous programming (and, in fact, you don't necessarily need to use them if you're using `asyncio`).
-z
+
 A callback is a function that we pass to another function as an argument. For example:
 
 ```{python}
