@@ -110,6 +110,27 @@ Calling an async coroutine *within* another coroutine using `await` will suspend
 
 ## Async for loops and comprehensions
 
+There are asynchronous equivalents to `for` loops and list comprehension.
+
+```{python}
+import asyncio
+
+# An async generator that yields results one at a time
+async def process_items(items):
+    for item in items:
+        await asyncio.sleep(1)  # simulate some async work
+        yield item.upper()
+
+# Async for loop
+async for result in process_items(["kettle", "toast", "eggs"]):
+    print(f"Ready: {result}")
+
+
+# Async comprehension - same thing, collected into a list
+results = [result async for result in process_items(["kettle", "toast", "eggs"])]
+print(results)
+```
+
 ## Callbacks
 
 **Callbacks** are a related concept although they are not exclusively used in asynchronous programming (and, in fact, you don't necessarily need to use them if you're using `asyncio`).
@@ -183,3 +204,9 @@ await main()
 elapsed = time.perf_counter() - start
 print(f"\nAll {len(REQUESTS)} requests completed in {elapsed:.2f} seconds")
 ```
+
+## Conclusion and further resources
+
+- https://www.geeksforgeeks.org/python/asyncio-in-python/
+- https://realpython.com/async-io-python/
+- https://www.w3schools.com/python/ref_module_asyncio.asp
