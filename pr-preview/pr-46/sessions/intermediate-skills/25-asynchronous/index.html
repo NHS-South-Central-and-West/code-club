@@ -327,6 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#doing-it-async-instead" id="toc-doing-it-async-instead" class="nav-link" data-scroll-target="#doing-it-async-instead">Doing it <code>async</code> instead</a></li>
   <li><a href="#the-await-keyword" id="toc-the-await-keyword" class="nav-link" data-scroll-target="#the-await-keyword">The <code>await</code> keyword</a></li>
   </ul></li>
+  <li><a href="#async-for-loops-and-comprehensions" id="toc-async-for-loops-and-comprehensions" class="nav-link" data-scroll-target="#async-for-loops-and-comprehensions">Async for loops and comprehensions</a></li>
   <li><a href="#callbacks" id="toc-callbacks" class="nav-link" data-scroll-target="#callbacks">Callbacks</a></li>
   <li><a href="#real-world-examples" id="toc-real-world-examples" class="nav-link" data-scroll-target="#real-world-examples">Real-world examples</a>
   <ul class="collapse">
@@ -394,13 +395,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="what-does-asynchronous-and-synchronous-mean" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-asynchronous-and-synchronous-mean">What does asynchronous (and synchronous) mean?</h2>
+<p>In short, and oversimplifying, up to this point we’ve done all of our programing <em>synchronously</em>. The program runs one step at a time, and anything we do that takes a non-trivial time to run makes the whole program to wait until it completes. Broadly, <em>asynchronous</em> programming is a category of techniques that lets us do multiple things at the same time.</p>
+<blockquote class="blockquote">
+<p>Chess master Judit Polgár hosts a chess exhibition in which she plays multiple amateur players. She has two ways of conducting the exhibition: synchronously and asynchronously.</p>
+<p>Assumptions:</p>
+<p>24 opponents Judit makes each chess move in 5 seconds Opponents each take 55 seconds to make a move Games average 30 pair-moves (60 moves total) Synchronous version: Judit plays one game at a time, never two at the same time, until the game is complete. Each game takes (55 + 5) * 30 == 1800 seconds, or 30 minutes. The &gt; entire exhibition takes 24 * 30 == 720 minutes, or 12 hours.</p>
+<p>Asynchronous version: Judit moves from table to table, making one move at each table. She leaves the table and lets the opponent make their next move during the wait time. One &gt; move on all 24 games takes Judit 24 * 5 == 120 seconds, or 2 minutes. The entire exhibition is now cut down to 120 * 30 == 3600 seconds, or just 1 hour. (<a href="https://realpython.com/async-io-python/#async-io-explained">Source</a>)</p>
+</blockquote>
 </section>
 <section id="implementing-asychronous-methods" class="level2">
 <h2 class="anchored" data-anchor-id="implementing-asychronous-methods">Implementing asychronous methods</h2>
 <p>The basic building block of asynchronous programming in python using <code>asyncio</code> is the <strong>coroutine</strong>. This is a <a href="../../../sessions/essential-skills/08-functions/index.html">function</a> defined similarly to a normal (synchronous) function except we use <code>async def</code> instead of <code>def</code>. We also can’t call them normally (<code>func()</code>) - we need to use a method of the <code>asyncio</code> library such as <code>asyncio.run()</code> or <code>asyncio.gather()</code>.</p>
 <section id="a-synchronous-example" class="level3">
 <h3 class="anchored" data-anchor-id="a-synchronous-example">A synchronous example</h3>
-<div id="8c58fe0e" class="cell" data-execution_count="1">
+<div id="a9839adb" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Synchronous version - does one thing at a time</span></span>
@@ -433,7 +441,7 @@ Synchronous breakfast took 9.0 seconds</code></pre>
 </section>
 <section id="doing-it-async-instead" class="level3">
 <h3 class="anchored" data-anchor-id="doing-it-async-instead">Doing it <code>async</code> instead</h3>
-<div id="74b0d630" class="cell" data-execution_count="2">
+<div id="ae52a458" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -473,10 +481,14 @@ Async breakfast took 4.0 seconds</code></pre>
 <p>Calling an async coroutine <em>within</em> another coroutine using <code>await</code> will suspend the current coroutine until the result from that coroutine is available. It passes program control back to the main event loop and then comes back to the coroutine we used the <code>await</code> keyword in once the second coroutine has returned its result.</p>
 </section>
 </section>
+<section id="async-for-loops-and-comprehensions" class="level2">
+<h2 class="anchored" data-anchor-id="async-for-loops-and-comprehensions">Async for loops and comprehensions</h2>
+</section>
 <section id="callbacks" class="level2">
 <h2 class="anchored" data-anchor-id="callbacks">Callbacks</h2>
-<p><strong>Callbacks</strong> are a related concept although they are not exclusively used in asynchronous programming (and, in fact, you don’t necessarily need to use them if you’re using <code>asyncio</code>). z A callback is a function that we pass to another function as an argument. For example:</p>
-<div id="8ea13678" class="cell" data-execution_count="3">
+<p><strong>Callbacks</strong> are a related concept although they are not exclusively used in asynchronous programming (and, in fact, you don’t necessarily need to use them if you’re using <code>asyncio</code>).</p>
+<p>A callback is a function that we pass to another function as an argument. For example:</p>
+<div id="54709fd7" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> add_two_numbers (a,b,on_complete):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> a<span class="op">+</span>b</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    on_complete(result)</span>
@@ -500,7 +512,7 @@ The result squared is: 9</code></pre>
 <h2 class="anchored" data-anchor-id="real-world-examples">Real-world examples</h2>
 <section id="fingertips-api" class="level3">
 <h3 class="anchored" data-anchor-id="fingertips-api">Fingertips API</h3>
-<div id="acf3736a" class="cell" data-execution_count="4">
+<div id="37aed5c8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> aiohttp</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
@@ -552,11 +564,11 @@ Requesting: area_types...
 Requesting: indicator_search_smoking...
 Requesting: indicator_search_obesity...
 Requesting: indicator_search_alcohol...
-Received: indicator_search_alcohol (21 items)
 Received: indicator_search_obesity (21 items)
-Received: area_types (44 items)
 Received: indicator_search_smoking (21 items)
+Received: indicator_search_alcohol (21 items)
 Received: profiles (38 items)
+Received: area_types (44 items)
 
 --- Summary ---
 profiles: 38 results
@@ -565,7 +577,7 @@ indicator_search_smoking: 21 keys
 indicator_search_obesity: 21 keys
 indicator_search_alcohol: 21 keys
 
-All 5 requests completed in 0.23 seconds</code></pre>
+All 5 requests completed in 0.50 seconds</code></pre>
 </div>
 </div>
 
