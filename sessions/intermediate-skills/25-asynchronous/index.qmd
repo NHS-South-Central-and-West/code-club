@@ -93,6 +93,28 @@ This uses [the `gather()` method](https://docs.python.org/3/library/asyncio-task
 
 Calling an async coroutine *within* another coroutine using `await` will suspend the current coroutine until the result from that coroutine is available. It passes program control back to the main event loop and then comes back to the coroutine we used the `await` keyword in once the second coroutine has returned its result.
 
+## Callbacks
+
+**Callbacks** are a related concept although they are not exclusively used in asynchronous programming (and, in fact, you don't necessarily need to use them if you're using `asyncio`).
+z
+A callback is a function that we pass to another function as an argument. For example:
+
+```{python}
+def add_two_numbers (a,b,on_complete):
+    result = a+b
+    on_complete(result)
+
+def print_the_result (what_to_print):
+    print (f'The result is: {what_to_print}')
+
+def square_and_print_the_result (what_to_print):
+    result = what_to_print**2
+    print (f'The result squared is: {result}')
+
+add_two_numbers(1,2,print_the_result)
+add_two_numbers(1,2,square_and_print_the_result)
+```
+
 ## Real-world examples
 
 ### Fingertips API
