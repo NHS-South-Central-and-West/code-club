@@ -5,12 +5,14 @@ format:
   ipynb: default
 ---
 
-Asynchronous programming ...
+Asynchronous programming involves functions that we don't need to wait for to complete before doing something else. They allow for multiple parts of a program to execute simultaneously (concurrently).
 
 In this session, we will cover:
 
-- ...
-- ...
+- What asynchronous programming is in Python and how it differs from "normal" (synchronous) methods
+- When you might want to use it
+- How to use it, with Python code examples
+- Some real-world examples.
 
 :::{.callout-warning}
 
@@ -21,4 +23,124 @@ You can download the Jupyter Notebook with the completed examples by clicking th
 If following Code Club live you may wish to download at the start of the session.
 :::
 
-## What
+:::{.callout-warning}
+## A quick note on async code in Jupyter notebooks
+
+Because Jupyter is already an async environment under the bonnet, running our example code *outside* a notebook (i.e. directly in a .py file) would require some tweaking which is outside of the scope of this session.
+
+:::
+
+## What does asynchronous (and synchronous) mean?
+
+## Implementing asychronous methods
+
+The basic building block of asynchronous programming in python using `asyncio` is the **coroutine**. This is a [function](../../essential-skills/08-functions/index.qmd) defined similarly to a normal (synchronous) function except we use `async def` instead of `def`. We also can't call them normally (`func()`) - we need to use a method of the `asyncio` library such as `asyncio.run()` or `asyncio.gather()`.
+
+### A synchronous example
+
+```{python}
+import time
+
+# Synchronous version - does one thing at a time
+def sync_make_breakfast():
+    print("Boiling kettle...")
+    time.sleep(3)
+    print("Kettle done!")
+    
+    print("Toasting bread...")
+    time.sleep(2)
+    print("Toast done!")
+    
+    print("Boiling egg...")
+    time.sleep(4)
+    print("Egg done!")
+
+start = time.perf_counter()
+sync_make_breakfast()
+print(f"Synchronous breakfast took {time.perf_counter() - start:.1f} seconds")
+```
+
+### Doing it `async` instead
+
+```{python}
+import asyncio
+import time
+
+# Async version - starts tasks and waits for them concurrently
+async def boil_kettle():
+    print("Boiling kettle...")
+    await asyncio.sleep(3)
+    print("Kettle done!")
+
+async def make_toast():
+    print("Toasting bread...")
+    await asyncio.sleep(2)
+    print("Toast done!")
+
+async def boil_egg():
+    print("Boiling egg...")
+    await asyncio.sleep(4)
+    print("Egg done!")
+
+start = time.perf_counter()
+await asyncio.gather(boil_kettle(), make_toast(), boil_egg())
+print(f"Async breakfast took {time.perf_counter() - start:.1f} seconds")
+```
+
+This uses [the `gather()` method](https://docs.python.org/3/library/asyncio-task.html#running-tasks-concurrently) to run multiple functions concurrently. We need to preface it with the `await` keyword because we're already in an "awaitable" asynchronous event loop as a consequence of using Jupyter notebooks. If you were doing this directly in a `.py` file, you would not use `await` outside of coroutines.
+
+### The `await` keyword
+
+Calling an async coroutine *within* another coroutine using `await` will suspend the current coroutine until the result from that coroutine is available. It passes program control back to the main event loop and then comes back to the coroutine we used the `await` keyword in once the second coroutine has returned its result.
+
+## Real-world examples
+
+### Fingertips API
+
+```{python}
+import asyncio
+import aiohttp
+import time
+
+BASE_URL = "https://fingertips.phe.org.uk/api"
+
+# Simple JSON lookup endpoints that return quickly
+REQUESTS = {
+    "profiles": f"{BASE_URL}/profiles",
+    "area_types": f"{BASE_URL}/area_types",
+    "indicator_search_smoking": f"{BASE_URL}/indicator_search?search_text=smoking",
+    "indicator_search_obesity": f"{BASE_URL}/indicator_search?search_text=obesity",
+    "indicator_search_alcohol": f"{BASE_URL}/indicator_search?search_text=alcohol",
+}
+
+
+async def fetch(session, name, url):
+    """Fetch a single API endpoint and return the result."""
+    print(f"Requesting: {name}...")
+    async with session.get(url) as response:
+        data = await response.json()
+        print(f"Received: {name} ({len(data)} items)")
+        return name, data
+
+
+async def main():
+    async with aiohttp.ClientSession() as session:
+        tasks = [
+            fetch(session, name, url)
+            for name, url in REQUESTS.items()
+        ]
+        results = await asyncio.gather(*tasks)
+
+    print("\n--- Summary ---")
+    for name, data in results:
+        if isinstance(data, list):
+            print(f"{name}: {len(data)} results")
+        elif isinstance(data, dict):
+            print(f"{name}: {len(data)} keys")
+
+
+start = time.perf_counter()
+await main()
+elapsed = time.perf_counter() - start
+print(f"\nAll {len(REQUESTS)} requests completed in {elapsed:.2f} seconds")
+```
