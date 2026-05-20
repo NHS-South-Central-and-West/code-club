@@ -175,7 +175,6 @@ REQUESTS = {
 
 
 async def fetch(session, name, url):
-    """Fetch a single API endpoint and return the result."""
     print(f"Requesting: {name}...")
     async with session.get(url) as response:
         data = await response.json()
