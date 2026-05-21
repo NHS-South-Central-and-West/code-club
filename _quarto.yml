@@ -123,6 +123,7 @@ website:
             - text: 24. Decorators
               file: sessions/intermediate-skills/24-decorators/index.qmd
             - text: 25. Asynchronous programming and callbacks
+              file: sessions/intermediate-skills/25-asynchronous/index.qmd
             - text: 26. Higher order functions
             - text: 27. Map, filter, reduce
             - text: 28. Logging, debugging, exception handling

@@ -1,0 +1,356 @@
+---
+title: "Asynchronous programming and callbacks"
+format:
+  html: default
+  ipynb: default
+---
+
+Asynchronous (async) programming involves functions that we don't need to wait for to complete before doing something else. They allow for multiple parts of a program to execute simultaneously (concurrently).
+
+In this session, we will cover:
+
+- What asynchronous programming is in Python and how it differs from "normal" (synchronous) methods
+- When you might want to use it
+- How to use it, with Python code examples
+- Async for loops and comprehensions
+- Callbacks and how they relate to async
+- Some real-world examples.
+
+:::{.callout-warning}
+
+## Download
+
+You can download the Jupyter Notebook with the completed examples by clicking the "Jupyter" link under "Other Formats". 
+
+If following Code Club live you may wish to download at the start of the session.
+:::
+
+:::{.callout-warning}
+## A quick note on async code in Jupyter notebooks
+
+Because Jupyter is already an async environment under the bonnet, running our example code *outside* a notebook (i.e. directly in a .py file) would require some tweaking which is outside of the scope of this session.
+
+Specifically, in a `.py` file you would need to use `asyncio.run()` as your entry point, whereas in Jupyter you can `await` directly at the top level. We'll flag this where relevant.
+
+:::
+
+## What does asynchronous (and synchronous) mean?
+
+In short, and oversimplifying, up to this point we've done all of our programing *synchronously*. The program runs one step at a time, and anything we do that takes a non-trivial time to run makes the whole program to wait until it completes. Broadly, *asynchronous* programming is a category of techniques that lets us do multiple things at the same time.
+
+> Chess master Judit Polgár hosts a chess exhibition in which she plays multiple amateur players. She has two ways of conducting the exhibition: synchronously and asynchronously.
+> 
+> Assumptions:
+> 
+> 24 opponents
+> Judit makes each chess move in 5 seconds
+> Opponents each take 55 seconds to make a move
+> Games average 30 pair-moves (60 moves total)
+> Synchronous version: Judit plays one game at a time, never two at the same time, until the game is complete. Each game takes (55 + 5) * 30 == 1800 seconds, or 30 minutes. The > entire exhibition takes 24 * 30 == 720 minutes, or 12 hours.
+> 
+> Asynchronous version: Judit moves from table to table, making one move at each table. She leaves the table and lets the opponent make their next move during the wait time. One > move on all 24 games takes Judit 24 * 5 == 120 seconds, or 2 minutes. The entire exhibition is now cut down to 120 * 30 == 3600 seconds, or just 1 hour. 
+([Source](https://realpython.com/async-io-python/#async-io-explained))
+
+### When is async useful?
+
+Async programming helps when your code spends most of its time *waiting* — for an API to respond, a database query to return, or a file to download. This is called **I/O-bound** (input/output-bound) work. While one task is waiting, async lets your program get on with something else instead of sitting idle.
+
+It does *not* help with **CPU-bound** work such as heavy number-crunching in `pandas` or `numpy`. If the bottleneck is your processor doing calculations rather than waiting for an external system, async won't speed things up. For that, you'd need *multiprocessing*, which is outside the scope of this session.
+
+As a rule of thumb: if your code spends most of its time waiting, async can help. If it spends most of its time computing, it can't.
+
+## Implementing asychronous methods
+
+The basic building block of asynchronous programming in python using `asyncio` is the **coroutine**. This is a [function](../../essential-skills/08-functions/index.qmd) defined similarly to a normal (synchronous) function except we use `async def` instead of `def`. We also can't call them normally (`func()`) - we need to use a method of the `asyncio` library such as `asyncio.run()` or `asyncio.gather()`.
+
+### A synchronous example
+
+```{python}
+import time
+
+# synchronous version - does one thing at a time
+def sync_make_breakfast():
+    print("Boiling kettle...")
+    time.sleep(3)
+    print("Kettle done!")
+    
+    print("Toasting bread...")
+    time.sleep(2)
+    print("Toast done!")
+    
+    print("Boiling egg...")
+    time.sleep(4)
+    print("Egg done!")
+
+start = time.perf_counter()
+sync_make_breakfast()
+print(f"Synchronous breakfast took {time.perf_counter() - start:.1f} seconds")
+```
+
+### Doing it `async` instead
+
+```{python}
+import asyncio
+import time
+
+# async version - starts tasks and waits for them concurrently
+async def boil_kettle():
+    print("Boiling kettle...")
+    await asyncio.sleep(3)
+    print("Kettle done!")
+
+async def make_toast():
+    print("Toasting bread...")
+    await asyncio.sleep(2)
+    print("Toast done!")
+
+async def boil_egg():
+    print("Boiling egg...")
+    await asyncio.sleep(4)
+    print("Egg done!")
+
+start = time.perf_counter()
+await asyncio.gather(boil_kettle(), make_toast(), boil_egg())
+print(f"Async breakfast took {time.perf_counter() - start:.1f} seconds")
+```
+
+This uses [the `gather()` method](https://docs.python.org/3/library/asyncio-task.html#running-tasks-concurrently) to run multiple functions concurrently. We need to preface it with the `await` keyword because we're already in an "awaitable" asynchronous event loop as a consequence of using Jupyter notebooks. If you were doing this directly in a `.py` file, you would not use `await` outside of coroutines.
+
+### The `await` keyword
+
+Calling an async coroutine *within* another coroutine using `await` will suspend the current coroutine until the result from that coroutine is available. It passes program control back to the main event loop and then comes back to the coroutine we used the `await` keyword in once the second coroutine has returned its result.
+
+### Getting return values
+
+In practice, you'll usually want to get data back from your async functions rather than just printing. `asyncio.gather()` returns results in the same order you passed the tasks in, which makes it straightforward to work with:
+
+```{python}
+import asyncio
+import time
+
+async def fetch_patient_count(org_code):
+    print(f"Querying {org_code}...")
+    # simulate different response times
+    delay = len(org_code)
+    await asyncio.sleep(delay)
+    # pretend we got a result
+    fake_counts = {"RHM": 42000, "PHU": 38500, "UHS": 51200}
+    count = fake_counts.get(org_code, 0)
+    print(f"{org_code} returned {count}")
+    return org_code, count
+
+start = time.perf_counter()
+results = await asyncio.gather(
+    fetch_patient_count("RHM"),
+    fetch_patient_count("PHU"),
+    fetch_patient_count("UHS"),
+)
+elapsed = time.perf_counter() - start
+
+print(f"\nAll queries completed in {elapsed:.1f} seconds")
+for org, count in results:
+    print(f"  {org}: {count:,} patients")
+```
+
+## Async for loops and comprehensions
+
+There are asynchronous equivalents to `for` loops and list comprehensions. These use **async generators** — if you remember [generators](../23-generators/index.qmd), the concept is the same but with awaitable pauses in between yields.
+
+```{python}
+import asyncio
+
+# an async generator that yields results one at a time
+async def process_items(items):
+    for item in items:
+        await asyncio.sleep(1)  # simulate some async work
+        yield item.upper()
+
+# async for loop
+async for result in process_items(["kettle", "toast", "eggs"]):
+    print(f"Ready: {result}")
+
+```
+
+And the comprehension equivalent, which works exactly as you'd expect from regular list comprehensions:
+
+```{python}
+# async comprehension - same thing, collected into a list
+results = [result async for result in process_items(["kettle", "toast", "eggs"])]
+print(results)
+```
+
+You can also filter, just like a regular comprehension:
+
+```{python}
+# async comprehension with a condition
+long_items = [
+    result async for result in process_items(["kettle", "toast", "eggs", "jam"])
+    if len(result) > 4
+]
+print(long_items)
+```
+
+## Callbacks
+
+**Callbacks** are a related concept although they are not exclusively used in asynchronous programming (and, in fact, you don't necessarily need to use them if you're using `asyncio`).
+
+A callback is a function that we pass to another function as an argument, to be called later when something happens. You've already seen this pattern in previous sessions - it relies on the fact that Python treats functions as first-class objects that can be passed around, just as we saw with [decorators](../24-decorators/index.qmd).
+
+For example:
+
+```{python}
+def add_two_numbers (a,b,on_complete):
+    result = a+b
+    on_complete(result)
+
+def print_the_result (what_to_print):
+    print (f'The result is: {what_to_print}')
+
+def square_and_print_the_result (what_to_print):
+    result = what_to_print**2
+    print (f'The result squared is: {result}')
+
+add_two_numbers(1,2,print_the_result)
+add_two_numbers(1,2,square_and_print_the_result)
+```
+
+You may already have come across callbacks without realising it. `DataFrame.apply()` in `pandas`  follows this pattern where you hand a function to something else and it gets invoked at the right moment.
+
+## Real-world example: Fingertips API
+
+A common task for analysts is pulling data from multiple API endpoints. Here we query the [PHE Fingertips API](https://fingertips.phe.org.uk/api) which is a public API for population health data. This example uses `aiohttp`, which is the async equivalent of the `requests` library.
+
+First, for comparison, here's how you might do it synchronously:
+
+```{python}
+import requests
+import time
+
+BASE_URL = "https://fingertips.phe.org.uk/api"
+
+REQUESTS = {
+    "profiles": f"{BASE_URL}/profiles",
+    "area_types": f"{BASE_URL}/area_types",
+    "indicator_search_smoking": f"{BASE_URL}/indicator_search?search_text=smoking",
+    "indicator_search_obesity": f"{BASE_URL}/indicator_search?search_text=obesity",
+    "indicator_search_alcohol": f"{BASE_URL}/indicator_search?search_text=alcohol",
+}
+
+start = time.perf_counter()
+for name, url in REQUESTS.items():
+    response = requests.get(url)
+    data = response.json()
+    print(f"{name}: {len(data)} items")
+elapsed = time.perf_counter() - start
+print(f"\nSynchronous: all {len(REQUESTS)} requests completed in {elapsed:.2f} seconds")
+```
+
+And here's the async version, which fires off all requests concurrently:
+
+```{python}
+import asyncio
+import aiohttp
+import time
+
+BASE_URL = "https://fingertips.phe.org.uk/api"
+
+# simple JSON lookup endpoints that return quickly
+REQUESTS = {
+    "profiles": f"{BASE_URL}/profiles",
+    "area_types": f"{BASE_URL}/area_types",
+    "indicator_search_smoking": f"{BASE_URL}/indicator_search?search_text=smoking",
+    "indicator_search_obesity": f"{BASE_URL}/indicator_search?search_text=obesity",
+    "indicator_search_alcohol": f"{BASE_URL}/indicator_search?search_text=alcohol",
+}
+
+
+async def fetch(session, name, url):
+    print(f"Requesting: {name}...")
+    async with session.get(url) as response:
+        data = await response.json()
+        print(f"Received: {name} ({len(data)} items)")
+        return name, data
+
+
+async def main():
+    async with aiohttp.ClientSession() as session:
+        tasks = [
+            fetch(session, name, url)
+            for name, url in REQUESTS.items()
+        ]
+        results = await asyncio.gather(*tasks)
+
+    print("\n--- Summary ---")
+    for name, data in results:
+        if isinstance(data, list):
+            print(f"{name}: {len(data)} results")
+        elif isinstance(data, dict):
+            print(f"{name}: {len(data)} keys")
+
+
+start = time.perf_counter()
+await main()
+elapsed = time.perf_counter() - start
+print(f"\nAll {len(REQUESTS)} requests completed in {elapsed:.2f} seconds")
+```
+
+The key difference is that each API call involves waiting for the server to respond. The synchronous version waits for each response before starting the next request. The async version fires them all off at once, so the total time is roughly equal to the *slowest* single request rather than the sum of all of them.
+
+## Common issues
+
+### Forgetting to `await`
+
+If you forget the `await` keyword when calling a coroutine, you'll get a coroutine object back instead of the actual result:
+
+```python
+import asyncio
+
+async def get_value():
+    return 42
+
+# without await: gives you a coroutine object, not the value
+result = get_value()
+print(f"Without await: {result}")
+
+# with await - gives you the actual value
+result = await get_value()
+print(f"With await: {result}")
+```
+
+### Using `requests` inside async code
+
+A common mistake is to use the `requests` library inside an async function. Because `requests` is synchronous, it will block the entire event loop while waiting for a response, which defeats the purpose of using async in the first place. Use `aiohttp` instead for HTTP requests within async code.
+
+### Jupyter vs `.py` files
+
+As noted at the top, Jupyter runs its own event loop, so you can `await` directly in a notebook cell. In a `.py` script, you need to use `asyncio.run()` as your entry point:
+
+```python
+# in a .py file, you'd write:
+import asyncio
+
+async def main():
+    await asyncio.gather(boil_kettle(), make_toast(), boil_egg())
+
+asyncio.run(main())
+
+# in a Jupyter notebook, you'd just write:
+await asyncio.gather(boil_kettle(), make_toast(), boil_egg())
+```
+
+If you try to call `asyncio.run()` inside a Jupyter notebook, you'll get a `RuntimeError` about a loop already running. This is because Jupyter is already managing an event loop for you.
+
+### Async doesn't mean parallel
+
+It is worth being clear that async code is *concurrent* but not necessarily *parallel*. Concurrency means tasks can make progress without waiting for each other to finish, but they are still running on a single thread. True parallelism )(running code on multiple CPU cores simultaneously) requires `multiprocessing` or `concurrent.futures`. For I/O-bound work (APIs, databases, file downloads), concurrency is usually all you need.
+
+## Conclusion and further resources
+
+Asynchronous programming is a broad topic, and this session has only scratched the surface. The key takeaway is that `async`/`await` gives you a clean, readable way to run I/O-bound tasks concurrently, which can significantly speed up workflows that involve waiting for external systems.
+
+Some further resources:
+
+- [Real Python - Async IO in Python](https://realpython.com/async-io-python/)
+- [Python docs - asyncio](https://docs.python.org/3/library/asyncio.html)
+- [aiohttp documentation](https://docs.aiohttp.org/)
+- [Geeks for Geeks - asyncio in Python](https://www.geeksforgeeks.org/python/asyncio-in-python/)
