@@ -109,7 +109,7 @@ def safe_divide(a: float, b: float) -> float | None:
     try:
         return a / b
     except ZeroDivisionError:
-        print("Warning: cannot divide by zero — returning None")
+        print("Warning: cannot divide by zero, returning None")
         return None
 
 print(safe_divide(10, 4))
@@ -281,7 +281,7 @@ def process_batch(items: list) -> list:
 
     for i, item in enumerate(items):
         if item is None:
-            logger.warning(f"Item {i} is None — skipping")
+            logger.warning(f"Item {i} is None, skipping")
             continue
         results.append(item * 2)
 
@@ -523,7 +523,7 @@ print(positive_values)
 
 ### `map()` & `filter()` Together
 
-They compose naturally — pipe the output of `filter()` into `map()`.
+They compose naturally. Pipe the output of `filter()` into `map()`.
 
 ```{python}
 #| label: map-filter-combined
@@ -547,5 +547,5 @@ print(result)
 
 :::{.callout-note}
 #### `map()`/`filter()` vs list comprehensions
-Both are valid. A rough guide: use list comprehensions for one-off inline transformations; use `map()`/`filter()` when you have named functions you want to apply, since the code reads as a description of what is happening — "map this function over this data".
+Both are valid. If you only need a one-off inline transformation, list comprehension is probably better, but when you have named functions you want to apply, use `map()`/`filter()`, since the code reads as a description of what is happening ("map this function over this data").
 :::
