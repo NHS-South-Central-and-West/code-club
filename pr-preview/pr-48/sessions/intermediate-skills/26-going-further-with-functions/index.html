@@ -465,14 +465,14 @@ None</code></pre>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> a <span class="op">/</span> b</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ZeroDivisionError</span>:</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Warning: cannot divide by zero — returning None"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Warning: cannot divide by zero, returning None"</span>)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_divide(<span class="dv">10</span>, <span class="dv">4</span>))</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(safe_divide(<span class="dv">10</span>, <span class="dv">0</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>2.5
-Warning: cannot divide by zero — returning None
+Warning: cannot divide by zero, returning None
 None</code></pre>
 </div>
 </div>
@@ -677,7 +677,7 @@ ValueError: Cannot calculate mean of an empty list</code></pre>
 <span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, item <span class="kw">in</span> <span class="bu">enumerate</span>(items):</span>
 <span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> item <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>            logger.warning(<span class="ss">f"Item </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> is None — skipping"</span>)</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>            logger.warning(<span class="ss">f"Item </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss"> is None, skipping"</span>)</span>
 <span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
 <span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>        results.append(item <span class="op">*</span> <span class="dv">2</span>)</span>
 <span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a></span>
@@ -968,7 +968,7 @@ Weighted mean: 84.1</code></pre>
 </section>
 <section id="map-filter-together" class="level3">
 <h3 class="anchored" data-anchor-id="map-filter-together"><code>map()</code> &amp; <code>filter()</code> Together</h3>
-<p>They compose naturally — pipe the output of <code>filter()</code> into <code>map()</code>.</p>
+<p>They compose naturally. Pipe the output of <code>filter()</code> into <code>map()</code>.</p>
 <div id="map-filter-combined" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> double(x):</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x <span class="op">*</span> <span class="dv">2</span></span>
@@ -1000,7 +1000,7 @@ Weighted mean: 84.1</code></pre>
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Both are valid. A rough guide: use list comprehensions for one-off inline transformations; use <code>map()</code>/<code>filter()</code> when you have named functions you want to apply, since the code reads as a description of what is happening — “map this function over this data”.</p>
+<p>Both are valid. If you only need a one-off inline transformation, list comprehension is probably better, but when you have named functions you want to apply, use <code>map()</code>/<code>filter()</code>, since the code reads as a description of what is happening (“map this function over this data”).</p>
 </div>
 </div>
 
