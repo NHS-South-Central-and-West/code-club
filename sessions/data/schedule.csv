@@ -23,10 +23,8 @@
 22,12/03/2026,Machine Learning,Machine Learning Landscape,Exploring the wider machine learning landscape beyond supervised learning,SA12: Machine Learning,,,x,x,x
 23,26/03/2026,Machine Learning,Machine Learning Workflow,What a typical end-to-end machine learning project workflow looks like,SA12: Machine Learning,,,x,x,x
 24,09/04/2026,Intermediate Python,Generators,"Pros, cons, practical applications",SA21 : Python Proficiency (Intermediate),,,x,,x
-25,23/04/2026,Intermediate Python,Decorators,Modify or extend functions with simple syntax,SA21 : Python Proficiency (Intermediate),,,x,,x
-26,07/05/2026,Intermediate Python,Asynchronous programming and callbacks,How to use and the differences between asynchronous and synchronous,SA21 : Python Proficiency (Intermediate),,,x,,x
-27,21/05/2026,Intermediate Python,Higher order functions,"How to use functions within functions, and why",SA21 : Python Proficiency (Intermediate),,,x,,x
-28,04/06/2026,Intermediate Python,"Map, filter, reduce",Extend your functional programming capabilities with these in-built higher order functions,SA21 : Python Proficiency (Advanced),,,x,,x
-29,18/06/2026,Intermediate Python,"Logging, debugging, exception handling",How to handle exceptions and how to eliminate errors in your programs,SA21 : Python Proficiency (Advanced),,,x,,x
-30,02/07/2026,Intermediate Python,Packages,How to build your own package,,,,x,,x
-31,16/07/2026,Intermediate Python,Design patterns,"Using iterators, decorators, proxies and factories",SA21 : Python Proficiency (Advanced),,,x,,x
+25,07/05/2026,Intermediate Python,Decorators,Modify or extend functions with simple syntax,SA21 : Python Proficiency (Intermediate),,,x,,x
+26,21/05/2026,Intermediate Python,Asynchronous programming and callbacks,How to use and the differences between asynchronous and synchronous,SA21 : Python Proficiency (Intermediate),,,x,,x
+27,04/06/2026,Intermediate Python,Going further with functions,"How to use functions within functions, and why",SA21 : Python Proficiency (Intermediate),,,x,,x
+30,18/06/2026,Intermediate Python,Packages,How to build your own package,SA21 : Python Proficiency (Advanced),,,x,,x
+31,02/07/2026,Intermediate Python,Design patterns,"Using iterators, decorators, proxies and factories",SA21 : Python Proficiency (Advanced),,,x,,x
