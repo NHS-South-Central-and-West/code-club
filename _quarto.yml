@@ -124,11 +124,10 @@ website:
               file: sessions/intermediate-skills/24-decorators/index.qmd
             - text: 25. Asynchronous programming and callbacks
               file: sessions/intermediate-skills/25-asynchronous/index.qmd
-            - text: 26. Higher order functions
-            - text: 27. Map, filter, reduce
-            - text: 28. Logging, debugging, exception handling
-            - text: 29. Packages
-            - text: 30. Design patterns
+            - text: 26. Going further with functions
+              file: sessions/intermediate-skills/26-going-further-with-functions/index.qmd
+            - text: 27. Packages
+            - text: 28. Design patterns
 
 
 format:
