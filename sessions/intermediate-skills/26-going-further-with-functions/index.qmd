@@ -33,7 +33,6 @@ Here is a function without type hints:
 
 def repeat_string(text, times):
     return text * times
-
 ```
 
 And the same function with type hints:
@@ -46,7 +45,6 @@ def repeat_string(text: str, times: int) -> str:
     return text * times
 
 print(repeat_string("hello ", 3))
-
 ```
 
 - `parameter: type` annotates inputs; `-> type` annotates the return value
@@ -69,7 +67,6 @@ def safe_divide(a: float, b: float) -> float | None:
 
 print(safe_divide(10, 4))
 print(safe_divide(10, 0))
-
 ```
 
 - `float | None` means "returns either a float or None"
@@ -88,7 +85,6 @@ def count_above_threshold(values: list[float], threshold: float) -> int:
     return sum(1 for v in values if v > threshold)
 
 print(count_above_threshold([1.2, 4.5, 3.1, 7.8, 2.9], threshold=3.0))
-
 ```
 
 - `list[float]` means a list whose items are floats
@@ -118,7 +114,6 @@ def safe_divide(a: float, b: float) -> float | None:
 
 print(safe_divide(10, 4))
 print(safe_divide(10, 0))
-
 ```
 
 - Code that might fail goes inside `try`
@@ -153,7 +148,6 @@ test_values = ["3.14", "NULL", "oops", "2.71", None, "N/A", "1.41"]
 
 for v in test_values:
     print(f"  parse_number({v!r}) -> {parse_number(v)}")
-
 ```
 
 - Multiple `except` blocks handle different failure modes
@@ -186,7 +180,6 @@ def read_lines(filepath: str) -> list[str] | None:
             print("File handle closed.")
 
 read_lines("data/does_not_exist.csv")
-
 ```
 
 - `finally` is the right place for clean-up: closing files, releasing connections
@@ -216,7 +209,6 @@ try:
     calculate_mean([])
 except ValueError as e:
     print(f"ValueError: {e}")
-
 ```
 
 - `raise ExceptionType("message")` triggers an exception from inside your function
@@ -244,7 +236,7 @@ except ValueError as e:
 import logging
 
 logging.basicConfig(
-    level=logging.DEBUG,          # show all messages at DEBUG level and above
+    level=logging.DEBUG, # show all messages at DEBUG level and above
     format="%(levelname)s | %(message)s"
 )
 
@@ -254,7 +246,6 @@ logger.debug("Detailed diagnostic info")
 logger.info("Everything is working normally")
 logger.warning("Something unexpected happened")
 logger.error("Something failed")
-
 ```
 
 - `basicConfig` sets up a simple logger that writes to the console
@@ -301,7 +292,6 @@ def process_batch(items: list) -> list:
 batch = [10, None, 30, None, 50, 60]
 output = process_batch(batch)
 print(output)
-
 ```
 
 - Log at `INFO` for normal progress milestones, `WARNING` for skipped or unexpected items, `ERROR` for failures
@@ -317,9 +307,11 @@ Add `filename="app.log"` to `basicConfig` to write log output to a file instead 
 
 ## Extending Functions
 
+In previous sessions we have looked at a number of ways you can do more with functions, but there is lots we haven't covered yet. This is a short overview of some of the ways you can extend the functionality of functions.
+
 ### Flexible Function Inputs (`*args` & `**kwargs`)
 
-We have seen a previous example of this in the Decorators session, but there are lots of ways we can use flexible function inputs besides decorators.
+We used flexible inputs in the Decorators session, but `*args` and `**kwargs` can both be useful in lots of contexts.
 
 #### Positional Arguments (`*args`)
 
@@ -336,7 +328,6 @@ def summarise_numbers(*args):
     print(f"Mean:  {total / len(args):.1f}")
 
 summarise_numbers(10, 25, 7, 42, 3)
-
 ```
 
 - `*args` collects all positional arguments into a tuple
@@ -356,7 +347,6 @@ def display_record(**kwargs):
         print(f"  {key}: {value}")
 
 display_record(name="Alice", department="Finance", active=True, years=4)
-
 ```
 
 - `**kwargs` collects all keyword arguments into a dictionary
@@ -385,14 +375,13 @@ def build_record(record_id, *tags, **attributes):
 
 record = build_record(
     "REC-001",
-    "urgent", "reviewed",        # positional -> tags
-    status="open",               # keyword -> attributes
+    "urgent", "reviewed", # positional -> tags
+    status="open", # keyword -> attributes
     priority=1,
     assigned_to="Bob"
 )
 
 print(record)
-
 ```
 
 - Fixed arguments, `*args`, and `**kwargs` can all appear in the same function signature, in that order
@@ -416,13 +405,12 @@ def power(base, exponent):
     """Raise base to a given exponent."""
     return base ** exponent
 
-# Create specialised versions with exponent fixed
+# create specialised versions with exponent fixed
 square = partial(power, exponent=2)
 cube   = partial(power, exponent=3)
 
-print(square(4))   # 16
-print(cube(3))     # 27
-
+print(square(4))
+print(cube(3))
 ```
 
 - `partial(func, ...)` returns a new callable
@@ -443,7 +431,7 @@ def exceeds_threshold(value, threshold):
     """Return True if value is at or above threshold."""
     return value >= threshold
 
-# Fix the threshold for different use cases
+# fix the threshold for different use cases
 flag_above_100 = partial(exceeds_threshold, threshold=100)
 flag_above_500 = partial(exceeds_threshold, threshold=500)
 flag_above_1000 = partial(exceeds_threshold, threshold=1000)
@@ -453,7 +441,6 @@ readings = [85, 120, 450, 510, 990, 1020]
 print(list(map(flag_above_100,  readings)))
 print(list(map(flag_above_500,  readings)))
 print(list(map(flag_above_1000, readings)))
-
 ```
 
 - Each `partial` call produces a new function with the threshold already set
@@ -484,7 +471,6 @@ temps_c = [0, 20, 37, 100, -10]
 temps_f = list(map(celsius_to_fahrenheit, temps_c))
 
 print(temps_f)
-
 ```
 
 - Pass the function **without calling it**: `map(celsius_to_fahrenheit, ...)` not `map(celsius_to_fahrenheit(), ...)`
@@ -508,7 +494,6 @@ weights = [0.4, 0.2, 0.3, 0.1]
 weighted = list(map(weighted_average, scores, weights))
 print(weighted)
 print(f"Weighted mean: {sum(weighted):.1f}")
-
 ```
 
 - Iterables are consumed in parallel; stops at the shortest one
@@ -530,7 +515,6 @@ values = [10, -3, 0, 7, -1, 4, -8, 2]
 positive_values = list(filter(is_positive, values))
 
 print(positive_values)
-
 ```
 
 - The function passed to `filter()` must return a boolean (or something truthy/falsy)
@@ -552,11 +536,10 @@ def is_even(x):
 
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-# Keep only even numbers, then double them
+# keep only even numbers, then double them
 result = list(map(double, filter(is_even, numbers)))
 
 print(result)
-
 ```
 
 - Read from the inside out: `filter` first, then `map` on the result
