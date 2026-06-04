@@ -122,12 +122,12 @@ website:
               file: sessions/intermediate-skills/23-generators/index.qmd
             - text: 24. Decorators
               file: sessions/intermediate-skills/24-decorators/index.qmd
-            - text: 25. Asynchronous programming and callbacks
+            - text: 25. Asynchronous Programming and Callbacks
               file: sessions/intermediate-skills/25-asynchronous/index.qmd
-            - text: 26. Going further with functions
+            - text: 26. Going Further With Functions
               file: sessions/intermediate-skills/26-going-further-with-functions/index.qmd
             - text: 27. Packages
-            - text: 28. Design patterns
+            - text: 28. Design Patterns
 
 
 format:
