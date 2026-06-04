@@ -633,7 +633,7 @@ ValueError: Cannot calculate mean of an empty list</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>logging.basicConfig(</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    level<span class="op">=</span>logging.DEBUG,          <span class="co"># show all messages at DEBUG level and above</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    level<span class="op">=</span>logging.DEBUG, <span class="co"># show all messages at DEBUG level and above</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">format</span><span class="op">=</span><span class="st">"</span><span class="sc">%(levelname)s</span><span class="st"> | </span><span class="sc">%(message)s</span><span class="st">"</span></span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
@@ -718,9 +718,10 @@ ValueError: Cannot calculate mean of an empty list</code></pre>
 </section>
 <section id="extending-functions" class="level2">
 <h2 class="anchored" data-anchor-id="extending-functions">Extending Functions</h2>
+<p>In previous sessions we have looked at a number of ways you can do more with functions, but there is lots we haven’t covered yet. This is a short overview of some of the ways you can extend the functionality of functions.</p>
 <section id="flexible-function-inputs-args-kwargs" class="level3">
 <h3 class="anchored" data-anchor-id="flexible-function-inputs-args-kwargs">Flexible Function Inputs (<code>*args</code> &amp; <code>**kwargs</code>)</h3>
-<p>We have seen a previous example of this in the Decorators session, but there are lots of ways we can use flexible function inputs besides decorators.</p>
+<p>We used flexible inputs in the Decorators session, but <code>*args</code> and <code>**kwargs</code> can both be useful in lots of contexts.</p>
 <section id="positional-arguments-args" class="level4">
 <h4 class="anchored" data-anchor-id="positional-arguments-args">Positional Arguments (<code>*args</code>)</h4>
 <p>The <code>*args</code> syntax lets you pass any number of positional arguments into a function. Inside the function, they arrive as a <strong>tuple</strong>.</p>
@@ -787,8 +788,8 @@ Mean:  17.4</code></pre>
 <span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>record <span class="op">=</span> build_record(</span>
 <span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"REC-001"</span>,</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"urgent"</span>, <span class="st">"reviewed"</span>,        <span class="co"># positional -&gt; tags</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    status<span class="op">=</span><span class="st">"open"</span>,               <span class="co"># keyword -&gt; attributes</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"urgent"</span>, <span class="st">"reviewed"</span>, <span class="co"># positional -&gt; tags</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    status<span class="op">=</span><span class="st">"open"</span>, <span class="co"># keyword -&gt; attributes</span></span>
 <span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    priority<span class="op">=</span><span class="dv">1</span>,</span>
 <span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    assigned_to<span class="op">=</span><span class="st">"Bob"</span></span>
 <span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -827,12 +828,12 @@ Mean:  17.4</code></pre>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Raise base to a given exponent."""</span></span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> base <span class="op">**</span> exponent</span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create specialised versions with exponent fixed</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># create specialised versions with exponent fixed</span></span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>square <span class="op">=</span> partial(power, exponent<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>cube   <span class="op">=</span> partial(power, exponent<span class="op">=</span><span class="dv">3</span>)</span>
 <span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(square(<span class="dv">4</span>))   <span class="co"># 16</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cube(<span class="dv">3</span>))     <span class="co"># 27</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(square(<span class="dv">4</span>))</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cube(<span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>16
 27</code></pre>
@@ -856,7 +857,7 @@ Mean:  17.4</code></pre>
 <span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return True if value is at or above threshold."""</span></span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> value <span class="op">&gt;=</span> threshold</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Fix the threshold for different use cases</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># fix the threshold for different use cases</span></span>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>flag_above_100 <span class="op">=</span> partial(exceeds_threshold, threshold<span class="op">=</span><span class="dv">100</span>)</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>flag_above_500 <span class="op">=</span> partial(exceeds_threshold, threshold<span class="op">=</span><span class="dv">500</span>)</span>
 <span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>flag_above_1000 <span class="op">=</span> partial(exceeds_threshold, threshold<span class="op">=</span><span class="dv">1000</span>)</span>
@@ -977,7 +978,7 @@ Weighted mean: 84.1</code></pre>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>numbers <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>]</span>
 <span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only even numbers, then double them</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># keep only even numbers, then double them</span></span>
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(double, <span class="bu">filter</span>(is_even, numbers)))</span>
 <span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
