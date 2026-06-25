@@ -89,6 +89,10 @@ def is_valid_nhs_number(nhs_number):
 And:
 
 ```python
+import requests
+
+ODS_API_BASE = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations"
+
 def get_organisation_name(ods_code):
     """
     Look up the name of an NHS organisation by its ODS code,
@@ -104,7 +108,7 @@ def get_organisation_name(ods_code):
         >>> get_organisation_name("RHM")
         'UNIVERSITY HOSPITAL SOUTHAMPTON NHS FOUNDATION TRUST'
     """
-    ODS_API_BASE = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations"
+
     ods_code = str(ods_code).strip().upper()
     url = f"{ODS_API_BASE}/{ods_code}"
 
@@ -148,9 +152,9 @@ If we wanted to, we could include some code in our package file that only runs w
 ```python
 if __name__ == "__main__":
 	# print some example usage
-    print(is_valid_nhs_number(9012345678))
-    print(is_valid_nhs_number(9960739791))
-    print(get_organisation_name("RHU"))
+    print(is_valid_nhs_number(9012345678)) #returns False
+    print(is_valid_nhs_number(9960739791)) #returns True
+    print(get_organisation_name("RHU"))    #returns "PORTSMOUTH HOSPITALS UNIVERSITY NHS TRUST"
 ```
 
 ## Turning what we've built into a package
@@ -164,19 +168,19 @@ Working with a package is very similar to just working with modules directly, ju
 Our directory structure looks like this:
 
 ```cmd
-python-packages-example
+python-packages-example/
 │   main.py
-|
-├───nhsutils
-│   │   nhsnumbers.py
-│   │   organisations.py
-│   │   __init__.py
+│
+└───nhsutils/
+    │   __init__.py
+    │   nhsnumbers.py
+    │   organisations.py
 ```
 
 ### the `__init__.py` file
 
 ```python
-from .organisations import format_ods_code
+from .organisations import get_organisation_name
 from .nhsnumbers import is_valid_nhs_number
 ```
 
@@ -185,6 +189,93 @@ Note the slightly different syntax here; we're using `.name` to indicate we want
 If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in `__init__.py`. [^relativeimport]
 
 ## Sharing our package with others
+
+We now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn't help the version control aspect of it.
+
+What is better is using a combination of `uv` and Github, which we've both looked at in previous sessions.
+
+### Getting a `pyproject.toml`
+
+`uv` takes care of this for us.
+
+```powershell
+uv init --lib
+```
+
+This creates a folder structure for us. We need to move our `nhsutils` package into the `src/` subfolder it has created (and delete the example folder it's created in there at the same time). Let's take a look at `pyproject.toml` now:
+
+```toml
+[project]
+name = "packages-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jonas Willemsen", email = "94461380+jonaswillemsen@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.8.20,<0.9.0"]
+build-backend = "uv_build"
+```
+
+Let's change the `name` to `nhsutils` (this needs to match the folder in `src/`). We also need to just run `uv add requests` as this is a package our ODS code lookup depends on. We should end up with:
+
+```toml
+[project]
+name = "nhsutils"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jonas Willemsen", email = "94461380+jonaswillemsen@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.34.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.20,<0.9.0"]
+build-backend = "uv_build"
+```
+
+And our final directory structure should look like this:
+
+```cmd
+nhsutils-repo/
+│   pyproject.toml
+│   README.md
+│
+└───src/
+    └───nhsutils/
+        │   __init__.py
+        │   nhsnumbers.py
+        │   organisations.py
+```
+
+### Creating a github repository
+
+We'll check our entire folder into a new Github repository. If you need a refresher, take a look at [our previous session on Git and Github](../16-git-github/).
+
+### What others need to run
+
+In their existing projects, they can now do:
+
+```powershell
+uv add git+https://github.com/...
+```
+
+This adds our package to their project. If we ever update it, it's best practice to bump the `version` number in `pyproject.toml` to avoid confusion, before checking our changes in to Github. The next time they run...
+
+```powershell
+uv lock --upgrade-package nhsutils
+uv sync
+```
+
+...they'll get the latest version of our package.
 
 ## Next steps and further reading
 
