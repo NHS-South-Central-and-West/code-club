@@ -188,21 +188,21 @@ Note the slightly different syntax here; we're using `.name` to indicate we want
 
 If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in `__init__.py`. [^relativeimport]
 
-## Sharing our package with others
+## Sharing the package with others
 
-We now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn't help the version control aspect of it.
+We now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn't help the version control aspect of it. 
 
-What is better is using a combination of `uv` and Github, which we've both looked at in previous sessions.
+What we'll do instead is bundle our package up with `uv` and then make it accessible to others using Github. We've looked at both `uv` and Github in previous sessions.
 
 ### Getting a `pyproject.toml`
 
-`uv` takes care of this for us.
+To create a package that others can actually add into their projects as a dependency, we need a sort of recipe file. `uv` can take care of this for us.
 
 ```powershell
 uv init --lib
 ```
 
-This creates a folder structure for us. We need to move our `nhsutils` package into the `src/` subfolder it has created (and delete the example folder it's created in there at the same time). Let's take a look at `pyproject.toml` now:
+This creates a `pyproject.toml`, our recipe, as well as a folder structure. We need to move our `nhsutils` package into the `src/` subfolder it has created (and delete the example folder it's created in there at the same time). Let's take a look at `pyproject.toml` now:
 
 ```toml
 [project]
@@ -221,7 +221,7 @@ requires = ["uv_build>=0.8.20,<0.9.0"]
 build-backend = "uv_build"
 ```
 
-Let's change the `name` to `nhsutils` (this needs to match the folder in `src/`). We also need to just run `uv add requests` as this is a package our ODS code lookup depends on. We should end up with:
+Let's change the `name` to "nhsutils" (the name in `pyproject.toml` needs to match the name of the folder in `src/`). We also need to just run `uv add requests` as this is a package our ODS code lookup depends on. We should end up with:
 
 ```toml
 [project]
@@ -268,7 +268,7 @@ In their existing projects, they can now do:
 uv add git+https://github.com/...
 ```
 
-This adds our package to their project. If we ever update it, it's best practice to bump the `version` number in `pyproject.toml` to avoid confusion, before checking our changes in to Github. The next time they run...
+This adds our package, as stored in our Github repository, to their project. If we ever update it, it's best practice to bump the `version` number in `pyproject.toml` to avoid confusion, before checking our changes in to Github. The next time they run...
 
 ```powershell
 uv lock --upgrade-package nhsutils
@@ -277,7 +277,17 @@ uv sync
 
 ...they'll get the latest version of our package.
 
-## Next steps and further reading
+## Conclusion
+
+In this session we've gone from a couple of standalone functions to a properly structured, shareable Python package, without needing to do anything particularly complicated. The same pattern can scale to bigger projects: as you write more reusable code in your day-to-day work, dropping it into a package like this means you spend less time hunting for that function you wrote six months ago and more time actually using it. The NHS-specific examples here are just a starting point; take some time to think about code you reuse regularly or find yourself "reinventing" over and over again. A shared internal package is a straightforward way to address that, with the added benefit of sharing code and getting more eyes on it.
+
+## Further reading
+
+- [Python docs: Modules](https://docs.python.org/3/tutorial/modules.html)
+- [Real Python: Python Modules and Packages](https://realpython.com/python-modules-packages/)
+- [Python Packaging User Guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
+- [uv documentation](https://docs.astral.sh/uv/)
+
 
 [^relativeimport]: [https://www.geeksforgeeks.org/python/relative-import-in-python/](https://www.geeksforgeeks.org/python/relative-import-in-python/)
 [^dunder]: names starting with double underscores are a convention in python used for internal identifiers (you might have come across these in previous sessions - e.g. [object-oriented programming](../../essential-skills/09-object-oriented-programming/index.qmd)). They are usually pronounced "dunder" (from "double under[score]"), so `__init__` becomes "dunder init".
