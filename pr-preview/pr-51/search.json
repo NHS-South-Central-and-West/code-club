@@ -1254,7 +1254,7 @@
     "href": "sessions/intermediate-skills/27-packages/index.html#turning-what-weve-built-into-a-package",
     "title": "Packages",
     "section": "Turning what we’ve built into a package",
-    "text": "Turning what we’ve built into a package\nWorking with a package is very similar to just working with modules directly, just a little bit more structured and organised. We need to do two things:\n\nCreate a folder, called nhsutils, that contains our .py files with our functions (either all in one big file, or preferably, split into different files). In our case, we’ll create nhsnumbers.py with our NHS number validation function (and any other related functions we may want to write) and organisations.py with our ODS lookup function(s).\nCreate a file called (exactly) __init__.py which allows us to, effectively, control which parts of our package we want users to interact with.\n\nOur directory structure looks like this:\npython-packages-example\n│   main.py\n|\n├───nhsutils\n│   │   nhsnumbers.py\n│   │   organisations.py\n│   │   __init__.py\n\nthe __init__.py file\nfrom .organisations import format_ods_code\nfrom .nhsnumbers import is_valid_nhs_number\nNote the slightly different syntax here; we’re using .name to indicate we want to import from files in the current folder (relative to __init__.py).\nIf our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in __init__.py. 1",
+    "text": "Turning what we’ve built into a package\nWorking with a package is very similar to just working with modules directly, just a little bit more structured and organised. We need to do two things:\n\nCreate a folder, called nhsutils, that contains our .py files with our functions (either all in one big file, or preferably, split into different files). In our case, we’ll create nhsnumbers.py with our NHS number validation function (and any other related functions we may want to write) and organisations.py with our ODS lookup function(s).\nCreate a file called (exactly) __init__.py 1 which allows us to, effectively, control which parts of our package we want users to interact with.\n\nOur directory structure looks like this:\npython-packages-example\n│   main.py\n|\n├───nhsutils\n│   │   nhsnumbers.py\n│   │   organisations.py\n│   │   __init__.py\n\nthe __init__.py file\nfrom .organisations import format_ods_code\nfrom .nhsnumbers import is_valid_nhs_number\nNote the slightly different syntax here; we’re using .name to indicate we want to import from files in the current folder (relative to __init__.py).\nIf our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in __init__.py. 2",
     "crumbs": [
       "Intermediate Python",
       "27. Packages"
@@ -1287,7 +1287,7 @@
     "href": "sessions/intermediate-skills/27-packages/index.html#footnotes",
     "title": "Packages",
     "section": "Footnotes",
-    "text": "Footnotes\n\n\nhttps://www.geeksforgeeks.org/python/relative-import-in-python/↩︎",
+    "text": "Footnotes\n\n\nnames starting with double underscores are a convention in python used for internal identifiers (you might have come across these in previous sessions - e.g. object-oriented programming). They are usually pronounced “dunder” (from “double under[score]”), so __init__ becomes “dunder init”.↩︎\nhttps://www.geeksforgeeks.org/python/relative-import-in-python/↩︎",
     "crumbs": [
       "Intermediate Python",
       "27. Packages"

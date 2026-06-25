@@ -497,7 +497,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Working with a package is very similar to just working with modules directly, just a little bit more structured and organised. We need to do two things:</p>
 <ol type="1">
 <li>Create a folder, called <code>nhsutils</code>, that contains our <code>.py</code> files with our functions (either all in one big file, or preferably, split into different files). In our case, we’ll create <code>nhsnumbers.py</code> with our NHS number validation function (and any other related functions we may want to write) and <code>organisations.py</code> with our ODS lookup function(s).</li>
-<li>Create a file called (exactly) <code>__init__.py</code> which allows us to, effectively, control which parts of our package we want users to interact with.</li>
+<li>Create a file called (exactly) <code>__init__.py</code> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> which allows us to, effectively, control which parts of our package we want users to interact with.</li>
 </ol>
 <p>Our directory structure looks like this:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>python-packages-example</span>
@@ -512,7 +512,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .organisations <span class="im">import</span> format_ods_code</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .nhsnumbers <span class="im">import</span> is_valid_nhs_number</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Note the slightly different syntax here; we’re using <code>.name</code> to indicate we want to import from files in the current folder (relative to <code>__init__.py</code>).</p>
-<p>If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in <code>__init__.py</code>. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in <code>__init__.py</code>. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 </section>
 </section>
 <section id="sharing-our-package-with-others" class="level2">
@@ -528,7 +528,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>https://www.geeksforgeeks.org/python/relative-import-in-python/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>names starting with double underscores are a convention in python used for internal identifiers (you might have come across these in previous sessions - e.g.&nbsp;<a href="../../../sessions/essential-skills/09-object-oriented-programming/index.html">object-oriented programming</a>). They are usually pronounced “dunder” (from “double under[score]”), so <code>__init__</code> becomes “dunder init”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://www.geeksforgeeks.org/python/relative-import-in-python/">https://www.geeksforgeeks.org/python/relative-import-in-python/</a><a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
