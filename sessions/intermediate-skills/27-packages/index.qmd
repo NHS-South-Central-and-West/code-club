@@ -159,7 +159,7 @@ Working with a package is very similar to just working with modules directly, ju
 
 1. Create a folder, called `nhsutils`, that contains our `.py` files with our functions (either all in one big file, or preferably, split into different files). 
     In our case, we'll create `nhsnumbers.py` with our NHS number validation function (and any other related functions we may want to write) and `organisations.py` with our ODS lookup function(s).
-2. Create a file called (exactly) `__init__.py` which allows us to, effectively, control which parts of our package we want users to interact with.
+2. Create a file called (exactly) `__init__.py` [^dunder] which allows us to, effectively, control which parts of our package we want users to interact with.
 
 Our directory structure looks like this:
 
@@ -188,4 +188,5 @@ If our package had some intermediate functions that we only use internally, we c
 
 ## Next steps and further reading
 
-[^relativeimport]: https://www.geeksforgeeks.org/python/relative-import-in-python/
+[^relativeimport]: [https://www.geeksforgeeks.org/python/relative-import-in-python/](https://www.geeksforgeeks.org/python/relative-import-in-python/)
+[^dunder]: names starting with double underscores are a convention in python used for internal identifiers (you might have come across these in previous sessions - e.g. [object-oriented programming](../../essential-skills/09-object-oriented-programming/index.qmd)). They are usually pronounced "dunder" (from "double under[score]"), so `__init__` becomes "dunder init".
