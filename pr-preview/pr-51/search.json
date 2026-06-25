@@ -1261,22 +1261,33 @@
     ]
   },
   {
-    "objectID": "sessions/intermediate-skills/27-packages/index.html#sharing-our-package-with-others",
-    "href": "sessions/intermediate-skills/27-packages/index.html#sharing-our-package-with-others",
+    "objectID": "sessions/intermediate-skills/27-packages/index.html#sharing-the-package-with-others",
+    "href": "sessions/intermediate-skills/27-packages/index.html#sharing-the-package-with-others",
     "title": "Packages",
-    "section": "Sharing our package with others",
-    "text": "Sharing our package with others\nWe now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn’t help the version control aspect of it.\nWhat is better is using a combination of uv and Github, which we’ve both looked at in previous sessions.\n\nGetting a pyproject.toml\nuv takes care of this for us.\nuv init --lib\nThis creates a folder structure for us. We need to move our nhsutils package into the src/ subfolder it has created (and delete the example folder it’s created in there at the same time). Let’s take a look at pyproject.toml now:\n[project]\nname = \"packages-example\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nauthors = [\n    { name = \"Jonas Willemsen\", email = \"94461380+jonaswillemsen@users.noreply.github.com\" }\n]\nrequires-python = \"&gt;=3.12\"\ndependencies = []\n\n[build-system]\nrequires = [\"uv_build&gt;=0.8.20,&lt;0.9.0\"]\nbuild-backend = \"uv_build\"\nLet’s change the name to nhsutils (this needs to match the folder in src/). We also need to just run uv add requests as this is a package our ODS code lookup depends on. We should end up with:\n[project]\nname = \"nhsutils\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nauthors = [\n    { name = \"Jonas Willemsen\", email = \"94461380+jonaswillemsen@users.noreply.github.com\" }\n]\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"requests&gt;=2.34.2\",\n]\n\n[build-system]\nrequires = [\"uv_build&gt;=0.8.20,&lt;0.9.0\"]\nbuild-backend = \"uv_build\"\nAnd our final directory structure should look like this:\nnhsutils-repo/\n│   pyproject.toml\n│   README.md\n│\n└───src/\n    └───nhsutils/\n        │   __init__.py\n        │   nhsnumbers.py\n        │   organisations.py\n\n\nCreating a github repository\nWe’ll check our entire folder into a new Github repository. If you need a refresher, take a look at our previous session on Git and Github.\n\n\nWhat others need to run\nIn their existing projects, they can now do:\nuv add git+https://github.com/...\nThis adds our package to their project. If we ever update it, it’s best practice to bump the version number in pyproject.toml to avoid confusion, before checking our changes in to Github. The next time they run…\nuv lock --upgrade-package nhsutils\nuv sync\n…they’ll get the latest version of our package.",
+    "section": "Sharing the package with others",
+    "text": "Sharing the package with others\nWe now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn’t help the version control aspect of it.\nWhat we’ll do instead is bundle our package up with uv and then make it accessible to others using Github. We’ve looked at both uv and Github in previous sessions.\n\nGetting a pyproject.toml\nTo create a package that others can actually add into their projects as a dependency, we need a sort of recipe file. uv can take care of this for us.\nuv init --lib\nThis creates a pyproject.toml, our recipe, as well as a folder structure. We need to move our nhsutils package into the src/ subfolder it has created (and delete the example folder it’s created in there at the same time). Let’s take a look at pyproject.toml now:\n[project]\nname = \"packages-example\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nauthors = [\n    { name = \"Jonas Willemsen\", email = \"94461380+jonaswillemsen@users.noreply.github.com\" }\n]\nrequires-python = \"&gt;=3.12\"\ndependencies = []\n\n[build-system]\nrequires = [\"uv_build&gt;=0.8.20,&lt;0.9.0\"]\nbuild-backend = \"uv_build\"\nLet’s change the name to “nhsutils” (the name in pyproject.toml needs to match the name of the folder in src/). We also need to just run uv add requests as this is a package our ODS code lookup depends on. We should end up with:\n[project]\nname = \"nhsutils\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nauthors = [\n    { name = \"Jonas Willemsen\", email = \"94461380+jonaswillemsen@users.noreply.github.com\" }\n]\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"requests&gt;=2.34.2\",\n]\n\n[build-system]\nrequires = [\"uv_build&gt;=0.8.20,&lt;0.9.0\"]\nbuild-backend = \"uv_build\"\nAnd our final directory structure should look like this:\nnhsutils-repo/\n│   pyproject.toml\n│   README.md\n│\n└───src/\n    └───nhsutils/\n        │   __init__.py\n        │   nhsnumbers.py\n        │   organisations.py\n\n\nCreating a github repository\nWe’ll check our entire folder into a new Github repository. If you need a refresher, take a look at our previous session on Git and Github.\n\n\nWhat others need to run\nIn their existing projects, they can now do:\nuv add git+https://github.com/...\nThis adds our package, as stored in our Github repository, to their project. If we ever update it, it’s best practice to bump the version number in pyproject.toml to avoid confusion, before checking our changes in to Github. The next time they run…\nuv lock --upgrade-package nhsutils\nuv sync\n…they’ll get the latest version of our package.",
     "crumbs": [
       "Intermediate Python",
       "27. Packages"
     ]
   },
   {
-    "objectID": "sessions/intermediate-skills/27-packages/index.html#next-steps-and-further-reading",
-    "href": "sessions/intermediate-skills/27-packages/index.html#next-steps-and-further-reading",
+    "objectID": "sessions/intermediate-skills/27-packages/index.html#conclusion",
+    "href": "sessions/intermediate-skills/27-packages/index.html#conclusion",
     "title": "Packages",
-    "section": "Next steps and further reading",
-    "text": "Next steps and further reading",
+    "section": "Conclusion",
+    "text": "Conclusion\nIn this session we’ve gone from a couple of standalone functions to a properly structured, shareable Python package, without needing to do anything particularly complicated. The same pattern can scale to bigger projects: as you write more reusable code in your day-to-day work, dropping it into a package like this means you spend less time hunting for that function you wrote six months ago and more time actually using it. The NHS-specific examples here are just a starting point; take some time to think about code you reuse regularly or find yourself “reinventing” over and over again. A shared internal package is a straightforward way to address that, with the added benefit of sharing code and getting more eyes on it.",
+    "crumbs": [
+      "Intermediate Python",
+      "27. Packages"
+    ]
+  },
+  {
+    "objectID": "sessions/intermediate-skills/27-packages/index.html#further-reading",
+    "href": "sessions/intermediate-skills/27-packages/index.html#further-reading",
+    "title": "Packages",
+    "section": "Further reading",
+    "text": "Further reading\n\nPython docs: Modules\nReal Python: Python Modules and Packages\nPython Packaging User Guide\nuv documentation",
     "crumbs": [
       "Intermediate Python",
       "27. Packages"

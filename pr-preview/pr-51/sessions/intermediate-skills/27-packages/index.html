@@ -330,13 +330,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#the-__init__.py-file" id="toc-the-__init__.py-file" class="nav-link" data-scroll-target="#the-__init__.py-file">the <code>__init__.py</code> file</a></li>
   </ul></li>
-  <li><a href="#sharing-our-package-with-others" id="toc-sharing-our-package-with-others" class="nav-link" data-scroll-target="#sharing-our-package-with-others">Sharing our package with others</a>
+  <li><a href="#sharing-the-package-with-others" id="toc-sharing-the-package-with-others" class="nav-link" data-scroll-target="#sharing-the-package-with-others">Sharing the package with others</a>
   <ul class="collapse">
   <li><a href="#getting-a-pyproject.toml" id="toc-getting-a-pyproject.toml" class="nav-link" data-scroll-target="#getting-a-pyproject.toml">Getting a <code>pyproject.toml</code></a></li>
   <li><a href="#creating-a-github-repository" id="toc-creating-a-github-repository" class="nav-link" data-scroll-target="#creating-a-github-repository">Creating a github repository</a></li>
   <li><a href="#what-others-need-to-run" id="toc-what-others-need-to-run" class="nav-link" data-scroll-target="#what-others-need-to-run">What others need to run</a></li>
   </ul></li>
-  <li><a href="#next-steps-and-further-reading" id="toc-next-steps-and-further-reading" class="nav-link" data-scroll-target="#next-steps-and-further-reading">Next steps and further reading</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -524,15 +525,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in <code>__init__.py</code>. <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 </section>
 </section>
-<section id="sharing-our-package-with-others" class="level2">
-<h2 class="anchored" data-anchor-id="sharing-our-package-with-others">Sharing our package with others</h2>
+<section id="sharing-the-package-with-others" class="level2">
+<h2 class="anchored" data-anchor-id="sharing-the-package-with-others">Sharing the package with others</h2>
 <p>We now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn’t help the version control aspect of it.</p>
-<p>What is better is using a combination of <code>uv</code> and Github, which we’ve both looked at in previous sessions.</p>
+<p>What we’ll do instead is bundle our package up with <code>uv</code> and then make it accessible to others using Github. We’ve looked at both <code>uv</code> and Github in previous sessions.</p>
 <section id="getting-a-pyproject.toml" class="level3">
 <h3 class="anchored" data-anchor-id="getting-a-pyproject.toml">Getting a <code>pyproject.toml</code></h3>
-<p><code>uv</code> takes care of this for us.</p>
+<p>To create a package that others can actually add into their projects as a dependency, we need a sort of recipe file. <code>uv</code> can take care of this for us.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>uv init <span class="op">--</span>lib</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This creates a folder structure for us. We need to move our <code>nhsutils</code> package into the <code>src/</code> subfolder it has created (and delete the example folder it’s created in there at the same time). Let’s take a look at <code>pyproject.toml</code> now:</p>
+<p>This creates a <code>pyproject.toml</code>, our recipe, as well as a folder structure. We need to move our <code>nhsutils</code> package into the <code>src/</code> subfolder it has created (and delete the example folder it’s created in there at the same time). Let’s take a look at <code>pyproject.toml</code> now:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[project]</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"packages-example"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
@@ -547,7 +548,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="kw">[build-system]</span></span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="dt">requires</span> <span class="op">=</span> <span class="op">[</span><span class="st">"uv_build&gt;=0.8.20,&lt;0.9.0"</span><span class="op">]</span></span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="dt">build-backend</span> <span class="op">=</span> <span class="st">"uv_build"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let’s change the <code>name</code> to <code>nhsutils</code> (this needs to match the folder in <code>src/</code>). We also need to just run <code>uv add requests</code> as this is a package our ODS code lookup depends on. We should end up with:</p>
+<p>Let’s change the <code>name</code> to “nhsutils” (the name in <code>pyproject.toml</code> needs to match the name of the folder in <code>src/</code>). We also need to just run <code>uv add requests</code> as this is a package our ODS code lookup depends on. We should end up with:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[project]</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"nhsutils"</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
@@ -583,14 +584,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="what-others-need-to-run">What others need to run</h3>
 <p>In their existing projects, they can now do:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>uv add git<span class="op">+</span>https<span class="op">://</span>github<span class="op">.</span><span class="fu">com</span><span class="op">/...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This adds our package to their project. If we ever update it, it’s best practice to bump the <code>version</code> number in <code>pyproject.toml</code> to avoid confusion, before checking our changes in to Github. The next time they run…</p>
+<p>This adds our package, as stored in our Github repository, to their project. If we ever update it, it’s best practice to bump the <code>version</code> number in <code>pyproject.toml</code> to avoid confusion, before checking our changes in to Github. The next time they run…</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>uv lock <span class="op">--</span>upgrade-package nhsutils</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>uv sync</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>…they’ll get the latest version of our package.</p>
 </section>
 </section>
-<section id="next-steps-and-further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="next-steps-and-further-reading">Next steps and further reading</h2>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>In this session we’ve gone from a couple of standalone functions to a properly structured, shareable Python package, without needing to do anything particularly complicated. The same pattern can scale to bigger projects: as you write more reusable code in your day-to-day work, dropping it into a package like this means you spend less time hunting for that function you wrote six months ago and more time actually using it. The NHS-specific examples here are just a starting point; take some time to think about code you reuse regularly or find yourself “reinventing” over and over again. A shared internal package is a straightforward way to address that, with the added benefit of sharing code and getting more eyes on it.</p>
+</section>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<ul>
+<li><a href="https://docs.python.org/3/tutorial/modules.html">Python docs: Modules</a></li>
+<li><a href="https://realpython.com/python-modules-packages/">Real Python: Python Modules and Packages</a></li>
+<li><a href="https://packaging.python.org/en/latest/tutorials/packaging-projects/">Python Packaging User Guide</a></li>
+<li><a href="https://docs.astral.sh/uv/">uv documentation</a></li>
+</ul>
 
 
 </section>
