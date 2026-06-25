@@ -1,0 +1,21 @@
+---
+title: "Packages"
+format:
+  html: default
+  ipynb: default
+---
+
+This session will explain how to build your own basic Python package, and why you might want to do so in the first place.
+
+In this session, we will cover:
+
+- 
+
+:::{.callout-warning}
+
+## Download
+
+You can download the Jupyter Notebook with the completed examples by clicking the "Jupyter" link under "Other Formats". 
+
+If following Code Club live you may wish to download at the start of the session.
+:::
