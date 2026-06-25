@@ -9,7 +9,10 @@ This session will explain how to build your own basic Python package, and why yo
 
 In this session, we will cover:
 
-- 
+- When you might want to consider building a package
+- How to get started
+- Pitfalls and gotchas
+- How to share packages you've made with others
 
 :::{.callout-warning}
 
@@ -19,3 +22,170 @@ You can download the Jupyter Notebook with the completed examples by clicking th
 
 If following Code Club live you may wish to download at the start of the session.
 :::
+
+## Why bother?
+
+If you start regularly working with Python, you may find yourself frequently reusing the same bits of code. These might be things that are specific enough to your work that there isn't already a built-in function or package available for it, but common enough that it's annoying to keep copy/pasting the same functions.
+
+Furthermore, if you make an improvement or fix a bug for some common code, you'd have to make this change everywhere you use it.
+
+By splitting out reusable code into a package, you can reuse it in all your different projects, make improvements to it that benefit all the different places you use it, and share it with your colleagues in a more organised way (rather than emailing/Teams messaging code snippets around).
+
+## Definitions
+
+People sometimes talk about python *modules* - these are essentially just .py files you address within your own project. A *package* is effectively a folder of modules that are related in some way and are treated as a unit.
+
+If you've ever typed `import pandas`, you've used a Python package.
+
+## Creating a module with some functions
+
+:::{.callout-note}
+If you need a reminder on functions and how to define them, you might want to refer back to our session on [functions](../../essential-skills/08-functions/index.qmd).
+:::
+
+Let's imagine that there are two things we do regularly; check whether an NHS number is valid, and get an organisation name from an ODS code. We've written two functions (and have given them proper, *Google-style* **docstring**s for good measure):
+
+```python
+def is_valid_nhs_number(nhs_number):
+    """
+    Validate an NHS number using the Modulus 11 algorithm.
+
+    See: https://www.datadictionary.nhs.uk/attributes/nhs_number.html
+
+    Args:
+        nhs_number: NHS number to validate (string or int, spaces are ignored)
+
+    Returns:
+        bool: True if valid, False otherwise
+    """
+
+    cleaned = str(nhs_number).replace(" ", "")
+
+    if not cleaned.isdigit() or len(cleaned) != 10:
+        return False
+
+    # step 1
+    digits = [int(d) for d in cleaned]
+    weights = [10, 9, 8, 7, 6, 5, 4, 3, 2]
+    products = [digit * weight for digit, weight in zip(digits[:9], weights)]
+
+    # step 2
+    total = sum(products)
+
+    # step 3
+    remainder = total % 11
+
+    # step 4
+    check_digit = 11 - remainder
+
+    # step 5
+    if check_digit == 11:
+        check_digit = 0
+    elif check_digit == 10:
+        return False
+    return check_digit == digits[9]
+```
+
+And:
+
+```python
+def get_organisation_name(ods_code):
+    """
+    Look up the name of an NHS organisation by its ODS code,
+    using the NHS Organisation Data Service (ODS) API.
+
+    Args:
+        ods_code (str): ODS code of the organisation, e.g. 'RHM' or 'RN1'
+
+    Returns:
+        str: The organisation name if found, or None if not found / on error
+
+    Example:
+        >>> get_organisation_name("RHM")
+        'UNIVERSITY HOSPITAL SOUTHAMPTON NHS FOUNDATION TRUST'
+    """
+    ODS_API_BASE = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations"
+    ods_code = str(ods_code).strip().upper()
+    url = f"{ODS_API_BASE}/{ods_code}"
+
+    try:
+        response = requests.get(url)
+
+        if response.status_code == 404:
+            print(f"No organisation found for ODS code: {ods_code}")
+            return None
+
+        response.raise_for_status()  # Catch any other HTTP error (500, etc.)
+
+        data = response.json()
+        return data["Organisation"]["Name"]
+
+    except requests.RequestException as e:
+        print(f"Error contacting ODS API: {e}")
+        return None
+```
+
+Let's name our proto-package of two functions `nhsutils`. We'll define them in a file called `nhsutils.py` which just contains the two function definitions (as well as `import requests` which our ODS code lookup function relies on).
+
+We can then, *in a separate file in the same folder* :
+
+```python
+import nhsutils
+```
+
+or :
+
+```python
+from nhsutils import is_valid_nhs_number
+```
+
+We can then simply call our functions as normal. We have successfully created a *module*.
+
+### A brief note about `__name__ == "__main__"`
+
+If we wanted to, we could include some code in our package file that only runs when we run the file directly and *doesn't run if we're just importing functions from the file as a module*.
+
+```python
+if __name__ == "__main__":
+	# print some example usage
+    print(is_valid_nhs_number(9012345678))
+    print(is_valid_nhs_number(9960739791))
+    print(get_organisation_name("RHU"))
+```
+
+## Turning what we've built into a package
+
+Working with a package is very similar to just working with modules directly, just a little bit more structured and organised. We need to do two things:
+
+1. Create a folder, called `nhsutils`, that contains our `.py` files with our functions (either all in one big file, or preferably, split into different files). 
+    In our case, we'll create `nhsnumbers.py` with our NHS number validation function (and any other related functions we may want to write) and `organisations.py` with our ODS lookup function(s).
+2. Create a file called (exactly) `__init__.py` which allows us to, effectively, control which parts of our package we want users to interact with.
+
+Our directory structure looks like this:
+
+```cmd
+python-packages-example
+│   main.py
+|
+├───nhsutils
+│   │   nhsnumbers.py
+│   │   organisations.py
+│   │   __init__.py
+```
+
+### the `__init__.py` file
+
+```python
+from .organisations import format_ods_code
+from .nhsnumbers import is_valid_nhs_number
+```
+
+Note the slightly different syntax here; we're using `.name` to indicate we want to import from files in the current folder (relative to `__init__.py`).
+
+If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in `__init__.py`. [^relativeimport]
+
+## Sharing our package with others
+
+## Next steps and further reading
+
+[^relativeimport]: https://www.geeksforgeeks.org/python/relative-import-in-python/
