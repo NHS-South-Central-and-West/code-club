@@ -23,6 +23,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -281,8 +316,25 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#why-bother" id="toc-why-bother" class="nav-link active" data-scroll-target="#why-bother">Why bother?</a></li>
+  <li><a href="#definitions" id="toc-definitions" class="nav-link" data-scroll-target="#definitions">Definitions</a></li>
+  <li><a href="#creating-a-module-with-some-functions" id="toc-creating-a-module-with-some-functions" class="nav-link" data-scroll-target="#creating-a-module-with-some-functions">Creating a module with some functions</a>
+  <ul class="collapse">
+  <li><a href="#a-brief-note-about-__name__-__main__" id="toc-a-brief-note-about-__name__-__main__" class="nav-link" data-scroll-target="#a-brief-note-about-__name__-__main__">A brief note about <code>__name__ == "__main__"</code></a></li>
+  </ul></li>
+  <li><a href="#turning-what-weve-built-into-a-package" id="toc-turning-what-weve-built-into-a-package" class="nav-link" data-scroll-target="#turning-what-weve-built-into-a-package">Turning what we’ve built into a package</a>
+  <ul class="collapse">
+  <li><a href="#the-__init__.py-file" id="toc-the-__init__.py-file" class="nav-link" data-scroll-target="#the-__init__.py-file">the <code>__init__.py</code> file</a></li>
+  </ul></li>
+  <li><a href="#sharing-our-package-with-others" id="toc-sharing-our-package-with-others" class="nav-link" data-scroll-target="#sharing-our-package-with-others">Sharing our package with others</a></li>
+  <li><a href="#next-steps-and-further-reading" id="toc-next-steps-and-further-reading" class="nav-link" data-scroll-target="#next-steps-and-further-reading">Next steps and further reading</a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.ipynb" download="index.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -308,7 +360,10 @@ ul.task-list li input[type="checkbox"] {
 <p>This session will explain how to build your own basic Python package, and why you might want to do so in the first place.</p>
 <p>In this session, we will cover:</p>
 <ul>
-<li></li>
+<li>When you might want to consider building a package</li>
+<li>How to get started</li>
+<li>Pitfalls and gotchas</li>
+<li>How to share packages you’ve made with others</li>
 </ul>
 <div class="callout callout-style-simple callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -324,10 +379,158 @@ ul.task-list li input[type="checkbox"] {
 <p>If following Code Club live you may wish to download at the start of the session.</p>
 </div>
 </div>
+<section id="why-bother" class="level2">
+<h2 class="anchored" data-anchor-id="why-bother">Why bother?</h2>
+<p>If you start regularly working with Python, you may find yourself frequently reusing the same bits of code. These might be things that are specific enough to your work that there isn’t already a built-in function or package available for it, but common enough that it’s annoying to keep copy/pasting the same functions.</p>
+<p>Furthermore, if you make an improvement or fix a bug for some common code, you’d have to make this change everywhere you use it.</p>
+<p>By splitting out reusable code into a package, you can reuse it in all your different projects, make improvements to it that benefit all the different places you use it, and share it with your colleagues in a more organised way (rather than emailing/Teams messaging code snippets around).</p>
+</section>
+<section id="definitions" class="level2">
+<h2 class="anchored" data-anchor-id="definitions">Definitions</h2>
+<p>People sometimes talk about python <em>modules</em> - these are essentially just .py files you address within your own project. A <em>package</em> is effectively a folder of modules that are related in some way and are treated as a unit.</p>
+<p>If you’ve ever typed <code>import pandas</code>, you’ve used a Python package.</p>
+</section>
+<section id="creating-a-module-with-some-functions" class="level2">
+<h2 class="anchored" data-anchor-id="creating-a-module-with-some-functions">Creating a module with some functions</h2>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>If you need a reminder on functions and how to define them, you might want to refer back to our session on <a href="../../../sessions/essential-skills/08-functions/index.html">functions</a>.</p>
+</div>
+</div>
+</div>
+<p>Let’s imagine that there are two things we do regularly; check whether an NHS number is valid, and get an organisation name from an ODS code. We’ve written two functions (and have given them proper, <em>Google-style</em> <strong>docstring</strong>s for good measure):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_valid_nhs_number(nhs_number):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Validate an NHS number using the Modulus 11 algorithm.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    See: https://www.datadictionary.nhs.uk/attributes/nhs_number.html</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">        nhs_number: NHS number to validate (string or int, spaces are ignored)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">        bool: True if valid, False otherwise</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    cleaned <span class="op">=</span> <span class="bu">str</span>(nhs_number).replace(<span class="st">" "</span>, <span class="st">""</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> cleaned.isdigit() <span class="kw">or</span> <span class="bu">len</span>(cleaned) <span class="op">!=</span> <span class="dv">10</span>:</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># step 1</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    digits <span class="op">=</span> [<span class="bu">int</span>(d) <span class="cf">for</span> d <span class="kw">in</span> cleaned]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    weights <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">7</span>, <span class="dv">6</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    products <span class="op">=</span> [digit <span class="op">*</span> weight <span class="cf">for</span> digit, weight <span class="kw">in</span> <span class="bu">zip</span>(digits[:<span class="dv">9</span>], weights)]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># step 2</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">sum</span>(products)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># step 3</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    remainder <span class="op">=</span> total <span class="op">%</span> <span class="dv">11</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># step 4</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    check_digit <span class="op">=</span> <span class="dv">11</span> <span class="op">-</span> remainder</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># step 5</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> check_digit <span class="op">==</span> <span class="dv">11</span>:</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        check_digit <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> check_digit <span class="op">==</span> <span class="dv">10</span>:</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> check_digit <span class="op">==</span> digits[<span class="dv">9</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>And:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_organisation_name(ods_code):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Look up the name of an NHS organisation by its ODS code,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">    using the NHS Organisation Data Service (ODS) API.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Args:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">        ods_code (str): ODS code of the organisation, e.g. 'RHM' or 'RN1'</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">        str: The organisation name if found, or None if not found / on error</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Example:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">        &gt;&gt;&gt; get_organisation_name("RHM")</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">        'UNIVERSITY HOSPITAL SOUTHAMPTON NHS FOUNDATION TRUST'</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    ODS_API_BASE <span class="op">=</span> <span class="st">"https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    ods_code <span class="op">=</span> <span class="bu">str</span>(ods_code).strip().upper()</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>ODS_API_BASE<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>ods_code<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> requests.get(url)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> response.status_code <span class="op">==</span> <span class="dv">404</span>:</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"No organisation found for ODS code: </span><span class="sc">{</span>ods_code<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        response.raise_for_status()  <span class="co"># Catch any other HTTP error (500, etc.)</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> response.json()</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> data[<span class="st">"Organisation"</span>][<span class="st">"Name"</span>]</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> requests.RequestException <span class="im">as</span> e:</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Error contacting ODS API: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Let’s name our proto-package of two functions <code>nhsutils</code>. We’ll define them in a file called <code>nhsutils.py</code> which just contains the two function definitions (as well as <code>import requests</code> which our ODS code lookup function relies on).</p>
+<p>We can then, <em>in a separate file in the same folder</em> :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> nhsutils</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>or :</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> nhsutils <span class="im">import</span> is_valid_nhs_number</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We can then simply call our functions as normal. We have successfully created a <em>module</em>.</p>
+<section id="a-brief-note-about-__name__-__main__" class="level3">
+<h3 class="anchored" data-anchor-id="a-brief-note-about-__name__-__main__">A brief note about <code>__name__ == "__main__"</code></h3>
+<p>If we wanted to, we could include some code in our package file that only runs when we run the file directly and <em>doesn’t run if we’re just importing functions from the file as a module</em>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print some example usage</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(is_valid_nhs_number(<span class="dv">9012345678</span>))</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(is_valid_nhs_number(<span class="dv">9960739791</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(get_organisation_name(<span class="st">"RHU"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="turning-what-weve-built-into-a-package" class="level2">
+<h2 class="anchored" data-anchor-id="turning-what-weve-built-into-a-package">Turning what we’ve built into a package</h2>
+<p>Working with a package is very similar to just working with modules directly, just a little bit more structured and organised. We need to do two things:</p>
+<ol type="1">
+<li>Create a folder, called <code>nhsutils</code>, that contains our <code>.py</code> files with our functions (either all in one big file, or preferably, split into different files). In our case, we’ll create <code>nhsnumbers.py</code> with our NHS number validation function (and any other related functions we may want to write) and <code>organisations.py</code> with our ODS lookup function(s).</li>
+<li>Create a file called (exactly) <code>__init__.py</code> which allows us to, effectively, control which parts of our package we want users to interact with.</li>
+</ol>
+<p>Our directory structure looks like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode cmd code-with-copy"><code class="sourceCode dosbat"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>python-packages-example</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>│   main.py</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">|</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>├───nhsutils</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>│   │   nhsnumbers.py</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>│   │   organisations.py</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>│   │   __init__.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="the-__init__.py-file" class="level3">
+<h3 class="anchored" data-anchor-id="the-__init__.py-file">the <code>__init__.py</code> file</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .organisations <span class="im">import</span> format_ods_code</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .nhsnumbers <span class="im">import</span> is_valid_nhs_number</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note the slightly different syntax here; we’re using <code>.name</code> to indicate we want to import from files in the current folder (relative to <code>__init__.py</code>).</p>
+<p>If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in <code>__init__.py</code>. <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</section>
+</section>
+<section id="sharing-our-package-with-others" class="level2">
+<h2 class="anchored" data-anchor-id="sharing-our-package-with-others">Sharing our package with others</h2>
+</section>
+<section id="next-steps-and-further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps-and-further-reading">Next steps and further reading</h2>
 
 
+</section>
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>https://www.geeksforgeeks.org/python/relative-import-in-python/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
