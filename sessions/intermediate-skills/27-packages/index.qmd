@@ -10,18 +10,9 @@ This session will explain how to build your own basic Python package, and why yo
 In this session, we will cover:
 
 - When you might want to consider building a package
-- How to get started
-- Pitfalls and gotchas
+- How to make a Python *module*
+- How to turn this module into a *package*
 - How to share packages you've made with others
-
-:::{.callout-warning}
-
-## Download
-
-You can download the Jupyter Notebook with the completed examples by clicking the "Jupyter" link under "Other Formats". 
-
-If following Code Club live you may wish to download at the start of the session.
-:::
 
 ## Why bother?
 
@@ -143,7 +134,13 @@ or :
 from nhsutils import is_valid_nhs_number
 ```
 
-We can then simply call our functions as normal. We have successfully created a *module*.
+We can then simply call our functions as normal:
+
+```python
+print(is_valid_nhs_number(9960739791))  # True
+```
+
+We have successfully created a *module*.
 
 ### A brief note about `__name__ == "__main__"`
 
@@ -151,7 +148,7 @@ If we wanted to, we could include some code in our package file that only runs w
 
 ```python
 if __name__ == "__main__":
-	# print some example usage
+    # print some example usage
     print(is_valid_nhs_number(9012345678)) #returns False
     print(is_valid_nhs_number(9960739791)) #returns True
     print(get_organisation_name("RHU"))    #returns "PORTSMOUTH HOSPITALS UNIVERSITY NHS TRUST"
@@ -188,6 +185,8 @@ Note the slightly different syntax here; we're using `.name` to indicate we want
 
 If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in `__init__.py`. [^relativeimport]
 
+Because we have an `__init__.py` which defines the final user-facing functions, they only need to call `from nhsutils import is_valid_nhs_number`; otherwise they would need to know the internal structure of our package and write `from nhsutils.nhsnumbers import is_valid_nhs_number`.
+
 ## Sharing the package with others
 
 We now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn't help the version control aspect of it. 
@@ -202,7 +201,7 @@ To create a package that others can actually add into their projects as a depend
 uv init --lib
 ```
 
-This creates a `pyproject.toml`, our recipe, as well as a folder structure. We need to move our `nhsutils` package into the `src/` subfolder it has created (and delete the example folder it's created in there at the same time). Let's take a look at `pyproject.toml` now:
+This creates a `pyproject.toml`, our recipe, as well as a folder structure. We need to delete the example structure it has created for us (a `src/nhsutils/` stub with a `__init__.py` containing a placeholder `hello()` function) and then move our `nhsutils` package into the `src/` subfolder it has created. Let's take a look at `pyproject.toml` now:
 
 ```toml
 [project]
