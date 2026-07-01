@@ -1,0 +1,292 @@
+---
+title: "Packages"
+format:
+  html: default
+  ipynb: default
+---
+
+This session will explain how to build your own basic Python package, and why you might want to do so in the first place.
+
+In this session, we will cover:
+
+- When you might want to consider building a package
+- How to make a Python *module*
+- How to turn this module into a *package*
+- How to share packages you've made with others
+
+## Why bother?
+
+If you start regularly working with Python, you may find yourself frequently reusing the same bits of code. These might be things that are specific enough to your work that there isn't already a built-in function or package available for it, but common enough that it's annoying to keep copy/pasting the same functions.
+
+Furthermore, if you make an improvement or fix a bug for some common code, you'd have to make this change everywhere you use it.
+
+By splitting out reusable code into a package, you can reuse it in all your different projects, make improvements to it that benefit all the different places you use it, and share it with your colleagues in a more organised way (rather than emailing/Teams messaging code snippets around).
+
+## Definitions
+
+People sometimes talk about python *modules* - these are essentially just .py files you address within your own project. A *package* is effectively a folder of modules that are related in some way and are treated as a unit.
+
+If you've ever typed `import pandas`, you've used a Python package.
+
+## Creating a module with some functions
+
+:::{.callout-note}
+If you need a reminder on functions and how to define them, you might want to refer back to our session on [functions](../../essential-skills/08-functions/index.qmd).
+:::
+
+Let's imagine that there are two things we do regularly; check whether an NHS number is valid, and get an organisation name from an ODS code. We've written two functions (and have given them proper, *Google-style* **docstring**s for good measure):
+
+```python
+def is_valid_nhs_number(nhs_number):
+    """
+    Validate an NHS number using the Modulus 11 algorithm.
+
+    See: https://www.datadictionary.nhs.uk/attributes/nhs_number.html
+
+    Args:
+        nhs_number: NHS number to validate (string or int, spaces are ignored)
+
+    Returns:
+        bool: True if valid, False otherwise
+    """
+
+    cleaned = str(nhs_number).replace(" ", "")
+
+    if not cleaned.isdigit() or len(cleaned) != 10:
+        return False
+
+    # step 1
+    digits = [int(d) for d in cleaned]
+    weights = [10, 9, 8, 7, 6, 5, 4, 3, 2]
+    products = [digit * weight for digit, weight in zip(digits[:9], weights)]
+
+    # step 2
+    total = sum(products)
+
+    # step 3
+    remainder = total % 11
+
+    # step 4
+    check_digit = 11 - remainder
+
+    # step 5
+    if check_digit == 11:
+        check_digit = 0
+    elif check_digit == 10:
+        return False
+    return check_digit == digits[9]
+```
+
+And:
+
+```python
+import requests
+
+ODS_API_BASE = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations"
+
+def get_organisation_name(ods_code):
+    """
+    Look up the name of an NHS organisation by its ODS code,
+    using the NHS Organisation Data Service (ODS) API.
+
+    Args:
+        ods_code (str): ODS code of the organisation, e.g. 'RHM' or 'RN1'
+
+    Returns:
+        str: The organisation name if found, or None if not found / on error
+
+    Example:
+        >>> get_organisation_name("RHM")
+        'UNIVERSITY HOSPITAL SOUTHAMPTON NHS FOUNDATION TRUST'
+    """
+
+    ods_code = str(ods_code).strip().upper()
+    url = f"{ODS_API_BASE}/{ods_code}"
+
+    try:
+        response = requests.get(url)
+
+        if response.status_code == 404:
+            print(f"No organisation found for ODS code: {ods_code}")
+            return None
+
+        response.raise_for_status()  # Catch any other HTTP error (500, etc.)
+
+        data = response.json()
+        return data["Organisation"]["Name"]
+
+    except requests.RequestException as e:
+        print(f"Error contacting ODS API: {e}")
+        return None
+```
+
+Let's name our proto-package of two functions `nhsutils`. We'll define them in a file called `nhsutils.py` which just contains the two function definitions (as well as `import requests` which our ODS code lookup function relies on).
+
+We can then, *in a separate file in the same folder* :
+
+```python
+import nhsutils
+```
+
+or :
+
+```python
+from nhsutils import is_valid_nhs_number
+```
+
+We can then simply call our functions as normal:
+
+```python
+print(is_valid_nhs_number(9960739791))  # True
+```
+
+We have successfully created a *module*.
+
+### A brief note about `__name__ == "__main__"`
+
+If we wanted to, we could include some code in our package file that only runs when we run the file directly and *doesn't run if we're just importing functions from the file as a module*.
+
+```python
+if __name__ == "__main__":
+    # print some example usage
+    print(is_valid_nhs_number(9012345678)) #returns False
+    print(is_valid_nhs_number(9960739791)) #returns True
+    print(get_organisation_name("RHU"))    #returns "PORTSMOUTH HOSPITALS UNIVERSITY NHS TRUST"
+```
+
+## Turning what we've built into a package
+
+Working with a package is very similar to just working with modules directly, just a little bit more structured and organised. We need to do two things:
+
+1. Create a folder, called `nhsutils`, that contains our `.py` files with our functions (either all in one big file, or preferably, split into different files). 
+    In our case, we'll create `nhsnumbers.py` with our NHS number validation function (and any other related functions we may want to write) and `organisations.py` with our ODS lookup function(s).
+2. Create a file called (exactly) `__init__.py` [^dunder] which allows us to, effectively, control which parts of our package we want users to interact with.
+
+Our directory structure looks like this:
+
+```cmd
+python-packages-example/
+│   main.py
+│
+└───nhsutils/
+    │   __init__.py
+    │   nhsnumbers.py
+    │   organisations.py
+```
+
+### the `__init__.py` file
+
+```python
+from .organisations import get_organisation_name
+from .nhsnumbers import is_valid_nhs_number
+```
+
+Note the slightly different syntax here; we're using `.name` to indicate we want to import from files in the current folder (relative to `__init__.py`).
+
+If our package had some intermediate functions that we only use internally, we can keep things tidy by not importing them in `__init__.py`. [^relativeimport]
+
+Because we have an `__init__.py` which defines the final user-facing functions, they only need to call `from nhsutils import is_valid_nhs_number`; otherwise they would need to know the internal structure of our package and write `from nhsutils.nhsnumbers import is_valid_nhs_number`.
+
+## Sharing the package with others
+
+We now have a collection of code that is effectively self-contained in a folder. We could just put that somewhere accessible and let people paste it into their project, but this doesn't help the version control aspect of it. 
+
+What we'll do instead is bundle our package up with `uv` and then make it accessible to others using Github. We've looked at both `uv` and Github in previous sessions.
+
+### Getting a `pyproject.toml`
+
+To create a package that others can actually add into their projects as a dependency, we need a sort of recipe file. `uv` can take care of this for us.
+
+```powershell
+uv init --lib
+```
+
+This creates a `pyproject.toml`, our recipe, as well as a folder structure. We need to delete the example structure it has created for us (a `src/nhsutils/` stub with a `__init__.py` containing a placeholder `hello()` function) and then move our `nhsutils` package into the `src/` subfolder it has created. Let's take a look at `pyproject.toml` now:
+
+```toml
+[project]
+name = "packages-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jonas Willemsen", email = "94461380+jonaswillemsen@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.8.20,<0.9.0"]
+build-backend = "uv_build"
+```
+
+Let's change the `name` to "nhsutils" (the name in `pyproject.toml` needs to match the name of the folder in `src/`). We also need to just run `uv add requests` as this is a package our ODS code lookup depends on. We should end up with:
+
+```toml
+[project]
+name = "nhsutils"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jonas Willemsen", email = "94461380+jonaswillemsen@users.noreply.github.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.34.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.8.20,<0.9.0"]
+build-backend = "uv_build"
+```
+
+And our final directory structure should look like this:
+
+```cmd
+nhsutils-repo/
+│   pyproject.toml
+│   README.md
+│
+└───src/
+    └───nhsutils/
+        │   __init__.py
+        │   nhsnumbers.py
+        │   organisations.py
+```
+
+### Creating a github repository
+
+We'll check our entire folder into a new Github repository. If you need a refresher, take a look at [our previous session on Git and Github](../16-git-github/).
+
+### What others need to run
+
+In their existing projects, they can now do:
+
+```powershell
+uv add git+https://github.com/...
+```
+
+This adds our package, as stored in our Github repository, to their project. If we ever update it, it's best practice to bump the `version` number in `pyproject.toml` to avoid confusion, before checking our changes in to Github. The next time they run...
+
+```powershell
+uv lock --upgrade-package nhsutils
+uv sync
+```
+
+...they'll get the latest version of our package.
+
+## Conclusion
+
+In this session we've gone from a couple of standalone functions to a properly structured, shareable Python package, without needing to do anything particularly complicated. The same pattern can scale to bigger projects: as you write more reusable code in your day-to-day work, dropping it into a package like this means you spend less time hunting for that function you wrote six months ago and more time actually using it. The NHS-specific examples here are just a starting point; take some time to think about code you reuse regularly or find yourself "reinventing" over and over again. A shared internal package is a straightforward way to address that, with the added benefit of sharing code and getting more eyes on it.
+
+## Further reading
+
+- [Python docs: Modules](https://docs.python.org/3/tutorial/modules.html)
+- [Real Python: Python Modules and Packages](https://realpython.com/python-modules-packages/)
+- [Python Packaging User Guide](https://packaging.python.org/en/latest/tutorials/packaging-projects/)
+- [uv documentation](https://docs.astral.sh/uv/)
+
+
+[^relativeimport]: [https://www.geeksforgeeks.org/python/relative-import-in-python/](https://www.geeksforgeeks.org/python/relative-import-in-python/)
+[^dunder]: names starting with double underscores are a convention in python used for internal identifiers (you might have come across these in previous sessions - e.g. [object-oriented programming](../../essential-skills/09-object-oriented-programming/index.qmd)). They are usually pronounced "dunder" (from "double under[score]"), so `__init__` becomes "dunder init".
