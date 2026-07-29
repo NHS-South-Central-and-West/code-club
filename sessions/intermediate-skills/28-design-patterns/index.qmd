@@ -1,0 +1,271 @@
+---
+title: "Introduction to Design Patterns"
+format:
+  html: default
+  ipynb: default
+---
+
+In this session we will look at design patterns. Design patterns are named, reusable solutions to problems that come up again and again when structuring code. We'll look at what problem each pattern solves, what the code looks like without it, and how to implement a simple version of the pattern in Python.
+
+- Why Design Patterns Matter
+- Creating Objects
+    - The Factory Pattern
+    - The Singleton Pattern
+- Coordinating Behaviour
+    - The Strategy Pattern
+    - The Observer Pattern
+
+This session will only present an overview of four common patterns, but the idea is to show you what is possible, so that you recognise these shapes when you encounter them in code (or encounter problems that require them).
+
+## Why Design Patterns Matter
+
+As code grows, certain problems come up repeatedly. Some common problems include: 
+
+- Creating the right kind of object based on some input, 
+- Swapping between different ways of doing the same calculation,
+- Making sure only one instance of something exists,
+- Making several things happen automatically when one value changes.
+
+Design patterns are just the solutions for these recurrent problems. They're not Python-specific; the same patterns turn up in other languages too. Knowing the names is useful mainly because it gives you a shared vocabulary and makes it easier to identify these patterns in the future.
+
+:::{.callout-note}
+#### Patterns Are Not Rules
+A pattern is a starting point, not a requirement. If a simpler approach (a plain function, a dictionary, an `if` statement) solves the problem clearly, use that instead. Patterns are necessary only once the simple approach starts causing repeated problems.
+:::
+
+## Creating Objects
+
+### The Factory Pattern
+
+Imagine you need to produce a summary in several output formats (plain text, markdown, html). Each format needs slightly different logic. Without a factory, that "which format do I need" decision tends to get repeated everywhere the summary is built.
+
+```{python}
+#| label: factory-classes
+
+class PlainTextFormatter:
+    def format(self, title: str, value: float) -> str:
+        """Format a summary as plain text"""
+        return f"{title}: {value}"
+
+class MarkdownFormatter:
+    def format(self, title: str, value: float) -> str:
+        """Format a summary as markdown"""
+        return f"**{title}**: {value}"
+
+class HTMLFormatter:
+    def format(self, title: str, value: float) -> str:
+        """Format a summary as html"""
+        return f"<p><strong>{title}</strong>: {value}</p>"
+```
+
+Here is the decision about which formatter to use, handled inline wherever it's needed:
+
+```{python}
+#| label: factory-without
+
+def build_summary(title, value, output_type):
+    """Build a summary, deciding on the formatter inline"""
+    if output_type == "text":
+        formatter = PlainTextFormatter()
+    elif output_type == "markdown":
+        formatter = MarkdownFormatter()
+    elif output_type == "html":
+        formatter = HTMLFormatter()
+    else:
+        raise ValueError(f"Unsupported output type: {output_type}")
+    return formatter.format(title, value)
+
+print(build_summary("Revenue", 125000, "markdown"))
+```
+
+This works, but that same `if`/`elif` chain gets copied into every function that needs a formatter. A factory function centralises the decision in one place:
+
+```{python}
+#| label: factory-with
+
+def create_formatter(output_type: str):
+    """Factory function - Return the correct formatter for a given output type"""
+    formatters = {
+        "text": PlainTextFormatter,
+        "markdown": MarkdownFormatter,
+        "html": HTMLFormatter,
+    }
+    if output_type not in formatters:
+        raise ValueError(f"Unsupported output type: {output_type}")
+    return formatters[output_type]()
+
+formatter = create_formatter("html")
+print(formatter.format("Revenue", 125000))
+```
+
+- The factory is the only place that knows about `PlainTextFormatter`, `MarkdownFormatter`, `HTMLFormatter`.
+- Calling code only ever deals with a string like `"html"`, not the class names.
+- Adding a new output type means adding one line to the `formatters` dictionary, not hunting through the codebase for every `if`/`elif`.
+
+### The Singleton Pattern
+
+Some things should only exist once, like application configuration, a database connection, or a logger. Without enforcing that, it's easy to accidentally create several separate copies, each with its own state.
+
+```{python}
+#| label: singleton-without
+
+class AppConfig:
+    def __init__(self):
+        print("Loading configuration...") # simulate an expensive load
+        self.settings = {"currency": "GBP", "region": "UK"}
+
+config_a = AppConfig()
+config_b = AppConfig()
+
+print(config_a is config_b) # False - two separate objects, loaded twice
+```
+
+The configuration was loaded twice, and `config_a` and `config_b` are different objects. A singleton guarantees there is only ever one instance:
+
+```{python}
+#| label: singleton-with
+
+class AppConfig:
+    _instance = None # class-level attribute, shared by every instance
+
+    def __new__(cls):
+        """Control object creation - Reuse the existing instance if there is one"""
+        if cls._instance is None:
+            print("Loading configuration...") # only ever happens once
+            cls._instance = super().__new__(cls)
+            cls._instance.settings = {"currency": "GBP", "region": "UK"}
+        return cls._instance
+
+config_a = AppConfig()
+config_b = AppConfig()
+
+print(config_a is config_b) # True - same object, loaded once
+```
+
+- `__new__` runs before `__init__` and decides what object gets created (or reused).
+- `_instance` lives on the class itself, so it persists across every call to `AppConfig()`.
+- Every part of the program is guaranteed to be working with the same object and the same state.
+
+:::{.callout-tip}
+#### A Simpler Alternative
+In Python, a module is only ever imported once and then cached, so it already behaves like a singleton. Often the simplest way to get "one shared instance" is to just define settings as variables in a `config.py` file and import them, rather than writing a singleton class.
+:::
+
+## Coordinating Behaviour
+
+### The Strategy Pattern
+
+Suppose you want to flag outliers in some data, and you want to support more than one method for doing so (e.g. z-score vs interquartile range). One option is to put both methods inside a single function, branching on a string:
+
+```{python}
+#| label: strategy-without
+
+def flag_outliers_hardcoded(values, method):
+    """Flag outliers, with both methods hardcoded inside one function"""
+    if method == "zscore":
+        mean = sum(values) / len(values)
+        std = (sum((v - mean) ** 2 for v in values) / len(values)) ** 0.5
+        return [abs((v - mean) / std) > 2 for v in values]
+    elif method == "iqr":
+        sorted_v = sorted(values)
+        q1 = sorted_v[len(sorted_v) // 4]
+        q3 = sorted_v[3 * len(sorted_v) // 4]
+        iqr = q3 - q1
+        return [v < q1 - 1.5 * iqr or v > q3 + 1.5 * iqr for v in values]
+    else:
+        raise ValueError(f"Unknown method: {method}")
+```
+
+Every time you want a new method, you have to edit this function and risk breaking the methods already in it. The strategy pattern instead writes each method as its own function, and passes the chosen one in as an argument:
+
+```{python}
+#| label: strategy-with
+
+def zscore_outliers(values: list[float]) -> list[bool]:
+    """Flag values more than 2 standard deviations from the mean"""
+    mean = sum(values) / len(values)
+    std = (sum((v - mean) ** 2 for v in values) / len(values)) ** 0.5
+    return [abs((v - mean) / std) > 2 for v in values]
+
+def iqr_outliers(values: list[float]) -> list[bool]:
+    """Flag values outside 1.5 times the interquartile range"""
+    sorted_v = sorted(values)
+    q1 = sorted_v[len(sorted_v) // 4]
+    q3 = sorted_v[3 * len(sorted_v) // 4]
+    iqr = q3 - q1
+    return [v < q1 - 1.5 * iqr or v > q3 + 1.5 * iqr for v in values]
+
+def flag_outliers(values: list[float], strategy) -> list[bool]:
+    """Flag outliers using whichever strategy function is supplied"""
+    return strategy(values)
+
+readings = [12, 15, 14, 13, 300, 11, 14, 16, 12, -50]
+
+print(flag_outliers(readings, strategy=zscore_outliers))
+print(flag_outliers(readings, strategy=iqr_outliers))
+```
+
+- The strategy is just a function (or any callable) passed in as a parameter, rather than a branch inside one large function.
+- Swapping the method means passing a different strategy; `flag_outliers` itself never changes.
+- Adding a new method means writing a new function, without touching the existing ones.
+- This is the same idea we've already used when passing functions to `map()` and `filter()`.
+
+### The Observer Pattern
+
+Say a price changes, and several things need to happen as a result: logging the change, checking whether it crosses an alert threshold, refreshing a dashboard. Handling all of this directly inside one function means editing that function every time a new requirement appears:
+
+```{python}
+#| label: observer-without
+
+def update_price(new_price):
+    """Update the price and directly handle every side effect inline"""
+    print(f"Price updated to {new_price}")
+    print(f"Logging - Price changed to {new_price}") # every new requirement
+    if new_price > 100:                             # means another line
+        print(f"Alert - Price {new_price} exceeds threshold") # added here
+
+update_price(120)
+```
+
+The observer pattern separates "something changed" from "what happens as a result". A subject keeps a list of observers and notifies all of them, without needing to know what any of them actually do:
+
+```{python}
+#| label: observer-with
+
+class PriceTracker:
+    def __init__(self):
+        self._observers = [] # functions to call whenever the price changes
+
+    def subscribe(self, observer):
+        """Register a function to be called whenever the price changes"""
+        self._observers.append(observer)
+
+    def update_price(self, new_price):
+        """Update the price and notify every subscribed observer"""
+        for observer in self._observers:
+            observer(new_price)
+
+def log_change(new_price):
+    """Observer - Record the change"""
+    print(f"Logging - Price changed to {new_price}")
+
+def alert_if_high(new_price):
+    """Observer - Raise an alert if the price is too high"""
+    if new_price > 100:
+        print(f"Alert - Price {new_price} exceeds threshold")
+
+tracker = PriceTracker()
+tracker.subscribe(log_change)
+tracker.subscribe(alert_if_high)
+
+tracker.update_price(120)
+```
+
+- `PriceTracker` doesn't know or care what `log_change` and `alert_if_high` do, only that they're callable.
+- Adding a new reaction (e.g. sending an email) means writing a new function and subscribing it, not editing `PriceTracker`.
+- This is the same underlying idea behind event handling in dashboard libraries and pub/sub messaging systems.
+
+:::{.callout-note}
+#### When Would I Actually Use This?
+Anywhere one change needs to trigger several independent reactions: a new row of data arriving and needing to be logged, validated, and plotted, for instance. The observer pattern keeps those reactions as separate, addable/removable pieces rather than one growing function.
+:::
