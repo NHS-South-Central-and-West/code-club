@@ -129,6 +129,7 @@ website:
             - text: 27. Packages
               file: sessions/intermediate-skills/27-packages/index.qmd
             - text: 28. Design Patterns
+              file: sessions/intermediate-skills/28-design-patterns/index.qmd
 
 
 format:
