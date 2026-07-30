@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -74,10 +77,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../../site_libs/bootstrap/bootstrap-f8035ec2ee32bdd16f20981c4ca7aaf3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../../site_libs/bootstrap/bootstrap-6c4c33633ff66fe96ad14381534cb9e8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -309,8 +312,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
           <li class="sidebar-item">
- <span class="menu-text">28. Design Patterns</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../../../sessions/intermediate-skills/28-design-patterns/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">28. Design Patterns</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -1128,84 +1134,84 @@ The <code>for</code> loop in the non-generator version would look like this:</p>
 </div>
 </div>
 <div id="des-generators" class="cell" data-execution_count="22">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="im">import</span> simpy</span>
-<span id="cb31-2"><a href="#cb31-2"></a><span class="im">import</span> random</span>
-<span id="cb31-3"><a href="#cb31-3"></a></span>
-<span id="cb31-4"><a href="#cb31-4"></a><span class="co"># Arrivals generator function</span></span>
-<span id="cb31-5"><a href="#cb31-5"></a></span>
-<span id="cb31-6"><a href="#cb31-6"></a><span class="kw">def</span> patient_arrival_generator(env, INTERARRIVAL_TIME, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME,receptionist,nurse):</span>
-<span id="cb31-7"><a href="#cb31-7"></a>    patient_id <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb31-8"><a href="#cb31-8"></a></span>
-<span id="cb31-9"><a href="#cb31-9"></a>    <span class="cf">for</span> patient_id <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(TARGET_PATIENTS_SEEN)):</span>
-<span id="cb31-10"><a href="#cb31-10"></a>        <span class="co"># create an instance of the activity generator</span></span>
-<span id="cb31-11"><a href="#cb31-11"></a>        patient_act <span class="op">=</span> activity_generator(env,AVG_REGISTRATION_TIME,AVG_VACCINATION_TIME,receptionist,nurse,patient_id)</span>
-<span id="cb31-12"><a href="#cb31-12"></a></span>
-<span id="cb31-13"><a href="#cb31-13"></a>        <span class="co"># run the activity generator for this patient</span></span>
-<span id="cb31-14"><a href="#cb31-14"></a>        env.process(patient_act)</span>
-<span id="cb31-15"><a href="#cb31-15"></a></span>
-<span id="cb31-16"><a href="#cb31-16"></a>        <span class="co"># sample the time until next patient</span></span>
-<span id="cb31-17"><a href="#cb31-17"></a>        t <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> INTERARRIVAL_TIME)</span>
-<span id="cb31-18"><a href="#cb31-18"></a></span>
-<span id="cb31-19"><a href="#cb31-19"></a>        <span class="co"># freeze the arrival generator until that time has passed</span></span>
-<span id="cb31-20"><a href="#cb31-20"></a>        <span class="cf">yield</span> env.timeout(t)</span>
-<span id="cb31-21"><a href="#cb31-21"></a></span>
-<span id="cb31-22"><a href="#cb31-22"></a>        <span class="co"># increment the patient ID number for the next patient</span></span>
-<span id="cb31-23"><a href="#cb31-23"></a>        patient_id <span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb31-24"><a href="#cb31-24"></a></span>
-<span id="cb31-25"><a href="#cb31-25"></a><span class="co"># Activity generator function</span></span>
-<span id="cb31-26"><a href="#cb31-26"></a></span>
-<span id="cb31-27"><a href="#cb31-27"></a><span class="kw">def</span> activity_generator(env, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME, receptionist, nurse, patient_id):</span>
-<span id="cb31-28"><a href="#cb31-28"></a></span>
-<span id="cb31-29"><a href="#cb31-29"></a>    <span class="co"># reference some global variables, i.e. ones that exist outside of this function.</span></span>
-<span id="cb31-30"><a href="#cb31-30"></a>    <span class="co"># we want to pass the waiting times out to these buckets so that we can use them later.</span></span>
-<span id="cb31-31"><a href="#cb31-31"></a>    <span class="kw">global</span> list_of_queueing_times_registration</span>
-<span id="cb31-32"><a href="#cb31-32"></a>    <span class="kw">global</span> list_of_queueing_times_nurse</span>
-<span id="cb31-33"><a href="#cb31-33"></a>    </span>
-<span id="cb31-34"><a href="#cb31-34"></a>    <span class="co"># record the time a patient arrives and enters the queue for registration</span></span>
-<span id="cb31-35"><a href="#cb31-35"></a>    time_entered_queue_for_registration <span class="op">=</span> env.now</span>
-<span id="cb31-36"><a href="#cb31-36"></a></span>
-<span id="cb31-37"><a href="#cb31-37"></a>    <span class="cf">with</span> receptionist.request() <span class="im">as</span> req:</span>
-<span id="cb31-38"><a href="#cb31-38"></a>        <span class="co"># freeze until the request can be met, i.e. when a receptionist is available.</span></span>
-<span id="cb31-39"><a href="#cb31-39"></a>        <span class="cf">yield</span> req</span>
-<span id="cb31-40"><a href="#cb31-40"></a></span>
-<span id="cb31-41"><a href="#cb31-41"></a>        time_left_queue_for_registration <span class="op">=</span> env.now</span>
-<span id="cb31-42"><a href="#cb31-42"></a>        <span class="co"># print(f'Patient {patient_id} left the queue for the receptionist at {time_left_queue_for_registration:.2f}')</span></span>
-<span id="cb31-43"><a href="#cb31-43"></a></span>
-<span id="cb31-44"><a href="#cb31-44"></a>        time_in_queue_for_registration <span class="op">=</span> time_left_queue_for_registration <span class="op">-</span> time_entered_queue_for_registration</span>
-<span id="cb31-45"><a href="#cb31-45"></a>        <span class="co"># print(f'Patient {patient_id} queued for registration for {time_in_queue_for_registration:.2f} minutes')</span></span>
-<span id="cb31-46"><a href="#cb31-46"></a></span>
-<span id="cb31-47"><a href="#cb31-47"></a>        <span class="co"># add the waiting time to the global list</span></span>
-<span id="cb31-48"><a href="#cb31-48"></a>        list_of_queueing_times_registration.append(time_in_queue_for_registration)</span>
-<span id="cb31-49"><a href="#cb31-49"></a></span>
-<span id="cb31-50"><a href="#cb31-50"></a>        <span class="co"># sampled time spent with with receptionist during registration</span></span>
-<span id="cb31-51"><a href="#cb31-51"></a>        sampled_registration_time <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> AVG_REGISTRATION_TIME)</span>
-<span id="cb31-52"><a href="#cb31-52"></a></span>
-<span id="cb31-53"><a href="#cb31-53"></a>        <span class="co"># freeze the activity generator until that time has passed</span></span>
-<span id="cb31-54"><a href="#cb31-54"></a>        <span class="cf">yield</span> env.timeout(sampled_registration_time)</span>
-<span id="cb31-55"><a href="#cb31-55"></a></span>
-<span id="cb31-56"><a href="#cb31-56"></a>    time_entered_queue_for_nurse <span class="op">=</span> env.now</span>
-<span id="cb31-57"><a href="#cb31-57"></a>    <span class="co"># print(f'Patient {patient_id} joined the queue for the nurse at {time_entered_queue_for_nurse:.2f}')</span></span>
-<span id="cb31-58"><a href="#cb31-58"></a></span>
-<span id="cb31-59"><a href="#cb31-59"></a>    <span class="co"># request a nurse</span></span>
-<span id="cb31-60"><a href="#cb31-60"></a>    <span class="cf">with</span> nurse.request() <span class="im">as</span> req:</span>
-<span id="cb31-61"><a href="#cb31-61"></a>        <span class="co"># freeze until the request can be met, i.e. when a nurse is available.</span></span>
-<span id="cb31-62"><a href="#cb31-62"></a>        <span class="cf">yield</span> req</span>
-<span id="cb31-63"><a href="#cb31-63"></a></span>
-<span id="cb31-64"><a href="#cb31-64"></a>        <span class="co"># calculate the time the patient was queuing</span></span>
-<span id="cb31-65"><a href="#cb31-65"></a>        time_left_queue_for_nurse <span class="op">=</span> env.now</span>
-<span id="cb31-66"><a href="#cb31-66"></a>        <span class="co"># print(f'Patient {patient_id} left the queue for the nurse at {time_left_queue_for_nurse:.2f}')</span></span>
-<span id="cb31-67"><a href="#cb31-67"></a></span>
-<span id="cb31-68"><a href="#cb31-68"></a>        time_in_queue_for_nurse <span class="op">=</span> time_left_queue_for_nurse <span class="op">-</span> time_entered_queue_for_nurse</span>
-<span id="cb31-69"><a href="#cb31-69"></a>        <span class="co"># print(f'Patient {patient_id} queued for the nurse for {time_in_queue_for_nurse:.2f} minutes')</span></span>
-<span id="cb31-70"><a href="#cb31-70"></a></span>
-<span id="cb31-71"><a href="#cb31-71"></a>        <span class="co"># add the waiting time to the global list</span></span>
-<span id="cb31-72"><a href="#cb31-72"></a>        list_of_queueing_times_nurse.append(time_in_queue_for_nurse)</span>
-<span id="cb31-73"><a href="#cb31-73"></a></span>
-<span id="cb31-74"><a href="#cb31-74"></a>        <span class="co"># sampled time spent with nurse receiving the vaccination</span></span>
-<span id="cb31-75"><a href="#cb31-75"></a>        sampled_vaccination_time <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> AVG_VACCINATION_TIME)</span>
-<span id="cb31-76"><a href="#cb31-76"></a></span>
-<span id="cb31-77"><a href="#cb31-77"></a>        <span class="co"># freeze the activity generator until that time has passed</span></span>
-<span id="cb31-78"><a href="#cb31-78"></a>        <span class="cf">yield</span> env.timeout(sampled_vaccination_time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-label="1"></a><span class="im">import</span> simpy</span>
+<span id="cb31-2"><a href="#cb31-2" aria-label="2"></a><span class="im">import</span> random</span>
+<span id="cb31-3"><a href="#cb31-3" aria-label="3"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-label="4"></a><span class="co"># Arrivals generator function</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-label="5"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-label="6"></a><span class="kw">def</span> patient_arrival_generator(env, INTERARRIVAL_TIME, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME,receptionist,nurse):</span>
+<span id="cb31-7"><a href="#cb31-7" aria-label="7"></a>    patient_id <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-label="8"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-label="9"></a>    <span class="cf">for</span> patient_id <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(TARGET_PATIENTS_SEEN)):</span>
+<span id="cb31-10"><a href="#cb31-10" aria-label="10"></a>        <span class="co"># create an instance of the activity generator</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-label="11"></a>        patient_act <span class="op">=</span> activity_generator(env,AVG_REGISTRATION_TIME,AVG_VACCINATION_TIME,receptionist,nurse,patient_id)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-label="12"></a></span>
+<span id="cb31-13"><a href="#cb31-13" aria-label="13"></a>        <span class="co"># run the activity generator for this patient</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-label="14"></a>        env.process(patient_act)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-label="15"></a></span>
+<span id="cb31-16"><a href="#cb31-16" aria-label="16"></a>        <span class="co"># sample the time until next patient</span></span>
+<span id="cb31-17"><a href="#cb31-17" aria-label="17"></a>        t <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> INTERARRIVAL_TIME)</span>
+<span id="cb31-18"><a href="#cb31-18" aria-label="18"></a></span>
+<span id="cb31-19"><a href="#cb31-19" aria-label="19"></a>        <span class="co"># freeze the arrival generator until that time has passed</span></span>
+<span id="cb31-20"><a href="#cb31-20" aria-label="20"></a>        <span class="cf">yield</span> env.timeout(t)</span>
+<span id="cb31-21"><a href="#cb31-21" aria-label="21"></a></span>
+<span id="cb31-22"><a href="#cb31-22" aria-label="22"></a>        <span class="co"># increment the patient ID number for the next patient</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-label="23"></a>        patient_id <span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-label="24"></a></span>
+<span id="cb31-25"><a href="#cb31-25" aria-label="25"></a><span class="co"># Activity generator function</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-label="26"></a></span>
+<span id="cb31-27"><a href="#cb31-27" aria-label="27"></a><span class="kw">def</span> activity_generator(env, AVG_REGISTRATION_TIME, AVG_VACCINATION_TIME, receptionist, nurse, patient_id):</span>
+<span id="cb31-28"><a href="#cb31-28" aria-label="28"></a></span>
+<span id="cb31-29"><a href="#cb31-29" aria-label="29"></a>    <span class="co"># reference some global variables, i.e. ones that exist outside of this function.</span></span>
+<span id="cb31-30"><a href="#cb31-30" aria-label="30"></a>    <span class="co"># we want to pass the waiting times out to these buckets so that we can use them later.</span></span>
+<span id="cb31-31"><a href="#cb31-31" aria-label="31"></a>    <span class="kw">global</span> list_of_queueing_times_registration</span>
+<span id="cb31-32"><a href="#cb31-32" aria-label="32"></a>    <span class="kw">global</span> list_of_queueing_times_nurse</span>
+<span id="cb31-33"><a href="#cb31-33" aria-label="33"></a>    </span>
+<span id="cb31-34"><a href="#cb31-34" aria-label="34"></a>    <span class="co"># record the time a patient arrives and enters the queue for registration</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-label="35"></a>    time_entered_queue_for_registration <span class="op">=</span> env.now</span>
+<span id="cb31-36"><a href="#cb31-36" aria-label="36"></a></span>
+<span id="cb31-37"><a href="#cb31-37" aria-label="37"></a>    <span class="cf">with</span> receptionist.request() <span class="im">as</span> req:</span>
+<span id="cb31-38"><a href="#cb31-38" aria-label="38"></a>        <span class="co"># freeze until the request can be met, i.e. when a receptionist is available.</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-label="39"></a>        <span class="cf">yield</span> req</span>
+<span id="cb31-40"><a href="#cb31-40" aria-label="40"></a></span>
+<span id="cb31-41"><a href="#cb31-41" aria-label="41"></a>        time_left_queue_for_registration <span class="op">=</span> env.now</span>
+<span id="cb31-42"><a href="#cb31-42" aria-label="42"></a>        <span class="co"># print(f'Patient {patient_id} left the queue for the receptionist at {time_left_queue_for_registration:.2f}')</span></span>
+<span id="cb31-43"><a href="#cb31-43" aria-label="43"></a></span>
+<span id="cb31-44"><a href="#cb31-44" aria-label="44"></a>        time_in_queue_for_registration <span class="op">=</span> time_left_queue_for_registration <span class="op">-</span> time_entered_queue_for_registration</span>
+<span id="cb31-45"><a href="#cb31-45" aria-label="45"></a>        <span class="co"># print(f'Patient {patient_id} queued for registration for {time_in_queue_for_registration:.2f} minutes')</span></span>
+<span id="cb31-46"><a href="#cb31-46" aria-label="46"></a></span>
+<span id="cb31-47"><a href="#cb31-47" aria-label="47"></a>        <span class="co"># add the waiting time to the global list</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-label="48"></a>        list_of_queueing_times_registration.append(time_in_queue_for_registration)</span>
+<span id="cb31-49"><a href="#cb31-49" aria-label="49"></a></span>
+<span id="cb31-50"><a href="#cb31-50" aria-label="50"></a>        <span class="co"># sampled time spent with with receptionist during registration</span></span>
+<span id="cb31-51"><a href="#cb31-51" aria-label="51"></a>        sampled_registration_time <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> AVG_REGISTRATION_TIME)</span>
+<span id="cb31-52"><a href="#cb31-52" aria-label="52"></a></span>
+<span id="cb31-53"><a href="#cb31-53" aria-label="53"></a>        <span class="co"># freeze the activity generator until that time has passed</span></span>
+<span id="cb31-54"><a href="#cb31-54" aria-label="54"></a>        <span class="cf">yield</span> env.timeout(sampled_registration_time)</span>
+<span id="cb31-55"><a href="#cb31-55" aria-label="55"></a></span>
+<span id="cb31-56"><a href="#cb31-56" aria-label="56"></a>    time_entered_queue_for_nurse <span class="op">=</span> env.now</span>
+<span id="cb31-57"><a href="#cb31-57" aria-label="57"></a>    <span class="co"># print(f'Patient {patient_id} joined the queue for the nurse at {time_entered_queue_for_nurse:.2f}')</span></span>
+<span id="cb31-58"><a href="#cb31-58" aria-label="58"></a></span>
+<span id="cb31-59"><a href="#cb31-59" aria-label="59"></a>    <span class="co"># request a nurse</span></span>
+<span id="cb31-60"><a href="#cb31-60" aria-label="60"></a>    <span class="cf">with</span> nurse.request() <span class="im">as</span> req:</span>
+<span id="cb31-61"><a href="#cb31-61" aria-label="61"></a>        <span class="co"># freeze until the request can be met, i.e. when a nurse is available.</span></span>
+<span id="cb31-62"><a href="#cb31-62" aria-label="62"></a>        <span class="cf">yield</span> req</span>
+<span id="cb31-63"><a href="#cb31-63" aria-label="63"></a></span>
+<span id="cb31-64"><a href="#cb31-64" aria-label="64"></a>        <span class="co"># calculate the time the patient was queuing</span></span>
+<span id="cb31-65"><a href="#cb31-65" aria-label="65"></a>        time_left_queue_for_nurse <span class="op">=</span> env.now</span>
+<span id="cb31-66"><a href="#cb31-66" aria-label="66"></a>        <span class="co"># print(f'Patient {patient_id} left the queue for the nurse at {time_left_queue_for_nurse:.2f}')</span></span>
+<span id="cb31-67"><a href="#cb31-67" aria-label="67"></a></span>
+<span id="cb31-68"><a href="#cb31-68" aria-label="68"></a>        time_in_queue_for_nurse <span class="op">=</span> time_left_queue_for_nurse <span class="op">-</span> time_entered_queue_for_nurse</span>
+<span id="cb31-69"><a href="#cb31-69" aria-label="69"></a>        <span class="co"># print(f'Patient {patient_id} queued for the nurse for {time_in_queue_for_nurse:.2f} minutes')</span></span>
+<span id="cb31-70"><a href="#cb31-70" aria-label="70"></a></span>
+<span id="cb31-71"><a href="#cb31-71" aria-label="71"></a>        <span class="co"># add the waiting time to the global list</span></span>
+<span id="cb31-72"><a href="#cb31-72" aria-label="72"></a>        list_of_queueing_times_nurse.append(time_in_queue_for_nurse)</span>
+<span id="cb31-73"><a href="#cb31-73" aria-label="73"></a></span>
+<span id="cb31-74"><a href="#cb31-74" aria-label="74"></a>        <span class="co"># sampled time spent with nurse receiving the vaccination</span></span>
+<span id="cb31-75"><a href="#cb31-75" aria-label="75"></a>        sampled_vaccination_time <span class="op">=</span> random.expovariate(<span class="fl">1.0</span> <span class="op">/</span> AVG_VACCINATION_TIME)</span>
+<span id="cb31-76"><a href="#cb31-76" aria-label="76"></a></span>
+<span id="cb31-77"><a href="#cb31-77" aria-label="77"></a>        <span class="co"># freeze the activity generator until that time has passed</span></span>
+<span id="cb31-78"><a href="#cb31-78" aria-label="78"></a>        <span class="cf">yield</span> env.timeout(sampled_vaccination_time)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="setting-up-the-simpy-simulation-environment" class="level5">
